@@ -7,7 +7,7 @@ PSFalcon lets you automate tasks and perform actions in large numbers not normal
 * Upload or download malware samples or Real-time Response files
 * Create/modify configurations for MSSP parent and child environments
 
-# Requirements
+## Requirements
 * An active Falcon subscription for the appropriate modules
 * PowerShell 5.1+ (Windows), PowerShell 6+ (Linux/MacOS)
 * A Falcon [OAuth2 API Client](https://falcon.crowdstrike.com/support/api-clients-and-keys) with appropriate roles

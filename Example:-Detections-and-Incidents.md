@@ -1,7 +1,5 @@
 [API reference](https://falcon.crowdstrike.com/support/documentation/86/detections-monitoring-apis)
 
-**NOTE**: Parameters listed in square brackets are optional.
-
 ### Find incidents
 ```powershell
 Get-FalconIncident [-Detailed]

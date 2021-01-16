@@ -1,4 +1,4 @@
-**NOTE**: The commands involved with Sensor Update, Device Control, Firewall and Response policies are nearly identical to those used for Prevention policies. The primary difference is how the Settings parameter is formatted.
+**NOTE**: The commands involved with Sensor Update, Device Control, Firewall and Response policies are nearly identical to those used for Prevention policies. The primary difference is how the `-Settings` parameter is formatted.
 
 ## Manage Policies
 

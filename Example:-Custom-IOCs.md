@@ -1,5 +1,7 @@
 [API reference](https://falcon.crowdstrike.com/support/documentation/88/custom-ioc-apis)
 
+**NOTE**: Parameters listed in square brackets are optional.
+
 ### Finding domain and IPv4 IOCs
 
 ```powershell

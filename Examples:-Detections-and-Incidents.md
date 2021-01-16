@@ -1,5 +1,3 @@
-[API reference](https://falcon.crowdstrike.com/support/documentation/86/detections-monitoring-apis)
-
 ### Find incidents
 ```powershell
 Get-FalconIncident [-Detailed]
@@ -37,3 +35,5 @@ Edit-FalconDetection -Ids <id>, <id> -Status new
 ```powershell
 Edit-FalconDetection -Ids <id>, <id> -ShowInUi $false
 ```
+
+[CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/86/detections-monitoring-apis)

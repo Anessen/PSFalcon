@@ -48,7 +48,7 @@ Because PSFalcon uses dynamic parameters, the traditional PowerShell `Get-Help` 
 
 ## Positional Parameters
 
-Most PSFalcon commands have positional parameters (listed when using -Help), which means that you are able to omit the parameter name when running a command. However, this only works if you’re using sequential parameters.
+Most PSFalcon commands have positional parameters (listed when using `-Help`), which means that you are able to omit the parameter name when running a command. However, this only works if you’re using sequential parameters.
 
 For instance, Invoke-FalconRTR works as expected in this example because `-BaseCommand` (position 1), `-Arguments` (position 2) and `-HostIds` (position 3) are all defined:
 

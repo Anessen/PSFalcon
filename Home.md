@@ -14,6 +14,16 @@ ClientSecret: <string>
 
 After a valid OAuth2 token is received, it caches with your credentials. Your cached token is checked and refreshed as needed while running PSFalcon commands.
 
+### Child environments
+
+If you're using an MSSP configuration, you can target specific child environments using the `-CID` parameter during authentication token requests. Your choice is saved and all requests are sent to that particular CID unless a new `Request-FalconToken` request is made specifying a new child environment.
+
+### Alternate clouds
+
+Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` parameter to choose a different cloud destination.
+
+The accepted hostname values can be viewed using tab auto-completion after entering the `-Cloud` parameter, or through `Request-FalconToken -Help`. Your cloud choice is saved and all requests are sent to the chosen cloud unless a new `Request-FalconToken` request is made specifying a new cloud.
+
 ## Revoking an Authentication Token
 
 Authentication tokens expire after 30 minutes. If you wish to revoke an existing token, you can use `Revoke-FalconToken`.
@@ -23,16 +33,6 @@ Authentication tokens expire after 30 minutes. If you wish to revoke an existing
 ```powershell
 Revoke-FalconToken
 ```
-
-# Child environments
-
-If you're using an MSSP configuration, you can target specific child environments using the `-CID` parameter during authentication token requests. Your choice is saved and all requests are sent to that particular CID unless a new `Request-FalconToken` request is made specifying a new child environment.
-
-# Alternate clouds
-
-Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` parameter to choose a different cloud destination.
-
-The accepted hostname values can be viewed using tab auto-completion after entering the `-Cloud` parameter, or through `Request-FalconToken -Help`. Your cloud choice is saved and all requests are sent to the chosen cloud unless a new `Request-FalconToken` request is made specifying a new cloud.
 
 # Command List
 
@@ -46,7 +46,7 @@ Get-Command -Module PSFalcon
 
 Because PSFalcon uses dynamic parameters, the traditional PowerShell `Get-Help` command doesn't show parameters that can be used with PSFalcon commands. Instead, use `<command> -Help` to call a custom function that displays information about the available parameters and a basic description of their use.
 
-# Positional Parameters
+## Positional Parameters
 
 Most PSFalcon commands have positional parameters (listed when using -Help), which means that you are able to omit the parameter name when running a command. However, this only works if you’re using sequential parameters.
 
@@ -62,14 +62,14 @@ If `-Arguments` is _not_ included, this no longer works as PowerShell (or the AP
 Invoke-FalconRTR getsid <id>, <id>
 ```
 
-# Common PSFalcon Parameters
+## Common PSFalcon Parameters
 
-## -All
+### -All
 The `-All` switch reads the pagination information in an API response and repeats requests to that API until all the available results are retrieved. Using this parameter allows you to ignore the `offset` and `after` fields and have PSFalcon handle the gathering of additional results.
 
 However, it is important to note that the CrowdStrike APIs were not designed to "retrieve all data". If you exceed the maximum limit of a particular API, it is best to modify your command using the `-Filter` parameter to ensure that your next attempts will succeed. Using a filter will allow you to break your results into smaller groups and use those groups to retrieve all the available results.
 
-## -Detailed
+### -Detailed
 If a PSFalcon command returns "identifiers", you can use the `-Detailed` switch to pass the identifiers back to the command and retrieve more detailed information. For example, running `Get-FalconHost` will retrieve host identifiers, but using `Get-FalconHost -Detailed` is the same as running two commands (which outputs the identifiers, plus information about the hosts).
 
 ```powershell
@@ -88,7 +88,7 @@ Each command was written as an [advanced function](https://docs.microsoft.com/en
 
 Using either of these parameters can help you understand the work PSFalcon does behind the scenes to properly format your requests and the responses.
 
-## Filtering and the Falcon Query Language
+# Filtering and the Falcon Query Language
 
 Many PSFalcon commands support the use of [Falcon Query Language](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-fql) \("FQL"\) statements using the -Filter parameter. However, it is important to keep in mind:
 

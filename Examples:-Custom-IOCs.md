@@ -1,5 +1,3 @@
-[API reference](https://falcon.crowdstrike.com/support/documentation/88/custom-ioc-apis)
-
 ### Finding domain and IPv4 IOCs
 
 ```powershell
@@ -35,3 +33,5 @@ Get-FalconIOCProcess -Type domain -Value crowdstrike.com -HostId <id> [-Detailed
 ```powershell
 Get-FalconProcess -Ids <id>, <id>
 ```
+
+[API reference](https://falcon.crowdstrike.com/support/documentation/88/custom-ioc-apis)

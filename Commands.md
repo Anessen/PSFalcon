@@ -44,8 +44,9 @@ The `-Detailed` parameter will also break up the secondary command into appropri
 ## Common PowerShell parameters
 
 Each command was written as an [advanced function](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced?view=powershell-7) which enables support for common PowerShell parameters, including:
-* -Verbose: Provides more explicit information during a request
-* -Debug: Displays the raw JSON content of a request and a response
+
+* `-Verbose`: Provides more explicit information during a request
+* `-Debug`: Displays the raw JSON content of a request and a response
 
 Using either of these parameters can help you understand the work PSFalcon does behind the scenes to properly format your requests and the responses.
 

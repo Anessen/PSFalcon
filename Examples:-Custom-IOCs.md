@@ -34,4 +34,4 @@ Get-FalconIOCProcess -Type domain -Value crowdstrike.com -HostId <id> [-Detailed
 Get-FalconProcess -Ids <id>, <id>
 ```
 
-[CrowdStrike API Link](https://falcon.crowdstrike.com/support/documentation/88/custom-ioc-apis)
+[CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/88/custom-ioc-apis)

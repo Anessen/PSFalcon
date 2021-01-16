@@ -39,7 +39,7 @@ Get-FalconMalQuerySample -Ids <sha256>, <sha256>
 ### Download a MalQuery sample
 
 ```powershell
-Receive-FalconMalQuerySample -Id <sha256> -Path $pwd\infected.exe
+Receive-FalconMalQuerySample -Id <sha256> -Path .\infected.exe
 ```
 
 ### Download an archive of multiple MalQuery samples

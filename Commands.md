@@ -26,12 +26,12 @@ Invoke-FalconRTR getsid <id>, <id>
 
 # Common PSFalcon Parameters
 
-## All
+## -All
 The `-All` switch reads the pagination information in an API response and repeats requests to that API until all the available results are retrieved. Using this parameter allows you to ignore the `offset` and `after` fields and have PSFalcon handle the gathering of additional results.
 
 However, it is important to note that the CrowdStrike APIs were not designed to "retrieve all data". If you exceed the maximum limit of a particular API, it is best to modify your command using the `-Filter` parameter to ensure that your next attempts will succeed. Using a filter will allow you to break your results into smaller groups and use those groups to retrieve all the available results.
 
-## Detailed
+## -Detailed
 If a PSFalcon command returns "identifiers", you can use the `-Detailed` switch to pass the identifiers back to the command and retrieve more detailed information. For example, running `Get-FalconHost` will retrieve host identifiers, but using `Get-FalconHost -Detailed` is the same as running two commands (which outputs the identifiers, plus information about the hosts).
 
 ```powershell

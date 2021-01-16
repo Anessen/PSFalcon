@@ -1,15 +1,15 @@
-## Command List
+# Command List
 After importing the module you can view the list of commands provided with PSFalcon:
 
 ```powershell
 Get-Command -Module PSFalcon
 ```
 
-## Command-based Help
+# Command-based Help
 
 Because PSFalcon uses dynamic parameters, the traditional PowerShell `Get-Help` command doesn't show parameters that can be used with PSFalcon commands. Instead, use `<command> -Help` to call a custom function that displays information about the available parameters and a basic description of their use.
 
-## Positional Parameters
+# Positional Parameters
 
 Most PSFalcon commands have positional parameters (listed when using -Help), which means that you are able to omit the parameter name when running a command. However, this only works if you’re using sequential parameters.
 
@@ -24,14 +24,14 @@ If `-Arguments` is _not_ included, this no longer works as PowerShell (or the AP
 Invoke-FalconRTR getsid <id>, <id>
 ```
 
-## Common PSFalcon Parameters
+# Common PSFalcon Parameters
 
-### All
+## All
 The `-All` switch reads the pagination information in an API response and repeats requests to that API until all the available results are retrieved. Using this parameter allows you to ignore the `offset` and `after` fields and have PSFalcon handle the gathering of additional results.
 
 However, it is important to note that the CrowdStrike APIs were not designed to "retrieve all data". If you exceed the maximum limit of a particular API, it is best to modify your command using the `-Filter` parameter to ensure that your next attempts will succeed. Using a filter will allow you to break your results into smaller groups and use those groups to retrieve all the available results.
 
-### Detailed
+## Detailed
 If a PSFalcon command returns "identifiers", you can use the `-Detailed` switch to pass the identifiers back to the command and retrieve more detailed information. For example, running `Get-FalconHost` will retrieve host identifiers, but using `Get-FalconHost -Detailed` is the same as running two commands (which outputs the identifiers, plus information about the hosts).
 
 ```powershell
@@ -41,7 +41,7 @@ Get-FalconHost -Ids $ids
 
 The `-Detailed` parameter will also break up the secondary command into appropriately sized groups, avoiding errors when retrieving details about large numbers of identifiers.
 
-### Common PowerShell parameters
+## Common PowerShell parameters
 
 Each command was written as an [advanced function](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced?view=powershell-7) which enables support for common PowerShell parameters, including:
 * -Verbose: Provides more explicit information during a request
@@ -49,7 +49,7 @@ Each command was written as an [advanced function](https://docs.microsoft.com/en
 
 Using either of these parameters can help you understand the work PSFalcon does behind the scenes to properly format your requests and the responses.
 
-### Filtering and the Falcon Query Language
+## Filtering and the Falcon Query Language
 
 Many PSFalcon commands support the use of [Falcon Query Language](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-fql) \("FQL"\) statements using the -Filter parameter. However, it is important to keep in mind:
 

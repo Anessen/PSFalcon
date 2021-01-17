@@ -1,6 +1,4 @@
-# Authentication
-
-## Requesting an Authentication Token
+# Requesting a Token
 
 During a PowerShell session, you must have a valid OAuth2 token in order to make requests to the CrowdStrike Falcon API endpoints.
 
@@ -14,17 +12,17 @@ ClientSecret: <string>
 
 After a valid OAuth2 token is received, it caches with your credentials. Your cached token is checked and refreshed as needed while running PSFalcon commands.
 
-### Child environments
+## Child environments
 
 If you're using an MSSP configuration, you can target specific child environments using the `-CID` parameter during authentication token requests. Your choice is saved and all requests are sent to that particular CID unless a new `Request-FalconToken` request is made specifying a new child environment.
 
-### Alternate clouds
+## Alternate clouds
 
 Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` parameter to choose a different cloud destination.
 
 The accepted hostname values can be viewed using tab auto-completion after entering the `-Cloud` parameter, or through `Request-FalconToken -Help`. Your cloud choice is saved and all requests are sent to the chosen cloud unless a new `Request-FalconToken` request is made specifying a new cloud.
 
-## Revoking an Authentication Token
+# Revoking a Token
 
 Authentication tokens expire after 30 minutes. If you wish to revoke an existing token, you can use `Revoke-FalconToken`.
 

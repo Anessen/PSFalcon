@@ -5,7 +5,7 @@
 * [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
 * [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
 
-# Example Use
+# Examples
 
 * [Custom IOCs](https://github.com/CrowdStrike/psfalcon/wiki/Custom-IOCs)
 * [Detections and Incidents](https://github.com/CrowdStrike/psfalcon/wiki/Detections-and-Incidents)

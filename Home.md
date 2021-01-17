@@ -1,9 +1,9 @@
 # Overview
 
+* [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication) 
 * [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
-* [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
-* [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
 * [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
+* [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
 
 # Examples
 

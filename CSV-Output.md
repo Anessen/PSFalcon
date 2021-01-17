@@ -4,13 +4,13 @@ If one of these examples doesn't provide the specific data you're seeking, try u
 
 **NOTE**: Each of the following examples can be modified to filter for specific results or include additional parameters like `-All`.
 
-### Custom IOCs
+## Custom IOCs
 
 ```powershell
 Get-FalconIOC [-Detailed] | Export-FalconReport -Path .\IOCs.csv
 ```
 
-### Custom Scripts and Put Files (Real-time Response)
+## Custom Scripts and Put Files (Real-time Response)
 
 ```powershell
 Get-FalconScript [-Detailed] | Export-FalconReport -Path .\Scripts.csv
@@ -19,7 +19,7 @@ Get-FalconScript [-Detailed] | Export-FalconReport -Path .\Scripts.csv
 Get-FalconPutFile [-Detailed] | Export-FalconReport -Path .\PutFiles.csv
 ```
 
-### Detections and Incidents
+## Detections and Incidents
 
 ```powershell
 Get-FalconDetection [-Detailed] | Export-FalconReport -Path .\Detections.csv
@@ -28,7 +28,7 @@ Get-FalconDetection [-Detailed] | Export-FalconReport -Path .\Detections.csv
 Get-FalconIncident [-Detailed] | Export-FalconReport -Path .\Incidents.csv
 ```
 
-### Hosts and Host Groups
+## Hosts and Host Groups
 
 ```powershell
 Get-FalconHost [-Detailed] | Export-FalconReport -Path .\Hosts.csv
@@ -37,7 +37,7 @@ Get-FalconHost [-Detailed] | Export-FalconReport -Path .\Hosts.csv
 Get-FalconHostGroup [-Detailed] | Export-FalconReport -Path .\HostGroups.csv
 ```
 
-### Policies
+## Policies
 
 **NOTE**: Because settings vary between platforms, your output will be limited unless you filter for each Operating System.
 
@@ -53,13 +53,14 @@ Get-FalconPreventionPolicy -Filter "platform_name:'Windows'" [-Detailed] | Expor
 ```powershell
 Get-FalconSensorUpdatePolicy -Filter "platform_name:'Windows'" [-Detailed] | Export-FalconReport -Path .\SensorUpdatePolicies.csv
 ```
-### Users
+
+## Users
 
 ```powershell
 Get-FalconUser [-Detailed] | Export-FalconReport -Path .\Users.csv
 ```
 
-### Vulnerabilities
+## Vulnerabilities
 
 ```powershell
 Get-FalconVulnerability [-Detailed] | Export-FalconReport -Path .\Vulnerabilities.csv

@@ -9,6 +9,9 @@ Basic command information, including finding a list of commands and retrieving d
 ### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
 How to output the results of a request to CSV using automated object conversion.
 
+### [Filtering and the Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)
+Basic use of filters to find information using PSFalcon, including the use of multiple conditions and values.
+
 ### [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
 Basic parameter information, common PSFalcon and PowerShell parameters and pagination handling.
 

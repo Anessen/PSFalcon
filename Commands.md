@@ -9,3 +9,29 @@ Get-Command -Module PSFalcon
 # Command Help
 
 Because PSFalcon uses dynamic parameters, the traditional PowerShell `Get-Help` command doesn't show parameters that can be used with PSFalcon commands. Instead, use `<command> -Help` to call a custom function that displays information about the available parameters and a basic description of their use.
+
+```powershell
+PS> Request-FalconToken -Help
+
+# Request an OAuth2 access token
+
+  -ClientId [String]
+    OAuth2 API client identifier
+      Position : 1
+      Pattern : \w{32}
+
+  -ClientSecret [String]
+    OAuth2 API client secret
+      Position : 2
+      Pattern : \w{40}
+
+  -Cloud [String]
+    Destination cloud
+      Position : 3
+      Values : eu-1, us-gov-1, us-1, us-2
+
+  -MemberCid [String]
+    Child environment to use for authentication in multi-CID configurations
+      Position : 4
+      Pattern : \w{32}
+```

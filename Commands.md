@@ -1,4 +1,4 @@
-# Finding Commands
+## Finding Commands
 
 After importing the module you can view the list of commands provided with PSFalcon:
 
@@ -6,14 +6,14 @@ After importing the module you can view the list of commands provided with PSFal
 Get-Command -Module PSFalcon
 ```
 
-# Command Help
+## Getting Help
 
 Because PSFalcon uses dynamic parameters, the traditional PowerShell `Get-Help` command doesn't show parameters that can be used with PSFalcon commands. Instead, use `<command> -Help` to call a custom function that displays information about the available parameters and a basic description of their use.
 
 ```powershell
 PS> Request-FalconToken -Help
 
-# Request an OAuth2 access token
+## Request an OAuth2 access token
 
   -ClientId [String]
     OAuth2 API client identifier

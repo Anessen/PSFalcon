@@ -1,66 +1,85 @@
 # Overview
 
 ### [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
-Requesting OAuth2 access tokens for accessing additional APIs, switching cloud environments, specifying 'child' CIDs and revoking access tokens.
+* Requesting OAuth2 access tokens for accessing APIs
+* Switching cloud environments
+* Authenticate with 'child' CIDs
+* Revoke existing OAuth2 access tokens
 
 ### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
-Basic command information, including finding commands and retrieving detail and related parameters.
+* Basic command information
+* Finding commands, detail and related parameters
 
 ### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
-Converting the results of a request to CSV using `Export-FalconReport`.
+* Converting the results of a request to CSV using `Export-FalconReport`
 
 ### [Filtering and the Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)
-Using filters and the Falcon Query Language to limit results, including the use of multiple conditions and values.
+* Using the Falcon Query Language to limit results
+* Combining multiple filter conditions and values
 
 ### [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
-Common PSFalcon and PowerShell parameters, and a description of how PSFalcon handles API pagination.
+* Common parameters
+* Result pagination
 
 # Examples
 
 ### [Custom IOCs](https://github.com/CrowdStrike/psfalcon/wiki/Custom-IOCs)
-Create, find, modify and delete Custom Indicators of Compromise.
+* Create, find, modify and delete Custom Indicators of Compromise
 
 ### [Detections and Incidents](https://github.com/CrowdStrike/psfalcon/wiki/Detections-and-Incidents)
-Find or modify detections and incidents, including assignment to users, status changes and hiding detections from the Falcon UI. Find CrowdScore values over time.
+* Find or modify detections and incidents, including assignment to users, status changes and hiding detections
+* Find CrowdScore values
 
 ### [Discover for Cloud](https://github.com/CrowdStrike/psfalcon/wiki/Discover-for-Cloud)
-Register and find cloud accounts for cloud workload discovery and review settings in Falcon Discover for Cloud.
+* Register and find cloud accounts for cloud workload discovery in Falcon Discover for Cloud
+* Review global Falcon Discover for Cloud settings
 
 ### [Event Streams](https://github.com/CrowdStrike/psfalcon/wiki/Event-Streams)
-Initiate and view Event Streams and capture a sample of event data.
+* Initiate and view Event Streams
+* Capture sample of event data
 
 ### [Firewall Management](https://github.com/CrowdStrike/psfalcon/wiki/Firewall-Management)
-Create, find, modify and delete Falcon Firewall Management rule groups and rules. Find information about rule groups, rules and related Firewall Management properties.
+* Create, find, modify and delete Falcon Firewall Management rule groups and rules
+* Find information about rule groups, rules and related Firewall Management properties
 
 ### [Horizon](https://github.com/CrowdStrike/psfalcon/wiki/Horizon)
-Create, find, modify and delete cloud accounts for Cloud Security Posture Management using Falcon Horizon. Review default settings and scan schedules.
+* Create, find, modify and delete cloud accounts for Cloud Security Posture Management using Falcon Horizon
+* Review default Falcon Horizon settings and scan schedules
 
 ### [Hosts and Host Groups](https://github.com/CrowdStrike/psfalcon/wiki/Hosts-and-Host-Groups)
-Find information about Hosts and contain or hide them. Create, find, modify, delete and add or remove members from Host Groups.
+* Find information about Hosts and contain or hide them
+* Create, find, modify, delete and add or remove members from Host Groups
 
 ### [Installation Tokens](https://github.com/CrowdStrike/psfalcon/wiki/Installation-Tokens)
-Create, find, modify and delete installation tokens to restrict sensor installations.
+* Create, find, modify and delete installation tokens to restrict sensor installations.
 
 ### [MalQuery](https://github.com/CrowdStrike/psfalcon/wiki/MalQuery)
-Perform searches, YARA hunts, and retrieve samples from Falcon MalQuery.
+* Perform searches and YARA hunts in Falcon MalQuery
+* Download malware samples from Falcon MalQuery
 
 ### [Policies](https://github.com/CrowdStrike/psfalcon/wiki/Policies)
-Create, find, modify and delete Device Control, Firewall Management, Prevention, Sensor Update and Real-time Response policies.
+* Create, find, modify and delete Device Control, Firewall Management, Prevention, Sensor Update and Real-time Response policies
+* Assign or remove Host Groups from policies
 
 ### [Real-time Response](https://github.com/CrowdStrike/psfalcon/wiki/Real-time-Response)
-Create and find information about Real-time Response sessions with single or batches of devices. Create, find, modify and delete custom scripts and 'put' files.
+* Create and find information about Real-time Response sessions with single or batches of devices
+* Create, find, modify and delete custom scripts and 'put' files
 
 ### [Sandbox and QuickScan](https://github.com/CrowdStrike/psfalcon/wiki/Sandbox-and-QuickScan)
-Upload and submit samples to the Falcon X Sandbox and Falcon QuickScan. Find information about previous submissions and download reports and artifacts.
+* Upload and submit samples to the Falcon X Sandbox and Falcon QuickScan
+* Find information about previous submissions
+* Download reports and artifacts
 
 ### [Sensor Installers](https://github.com/CrowdStrike/psfalcon/wiki/Sensor-Installers)
-Find and download Falcon Sensor installation packages for different Operating Systems.
+* Find and download Falcon Sensor installation packages for different Operating Systems
 
 ### [Spotlight](https://github.com/CrowdStrike/psfalcon/wiki/Spotlight)
-Find and get detail about vulnerabilities and remediation information reported in Falcon Spotlight.
+* Find and get detail about vulnerabilities and remediation information in Falcon Spotlight
 
 ### [Threat Intelligence](https://github.com/CrowdStrike/psfalcon/wiki/Threat-Intelligence)
-Find and get detail about threat actors, intelligence indicators, reports and rule sets. Download reports and rule sets.
+* Find and get detail about threat actors, intelligence indicators, reports and rule sets
+* Download reports and rule sets
 
 ### [Users and Roles](https://github.com/CrowdStrike/psfalcon/wiki/Users-and-Roles)
-Create, find, modify and delete Falcon console users. Add or remove user roles.
+* Create, find, modify and delete Falcon console users
+* Add or remove user roles

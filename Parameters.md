@@ -29,7 +29,7 @@ Get-FalconHost -Ids $ids
 
 The `-Detailed` parameter will also break up the secondary command into appropriately sized groups, avoiding errors when retrieving details about large numbers of identifiers.
 
-# Debug and Verbose
+# Advanced Parameters
 
 Each command was written as an [advanced function](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced?view=powershell-7) which enables support for common PowerShell parameters, including:
 

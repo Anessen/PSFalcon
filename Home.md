@@ -1,15 +1,3 @@
-# Command List
-
-After importing the module you can view the list of commands provided with PSFalcon:
-
-```powershell
-Get-Command -Module PSFalcon
-```
-
-# Command-based Help
-
-Because PSFalcon uses dynamic parameters, the traditional PowerShell `Get-Help` command doesn't show parameters that can be used with PSFalcon commands. Instead, use `<command> -Help` to call a custom function that displays information about the available parameters and a basic description of their use.
-
 ## Positional Parameters
 
 Most PSFalcon commands have positional parameters (listed when using `-Help`), which means that you are able to omit the parameter name when running a command. However, this only works if you’re using sequential parameters.

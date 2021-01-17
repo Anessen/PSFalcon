@@ -10,7 +10,9 @@ Get-Command -Module PSFalcon
 
 Because PSFalcon uses dynamic parameters, the traditional PowerShell `Get-Help` command doesn't show parameters that can be used with PSFalcon commands. Instead, use `<command> -Help` to call a custom function that displays information about the available parameters and a basic description of their use.
 
-# Positional Parameters
+# Parameters
+
+## Positional Parameters
 
 Most PSFalcon commands have positional parameters (listed when using `-Help`), which means that you are able to omit the parameter name when running a command. However, this only works if you’re using sequential parameters.
 
@@ -26,7 +28,7 @@ If `-Arguments` is _not_ included, this no longer works as PowerShell (or the AP
 Invoke-FalconRTR getsid <id>, <id>
 ```
 
-# Common PSFalcon Parameters
+## Common Parameters
 
 ### -All
 The `-All` switch reads the pagination information in an API response and repeats requests to that API until all the available results are retrieved. Using this parameter allows you to ignore the `offset` and `after` fields and have PSFalcon handle the gathering of additional results.
@@ -43,7 +45,7 @@ Get-FalconHost -Ids $ids
 
 The `-Detailed` parameter will also break up the secondary command into appropriately sized groups, avoiding errors when retrieving details about large numbers of identifiers.
 
-# Common PowerShell parameters
+## PowerShell Parameters
 
 Each command was written as an [advanced function](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced?view=powershell-7) which enables support for common PowerShell parameters, including:
 

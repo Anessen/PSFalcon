@@ -12,7 +12,7 @@ $Uuid = Get-FalconUser -Usernames $Username -ErrorAction SilentlyContinue
 if (-not $Uuid) {
     throw "Invalid username: '$Username'"
 }
-# Get all Detection identifiers involving "choice.exe"
+# Get Detection identifiers involving $Filename
 $Ids = Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -All
 
 if (-not $Ids) {

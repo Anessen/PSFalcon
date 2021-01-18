@@ -2,8 +2,6 @@ The `Export-FalconReport` command translates the API response into something tha
 
 If one of these examples doesn't provide the specific data you're seeking, try using the PSFalcon command, manipulating the results, and using `Export-Csv` directly.
 
-**NOTE**: Each of the following examples can be modified to filter for specific results or include additional parameters like `-All`.
-
 ## Custom IOCs
 
 ```powershell

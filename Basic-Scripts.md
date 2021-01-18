@@ -1,3 +1,5 @@
+**WARNING**: The code provided below is for example purposes only. These scripts are offered 'as is' with no support.
+
 # Detections
 
 ## Assign specific detections to a user

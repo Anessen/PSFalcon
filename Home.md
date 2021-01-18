@@ -21,7 +21,7 @@
 * Common parameters
 * Result pagination
 
-# Examples
+# Using Commands
 
 ### [Custom IOCs](https://github.com/CrowdStrike/psfalcon/wiki/Custom-IOCs)
 * Create, find, modify and delete Custom Indicators of Compromise
@@ -83,3 +83,8 @@
 ### [Users and Roles](https://github.com/CrowdStrike/psfalcon/wiki/Users-and-Roles)
 * Create, find, modify and delete Falcon console users
 * Add or remove user roles
+
+# Basic Scripts
+
+### Detections
+* [Assign specific detections to a user](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#Detections)

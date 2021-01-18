@@ -87,4 +87,4 @@
 # Basic Scripts
 
 ### Detections
-* [Assign specific detections to a user](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#Detections)
+* [Assign specific detections to a user](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#assign-specific-detections-to-a-user)

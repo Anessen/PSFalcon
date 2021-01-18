@@ -23,6 +23,6 @@ else {
     Write-Host "Assigning $($Ids.count) detections involving '$Filename' to '$Username'..."
 
     # Modify detections
-   Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
+    Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 }
 ```

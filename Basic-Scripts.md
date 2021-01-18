@@ -36,14 +36,22 @@ else {
 param(
     [switch] $Confirm
 )
+# Get detailed information about devices
 $Hosts = Get-FalconHost -Detailed -Limit 5000 -All
+
+# Use Find-FalconDuplicate to find duplicate hosts
 $Duplicates = Find-FalconDuplicate -Hosts $Hosts
+
 if ($Duplicates) {
     if ($Confirm) {
+        # Notify user
         Write-Host "Hiding $($Duplicates.count) potential duplicate hosts..."
+
+        # Use Invoke-FalconHostAction to hide hosts
         Invoke-FalconHostAction -ActionName hide_host -Ids $Duplicates.device_id
     }
     else {
+        # Notify user of duplicates
         Write-Host "Found $($Duplicates.count) potential duplicate hosts"
     }
 }

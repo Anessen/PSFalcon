@@ -7,34 +7,34 @@ If one of these examples doesn't provide the specific data you're seeking, try u
 ## Custom IOCs
 
 ```powershell
-Get-FalconIOC [-Detailed] | Export-FalconReport -Path .\IOCs.csv
+Get-FalconIOC [-Detailed] [-All] | Export-FalconReport -Path .\IOCs.csv
 ```
 
 ## Custom Scripts and Put Files (Real-time Response)
 
 ```powershell
-Get-FalconScript [-Detailed] | Export-FalconReport -Path .\Scripts.csv
+Get-FalconScript [-Detailed] [-All] | Export-FalconReport -Path .\Scripts.csv
 ```
 ```powershell
-Get-FalconPutFile [-Detailed] | Export-FalconReport -Path .\PutFiles.csv
+Get-FalconPutFile [-Detailed] [-All] | Export-FalconReport -Path .\PutFiles.csv
 ```
 
 ## Detections and Incidents
 
 ```powershell
-Get-FalconDetection [-Detailed] | Export-FalconReport -Path .\Detections.csv
+Get-FalconDetection [-Detailed] [-All] | Export-FalconReport -Path .\Detections.csv
 ```
 ```powershell
-Get-FalconIncident [-Detailed] | Export-FalconReport -Path .\Incidents.csv
+Get-FalconIncident [-Detailed] [-All] | Export-FalconReport -Path .\Incidents.csv
 ```
 
 ## Hosts and Host Groups
 
 ```powershell
-Get-FalconHost [-Detailed] | Export-FalconReport -Path .\Hosts.csv
+Get-FalconHost [-Detailed] [-All] | Export-FalconReport -Path .\Hosts.csv
 ```
 ```powershell
-Get-FalconHostGroup [-Detailed] | Export-FalconReport -Path .\HostGroups.csv
+Get-FalconHostGroup [-Detailed] [-All] | Export-FalconReport -Path .\HostGroups.csv
 ```
 
 ## Policies
@@ -42,26 +42,26 @@ Get-FalconHostGroup [-Detailed] | Export-FalconReport -Path .\HostGroups.csv
 **NOTE**: Because settings vary between platforms, your output will be limited unless you filter for each Operating System.
 
 ```powershell
-Get-FalconDeviceControlPolicy -Filter "platform_name:'Windows'" [-Detailed] | Export-FalconReport -Path .\DeviceControlPolicies.csv
+Get-FalconDeviceControlPolicy -Filter "platform_name:'Windows'" [-Detailed] [-All] | Export-FalconReport -Path .\DeviceControlPolicies.csv
 ```
 ```powershell
-Get-FalconFirewallPolicy -Filter "platform_name:'Windows'" [-Detailed] | Export-FalconReport -Path .\FirewallPolicies.csv
+Get-FalconFirewallPolicy -Filter "platform_name:'Windows'" [-Detailed] [-All] | Export-FalconReport -Path .\FirewallPolicies.csv
 ```
 ```powershell
-Get-FalconPreventionPolicy -Filter "platform_name:'Windows'" [-Detailed] | Export-FalconReport -Path .\PreventionPolicies.csv
+Get-FalconPreventionPolicy -Filter "platform_name:'Windows'" [-Detailed] [-All] | Export-FalconReport -Path .\PreventionPolicies.csv
 ```
 ```powershell
-Get-FalconSensorUpdatePolicy -Filter "platform_name:'Windows'" [-Detailed] | Export-FalconReport -Path .\SensorUpdatePolicies.csv
+Get-FalconSensorUpdatePolicy -Filter "platform_name:'Windows'" [-Detailed] [-All] | Export-FalconReport -Path .\SensorUpdatePolicies.csv
 ```
 
 ## Users
 
 ```powershell
-Get-FalconUser [-Detailed] | Export-FalconReport -Path .\Users.csv
+Get-FalconUser [-Detailed] [-All] | Export-FalconReport -Path .\Users.csv
 ```
 
 ## Vulnerabilities
 
 ```powershell
-Get-FalconVulnerability [-Detailed] | Export-FalconReport -Path .\Vulnerabilities.csv
+Get-FalconVulnerability [-Detailed] [-All] | Export-FalconReport -Path .\Vulnerabilities.csv
 ```

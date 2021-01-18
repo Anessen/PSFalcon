@@ -28,3 +28,26 @@ else {
     Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 }
 ```
+
+# Hosts
+
+### Find duplicate hosts and hide them
+```powershell
+param(
+    [switch] $Confirm
+)
+$Hosts = Get-FalconHost -Detailed -Limit 5000 -All
+$Duplicates = Find-FalconDuplicate -Hosts $Hosts
+if ($Duplicates) {
+    if ($Confirm) {
+        Write-Host "Hiding $($Duplicates.count) potential duplicate hosts..."
+        Invoke-FalconHostAction -ActionName hide_host -Ids $Duplicates.device_id
+    }
+    else {
+        Write-Host "Found $($Duplicates.count) potential duplicate hosts"
+    }
+}
+else {
+    Write-Host "No duplicates found."
+}
+```

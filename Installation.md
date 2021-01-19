@@ -1,7 +1,7 @@
 If not already present, install [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell).
 
 ## Using the PowerShell Gallery
-TODO
+TO_DO
 
 ## Manual Installation
 

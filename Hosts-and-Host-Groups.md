@@ -33,19 +33,19 @@ Get-FalconHost -Ids <id>, <id>
 ### Containing and lifting containment on hosts
 
 ```powershell
-Invoke-FalconHostAction -ActionName contain -Ids <id>, <id>
+Invoke-FalconHostAction -Name contain -Ids <id>, <id>
 ```
 ```powershell
-Invoke-FalconHostAction -ActionName lift_containment -Ids <id>, <id>
+Invoke-FalconHostAction -Name lift_containment -Ids <id>, <id>
 ```
 
 ### Deleting and restoring hosts
 
 ```powershell
-Invoke-FalconHostAction -ActionName hide_host -Ids <id>, <id>
+Invoke-FalconHostAction -Name hide_host -Ids <id>, <id>
 ```
 ```powershell
-Invoke-FalconHostAction -ActionName unhide_host -Ids <id>, <id>
+Invoke-FalconHostAction -Name unhide_host -Ids <id>, <id>
 ```
 
 ### Finding hosts that have been deleted
@@ -63,7 +63,7 @@ New-FalconHostGroup -GroupType static -Name 'Test Group 45' -Description 'A demo
 ### Assigning hosts to a static host group
 
 ```powershell
-Invoke-FalconHostGroupAction -ActionName add-hosts -Id <id> -HostIds <id>, <id>
+Invoke-FalconHostGroupAction -Name add-hosts -Id <id> -HostIds <id>, <id>
 ```
 
 ### Finding host groups

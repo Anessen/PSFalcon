@@ -1,14 +1,26 @@
 ## Submit a file for analysis
 
+TO_DO
+
 ### Upload files for submission
+
+TO_DO
 
 ### Submit an uploaded sample for analysis in a sandbox environment
 
+TO_DO
+
 ### Check the progress of samples previously submitted for analysis
+
+TO_DO
 
 ## Submit an archive file for analysis
 
+TO_DO
+
 ## Analyze large volumes of files with Falcon QuickScan
+
+TO_DO
 
 ### Submit files to QuickScan
 
@@ -32,12 +44,22 @@ Get-FalconQuickScan -Ids <id>
 
 ### Download a summary
 
+TO_DO
+
 ### Download a report
+
+TO_DO
 
 ### Download a strict IOC pack
 
+TO_DO
+
 ### Find malware samples or sandbox reports
 
+TO_DO
+
 ### Check your submission quota
+
+TO_DO
 
 [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/92/falcon-x-apis)

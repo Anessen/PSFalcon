@@ -13,7 +13,7 @@ New-FalconInstallToken -Label "My Token" -ExpiresTimestamp "2021-12-31T00:00:00Z
 ### Find installation tokens
 
 ```powershell
-Get-FalconInstallToken [-Detailed]
+Get-FalconInstallToken [-Detailed] [-All]
 ```
 
 ### Get information about an installation token
@@ -40,7 +40,7 @@ Remove-FalconInstallToken -Ids <id>, <id>
 ### View installation token audit events
 
 ```powershell
-Get-FalconInstallTokenEvent [-Detailed]
+Get-FalconInstallTokenEvent [-Detailed] [-All]
 ```
 
 ### Get information about an installation token audit event

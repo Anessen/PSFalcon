@@ -3,25 +3,25 @@
 ### Hosts that match an AWS Instance ID
 
 ```powershell
-Get-FalconHost -Filter "instance_id:'<instance_id>'" [-All]
+Get-FalconHost -Filter "instance_id:'<instance_id>'" [-Detailed] [-All]
 ```
 
 ### Finding all Windows hosts
 
 ```powershell
-Get-FalconHost -Filter "platform_name:'Windows'" [-All]
+Get-FalconHost -Filter "platform_name:'Windows'" [-Detailed] [-All]
 ```
 
 ### Finding hosts based on multiple criteria
 
 ```powershell
-Get-FalconHost -Filter "product_type_desc:'Workstation'+status:'normal'+platform_name:['Windows','Mac']+last_seen:>='2020-07-04'" [-All]
+Get-FalconHost -Filter "product_type_desc:'Workstation'+status:'normal'+platform_name:['Windows','Mac']+last_seen:>='2020-07-04'" [-Detailed] [-All]
 ```
 
 ### Retrieving a list of the first 100 hosts in your environment
 
 ```powershell
-Get-FalconHost
+Get-FalconHost [-Detailed]
 ```
 
 ### Getting information about hosts
@@ -51,7 +51,7 @@ Invoke-FalconHostAction -ActionName unhide_host -Ids <id>, <id>
 ### Finding hosts that have been deleted
 
 ```powershell
-Get-FalconHost -Hidden [-Detailed]
+Get-FalconHost -Hidden [-Detailed] [-All]
 ```
 
 ### Create a static host group
@@ -69,7 +69,7 @@ Invoke-FalconHostGroupAction -ActionName add-hosts -Id <id> -HostIds <id>, <id>
 ### Finding host groups
 
 ```powershell
-Get-FalconHostGroup [-Detailed]
+Get-FalconHostGroup [-Detailed] [-All]
 ```
 
 ### Deleting host groups

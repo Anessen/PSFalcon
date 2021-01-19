@@ -17,6 +17,12 @@
 * Using the Falcon Query Language to limit results
 * Combining multiple filter conditions and values
 
+### [Importing](https://github.com/CrowdStrike/psfalcon/wiki/Importing)
+* Loading the module at the beginning of a PowerShell session or script
+
+### [Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation)
+* Downloading and installing the module using the PowerShell Gallery or GitHub
+
 ### [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
 * Common parameters
 * Result pagination

@@ -3,7 +3,7 @@
 ### Search for actors
 
 ```powershell
-Get-FalconActor -Filter "target_countries:'united states'+target_countries:'canada'+target_industries:'government'"
+Get-FalconActor -Filter "target_countries:'united states'+target_countries:'canada'+target_industries:'government'" [-Detailed] [-All]
 ```
 
 ### Get information about specific actors
@@ -35,7 +35,7 @@ Get-FalconIndicator -Ids <id>, <id>
 ### Search for information about indicators
 
 ```powershell
-Get-FalconIndicator -Filter "last_updated:>=1427846400" -Sort "last_updated|asc" -Detailed
+Get-FalconIndicator -Filter "last_updated:>=1427846400" -Sort "last_updated|asc" -Detailed [-All]
 ```
 
 ## Query CrowdStrike intelligence publications

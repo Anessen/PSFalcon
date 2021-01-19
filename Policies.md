@@ -38,7 +38,7 @@ Invoke-FalconPreventionPolicyAction -ActionName add-host-group -Id <id> -GroupId
 ### Get all Prevention policies
 
 ```powershell
-Get-FalconPreventionPolicy -Detailed -All
+Get-FalconPreventionPolicy -All [-Detailed]
 ```
 
 ### Set Prevention policy precedence
@@ -58,7 +58,7 @@ New-FalconMLExclusion -Value '/foo' -ExcludedFrom blocking, extraction -GroupIds
 ### Find Machine Learning exclusions
 
 ```powershell
-Get-FalconMLExclusion [-Detailed]
+Get-FalconMLExclusion [-Detailed] [-All]
 ```
 
 ### Modify Machine Learning exclusions
@@ -84,7 +84,7 @@ New-FalconSVExclusion -Value '/foo' -GroupIds all -Comment 'creating'
 ### Find Sensor Visibility exclusions
 
 ```powershell
-Get-FalconSVExclusion [-Detailed]
+Get-FalconSVExclusion [-Detailed] [-All]
 ```
 
 ### Modify Sensor Visibility exclusions
@@ -318,7 +318,7 @@ Get-FalconIOAGroup -Filter "name:'updatedRuleGroup'+platform:'mac'"
 ### Find a custom IOA rule identifier by name within a rule group
 
 ```powershell
-Get-FalconIOARule -Filter "id:'<id>'+rules.name:'BugRule'"
+Get-FalconIOARule -Filter "id:'<id>'+rules.name:'BugRule'" [-Detailed] [-All]
 ```
 
 [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/85/detection-and-prevention-policies-apis)

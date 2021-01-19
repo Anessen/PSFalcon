@@ -48,7 +48,7 @@ if ($Duplicates) {
         Write-Host "Hiding $($Duplicates.count) potential duplicate hosts..."
 
         # Use Invoke-FalconHostAction to hide hosts
-        Invoke-FalconHostAction -ActionName hide_host -Ids $Duplicates.device_id
+        Invoke-FalconHostAction -Name hide_host -Ids $Duplicates.device_id
     }
     else {
         # Notify user of duplicates

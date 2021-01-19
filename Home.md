@@ -1,31 +1,25 @@
 # Overview
 
-### [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
-* Requesting OAuth2 access tokens for accessing APIs
-* Switching cloud environments
-* Authenticate with 'child' CIDs
-* Revoke existing OAuth2 access tokens
-
-### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
-* Basic command information
-* Finding commands, detail and related parameters
-
-### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
-* Converting the results of a request to CSV using `Export-FalconReport`
-
-### [Filtering and the Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)
-* Using the Falcon Query Language to limit results
-* Combining multiple filter conditions and values
+### [Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation)
+* Downloading and installing the module using the PowerShell Gallery or GitHub
 
 ### [Importing](https://github.com/CrowdStrike/psfalcon/wiki/Importing)
 * Loading the module at the beginning of a PowerShell session or script
 
-### [Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation)
-* Downloading and installing the module using the PowerShell Gallery or GitHub
+### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
+* Basic command information, finding commands, detail and related parameters
 
 ### [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
-* Common parameters
-* Result pagination
+* Common parameters and result pagination
+
+### [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
+* Requesting and revoking OAuth2 access tokens, switching cloud environments, 'child' CIDs
+
+### [Filtering and the Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)
+* Using the Falcon Query Language to limit results and combining multiple filter conditions and values
+
+### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
+* Converting results to CSV using `Export-FalconReport`
 
 # Using Commands
 

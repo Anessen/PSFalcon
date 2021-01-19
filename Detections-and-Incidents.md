@@ -1,11 +1,11 @@
 ### Find incidents
 ```powershell
-Get-FalconIncident [-Detailed]
+Get-FalconIncident [-Detailed] [-All]
 ```
 
 ### Show CrowdScores
 ```powershell
-Get-FalconScore
+Get-FalconScore [-All]
 ```
 
 ### Update the status of multiple incidents
@@ -16,12 +16,12 @@ Invoke-FalconIncidentAction -Name update_status -Value in_progress -Ids <id>, <i
 
 ### Find behaviors
 ```powershell
-Get-FalconBehavior [-Detailed]
+Get-FalconBehavior [-Detailed] [-All]
 ```
 
 ### Find detections
 ```powershell
-Get-FalconDetection -Filter "status:'new'+first_behavior:>'2020-01-01'" -Sort first_behavior.desc [-Detailed]
+Get-FalconDetection -Filter "status:'new'+first_behavior:>'2020-01-01'" -Sort first_behavior.desc [-Detailed] [-All]
 ```
 
 ### Modify the status of multiple detections

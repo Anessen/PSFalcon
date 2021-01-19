@@ -15,7 +15,6 @@ TO_DO
 TO_DO
 
 ## Submit an archive file for analysis
-
 TO_DO
 
 ## Analyze large volumes of files with Falcon QuickScan

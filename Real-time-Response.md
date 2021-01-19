@@ -77,7 +77,7 @@ Invoke-FalconDeploy -HostIds <id>, <id> -Path $pwd\File.exe [-QueueOffline]
 **NOTE**: Only sessions created by your OAuth2 API Client will be visible using the following commands.
 
 ```powershell
-Get-FalconSession [-Detailed]
+Get-FalconSession [-Detailed] [-All]
 ```
 
 ### Retrieve detail about Real-time Response sessions
@@ -107,7 +107,7 @@ Send-FalconScript -Path $pwd\hello_world.ps1 -Platform windows -PermissionType g
 ### Find Real-time Response scripts
 
 ```powershell
-Get-FalconScript [-Detailed]
+Get-FalconScript [-Detailed] [-All]
 ```
 
 ### Modify Real-time Response scripts
@@ -133,7 +133,7 @@ Send-FalconPutFile -Path $pwd\File.exe
 ### Find Real-time Response ‘put’ files
 
 ```powershell
-Get-FalconPutFile [-Detailed]
+Get-FalconPutFile [-Detailed] [-All]
 ```
 
 ### Delete Real-time Response ‘put’ files

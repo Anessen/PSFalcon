@@ -37,4 +37,4 @@ Import-Module .\PSFalcon
 
 ## Importing the Module
 
-Once installed, PSFalcon needs to be [imported into PowerShell](https://github.com/CrowdStrike/psfalcon/Importing) whenever you wish to use the included commands.
+Once installed, PSFalcon needs to be [imported into PowerShell](https://github.com/CrowdStrike/psfalcon/wiki/Importing) whenever you wish to use the included commands.

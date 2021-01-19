@@ -19,8 +19,6 @@ TO_DO
 
 ## Analyze large volumes of files with Falcon QuickScan
 
-TO_DO
-
 ### Submit files to QuickScan
 
 ```powershell

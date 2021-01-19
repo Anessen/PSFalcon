@@ -1,7 +1,7 @@
 ### Finding domain and IPv4 IOCs
 
 ```powershell
-Get-FalconIOC -Type domain, ipv4 [-Detailed]
+Get-FalconIOC -Type domain, ipv4 [-Detailed] [-All]
 ```
 
 ### Retrieve detail on an IOC based on the associated domain name
@@ -21,12 +21,12 @@ Get-FalconIOCTotal -Type domain -Value crowdstrike.com
 
 ### List the Host identifiers that have observed a custom IOC
 ```powershell
-Get-FalconIOCHost -Type domain -Value crowdstrike.com
+Get-FalconIOCHost -Type domain -Value crowdstrike.com [-All]
 ```
 
 ### Find the process identifier of an IOC found on a host
 ```powershell
-Get-FalconIOCProcess -Type domain -Value crowdstrike.com -HostId <id> [-Detailed]
+Get-FalconIOCProcess -Type domain -Value crowdstrike.com -HostId <id> [-Detailed] [-All]
 ```
 
 ### Investigate a process

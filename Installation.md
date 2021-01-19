@@ -34,3 +34,7 @@ For instance, if you unpacked it in a folder called "PSFalcon", you could naviga
 ```powershell
 Import-Module .\PSFalcon
 ```
+
+## Importing the Module
+
+Once installed, PSFalcon needs to be [imported into PowerShell](https://github.com/CrowdStrike/psfalcon/Importing) whenever you wish to use the included commands.

@@ -1,13 +1,13 @@
 ### Find all available sensor installers for Linux
 
 ```powershell
-Get-FalconInstaller -Filter "platform:'linux'"
+Get-FalconInstaller -Filter "platform:'linux'" [-Detailed] [-All]
 ```
 
 ### Find all available sensor installers for a specific OS version
 
 ```powershell
-Get-FalconInstaller -Filter "os:'Amazon Linux'"
+Get-FalconInstaller -Filter "os:'Amazon Linux'" [-Detailed] [-All]
 ```
 
 ### Retrieve detailed information about a specific sensor installer

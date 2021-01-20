@@ -1,7 +1,8 @@
 ## Find incidents
 ```powershell
 Get-FalconIncident [-Detailed] [-All]
-``
+```
+
 ### Find behaviors
 ```powershell
 Get-FalconBehavior [-Detailed] [-All]
@@ -25,7 +26,6 @@ Edit-FalconDetection -Ids <id>, <id> -Status new
 ```
 
 ### Hide detections from the UI
-
 **WARNING**: Hiding detections is not reversible!
 ```powershell
 Edit-FalconDetection -Ids <id>, <id> -ShowInUi $false

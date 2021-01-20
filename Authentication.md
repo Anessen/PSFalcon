@@ -31,3 +31,5 @@ Authentication tokens expire after 30 minutes. If you wish to revoke an existing
 ```powershell
 Revoke-FalconToken
 ```
+
+_Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)_

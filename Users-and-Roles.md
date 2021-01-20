@@ -1,8 +1,8 @@
-### Create a new user
+## Create a new user
 ```powershell
 New-FalconUser -Username jane.doe@example.com
 ```
-### List all users
+## List all users
 ```powershell
 Get-FalconUser [-Detailed]
 ```
@@ -10,15 +10,15 @@ Get-FalconUser [-Detailed]
 ```powershell
 Get-FalconUser -Ids <id>, <id>
 ```
-### Modify a user
+## Modify a user
 ```powershell
 Edit-FalconUser -Id <id> -FirstName Jane -LastName Doe
 ```
-### Remove a user
+## Remove a user
 ```powershell
 Remove-FalconUser -Id <id>
 ```
-### List all available user roles
+## List all available user roles
 ```powershell
 Get-FalconRole [-Detailed]
 ```
@@ -26,11 +26,11 @@ Get-FalconRole [-Detailed]
 ```powershell
 Get-FalconRole -UserId <id> [-Detailed]
 ```
-### Assign roles to a user
+## Assign roles to a user
 ```powershell
 Add-FalconRole -Ids <id>, <id> -UserId <id>
 ```
-### Revoke roles from a user
+## Revoke roles from a user
 ```powershell
 Remove-FalconRole -Ids <id>, <id> -UserId <id>
 ```

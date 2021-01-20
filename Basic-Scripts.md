@@ -76,12 +76,28 @@ else {
 }
 ```
 
-### Get host information from multiple CIDs
+### Get host information from multiple Falcon instances
 
-**NOTE**: This example requires that you edit `$CIDs` and input values for `<client_id>`, `<client_secret>`, and `<member_cid>` (or enter `$null` if not required). You could define `$CIDs` outside of the script and modify the example to pass $CIDs as a parameter to avoid hardcoding credentials.
+**NOTE**: This example requires that you edit `$CIDs` and input values for `<client_id>`, `<client_secret>`, and `<member_cid>` (or enter `$null` if a member CID is not required).
+
+You could also define `$CIDs` outside of the script and modify the example to pass `$CIDs` as a parameter to avoid hardcoding credentials, or if you have a single credential set and multiple member CIDs, you could change the structure a bit:
 
 ```powershell
-# Basic structure for storing OAuth2 data for associated CIDs
+$ClientID = '<client_id>'
+$ClientSecret = '<client_secret>'
+$CIDs = @('<member_cid>', '<member_cid>')
+```
+
+And you'd need to slightly change the authentication parameters:
+```powershell
+$Param = @{
+    ClientId = $ClientId
+    ClientSecret = $ClientSecret
+    MemberCid = $_
+}
+```
+
+```powershell
 # Basic structure for storing OAuth2 data for associated CIDs
 $CIDs = @(
     @{
@@ -100,14 +116,16 @@ $CIDs.foreach{
     $Param = @{
         ClientId = $_.ClientId
         ClientSecret = $_.ClientSecret
-        MemberCid = $_.MemberCid
+    }
+    if ($_.MemberCid) {
+        $Param['MemberCid'] = $_.MemberCid
     }
     # Authenticate with CID
     Request-FalconToken @Param
 
     try {
         # Gather and export Host data
-        Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\hosts_$($_.Key).csv"
+        Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\hosts_$($_).csv"
     }
     catch {
         # Break 'foreach' loop if host retrieval/export fails

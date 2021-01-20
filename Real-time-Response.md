@@ -1,7 +1,7 @@
 **NOTE**: PSFalcon has a custom command named `Invoke-FalconRTR` that is designed to perform all the necessary steps to initiate a session with one or more hosts, send a command and output the results. 
 
 ```powershell
-Invoke-FalconRTR -BaseCommand ls -Arguments C:\Windows -HostIds <id>, <id> [-QueueOffline]
+Invoke-FalconRTR -Command ls -Arguments C:\Windows -HostIds <id>, <id> [-QueueOffline]
 ```
 
 If you find that your script needs to be more complex, you can follow the instructions below to create a custom Real-time Response workflow with multiple commands.

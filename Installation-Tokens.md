@@ -26,7 +26,6 @@ Edit-FalconInstallToken -Ids <id> -Label "Token no expiration" -ExpiresTimestamp
 Remove-FalconInstallToken -Ids <id>, <id>
 ```
 ## View installation token audit events
-
 ```powershell
 Get-FalconInstallTokenEvent [-Detailed] [-All]
 ```

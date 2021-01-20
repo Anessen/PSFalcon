@@ -70,7 +70,7 @@ $HostId = Get-FalconHost -Filter "hostname:'$Hostname'" -Sort last_seen.desc -Li
 
 if ($HostId) {
     # Contain host
-    Invoke-FalconHostAction -Name contain -Ids $HostId -Verbose -debug
+    Invoke-FalconHostAction -Name contain -Ids $HostId
 }
 else {
     throw "No identifier found for '$Hostname'"

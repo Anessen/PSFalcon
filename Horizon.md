@@ -123,4 +123,4 @@ Get-FalconHorizonSchedule [-CloudPlatform]
 Edit-FalconHorizonSchedule -CloudPlatform aws -ScanSchedule 2h
 ```
 
-[CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/137/falcon-horizon-apis)
+_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/137/falcon-horizon-apis)._

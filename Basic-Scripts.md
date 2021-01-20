@@ -1,5 +1,5 @@
 **WARNING**: The code provided below is for example purposes only. These scripts are offered 'as is' with no support.
-
+***
 # Detections
 
 ## Assign specific detections to a user
@@ -152,5 +152,5 @@ Export filename:
 ```powershell
 Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
 ```
-
+***
 **WARNING**: The code provided above is for example purposes only. These scripts are offered 'as is' with no support.

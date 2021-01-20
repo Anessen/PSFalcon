@@ -4,7 +4,6 @@
 # Detections
 
 ## Assign specific detections to a user
-
 ```powershell
 param(
     [string] $Username,
@@ -32,9 +31,7 @@ Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 # Hosts
 
 ## Find duplicate hosts and hide them
-
 **NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
-
 ```powershell
 param(
     [switch] $Confirm
@@ -62,9 +59,7 @@ else {
     Write-Host "No duplicates found."
 }
 ```
-
 ## Network contain a device by hostname
-
 ```powershell
 param(
     [string] $Hostname
@@ -80,11 +75,8 @@ else {
     throw "No identifier found for '$Hostname'"
 }
 ```
-
 ## Get host information from multiple Falcon instances
-
 **NOTE**: This example requires that you edit `$CIDs` and input values for `<client_id>`, `<client_secret>`, and `<member_cid>` (or `$null` if not required).
-
 ```powershell
 # Basic structure for storing OAuth2 data for associated CIDs
 $CIDs = @(
@@ -125,7 +117,6 @@ $CIDs.foreach{
     }
 }
 ```
-
 To avoid hardcoding credentials, you could define `$CIDs` outside of the script and modify the example to pass `$CIDs` as a parameter.
 
 If you have a single credential set and multiple member CIDs, you could change the structure of `$CIDs` a bit, and slightly modify the authentication parameters and export filename (unless having them in one CSV works for you).
@@ -136,7 +127,6 @@ $ClientID = '<client_id>'
 $ClientSecret = '<client_secret>'
 $CIDs = @('<member_cid>', '<member_cid>')
 ```
-
 Authentication:
 ```powershell
 $Param = @{
@@ -145,7 +135,6 @@ $Param = @{
     MemberCid = $_
 }
 ```
-
 Export filename:
 ```powershell
 Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"

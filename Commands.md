@@ -36,4 +36,4 @@ PS> Request-FalconToken -Help
       Pattern : \w{32}
 ```
 
-_Learn more about [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)._
+_Learn more about [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters) and [Filtering](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)._

@@ -142,5 +142,5 @@ $Param = @{
 }
 ```
 ```powershell
-Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\hosts_$($_).csv"
+Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
 ```

@@ -1,4 +1,4 @@
-**WARNING**: The code provided below is for example purposes only. These scripts are offered 'as is' with no support.
+**WARNING**: The code provided below is for example purposes only and are offered 'as is' with no support.
 ***
 # Detections
 
@@ -153,4 +153,4 @@ Export filename:
 Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
 ```
 ***
-**WARNING**: The code provided above is for example purposes only. These scripts are offered 'as is' with no support.
+**WARNING**: The code provided below is for example purposes only and are offered 'as is' with no support.

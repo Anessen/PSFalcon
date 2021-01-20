@@ -7,7 +7,7 @@
 * Loading the module at the beginning of a PowerShell session or script
 
 ### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
-* Basic command information, finding commands, detail and related parameters
+* Basic command information and finding help
 
 ### [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
 * Common parameters and result pagination

@@ -15,3 +15,5 @@ Import-Module -Name PSFalcon
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='2.0.0'}
 ```
+
+_Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._

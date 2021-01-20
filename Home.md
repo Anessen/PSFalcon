@@ -13,7 +13,7 @@
 * Common parameters and result pagination
 
 ### [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
-* Requesting and revoking OAuth2 access tokens, switching cloud environments, 'child' CIDs
+* Requesting and revoking OAuth2 access tokens, switching cloud environments, and 'child' CIDs
 
 ### [Filtering and the Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)
 * Using the Falcon Query Language to limit results and combining multiple filter conditions and values

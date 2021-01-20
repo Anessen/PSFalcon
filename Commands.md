@@ -27,8 +27,8 @@ PS> Request-FalconToken -Help
 
   -Cloud [String]
     Destination cloud
-      Position : 3
-      Values : eu-1, us-gov-1, us-1, us-2
+    Enum : eu-1, us-gov-1, us-1, us-2  
+    Position : 3
 
   -MemberCid [String]
     Child environment to use for authentication in multi-CID configurations

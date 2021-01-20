@@ -9,22 +9,22 @@ Get-FalconIOC -Type domain, ipv4 [-Detailed] [-All]
 Get-FalconIOC -Ids domain:crowdstrike.com
 ```
 
-### Create a custom IOC
+## Create a custom IOC
 ```powershell
 New-FalconIOC -Type domain -Value example.com -Description description -ShareLevel red -Source source -Policy detect -ExpirationDays 30
 ```
 
-### Get the device count for a custom IOC
+## Get the device count for a custom IOC
 ```powershell
 Get-FalconIOCTotal -Type domain -Value crowdstrike.com
 ```
 
-### List the Host identifiers that have observed a custom IOC
+## List the Host identifiers that have observed a custom IOC
 ```powershell
 Get-FalconIOCHost -Type domain -Value crowdstrike.com [-All]
 ```
 
-### Find the process identifier of an IOC found on a host
+## Find the process identifier of an IOC found on a host
 ```powershell
 Get-FalconIOCProcess -Type domain -Value crowdstrike.com -HostId <id> [-Detailed] [-All]
 ```

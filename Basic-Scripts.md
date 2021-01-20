@@ -28,6 +28,7 @@ Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 ```
 
 # Hosts
+**NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
 
 ### Find duplicate hosts and hide them
 ```powershell
@@ -72,5 +73,49 @@ if ($HostId) {
 }
 else {
     throw "No identifier found for '$Hostname'"
+}
+```
+
+### Get host information from multiple CIDs
+
+**NOTE**: This example requires that you edit `$CIDs` and input values for `<client_id>`, `<client_secret>`, and `<member_cid>` (or enter `$null` if not required). You could define `$CIDs` outside of the script and modify the example to pass $CIDs as a parameter to avoid hardcoding credentials.
+
+```powershell
+# Basic structure for storing OAuth2 data for associated CIDs
+# Basic structure for storing OAuth2 data for associated CIDs
+$CIDs = @(
+    @{
+        ClientId = '<client_id>'
+        ClientSecret = '<client_secret>'
+        MemberCid = '<member_cid>'
+    },
+    @{
+        ClientId = '<client_id>'
+        ClientSecret = '<client_secret>'
+        MemberCid = '<member_cid>'
+    }
+)
+# Enumerate $CIDs
+$CIDs.foreach{
+    $Param = @{
+        ClientId = $_.ClientId
+        ClientSecret = $_.ClientSecret
+        MemberCid = $_.MemberCid
+    }
+    # Authenticate with CID
+    Request-FalconToken @Param
+
+    try {
+        # Gather and export Host data
+        Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\hosts_$($_.Key).csv"
+    }
+    catch {
+        # Break 'foreach' loop if host retrieval/export fails
+        throw $_
+    }
+    finally {
+        # Remove authentication token and credentials for next CID
+        Revoke-FalconToken
+    }
 }
 ```

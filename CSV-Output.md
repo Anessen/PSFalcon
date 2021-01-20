@@ -3,13 +3,11 @@ The `Export-FalconReport` command translates the API response into something tha
 If one of these examples doesn't provide the specific data you're seeking, try using the PSFalcon command, manipulating the results, and using `Export-Csv` directly.
 
 ## Custom IOCs
-
 ```powershell
 Get-FalconIOC [-Detailed] [-All] | Export-FalconReport -Path .\IOCs.csv
 ```
 
 ## Custom Scripts and Put Files (Real-time Response)
-
 ```powershell
 Get-FalconScript [-Detailed] [-All] | Export-FalconReport -Path .\Scripts.csv
 ```
@@ -18,7 +16,6 @@ Get-FalconPutFile [-Detailed] [-All] | Export-FalconReport -Path .\PutFiles.csv
 ```
 
 ## Detections and Incidents
-
 ```powershell
 Get-FalconDetection [-Detailed] [-All] | Export-FalconReport -Path .\Detections.csv
 ```
@@ -27,7 +24,6 @@ Get-FalconIncident [-Detailed] [-All] | Export-FalconReport -Path .\Incidents.cs
 ```
 
 ## Hosts and Host Groups
-
 ```powershell
 Get-FalconHost [-Detailed] [-All] | Export-FalconReport -Path .\Hosts.csv
 ```
@@ -36,9 +32,7 @@ Get-FalconHostGroup [-Detailed] [-All] | Export-FalconReport -Path .\HostGroups.
 ```
 
 ## Policies
-
 **NOTE**: Because settings vary between platforms, your output will be limited unless you filter for each Operating System.
-
 ```powershell
 Get-FalconDeviceControlPolicy -Filter "platform_name:'Windows'" [-Detailed] [-All] | Export-FalconReport -Path .\DeviceControlPolicies.csv
 ```
@@ -53,13 +47,11 @@ Get-FalconSensorUpdatePolicy -Filter "platform_name:'Windows'" [-Detailed] [-All
 ```
 
 ## Users
-
 ```powershell
 Get-FalconUser [-Detailed] [-All] | Export-FalconReport -Path .\Users.csv
 ```
 
 ## Vulnerabilities
-
 ```powershell
 Get-FalconVulnerability [-Detailed] [-All] | Export-FalconReport -Path .\Vulnerabilities.csv
 ```

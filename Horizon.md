@@ -1,4 +1,4 @@
-### Register an AWS account
+## Register an AWS account
 
 ```powershell
 New-FalconHorizonAwsAccount -AccountId <id>
@@ -31,7 +31,7 @@ A properly provisioned account will display status: `Event_DiscoverAccountStatus
 Remove-FalconHorizonAwsAccount -Ids <id>
 ```
 
-### Register an AWS organizational account
+## Register an AWS organizational account
 
 ```powershell
 New-FalconHorizonAwsAccount -AccountId <id> -OrganizationId <id>
@@ -59,7 +59,7 @@ A properly provisioned account will display status: `Event_DiscoverAccountStatus
 Remove-FalconHorizonAwsAccount -OrganizationIds <id>
 ```
 
-### Register an Azure account
+## Register an Azure account
 
 ```powershell
 New-FalconHorizonAzureAccount -SubscriptionId <id> -TenantId <id>
@@ -93,7 +93,7 @@ Edit-FalconHorizonAzureAccount -Id <id> [-TenantId <id>]
 Remove-FalconHorizonAzureAccount -Ids <id>, <id>
 ```
 
-### Retrieve a policy
+## Retrieve a policy
 
 ```powershell
 Get-FalconHorizonPolicy -Ids <id>, <id>

@@ -127,7 +127,9 @@ $CIDs.foreach{
 
 To avoid hardcoding credentials, you could define `$CIDs` outside of the script and modify the example to pass `$CIDs` as a parameter.
 
-If you have a single credential set and multiple member CIDs, you could change the structure of `$CIDs` a bit:
+If you have a single credential set and multiple member CIDs, you could change the structure of `$CIDs` a bit, and slightly modify the authentication parameters and export filename (unless having them in one CSV works for you).
+
+`$CIDs` structure:
 
 ```powershell
 $ClientID = '<client_id>'
@@ -135,7 +137,7 @@ $ClientSecret = '<client_secret>'
 $CIDs = @('<member_cid>', '<member_cid>')
 ```
 
-You'd also need to slightly change the authentication parameters and export filename (unless having them in one CSV works for you):
+Authentication:
 
 ```powershell
 $Param = @{
@@ -144,6 +146,9 @@ $Param = @{
     MemberCid = $_
 }
 ```
+
+Export filename:
+
 ```powershell
 Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
 ```

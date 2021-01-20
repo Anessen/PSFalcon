@@ -35,3 +35,5 @@ PS> Request-FalconToken -Help
       Position : 4
       Pattern : \w{32}
 ```
+
+_Learn more about [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)._

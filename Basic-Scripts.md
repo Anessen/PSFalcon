@@ -99,16 +99,14 @@ $CIDs.foreach{
     $Param = @{
         ClientId = $_.ClientId
         ClientSecret = $_.ClientSecret
-    }
-    if ($_.MemberCid) {
-        $Param['MemberCid'] = $_.MemberCid
+        MemberCid = $_.MemberCid
     }
     # Authenticate with CID
     Request-FalconToken @Param
 
     try {
         # Gather and export Host data
-        Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\hosts_$($_).csv"
+        Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\hosts_$($_.MemberCid).csv"
     }
     catch {
         # Break 'foreach' loop if host retrieval/export fails
@@ -131,7 +129,7 @@ $ClientSecret = '<client_secret>'
 $CIDs = @('<member_cid>', '<member_cid>')
 ```
 
-And you'd also need to slightly change the authentication parameters:
+You'd also need to slightly change the authentication parameters and export filename:
 
 ```powershell
 $Param = @{
@@ -139,4 +137,7 @@ $Param = @{
     ClientSecret = $ClientSecret
     MemberCid = $_
 }
+```
+```powershell
+Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\hosts_$($_).csv"
 ```

@@ -32,4 +32,4 @@ Authentication tokens expire after 30 minutes. If you wish to revoke an existing
 Revoke-FalconToken
 ```
 
-_Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)_
+_Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._

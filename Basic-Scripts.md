@@ -20,13 +20,11 @@ $Ids = Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -All
 if (-not $Ids) {
     throw "No detections found matching '$Filename'"
 }
-else {
-    # Notify user that detections are being assigned
-    Write-Host "Assigning $($Ids.count) detections involving '$Filename' to '$Username'..."
+# Notify user that detections are being assigned
+Write-Host "Assigning $($Ids.count) detections involving '$Filename' to '$Username'..."
 
-    # Modify detections
-    Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
-}
+# Modify detections
+Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 ```
 
 # Hosts

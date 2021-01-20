@@ -78,8 +78,7 @@ else {
 
 ### Get host information from multiple Falcon instances
 
-**NOTE**: This example requires that you edit `$CIDs` and input values for `<client_id>`, `<client_secret>`, and `<member_cid>` (or `$null
-` if not required).
+**NOTE**: This example requires that you edit `$CIDs` and input values for `<client_id>`, `<client_secret>`, and `<member_cid>` (or `$null` if not required).
 
 ```powershell
 # Basic structure for storing OAuth2 data for associated CIDs

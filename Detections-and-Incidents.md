@@ -36,4 +36,4 @@ Edit-FalconDetection -Ids <id>, <id> -Status new
 Edit-FalconDetection -Ids <id>, <id> -ShowInUi $false
 ```
 
-[CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/86/detections-monitoring-apis)
+_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/86/detections-monitoring-apis)._

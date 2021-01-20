@@ -23,7 +23,7 @@ $Batch = Start-FalconSession -HostIds <id>, <id>
 ### Send a command using appropriate permissions
 
 ```powershell
-Invoke-FalconCommand -BaseCommand ls -Arguments C:\Windows -BatchId $Batch.batch_id
+Invoke-FalconCommand -Command ls -Arguments C:\Windows -BatchId $Batch.batch_id
 ```
 
 ### Refresh the session to prevent expiration
@@ -45,7 +45,7 @@ $Session = Start-FalconSession -HostId <id>
 ### Send a command using appropriate permissions
 
 ```powershell
-$Command = Invoke-FalconCommand -BaseCommand ls -Arguments C:\Windows -SessionId $Session.session_id
+$Command = Invoke-FalconCommand -Command ls -Arguments C:\Windows -SessionId $Session.session_id
 ```
 
 ### Retrieve command results

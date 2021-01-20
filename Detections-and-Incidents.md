@@ -12,6 +12,8 @@ Get-FalconBehavior [-Detailed] [-All]
 Invoke-FalconIncidentAction -Name update_status -Value in_progress -Ids <id>, <id>
 ```
 
+**NOTE**: Corresponding detections can be updated with the `-UpdateDetects` and `-OverwriteDetects` parameters, using a value of `$true`.
+
 ## Find detections
 ```powershell
 Get-FalconDetection -Filter "status:'new'+first_behavior:>'2020-01-01'" -Sort first_behavior.desc [-Detailed] [-All]
@@ -33,7 +35,5 @@ Edit-FalconDetection -Ids <id>, <id> -ShowInUi $false
 ```powershell
 Get-FalconScore [-All]
 ```
-
-**NOTE**: Corresponding detections can be updated with the `-UpdateDetects` and `-OverwriteDetects` parameters, using a value of `$true`.
 
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/86/detections-monitoring-apis)._

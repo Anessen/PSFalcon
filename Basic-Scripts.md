@@ -59,3 +59,20 @@ else {
     Write-Host "No duplicates found."
 }
 ```
+
+### Network contain a device by hostname
+```powershell
+param(
+    [string] $Hostname
+)
+# Get identifier for target system and choose the most recently seen (in case of duplicates)
+$HostId = Get-FalconHost -Filter "hostname:'$Hostname'" -Sort last_seen.desc -Limit 1
+
+if ($HostId) {
+    # Contain host
+    Invoke-FalconHostAction -Name contain -Ids $HostId -Verbose -debug
+}
+else {
+    throw "No identifier found for '$Hostname'"
+}
+```

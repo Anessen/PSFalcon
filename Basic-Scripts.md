@@ -3,6 +3,7 @@
 # Detections
 
 ## Assign specific detections to a user
+
 ```powershell
 param(
     [string] $Username,
@@ -28,7 +29,11 @@ Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 ```
 
 # Hosts
+
 ## Find duplicate hosts and hide them
+
+**NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
+
 ```powershell
 param(
     [switch] $Confirm
@@ -56,9 +61,9 @@ else {
     Write-Host "No duplicates found."
 }
 ```
-**NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
 
 ## Network contain a device by hostname
+
 ```powershell
 param(
     [string] $Hostname

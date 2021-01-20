@@ -80,23 +80,6 @@ else {
 
 **NOTE**: This example requires that you edit `$CIDs` and input values for `<client_id>`, `<client_secret>`, and `<member_cid>` (or enter `$null` if a member CID is not required).
 
-You could also define `$CIDs` outside of the script and modify the example to pass `$CIDs` as a parameter to avoid hardcoding credentials, or if you have a single credential set and multiple member CIDs, you could change the structure a bit:
-
-```powershell
-$ClientID = '<client_id>'
-$ClientSecret = '<client_secret>'
-$CIDs = @('<member_cid>', '<member_cid>')
-```
-
-And you'd need to slightly change the authentication parameters:
-```powershell
-$Param = @{
-    ClientId = $ClientId
-    ClientSecret = $ClientSecret
-    MemberCid = $_
-}
-```
-
 ```powershell
 # Basic structure for storing OAuth2 data for associated CIDs
 $CIDs = @(
@@ -135,5 +118,25 @@ $CIDs.foreach{
         # Remove authentication token and credentials for next CID
         Revoke-FalconToken
     }
+}
+```
+
+To avoid hardcoding credentials, you could define `$CIDs` outside of the script and modify the example to pass `$CIDs` as a parameter .
+
+If you have a single credential set and multiple member CIDs, you could change the structure of `$CIDs` a bit:
+
+```powershell
+$ClientID = '<client_id>'
+$ClientSecret = '<client_secret>'
+$CIDs = @('<member_cid>', '<member_cid>')
+```
+
+And you'd also need to slightly change the authentication parameters:
+
+```powershell
+$Param = @{
+    ClientId = $ClientId
+    ClientSecret = $ClientSecret
+    MemberCid = $_
 }
 ```

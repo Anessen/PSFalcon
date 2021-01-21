@@ -45,6 +45,10 @@ New-FalconHostGroup -GroupType static -Name 'Test Group 45' -Description 'A demo
 ```powershell
 Invoke-FalconHostGroupAction -Name add-hosts -Id <id> -HostIds <id>, <id>
 ```
+## Create a dynamic host group
+```powershell
+New-FalconHostGroup -GroupType dynamic -Name Dynamic_Group -AssignmentRule "hostname:'*-BL',hostname:'*-DT'"
+```
 ## Finding host groups
 ```powershell
 Get-FalconHostGroup [-Detailed] [-All]

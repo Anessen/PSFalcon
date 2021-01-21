@@ -4,7 +4,7 @@ Get-FalconStream -AppId psfalcon
 ```
 ### Refresh an active event stream
 ```powershell
-Update-FalconStream -ActionName refresh_active_stream_session -AppId psfalcon -Partition 0
+Update-FalconStream -AppId psfalcon -Partition 0
 ```
 ### Capture a sample of events from a stream
 ```powershell

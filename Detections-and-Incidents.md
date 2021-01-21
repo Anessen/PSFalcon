@@ -16,6 +16,7 @@ Invoke-FalconIncidentAction -Name update_status -Value in_progress -Ids <id>, <i
 Get-FalconDetection -Filter "status:'new'+first_behavior:>'2020-01-01'" -Sort first_behavior.desc [-Detailed] [-All]
 ```
 ### Modify the status of multiple detections
+**NOTE**: `Edit-FalconDetection` will automatically group requests in batches of 1,000 detections.
 ```powershell
 Edit-FalconDetection -Ids <id>, <id> -Status new
 ```

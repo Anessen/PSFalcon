@@ -3,7 +3,7 @@
 ***
 # Detections
 
-## Assign specific detections to a user
+## Assign detections to a user
 ```powershell
 param(
     [string] $Username,

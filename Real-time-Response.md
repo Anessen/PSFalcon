@@ -58,7 +58,7 @@ Get-FalconSession [-Detailed] [-All]
 ```powershell
 Get-FalconSession -Ids <id>, <id> -Queue
 ```
-### Retrieve detail about queued Real-time Response sessions
+## Retrieve detail about queued Real-time Response sessions
 **NOTE**: PSFalcon has a custom command named `Get-FalconQueue` which will create a CSV file with information about sessions that have pending queued commands or have been created in the last 7 days (by default). If you wish to get more specific, you can use `Get-FalconSession` to find queued sessions, and the command below to get detailed information.
 ```powershell
 Get-FalconQueue [-Days]

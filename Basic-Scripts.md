@@ -3,7 +3,7 @@
 ***
 # Detections
 
-## Assign detections to a user
+## Assign detections involving a specific file to a user
 ```powershell
 param(
     [string] $Username,

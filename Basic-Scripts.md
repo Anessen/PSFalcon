@@ -28,8 +28,27 @@ Write-Host "Assigning $($Ids.count) detections involving '$Filename' to '$Userna
 Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 ```
 
+## Find and hide large numbers of detections
+```powershell
+param (
+    [string] $Filename
+)
+do {
+    # Gather 1,000 detections (edit maximum) involving $Filename
+    $Ids = Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -Limit 1000
+    if ($Ids) {
+        # Hide 1,000 detections
+        Edit-FalconDetection -Ids $Ids -ShowInUi $false
+        # Pause to give the API time to clear them out before the next request
+        Start-Sleep -Seconds 5
+    }
+}
+while (
+    # Exit once no more detections are available
+    $Ids
+)
+```
 # Hosts
-
 ## Find duplicate hosts and hide them
 **NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
 ```powershell

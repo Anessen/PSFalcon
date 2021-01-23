@@ -34,11 +34,13 @@ param (
     [string] $Filename
 )
 do {
-    # Gather 1,000 detections (edit maximum) involving $Filename
+    # Gather up to 1,000 detections (maximum for an edit request) involving $Filename
     $Ids = Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -Limit 1000
+
     if ($Ids) {
-        # Hide 1,000 detections
+        # Hide group of detections
         Edit-FalconDetection -Ids $Ids -ShowInUi $false
+
         # Pause to give the API time to clear them out before the next request
         Start-Sleep -Seconds 5
     }

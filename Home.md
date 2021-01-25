@@ -96,3 +96,6 @@
 
 ### Real-time Response
 * [Run a command against a group of devices](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#run-a-command-against-a-group-of-devices)
+
+### Vulnerabilities
+* [Create a report with additional host fields](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#create-a-report-with-additional-host-fields)

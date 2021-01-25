@@ -196,7 +196,7 @@ if ($Members) {
         Command = $Command
         HostIds = $Members
     }
-    switch -Regex ($PSBoundParameters.Keys) {
+    switch ($PSBoundParameters.Keys) {
         # Append parameters from user input that match Invoke-FalconRTR
         { $_ -ne 'GroupName' } {
             $Param[$_] = $PSBoundParameters.$_

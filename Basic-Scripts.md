@@ -163,6 +163,57 @@ Export filename:
 ```powershell
 Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
 ```
+# Real-time Response
+## Run a command against a group of devices
+```powershell
+param(
+    [Parameter(Mandatory = $true)]
+    [string] $GroupName,
+
+    [Parameter(Mandatory = $true)]
+    [string] $Command,
+
+    [string] $Arguments,
+
+    [boolean] $QueueOffline
+)
+# Find group identifier using 'name' filter
+$GroupId = Get-FalconHostGroup -Filter "name:'$($GroupName.ToLower())'"
+
+if ($GroupId) {
+    # Get host identifiers for members of $GroupId
+    $Members = Get-FalconHostGroupMember -Id $GroupId -Limit 500 -All
+}
+else {
+    throw "No host group found matching '$GroupName'"
+}
+if ($Members) {
+    # Set filename for CSV export
+    $ExportName = "$pwd\rtr_$($Command -replace ' ','_')_$GroupId.csv"
+
+    # Set base parameters for Invoke-FalconRTR
+    $Param = @{
+        Command = $Command
+        HostIds = $Members
+    }
+    switch -Regex ($PSBoundParameters.Keys) {
+        # Append parameters from user input that match Invoke-FalconRTR
+        { $_ -ne 'GroupName' } {
+            $Param[$_] = $PSBoundParameters.$_
+        }
+    }
+    # Issue command and export results to CSV
+    Invoke-FalconRTR @Param | Export-Csv -Path $ExportName
+    
+    if (Test-Path $ExportName) {
+        # Display CSV file
+        Get-ChildItem $ExportName
+    }
+}
+else {
+    throw "No members found in host group $GroupId ('$GroupName')"
+}
+```
 ***
 **WARNING**: The code provided above is for example purposes only and is offered 'as is' with no support.
 ***

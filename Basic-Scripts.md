@@ -211,7 +211,7 @@ if ($Members) {
     }
 }
 else {
-    throw "No members found in host group $GroupId ('$GroupName')"
+    throw "No members found in host group '$GroupName' [$GroupId]"
 }
 ```
 ***

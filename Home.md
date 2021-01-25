@@ -26,13 +26,12 @@
 ### [Custom IOCs](https://github.com/CrowdStrike/psfalcon/wiki/Custom-IOCs)
 * Create, find, modify and delete Custom Indicators of Compromise
 
+### [Cloud Workload Discovery](https://github.com/CrowdStrike/psfalcon/wiki/Cloud-Workload-Discovery)
+* Register and list cloud accounts and settings for Cloud Workload Discovery
+
 ### [Detections and Incidents](https://github.com/CrowdStrike/psfalcon/wiki/Detections-and-Incidents)
 * Find or modify detections and incidents, including assignment to users, status changes and hiding detections
 * Find CrowdScore values
-
-### [Discover for Cloud](https://github.com/CrowdStrike/psfalcon/wiki/Discover-for-Cloud)
-* Register and find cloud accounts for cloud workload discovery in Falcon Discover for Cloud
-* Review global Falcon Discover for Cloud settings
 
 ### [Event Streams](https://github.com/CrowdStrike/psfalcon/wiki/Event-Streams)
 * Initiate and view Event Streams

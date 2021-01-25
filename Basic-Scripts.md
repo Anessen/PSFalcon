@@ -214,6 +214,59 @@ else {
     throw "No members found in host group '$GroupName' [$GroupId]"
 }
 ```
+# Vulnerabilities
+## Create a report with additional Host fields
+```powershell
+param(
+    [int] $Days = 7,
+    [array] $Fields = @('last_seen', 'mac_address', 'serial_number', 'external_ip')
+)
+if ($Fields -notcontains 'device_id') {
+    # Force 'device_id' as a field to be used for matching results
+    $Fields += ,'device_id'
+}
+# Set filename for CSV export
+$ExportName = "$pwd\Vulnerabilities_$((Get-Date).AddDays(-$Days).ToString('yyyyMMdd'))_to_$(Get-Date -Format FileDate).csv"
+
+# Gather vulnerabilities within date range (default: last 7 days) and export to CSV
+$Param = @{
+    Filter = "created_timestamp:>'Last $Days days'"
+    Limit = 400
+    Detailed = $true
+    All = $true
+    Verbose = $true
+}
+Get-FalconVulnerability @Param | Export-FalconReport -Path $ExportName
+
+if (Test-Path $ExportName) {
+    # Import newly created vulnerability report
+    $CSV = Import-Csv -Path $ExportName
+
+    # Gather host ids
+    $HostIds = ($CSV | Group-Object aid).Name
+
+    # Get detailed information about hosts to append to CSV
+    $Param = @{
+        Ids = $HostIds
+        Verbose = $true
+    }
+    $HostInfo = Get-FalconHost @Param | Select-Object $Fields
+
+    foreach ($Item in $HostInfo) {
+        foreach ($Result in ($CSV | Where-Object { $_.aid -eq $Item.device_id })) {
+            foreach ($Property in ($Item.PSObject.Properties | Where-Object { $_.Name -ne 'device_id' })) {
+                # Add $Fields from Get-FalconHost, excluding 'device_id' (already present as 'aid')
+                $Result.PSObject.Properties.Add((New-Object PSNoteProperty($Property.Name, $Property.Value)))
+            }
+        }
+    }
+    # Re-export CSV with added fields
+    $CSV | Export-Csv -Path $ExportName -NoTypeInformation -Force
+}
+else {
+    throw "No vulnerabilities created within the last $Days days"
+}
+```
 ***
 **WARNING**: The code provided above is for example purposes only and is offered 'as is' with no support.
 ***

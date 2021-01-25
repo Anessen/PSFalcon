@@ -38,6 +38,9 @@ do {
     $Ids = Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -Limit 1000
 
     if ($Ids) {
+        # Export list of ids being hidden
+        $Ids | Export-Csv -Path $pwd\hidden_detections.csv -NoTypeInformation -Append -Force
+
         # Hide group of detections
         Edit-FalconDetection -Ids $Ids -ShowInUi $false
 

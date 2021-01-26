@@ -37,6 +37,9 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM           1322 README.md
 ```
 
+**NOTE**: Extracting the `psfalcon-master` archive into any location other than a folder named `PSFalcon` will cause
+the `Import-Module -Name PSFalcon` command to fail.
+
 ## Folder Redirection
 If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these cases, you can extract PSFalcon to a different folder and import the module directly from that folder when you want to use it.
 

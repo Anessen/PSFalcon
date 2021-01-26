@@ -14,13 +14,13 @@ Move-Item ./psfalcon-master/ $HOME/.local/share/powershell/Modules/PSFalcon/2.0.
 ```
 * Windows (PowerShell Core/6+)
 ```powershell
-Expand-Archive ./psfalcon-master.zip .
-Move-Item ./psfalcon-master/ $HOME\Documents\PowerShell\Modules\PSFalcon\2.0.0
+Expand-Archive .\psfalcon-master.zip .
+Move-Item .\psfalcon-master\ $HOME\Documents\PowerShell\Modules\PSFalcon\2.0.0
 ```
 * Windows (PowerShell Desktop/5.1)
 ```powershell
-Expand-Archive ./psfalcon-master.zip .
-Move-Item ./psfalcon-master/ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\2.0.0
+Expand-Archive .\psfalcon-master.zip .
+Move-Item .\psfalcon-master\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\2.0.0
 ```
 
 If done correctly, your PSFalcon module folder will look like this:

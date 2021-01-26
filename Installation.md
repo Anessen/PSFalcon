@@ -23,7 +23,7 @@ Expand-Archive .\psfalcon-master.zip .
 Move-Item .\psfalcon-master\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\2.0.0
 ```
 
-If done correctly, your PSFalcon module folder will look like this:
+If done correctly, your `PSFalcon\2.0.0` module folder will look like this:
 ```powershell
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----

@@ -2,9 +2,8 @@
 
 ### [Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation)
 * Downloading and installing the module using the PowerShell Gallery or GitHub
-
-### [Importing](https://github.com/CrowdStrike/psfalcon/wiki/Importing)
-* Loading the module at the beginning of a PowerShell session or script
+* Importing the module
+* Basic troubleshooting and bug reports
 
 ### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
 * Basic command information and finding help

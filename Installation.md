@@ -45,6 +45,8 @@ If you have “Folder Redirection” in place, the `$HOME` folder may not be pro
 
 For instance, if you unpacked it in a folder called "PSFalcon", you could navigate to the directory that folder is contained in and point `Import-Module` to the directory:
 ```powershell
+Expand-Archive ./psfalcon-master.zip .
+Move-Item ./psfalcon-master/ .\PSFalcon
 Import-Module .\PSFalcon
 ```
 ## Importing the Module

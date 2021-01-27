@@ -7,7 +7,7 @@ If you're unable to use the PowerShell Gallery to install the module, you can do
 1. Download the [master repository](https://github.com/CrowdStrike/psfalcon/archive/master.zip) as a ZIP.
 2. Unpack the archive and move the contents of the `psfalcon-master` folder into your User Modules directory:
 
-**NOTE**: These commands assume you are running in a standard user PowerShell session (i.e. non-admin) and have [Folder Redirection]() disabled.
+**NOTE**: These commands assume you are running in a standard user PowerShell session (i.e. non-admin) and have [Folder Redirection](https://github.com/CrowdStrike/psfalcon/wiki/Installation#folder-redirection) disabled.
 
 * Linux/MacOS
 ```powershell

@@ -6,7 +6,6 @@ If you're unable to use the PowerShell Gallery to install the module, you can do
 
 1. Download the [master repository](https://github.com/CrowdStrike/psfalcon/archive/master.zip) as a ZIP.
 2. Unpack the archive and move the contents of the `psfalcon-master` folder into your User Modules directory:
-
 * Linux/MacOS
 ```powershell
 Expand-Archive ./psfalcon-master.zip .
@@ -22,7 +21,6 @@ Move-Item .\psfalcon-master\ $HOME\Documents\PowerShell\Modules\PSFalcon\2.0.0
 Expand-Archive .\psfalcon-master.zip .
 Move-Item .\psfalcon-master\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\2.0.0
 ```
-
 If done correctly, your `PSFalcon\2.0.0` module folder will look like this:
 ```powershell
 Mode                 LastWriteTime         Length Name
@@ -36,10 +34,8 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM            944 PSFalcon.psm1
 -----           1/25/2021 10:37 AM           1322 README.md
 ```
-
 **NOTE**: Extracting the `psfalcon-master` archive into any location other than a folder named `PSFalcon` will cause
 the `Import-Module -Name PSFalcon` command to fail.
-
 ## Folder Redirection
 If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these cases, you can extract PSFalcon and import the module directly:
 ```powershell
@@ -48,7 +44,17 @@ Move-Item .\psfalcon-master\ .\PSFalcon
 Import-Module .\PSFalcon
 ```
 ## Importing the Module
-Once installed, PSFalcon needs to be [imported into PowerShell](https://github.com/CrowdStrike/psfalcon/wiki/Importing) whenever you wish to use the included commands.
+The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.
+### During a session
+**NOTE**: The `Import-Module` command can be added to your PowerShell `$PROFILE` to automatically load the module when you start PowerShell.
+```powershell
+Import-Module -Name PSFalcon
+```
+### During the beginning of a script
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='2.0.0'}
+```
+_Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._
 ## Basic Troubleshooting
 The `Start-Transcript` and `Stop-Transcript` PowerShell commands capture a PowerShell session to a log file, and using the `-Verbose` and `-Debug` parameters with each PSFalcon command will output additional information which can be useful in troubleshooting efforts.
 

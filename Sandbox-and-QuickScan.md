@@ -1,11 +1,16 @@
 ## Submit a file for analysis
-TO_DO
 ### Upload files for submission
-TO_DO
+```powershell
+$Sample = Send-FalconSample -Path C:\virus.exe -Filename virus.exe -Comment 'bad file'
+```
 ### Submit an uploaded sample for analysis in a sandbox environment
-TO_DO
+```powershell
+$Submission = New-FalconSubmission -Sha256 $Sample.sha256 -EnvironmentId win7_x86 -SubmitName virus.exe
+```
 ### Check the progress of samples previously submitted for analysis
-TO_DO
+```powershell
+Get-FalconSubmission -Ids $Submission.id
+```
 ## Submit an archive file for analysis
 TO_DO
 ## Analyze large volumes of files with Falcon QuickScan

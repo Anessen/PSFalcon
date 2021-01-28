@@ -214,6 +214,49 @@ else {
     throw "No members found in host group '$GroupName' [$GroupId]"
 }
 ```
+# Sensor Installers
+## Download the installer package assigned to a Sensor Update policy
+```powershell
+param(
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{32}')]
+    [string] $PolicyId
+)
+# Retrieve Sensor Update policy detail
+$Policy = Get-FalconSensorUpdatePolicy -Ids $PolicyId
+
+if ($Policy) {
+    # Capture OS name and assigned build version
+    $PlatformName = $Policy.platform_name.ToLower()
+    $BuildVersion = ($Policy.settings.build).Split('|')[0]
+
+    # Get list of available installers for OS
+    $Installers = Get-FalconInstaller -Filter "platform:'$PlatformName'" -Detailed
+}
+else {
+    throw "No policy found matching '$PolicyId'"
+}
+if ($Installers) {
+    # Select specific installer package matching the Sensor Update policy build version
+    $Match = $Installers | Where-Object { $_.version -match "^\d\.\d{1,2}\.$BuildVersion" }
+
+    if ($Match) {
+       # Capture SHA256 and output filename
+       $InstallerId = $Match.sha256
+       $Filename = $Match.name
+    }
+}
+else {
+    throw "Unable to retrieve installer list; check client permissions"
+}
+if ($InstallerId -and $Filename) {
+    # Download the installer package
+    Receive-FalconInstaller -Id $InstallerId -Path "$pwd\$Filename"
+}
+else {
+    throw "No sensor installer available matching '$BuildVersion'"
+}
+```
 # Vulnerabilities
 ## Create a report with additional Host fields
 ```powershell

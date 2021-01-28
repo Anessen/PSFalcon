@@ -231,7 +231,7 @@ if ($Policy) {
     $BuildVersion = ($Policy.settings.build).Split('|')[0]
 
     # Get list of available installers for OS
-    $Installers = Get-FalconInstaller -Filter "platform:'$PlatformName'" -Detailed
+    $Installers = Get-FalconInstaller -Filter "platform:'$PlatformName'" -Detailed -ErrorAction 'SilentlyContinue'
 }
 else {
     throw "No policy found matching '$PolicyId'"

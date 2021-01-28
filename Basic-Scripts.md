@@ -223,7 +223,7 @@ param(
     [string] $PolicyId
 )
 # Retrieve Sensor Update policy detail
-$Policy = Get-FalconSensorUpdatePolicy -Ids $PolicyId
+$Policy = Get-FalconSensorUpdatePolicy -Ids $PolicyId -ErrorAction 'SilentlyContinue'
 
 if ($Policy) {
     # Capture OS name and assigned build version
@@ -231,7 +231,7 @@ if ($Policy) {
     $BuildVersion = ($Policy.settings.build).Split('|')[0]
 
     # Get list of available installers for OS
-    $Installers = Get-FalconInstaller -Filter "platform:'$PlatformName'" -Detailed -ErrorAction 'SilentlyContinue'
+    $Installers = Get-FalconInstaller -Filter "platform:'$PlatformName'" -Detailed
 }
 else {
     throw "No policy found matching '$PolicyId'"

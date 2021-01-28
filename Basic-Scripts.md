@@ -250,6 +250,14 @@ else {
     throw "Unable to retrieve installer list; check client permissions"
 }
 if ($InstallerId -and $Filename) {
+    if (Test-Path "$pwd\$Filename") {
+        # Check for existing file and compare SHA256 hashes
+        $ExistingHash = (Get-FileHash -Algorithm SHA256 -Path "$pwd\$Filename").Hash.ToLower()
+
+        if ($ExistingHash -eq $InstallerId) {
+            throw "File already exists [$InstallerId]"
+        } 
+    }    
     # Download the installer package
     Receive-FalconInstaller -Id $InstallerId -Path "$pwd\$Filename"
 }

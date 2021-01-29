@@ -37,11 +37,16 @@ Get-FalconReport -Ids <id>, <id> -Summary
 Get-FalconReport -Ids <id>, <id>
 ```
 ## Download artifacts
+**NOTE**: The identifiers needed to download artifacts can be found in a sandbox report.
+```powershell
+$Report = Get-FalconReport -Ids <id>
+```
 ### Download a strict IOC pack
-TO_DO
-### Find malware samples or sandbox reports
-TO_DO
-### Check your submission quota
-TO_DO
-
+```powershell
+Receive-FalconArtifact -Id $Report.ioc_report_strict_csv_artifact_id -Path .\ioc_report_strict_csv_artifact_id.csv
+```
+## Check your submission quota
+```powershell
+Get-FalconSubmissionQuota
+```
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/92/falcon-x-apis)._

@@ -47,7 +47,8 @@
 ### [Sandbox and QuickScan](https://github.com/CrowdStrike/psfalcon/wiki/Sandbox-and-QuickScan)
 * Upload and submit samples to the Falcon X Sandbox and Falcon QuickScan
 * Find information about previous submissions
-* Download reports and artifacts
+* View reports
+* Download artifacts
 ### [Sensor Installers](https://github.com/CrowdStrike/psfalcon/wiki/Sensor-Installers)
 * Find and download Falcon Sensor installation packages for different Operating Systems
 ### [Spotlight](https://github.com/CrowdStrike/psfalcon/wiki/Spotlight)

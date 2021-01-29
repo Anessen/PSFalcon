@@ -27,11 +27,16 @@ Get-FalconQuickScan -Filter "created_timestamp:>'Last 7 days'" [-Detailed]
 ```powershell
 Get-FalconQuickScan -Ids <id>
 ```
-## Download reports, IOC packs, and PCAP files
-### Download a summary
-TO_DO
-### Download a report
-TO_DO
+## View sandbox reports
+### View a summary-level sandbox report
+```powershell
+Get-FalconReport -Ids <id>, <id> -Summary
+```
+### View a sandbox report
+```powershell
+Get-FalconReport -Ids <id>, <id>
+```
+## Download artifacts
 ### Download a strict IOC pack
 TO_DO
 ### Find malware samples or sandbox reports

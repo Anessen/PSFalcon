@@ -100,7 +100,7 @@ else {
 }
 ```
 ## Get host information from multiple Falcon instances
-**NOTE**: This example requires that you edit `$CIDs` and input values for `<client_id>`, `<client_secret>`, and `<member_cid>` (or `$null` if not required).
+**NOTE**: This example requires that you input values for `<client_id>`, `<client_secret>`, and each `<member_cid>`. To avoid hard-coding credentials, you could pass them as parameters instead.
 ```powershell
 # ClientId, ClientSecret and MemberCids
 $ClientId = '<client_id>'
@@ -131,7 +131,6 @@ $CIDs.foreach{
     }
 }
 ```
-To avoid hardcoding credentials, you could define `$CIDs` outside of the script and modify the example to pass `$CIDs` as a parameter.
 # Real-time Response
 ## Run a command against a group of devices
 ```powershell

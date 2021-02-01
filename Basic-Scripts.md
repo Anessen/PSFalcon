@@ -100,7 +100,7 @@ else {
 }
 ```
 ## Get host information from multiple Falcon instances
-**NOTE**: This example requires that you input values for `<client_id>`, `<client_secret>`, and each `<member_cid>`. To avoid hard-coding credentials, you could pass them as parameters instead.
+**NOTE**: This example requires that you input values for `<client_id>`, `<client_secret>`, and each `<member_cid>`. To avoid hard-coding credentials you could pass them as parameters instead.
 ```powershell
 # ClientId, ClientSecret and MemberCids
 $ClientId = '<client_id>'

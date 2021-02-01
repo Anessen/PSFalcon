@@ -102,34 +102,24 @@ else {
 ## Get host information from multiple Falcon instances
 **NOTE**: This example requires that you edit `$CIDs` and input values for `<client_id>`, `<client_secret>`, and `<member_cid>` (or `$null` if not required).
 ```powershell
-# Basic structure for storing OAuth2 data for associated CIDs
-$CIDs = @(
-    @{
-        ClientId = '<client_id>'
-        ClientSecret = '<client_secret>'
-        MemberCid = '<member_cid>'
-    },
-    @{
-        ClientId = '<client_id>'
-        ClientSecret = '<client_secret>'
-        MemberCid = '<member_cid>'
-    }
-)
+# ClientId, ClientSecret and MemberCids
+$ClientId = '<client_id>'
+$ClientSecret = '<client_secret>'
+$CIDs = @('<member_cid>', '<member_cid>')
+
 # Enumerate $CIDs
 $CIDs.foreach{
     $Param = @{
-        ClientId = $_.ClientId
-        ClientSecret = $_.ClientSecret
-    }
-    if ($_.MemberCid) {
-        $Param['MemberCid'] = $_.MemberCid
+        ClientId = $ClientId
+        ClientSecret = $ClientSecret
+        MemberCid = $_
     }
     # Authenticate with CID
     Request-FalconToken @Param
 
     try {
         # Gather and export Host data
-        Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_ClientId_$($_.ClientId).csv"
+        Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
     }
     catch {
         # Break 'foreach' loop if host retrieval/export fails
@@ -142,27 +132,6 @@ $CIDs.foreach{
 }
 ```
 To avoid hardcoding credentials, you could define `$CIDs` outside of the script and modify the example to pass `$CIDs` as a parameter.
-
-If you have a single credential set and multiple member CIDs, you could change the structure of `$CIDs` a bit, and slightly modify the authentication parameters and export filename (unless having them in one CSV works for you).
-
-`$CIDs` structure:
-```powershell
-$ClientID = '<client_id>'
-$ClientSecret = '<client_secret>'
-$CIDs = @('<member_cid>', '<member_cid>')
-```
-Authentication:
-```powershell
-$Param = @{
-    ClientId = $ClientId
-    ClientSecret = $ClientSecret
-    MemberCid = $_
-}
-```
-Export filename:
-```powershell
-Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
-```
 # Real-time Response
 ## Run a command against a group of devices
 ```powershell

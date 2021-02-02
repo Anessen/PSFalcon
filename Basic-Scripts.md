@@ -112,7 +112,7 @@ $CIDs.foreach{
     $Param = @{
         ClientId = $ClientId
         ClientSecret = $ClientSecret
-        MemberCid = $_
+        MemberCid = ($_).ToLower()
     }
     # Authenticate with CID
     Request-FalconToken @Param

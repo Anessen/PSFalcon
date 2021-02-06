@@ -59,4 +59,4 @@ _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Comman
 ## Basic Troubleshooting
 The `Start-Transcript` and `Stop-Transcript` PowerShell commands capture a PowerShell session to a log file, and using the `-Verbose` and `-Debug` parameters with each PSFalcon command will output additional information which can be useful in troubleshooting efforts.
 
-If you run into any problems using PSFalcon, please capture a transcript of the commands you ran (including adding the `-Verbose` and `-Debug` parameters), and [create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues).
+If you run into any problems using PSFalcon, please capture a transcript of the commands you ran (including adding the `-Verbose` and `-Debug` parameters), run `Show-FalconModule` and save the resulting output, then [create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues).

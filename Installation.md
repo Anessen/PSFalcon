@@ -38,7 +38,8 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM           1322 README.md
 ```
 ## Folder Redirection
-If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these cases, you can extract PSFalcon and import the module directly:
+If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
+cases, you can extract PSFalcon and import the module directly:
 ```powershell
 Expand-Archive .\psfalcon-master.zip .
 Move-Item .\psfalcon-master\ .\PSFalcon

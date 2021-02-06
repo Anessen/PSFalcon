@@ -37,14 +37,6 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM            944 PSFalcon.psm1
 -----           1/25/2021 10:37 AM           1322 README.md
 ```
-## Folder Redirection
-If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
-cases, you can extract PSFalcon and import the module directly:
-```powershell
-Expand-Archive .\psfalcon-master.zip .
-Move-Item .\psfalcon-master\ .\PSFalcon
-Import-Module .\PSFalcon
-```
 ## Importing the Module
 The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.
 ### During a session
@@ -57,6 +49,14 @@ Import-Module -Name PSFalcon
 #Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='2.0.2'}
 ```
 _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._
+## Folder Redirection
+If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
+cases, you can extract PSFalcon and import the module directly:
+```powershell
+Expand-Archive .\psfalcon-master.zip .
+Move-Item .\psfalcon-master\ .\PSFalcon
+Import-Module .\PSFalcon
+```
 ## Basic Troubleshooting
 The `Start-Transcript` and `Stop-Transcript` PowerShell commands capture a PowerShell session to a log file, and using
 the `-Verbose` and `-Debug` parameters with each PSFalcon command will output additional information which can be

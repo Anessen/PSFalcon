@@ -12,17 +12,17 @@ If you're unable to use the PowerShell Gallery to install the module, you can do
 * Linux/MacOS
 ```powershell
 Expand-Archive ./psfalcon-master.zip .
-Move-Item ./psfalcon-master/ $HOME/.local/share/powershell/Modules/PSFalcon/2.0.0
+Move-Item ./psfalcon-master/ $HOME/.local/share/powershell/Modules/PSFalcon/2.0.2
 ```
 * Windows (PowerShell Core/6+)
 ```powershell
 Expand-Archive .\psfalcon-master.zip .
-Move-Item .\psfalcon-master\ $HOME\Documents\PowerShell\Modules\PSFalcon\2.0.0
+Move-Item .\psfalcon-master\ $HOME\Documents\PowerShell\Modules\PSFalcon\2.0.2
 ```
 * Windows (PowerShell Desktop/5.1)
 ```powershell
 Expand-Archive .\psfalcon-master.zip .
-Move-Item .\psfalcon-master\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\2.0.0
+Move-Item .\psfalcon-master\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\2.0.2
 ```
 If done correctly, your `PSFalcon\2.0.0` module folder will look like this:
 ```powershell
@@ -53,7 +53,7 @@ Import-Module -Name PSFalcon
 ```
 ### During the beginning of a script
 ```powershell
-#Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='2.0.0'}
+#Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='2.0.2'}
 ```
 _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._
 ## Basic Troubleshooting

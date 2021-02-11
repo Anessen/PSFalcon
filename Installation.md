@@ -11,6 +11,8 @@ If you're unable to use the PowerShell Gallery to install the module, you can do
 
 **NOTE**: `<current_version_number>` should be the current module version at the time you downloaded the repository. You can see
 the version number by looking `ModuleVersion` at the top of the `PSFalcon.psd1` file.
+
+*Read more about [Installing PowerShell Modules](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module)*.
 * Linux/MacOS
 ```powershell
 Expand-Archive ./psfalcon-master.zip .

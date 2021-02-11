@@ -56,7 +56,7 @@ Import-Module -Name PSFalcon
 ```
 ### During the beginning of a script
 ```powershell
-#Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='2.0.2'}
+#Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='<current_version_number>'}
 ```
 _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._
 ## Folder Redirection

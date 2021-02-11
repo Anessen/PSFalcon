@@ -1,6 +1,6 @@
 If not already present, install [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell).
 ## Using the PowerShell Gallery
-TO_DO
+TO_DO -- v2.x.x not present on the PowerShell Gallery yet!
 ## Manual Installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub.
 

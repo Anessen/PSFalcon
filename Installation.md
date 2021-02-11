@@ -5,27 +5,33 @@ TO_DO
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub.
 
 1. Download the [master repository](https://github.com/CrowdStrike/psfalcon/archive/master.zip) as a ZIP.
-2. Unpack the archive and move the contents of the `psfalcon-master` folder into your User Modules directory:
-
-**NOTE**: These commands assume you are running in a standard user (non-admin) PowerShell session and do not have [Folder Redirection](https://github.com/CrowdStrike/psfalcon/wiki/Installation#folder-redirection) enabled. Unpacking the module in the wrong place will lead to various errors that can prevent you from importing the module or running various commands (including malformed URLs).
+2. Unpack the archive, verify the module version, and move the contents of the `psfalcon-master` folder into your User Modules directory.
 
 **NOTE**: `<current_version_number>` should be the current module version at the time you downloaded the repository. You can see
 the version number by looking `ModuleVersion` at the top of the `PSFalcon.psd1` file.
+
+**NOTE**: These commands assume you are running in a standard user (non-admin) PowerShell session and do not have [Folder Redirection](https://github.com/CrowdStrike/psfalcon/wiki/Installation#folder-redirection) enabled. Unpacking the module in the wrong place will lead to various errors that can prevent you from importing the module or running various commands (including malformed URLs).
 
 *Read more about [Installing PowerShell Modules](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module)*.
 * Linux/MacOS
 ```powershell
 Expand-Archive ./psfalcon-master.zip .
+(Import-PowerShellDataFile ./psfalcon-master/PSFalcon.psd1).ModuleVersion
+<current_version_number>
 Move-Item ./psfalcon-master/ $HOME/.local/share/powershell/Modules/PSFalcon/<current_version_number>/ -Force
 ```
 * Windows (PowerShell Core/6+)
 ```powershell
 Expand-Archive .\psfalcon-master.zip .
+(Import-PowerShellDataFile .\psfalcon-master\PSFalcon.psd1).ModuleVersion
+<current_version_number>
 Move-Item .\psfalcon-master\ $HOME\Documents\PowerShell\Modules\PSFalcon\<current_version_number>\ -Force
 ```
 * Windows (PowerShell Desktop/5.1)
 ```powershell
 Expand-Archive .\psfalcon-master.zip .
+(Import-PowerShellDataFile .\psfalcon-master\PSFalcon.psd1).ModuleVersion
+<current_version_number>
 Move-Item .\psfalcon-master\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\<current_version_number>\ -Force
 ```
 If done correctly, your `PSFalcon\<current_version_number>` module folder will look like this:

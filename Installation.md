@@ -15,24 +15,24 @@ the version number by looking `ModuleVersion` at the top of the `PSFalcon.psd1` 
 *Read more about [Installing PowerShell Modules](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module)*.
 * Linux/MacOS
 ```powershell
-Expand-Archive ./psfalcon-master.zip .
-(Import-PowerShellDataFile ./psfalcon-master/PSFalcon.psd1).ModuleVersion
+PS> Expand-Archive ./psfalcon-master.zip .
+PS> (Import-PowerShellDataFile ./psfalcon-master/PSFalcon.psd1).ModuleVersion
 <current_version_number>
-Move-Item ./psfalcon-master/ $HOME/.local/share/powershell/Modules/PSFalcon/<current_version_number>/ -Force
+PS> Move-Item ./psfalcon-master/ $HOME/.local/share/powershell/Modules/PSFalcon/<current_version_number>/ -Force
 ```
 * Windows (PowerShell Core/6+)
 ```powershell
-Expand-Archive .\psfalcon-master.zip .
-(Import-PowerShellDataFile .\psfalcon-master\PSFalcon.psd1).ModuleVersion
+PS> Expand-Archive .\psfalcon-master.zip .
+PS> (Import-PowerShellDataFile .\psfalcon-master\PSFalcon.psd1).ModuleVersion
 <current_version_number>
-Move-Item .\psfalcon-master\ $HOME\Documents\PowerShell\Modules\PSFalcon\<current_version_number>\ -Force
+PS> Move-Item .\psfalcon-master\ $HOME\Documents\PowerShell\Modules\PSFalcon\<current_version_number>\ -Force
 ```
 * Windows (PowerShell Desktop/5.1)
 ```powershell
-Expand-Archive .\psfalcon-master.zip .
-(Import-PowerShellDataFile .\psfalcon-master\PSFalcon.psd1).ModuleVersion
+PS> Expand-Archive .\psfalcon-master.zip .
+PS> (Import-PowerShellDataFile .\psfalcon-master\PSFalcon.psd1).ModuleVersion
 <current_version_number>
-Move-Item .\psfalcon-master\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\<current_version_number>\ -Force
+PS> Move-Item .\psfalcon-master\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\<current_version_number>\ -Force
 ```
 If done correctly, your `PSFalcon\<current_version_number>` module folder will look like this:
 ```powershell

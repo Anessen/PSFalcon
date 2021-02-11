@@ -8,7 +8,7 @@ If you're unable to use the PowerShell Gallery to install the module, you can do
 2. Unpack the archive, verify the module version, and move the contents of the `psfalcon-master` folder into your User Modules directory.
 
 **NOTE**: `<current_version_number>` should be the current module version at the time you downloaded the repository. You can see
-the version number by looking `ModuleVersion` at the top of the `PSFalcon.psd1` file.
+the version number by looking `ModuleVersion` at the top of the `PSFalcon.psd1` file, or by running the `Import-PowerShellDataFile` command listed below.
 
 **NOTE**: These commands assume you are running in a standard user (non-admin) PowerShell session and do not have [Folder Redirection](https://github.com/CrowdStrike/psfalcon/wiki/Installation#folder-redirection) enabled. Unpacking the module in the wrong place will lead to various errors that can prevent you from importing the module or running various commands (including malformed URLs).
 

@@ -60,27 +60,32 @@ while (
 param(
     [switch] $Confirm
 )
-# Get detailed information about devices
-$Hosts = Get-FalconHost -Detailed -Limit 5000 -All
+try {
+    # Get detailed information about devices
+    $Hosts = Get-FalconHost -Detailed -Limit 5000 -All
 
-# Use Find-FalconDuplicate to find duplicate hosts
-$Duplicates = Find-FalconDuplicate -Hosts $Hosts
-
-if ($Duplicates) {
-    if ($Confirm) {
-        # Notify user
-        Write-Host "Hiding $($Duplicates.count) potential duplicate hosts..."
+    # Use Find-FalconDuplicate to find duplicate hosts
+    if ($Hosts) {
+        $Duplicates = Find-FalconDuplicate -Hosts $Hosts
+    }
+    if ($Duplicates.device_id -and $Confirm) {
+        # Output duplicate list to CSV
+        $Duplicates | Export-Csv -Path .\duplicates.csv -NoTypeInformation
 
         # Use Invoke-FalconHostAction to hide hosts
         Invoke-FalconHostAction -Name hide_host -Ids $Duplicates.device_id
     }
+    elseif ($Duplicates) {
+        # Output list of duplicates
+        Write-Output "Found $($Duplicates.count) potential duplicate hosts"
+        Write-Output $Duplicates
+    }
     else {
-        # Notify user of duplicates
-        Write-Host "Found $($Duplicates.count) potential duplicate hosts"
+       Write-Output "No duplicates found."
     }
 }
-else {
-    Write-Host "No duplicates found."
+catch {
+    Write-Error $_
 }
 ```
 ## Network contain a device by hostname

@@ -12,6 +12,8 @@ the version number by looking `ModuleVersion` at the top of the `PSFalcon.psd1` 
 
 **NOTE**: These commands assume you are running in a standard user (non-admin) PowerShell session and do not have [Folder Redirection](https://github.com/CrowdStrike/psfalcon/wiki/Installation#folder-redirection) enabled. Unpacking the module in the wrong place will lead to various errors that can prevent you from importing the module or running various commands (including malformed URLs).
 
+**NOTE**: You may receive an error about the destination folders not existing when attempting to move the module files. If you do, create the folders first then move the module files into them.
+
 *Read more about [Installing PowerShell Modules](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module)*.
 * Linux/MacOS
 ```powershell

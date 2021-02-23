@@ -10,7 +10,10 @@ The simplest FQL statements require a single condition and value. For instance, 
 ```powershell
 Get-FalconHost -Filter "hostname:'ONE'"
 ```
-
+Many filters will automatically return partial matches, but you can include wildcards (`*`) and you can restrict results to exact matches (including case) using square brackets:
+```powershell
+Get-FalconHost -Filter "hostname:['ONE']"
+```
 ## Multiple Values
 Additional conditions and values can be added using the proper [operator](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-fql#Operators). The following filter example will retrieve the host identifier for a device that has a hostname of `ONE` and is running Windows:
 ```powershell

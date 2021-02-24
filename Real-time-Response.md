@@ -2,7 +2,7 @@
 ```powershell
 Invoke-FalconRTR -Command ls -Arguments C:\Windows -HostIds <id>, <id>
 ```
-You can queue commands for devices that are currently offline by adding the `-QueueOffline` parameter:
+If the hosts you're targeting are currently offline, you can add your Real-time Response commands to the "offline queue" using the `-QueueOffline` parameter.
 ```powershell
 Invoke-FalconRTR -Command runscript -Arguments "-CloudFile='HelloWorld'" -HostIds <id>, <id> -QueueOffline $true
 ```

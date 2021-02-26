@@ -238,6 +238,24 @@ else {
     throw "No sensor installer available matching '$BuildVersion'"
 }
 ```
+# Threat Intelligence
+## Export recent domain and IP indicators to CSV
+```powershell
+$UnixDate = [DateTimeOffset]::Now.AddDays(-7).ToUnixTimeSeconds()
+$Param = @{
+    Filter = "(type:'ip_address',type:'domain')+last_updated:>$UnixDate"
+    Limit = 5000
+    Detailed = $true
+    All = $true
+}
+Get-FalconIndicator @Param | Select-Object indicator, type, malicious_confidence, labels | ForEach-Object {
+    [PSCustomObject] @{
+        value = $_.indicator
+        type = $_.type
+        confidence = $_.malicious_confidence
+        comment = "$(($_.Labels.name | Where-Object { $_ -notmatch 'MaliciousConfidence/*' }) -join ', ')"
+    } | Export-Csv -Path .\indicators.csv -NoTypeInformation -Append
+```
 # Vulnerabilities
 ## Create a report with additional Host fields
 ```powershell

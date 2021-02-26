@@ -239,7 +239,7 @@ else {
 }
 ```
 # Threat Intelligence
-## Export recent domain and IP indicators to CSV
+## Export domain and IP indicators updated within the last week to CSV
 ```powershell
 $UnixDate = [DateTimeOffset]::Now.AddDays(-7).ToUnixTimeSeconds()
 $Param = @{

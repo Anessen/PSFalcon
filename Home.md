@@ -71,5 +71,7 @@
 * [Run a command against a group of devices](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#run-a-command-against-a-group-of-devices)
 ### Sensor Installers
 * [Download the installer package assigned to a Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-the-installer-package-assigned-to-a-sensor-update-policy)
+### Threat Intelligence
+* [Export domain and IP indicators updated within the last week to CSV](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ### Vulnerabilities
 * [Create a report with additional Host fields](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#create-a-report-with-additional-host-fields)

@@ -255,6 +255,7 @@ Get-FalconIndicator @Param | Select-Object indicator, type, malicious_confidence
         confidence = $_.malicious_confidence
         comment = "$(($_.Labels.name | Where-Object { $_ -notmatch 'MaliciousConfidence/*' }) -join ', ')"
     } | Export-Csv -Path .\indicators.csv -NoTypeInformation -Append
+}
 ```
 # Vulnerabilities
 ## Create a report with additional Host fields

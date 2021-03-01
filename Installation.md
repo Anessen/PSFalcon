@@ -6,8 +6,7 @@ The PowerShell Gallery offers the easiest method to install PSFalcon.
 The module included on the PowerShell Gallery is signed and requires an ExecutionPolicy of `RemoteSigned` or lower (Bypass and Unrestricted will also work, though they are less secure). If your ExecutionPolicy is set to `Restricted` you will not be able to install the module from the PowerShell Gallery. You can check your current ExecutionPolicy with `Get-ExecutionPolicy` and change it to `RemoteSigned` using `Set-ExecutionPolicy`.
 
 ```powershell
-PS> Get-ExecutionPolicy
-RemoteSigned
+Get-ExecutionPolicy
 ```
 2. Use the `Install-Module` command to download and install the module
 ```powershell

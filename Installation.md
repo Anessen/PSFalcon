@@ -1,6 +1,27 @@
 If not already present, install [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell).
 ## Using the PowerShell Gallery
-TO_DO -- v2.x.x not present on the PowerShell Gallery yet!
+The PowerShell Gallery offers the easiest method to install PSFalcon.
+
+1. Verify your Execution Policy
+The module included on the PowerShell Gallery is signed and requires an ExecutionPolicy of `RemoteSigned` or lower (Bypass and Unrestricted will also work, though they are less secure). If your ExecutionPolicy is set to `Restricted` you will not be able to install the module from the PowerShell Gallery. You can check your current ExecutionPolicy with `Get-ExecutionPolicy` and change it to `RemoteSigned` using `Set-ExecutionPolicy`.
+
+```powershell
+PS> Get-ExecutionPolicy
+RemoteSigned
+```
+2. Use the `Install-Module` command to download and install the module
+```powershell
+Install-Module -Name PSFalcon
+```
+**NOTE**: You may be prompted with a warning that the PowerShell Gallery is an untrusted repository. You can accept and continue to install the module. You can permanently change this using `Set-PSRepository`.
+
+**NOTE**: If you're running a legacy version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the legacy version. Without that parameter, the module will not be installed.
+
+3. Verify that the module installed
+`Get-Command` will list the commands included with PSFalcon. If it was successfully installed, you'll get a list of commands along with a version number that matches the GitHub master repository.
+```powershell
+Get-Command -Module PSFalcon
+```
 ## Manual Installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub.
 

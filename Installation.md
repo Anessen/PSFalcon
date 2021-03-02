@@ -2,13 +2,13 @@ If not already present, install [PowerShell](https://github.com/PowerShell/Power
 ## Using the PowerShell Gallery
 The PowerShell Gallery offers the easiest method to install PSFalcon.
 
-1. Verify your Execution Policy.
+1. Verify your Execution Policy
 The module included on the PowerShell Gallery is signed and requires an ExecutionPolicy of `RemoteSigned` or lower (Bypass and Unrestricted will also work, though they are less secure). If your ExecutionPolicy is set to `Restricted` you will not be able to install the module from the PowerShell Gallery. You can check your current ExecutionPolicy with `Get-ExecutionPolicy` and change it to `RemoteSigned` using `Set-ExecutionPolicy`.
 
 ```powershell
 Get-ExecutionPolicy
 ```
-2. Use the `Install-Module` command to download and install the module under your user account.
+2. Use the `Install-Module` command to download and install the module under your user account
 ```powershell
 Install-Module -Name PSFalcon -Scope CurrentUser
 ```
@@ -24,8 +24,8 @@ Get-Command -Module PSFalcon
 ## Manual Installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub.
 
-1. Download the [latest release](https://github.com/CrowdStrike/psfalcon/releases) as a ZIP.
-2. Unpack the archive and move the contents of the folder into your User Modules directory.
+1. Download the [latest release](https://github.com/CrowdStrike/psfalcon/releases) as a ZIP
+2. Unpack the archive and move the contents of the folder into your User Modules directory
 
 **NOTE**: These commands assume you are running in a standard user (non-admin) PowerShell session and do not have [Folder Redirection](https://github.com/CrowdStrike/psfalcon/wiki/Installation#folder-redirection) enabled. Unpacking the module in the wrong place will lead to various errors that can prevent you from importing the module or running various commands (including malformed URLs).
 

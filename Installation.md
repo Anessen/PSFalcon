@@ -34,18 +34,18 @@ If you're unable to use the PowerShell Gallery to install the module, you can do
 *Read more about [Installing PowerShell Modules](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module)*.
 * Linux/MacOS
 ```powershell
-PS> Expand-Archive ./psfalcon-<version>.zip .
-PS> Move-Item ./psfalcon-<version>/ $HOME/.local/share/powershell/Modules/PSFalcon/<version>/ -Force
+Expand-Archive ./psfalcon-<version>.zip .
+Move-Item ./psfalcon-<version>/ $HOME/.local/share/powershell/Modules/PSFalcon/<version>/ -Force
 ```
 * Windows (PowerShell Core/6+)
 ```powershell
-PS> Expand-Archive .\psfalcon-<version>.zip .
-PS> Move-Item .\psfalcon-<version>\ $HOME\Documents\PowerShell\Modules\PSFalcon\<version>\ -Force
+Expand-Archive .\psfalcon-<version>.zip .
+Move-Item .\psfalcon-<version>\ $HOME\Documents\PowerShell\Modules\PSFalcon\<version>\ -Force
 ```
 * Windows (PowerShell Desktop/5.1)
 ```powershell
-PS> Expand-Archive .\psfalcon-<version>.zip .
-PS> Move-Item .\psfalcon-<version>\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\<version>\ -Force
+Expand-Archive .\psfalcon-<version>.zip .
+Move-Item .\psfalcon-<version>\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\<version>\ -Force
 ```
 If done correctly, your `PSFalcon\<version>` module folder will look like this:
 ```powershell

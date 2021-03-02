@@ -8,9 +8,9 @@ The module included on the PowerShell Gallery is signed and requires an Executio
 ```powershell
 Get-ExecutionPolicy
 ```
-2. Use the `Install-Module` command to download and install the module
+2. Use the `Install-Module` command to download and install the module under your user account
 ```powershell
-Install-Module -Name PSFalcon
+Install-Module -Name PSFalcon -Scope CurrentUser
 ```
 **NOTE**: You may be prompted with a warning that the PowerShell Gallery is an untrusted repository. You can accept and continue to install the module. You can permanently change this using `Set-PSRepository`.
 

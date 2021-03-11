@@ -40,4 +40,6 @@ Edit-FalconUserGroup -Id <id> -Name 'Updated Name' -Description 'Updated name fo
 ```powershell
 Remove-FalconUserGroup -Ids <id>, <id>
 ```
+## Managing CID group members
+
 _See CrowdStrike API Documentation[]()._

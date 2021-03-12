@@ -84,7 +84,7 @@ try {
     Write-Error $_
 }
 ```
-## Network contain a device by hostname
+## Network contain a device by Hostname
 ```powershell
 param(
     [string] $Hostname

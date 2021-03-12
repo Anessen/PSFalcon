@@ -27,6 +27,10 @@
 ### [Firewall Management](https://github.com/CrowdStrike/psfalcon/wiki/Firewall-Management)
 * Create, find, modify and delete Falcon Firewall Management rule groups and rules
 * Find information about rule groups, rules and related Firewall Management properties
+### [Flight Control](https://github.com/CrowdStrike/psfalcon/wiki/Flight-Control)
+* Create, find, modify and delete CID and User Groups for MSSP-style parent/child configurations
+* List child CIDs configured under a parent CID account along with related information
+* Assign and remove roles from User Groups to control access to child CIDs
 ### [Horizon](https://github.com/CrowdStrike/psfalcon/wiki/Horizon)
 * Create, find, modify and delete cloud accounts for Cloud Security Posture Management using Falcon Horizon
 * Review default Falcon Horizon settings and scan schedules

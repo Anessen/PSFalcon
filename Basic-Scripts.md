@@ -47,8 +47,7 @@ do {
         # Pause to give the API time to clear them out before the next request
         Start-Sleep -Seconds 5
     }
-}
-while (
+} while (
     # Exit once no more detections are available
     $Ids
 )
@@ -74,17 +73,14 @@ try {
 
         # Use Invoke-FalconHostAction to hide hosts
         Invoke-FalconHostAction -Name hide_host -Ids $Duplicates.device_id
-    }
-    elseif ($Duplicates) {
+    } elseif ($Duplicates) {
         # Output list of duplicates
         Write-Output "Found $($Duplicates.count) potential duplicate hosts"
         Write-Output $Duplicates
-    }
-    else {
+    } else {
        Write-Output "No duplicates found."
     }
-}
-catch {
+} catch {
     Write-Error $_
 }
 ```
@@ -99,8 +95,7 @@ $HostId = Get-FalconHost -Filter "hostname:'$Hostname'" -Sort last_seen.desc -Li
 if ($HostId) {
     # Contain host
     Invoke-FalconHostAction -Name contain -Ids $HostId
-}
-else {
+} else {
     throw "No identifier found for '$Hostname'"
 }
 ```
@@ -125,12 +120,10 @@ $CIDs.foreach{
     try {
         # Gather and export Host data
         Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
-    }
-    catch {
+    } catch {
         # Break 'foreach' loop if host retrieval/export fails
         throw $_
-    }
-    finally {
+    } finally {
         # Remove authentication token and credentials for next CID
         Revoke-FalconToken
     }
@@ -156,8 +149,7 @@ $GroupId = Get-FalconHostGroup -Filter "name:'$($GroupName.ToLower())'"
 if ($GroupId) {
     # Get host identifiers for members of $GroupId
     $Members = Get-FalconHostGroupMember -Id $GroupId -Limit 500 -All
-}
-else {
+} else {
     throw "No host group found matching '$GroupName'"
 }
 if ($Members) {
@@ -182,8 +174,7 @@ if ($Members) {
         # Display CSV file
         Get-ChildItem $ExportName
     }
-}
-else {
+} else {
     throw "No members found in host group '$GroupName' [$GroupId]"
 }
 ```
@@ -205,8 +196,7 @@ if ($Policy) {
 
     # Get list of available installers for OS
     $Installers = Get-FalconInstaller -Filter "platform:'$PlatformName'" -Detailed
-}
-else {
+} else {
     throw "No policy found matching '$PolicyId'"
 }
 if ($Installers) {
@@ -218,8 +208,7 @@ if ($Installers) {
        $InstallerId = $Match.sha256
        $Filename = $Match.name
     }
-}
-else {
+} else {
     throw "Unable to retrieve installer list; check client permissions"
 }
 if ($InstallerId -and $Filename) {
@@ -233,8 +222,7 @@ if ($InstallerId -and $Filename) {
     }    
     # Download the installer package
     Receive-FalconInstaller -Id $InstallerId -Path "$pwd\$Filename"
-}
-else {
+} else {
     throw "No sensor installer available matching '$BuildVersion'"
 }
 ```
@@ -305,8 +293,7 @@ if (Test-Path $ExportName) {
     }
     # Re-export CSV with added fields
     $CSV | Export-Csv -Path $ExportName -NoTypeInformation -Force
-}
-else {
+} else {
     throw "No vulnerabilities created within the last $Days days"
 }
 ```

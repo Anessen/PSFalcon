@@ -41,5 +41,5 @@ Edit-FalconUserGroup -Id <id> -Name 'Updated Name' -Description 'Updated name fo
 Remove-FalconUserGroup -Ids <id>, <id>
 ```
 ## Managing CID group members
-<TODO>
+In progress...
 _See CrowdStrike API Documentation[]()._

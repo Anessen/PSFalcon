@@ -45,6 +45,7 @@ Remove-FalconUserGroup -Ids <id>, <id>
 ## Managing role assignments
 ### Get role assignments
 ```powershell
+Get-FalconRole -GroupIds <cid_group_id>:<user_group_id>, <cid_group_id>:<user_group_id>
 ```
 ### Create a role assignment
 ```powershell

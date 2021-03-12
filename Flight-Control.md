@@ -41,5 +41,15 @@ Edit-FalconUserGroup -Id <id> -Name 'Updated Name' -Description 'Updated name fo
 Remove-FalconUserGroup -Ids <id>, <id>
 ```
 ## Managing CID group members
-In progress...
+## Managing User group members
+## Managing role assignments
+### Get role assignments
+```powershell
+```
+### Create a role assignment
+```powershell
+```
+### Delete a role assignment
+```powershell
+```
 _See CrowdStrike API Documentation[]()._

@@ -99,6 +99,40 @@ if ($HostId) {
     throw "No identifier found for '$Hostname'"
 }
 ```
+## Network contain a list of Hostnames from a CSV file
+**NOTE**: This example requires a CSV with a column labeled `Hostname`. It will create a new CSV with that includes the hostname, device_id and containment request status.
+```powershell
+param(
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\.csv$')]
+    [string] $Path
+)
+$OutputFile = "Containment_$(Get-Date -Format FileDateTime).csv"
+$Hostnames = (Import-Csv $Path).Hostname
+$Hosts = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
+    # Retrieve the device_id for hostnames in groups of 20
+    $Filter = (($Hostnames[$i..($i + 19)]).foreach{
+        if ($_ -ne '') {
+            "hostname:['$_']"
+        }
+    }) -join ','
+    $Output = Get-FalconHost -Filter $Filter -Detailed | Select-Object hostname, device_id
+    ($Output).foreach{
+        # Add property for each host to update after containment request
+        $_.PSObject.Properties.Add((New-Object PSNoteProperty('Contain_Requested', $false)))
+    }
+    $Output
+}
+# Contain hosts and add status
+Invoke-FalconHostAction -Name contain -Ids $Hosts.device_id | ForEach-Object {
+    $Id = $_.id
+    ($Hosts | Where-Object { $_.device_id -eq $Id }).Contain_Requested = $true
+}
+$Hosts | Export-Csv -Path $OutputFile -NoTypeInformation
+if (Test-Path $OutputFile) {
+    Get-ChildItem $OutputFile
+}
+```
 ## Get host information from multiple Falcon instances
 **NOTE**: This example requires that you input values for `<client_id>`, `<client_secret>`, and each `<member_cid>`. To avoid hard-coding credentials you could pass them as parameters instead.
 ```powershell

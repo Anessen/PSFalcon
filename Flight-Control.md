@@ -41,10 +41,22 @@ Edit-FalconUserGroup -Id <id> -Name 'Updated Name' -Description 'Updated name fo
 Remove-FalconUserGroup -Ids <id>, <id>
 ```
 ## Managing CID group members
+### Add a CID to a CID Group
 ```powershell
+Add-FalconCIDGroupMember -Id <cid_group_id> -CIDs <cid>, <cid>
+```
+### Remove a CID from a CID Group
+```powershell
+Remove-FalconCIDGroupMember -Id <cid_group_id> -CIDs <cid>, <cid>
 ```
 ## Managing User group members
+## List members of a User group
 ```powershell
+Get-FalconUserGroupMember -Id <user_group_id>
+```
+## List the groups that a user belongs to
+```powershell
+Get-FalconUserGroupMember -Id <user_id>
 ```
 ## Managing role assignments
 ```powershell

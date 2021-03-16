@@ -58,6 +58,14 @@ Get-FalconUserGroupMember -Id <user_group_id>
 ```powershell
 Get-FalconUserGroupMember -Id <user_id>
 ```
+### Add a user to a User Group
+```powershell
+Add-FalconUserGroupMember -Id <user_group_id> -UserIds <user_id>, <user_id>
+```
+### Remove a user to a User Group
+```powershell
+Remove-FalconUserGroupMember -Id <user_group_id> -UserIds <user_id>, <user_id>
+```
 ## Managing role assignments
 ```powershell
 ```

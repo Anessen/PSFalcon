@@ -67,16 +67,16 @@ Add-FalconUserGroupMember -Id <user_group_id> -UserIds <user_id>, <user_id>
 Remove-FalconUserGroupMember -Id <user_group_id> -UserIds <user_id>, <user_id>
 ```
 ## Managing role assignments
-```powershell
-```
 ### Get role assignments
 ```powershell
-Get-FalconRole -GroupIds <cid_group_id>:<user_group_id>, <cid_group_id>:<user_group_id>
+Get-FalconGroupRole -CombinedIds <cid_group_id>:<user_group_id>, <cid_group_id>:<user_group_id>
 ```
 ### Create a role assignment
 ```powershell
+Add-FalconGroupRole -CidGroupId <cid_group_id> -UserGroupId <user_group_id> -RoleIds <role_id>, <role_id>
 ```
 ### Delete a role assignment
 ```powershell
+Remove-FalconGroupRole -CidGroupId <cid_group_id> -UserGroupId <user_group_id> -RoleIds <role_id>, <role_id>
 ```
 _See CrowdStrike API Documentation[]()._

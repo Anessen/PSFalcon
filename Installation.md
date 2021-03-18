@@ -1,5 +1,6 @@
+## Install PowerShell
 If not already present, install [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell).
-## Using the PowerShell Gallery
+## Use the PowerShell Gallery
 The PowerShell Gallery offers the easiest method to install PSFalcon.
 
 1. Verify your Execution Policy
@@ -23,7 +24,7 @@ Import-Module -Name PSFalcon
 Get-Command -Module PSFalcon
 ```
 If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [Manual Installation]().
-## Importing the Module
+## Import the Module
 The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.
 ### During a session
 **NOTE**: The `Import-Module` command can be added to your PowerShell `$PROFILE` to automatically load the module when you start PowerShell.
@@ -35,6 +36,22 @@ Import-Module -Name PSFalcon
 #Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='<version>'}
 ```
 _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._
+## Basic Troubleshooting
+The `Start-Transcript` and `Stop-Transcript` PowerShell commands capture a PowerShell session to a log file, and using
+the `-Verbose` and `-Debug` parameters with each PSFalcon command will output additional information which can be
+useful in troubleshooting efforts.
+
+If you run into any problems using PSFalcon, please capture a transcript of the commands you ran (including
+adding the `-Verbose` and `-Debug` parameters), run `Show-FalconModule` and save the resulting
+output, then [create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues).
+## Folder Redirection
+If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
+cases, you can extract PSFalcon and import the module directly:
+```powershell
+Expand-Archive .\psfalcon-<version>.zip .
+Move-Item .\psfalcon-<version>\ .\PSFalcon
+Import-Module .\PSFalcon
+```
 ## Manual Installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub. **_If the installation from the PowerShell Gallery worked, there's no need to follow any of the steps included in this section._**
 
@@ -74,19 +91,3 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM            944 PSFalcon.psm1
 -----           1/25/2021 10:37 AM           1322 README.md
 ```
-## Folder Redirection
-If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
-cases, you can extract PSFalcon and import the module directly:
-```powershell
-Expand-Archive .\psfalcon-<version>.zip .
-Move-Item .\psfalcon-<version>\ .\PSFalcon
-Import-Module .\PSFalcon
-```
-## Basic Troubleshooting
-The `Start-Transcript` and `Stop-Transcript` PowerShell commands capture a PowerShell session to a log file, and using
-the `-Verbose` and `-Debug` parameters with each PSFalcon command will output additional information which can be
-useful in troubleshooting efforts.
-
-If you run into any problems using PSFalcon, please capture a transcript of the commands you ran (including
-adding the `-Verbose` and `-Debug` parameters), run `Show-FalconModule` and save the resulting
-output, then [create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues).

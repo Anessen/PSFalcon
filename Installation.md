@@ -21,6 +21,7 @@ Install-Module -Name PSFalcon -Scope CurrentUser
 **NOTE**: If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. Having both can cause possible complications, so if there's no need to have the old version, it's best to `Uninstall-Module -Name PSFalcon` and remove old versions (v1.x.x) before installing the latest (v2.x.x or newer).
 
 3. Verify that the module installed
+
 `Get-Command` will list the commands included with PSFalcon. If it was successfully installed, you can import the module then get a list of commands along with a version number that matches the GitHub master repository.
 ```powershell
 Import-Module -Name PSFalcon

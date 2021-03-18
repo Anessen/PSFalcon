@@ -23,7 +23,7 @@ Import-Module -Name PSFalcon
 Get-Command -Module PSFalcon
 ```
 ## Manual Installation
-If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub.
+If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub. **If the installation from the PowerShell Gallery worked, there's no need to follow any of the steps included in this section.**
 
 1. Download the [latest release](https://github.com/CrowdStrike/psfalcon/releases) as a ZIP
 2. Unpack the archive and move the contents of the folder into your User Modules directory

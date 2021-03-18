@@ -27,7 +27,7 @@ Install-Module -Name PSFalcon -Scope CurrentUser
 Import-Module -Name PSFalcon
 Get-Command -Module PSFalcon
 ```
-If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [Manual Installation]().
+If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [Manual Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation#manual-installation).
 ## Import the Module
 The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.
 ### During a session

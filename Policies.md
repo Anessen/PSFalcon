@@ -37,6 +37,15 @@ Set-FalconPreventionPrecedence -PlatformName Windows -Ids <id>, <id>
 ```powershell
 Get-FalconPreventionPolicy -All [-Detailed]
 ```
+## Uninstallation Tokens
+## Finding the uninstallation token for a host
+```powershell
+Get-FalconUninstallToken -DeviceId <id>
+```
+## Finding the maintenance token that applies to any host within a given policy
+```powershell
+Get-FalconUninstallToken -DeviceId MAINTENANCE
+```
 ## Manage Machine Learning exclusions
 ### Create Machine Learning exclusions
 ```powershell

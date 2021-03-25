@@ -44,6 +44,8 @@
 ### [MalQuery](https://github.com/CrowdStrike/psfalcon/wiki/MalQuery)
 * Perform searches and YARA hunts in Falcon MalQuery
 * Download malware samples from Falcon MalQuery
+### [OverWatch Dashboards](https://github.com/CrowdStrike/psfalcon/wiki/OverWatch-Dashboards)
+* Get information about Falcon OverWatch activity across all CrowdStrike customers
 ### [Policies](https://github.com/CrowdStrike/psfalcon/wiki/Policies)
 * Create, find, modify and delete Device Control, Firewall Management, Prevention, Sensor Update and Real-time Response policies
 * Assign or remove Host Groups from policies

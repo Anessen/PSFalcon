@@ -24,6 +24,8 @@
 ### [Event Streams](https://github.com/CrowdStrike/psfalcon/wiki/Event-Streams)
 * Initiate and view Event Streams
 * Capture sample of event data
+### [Falcon Complete Dashboards](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-Complete-Dashboards)
+* Get information about Falcon Complete allowlists, blocklists, detections, device count collections, escalations, incidents, and remediations
 ### [Firewall Management](https://github.com/CrowdStrike/psfalcon/wiki/Firewall-Management)
 * Create, find, modify and delete Falcon Firewall Management rule groups and rules
 * Find information about rule groups, rules and related Firewall Management properties

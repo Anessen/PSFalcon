@@ -3,8 +3,9 @@
 ```powershell
 Get-FalconOverWatchDetection -Filter "detect_time:>'now-48h'"
 ```
-### Getting the total number of Falcon OverWatch events
+### Getting the total number of Falcon OverWatch events that occurred across all customers
 ```powershell
+Get-FalconOverWatchEvent -Filter "total_count:>1"
 ```
 ### Getting the total number of Falcon OverWatch incidents for the past 48 hours
 ```powershell

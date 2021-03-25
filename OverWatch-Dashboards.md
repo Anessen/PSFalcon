@@ -3,11 +3,11 @@
 ```powershell
 Get-FalconOverWatchDetection -Filter "detect_time:>'now-48h'"
 ```
+### Getting the total number of Falcon OverWatch events
+```powershell
+```
 ### Getting the total number of Falcon OverWatch incidents for the past 48 hours
 ```powershell
 Get-FalconOverWatchIncident -Filter "detect_time:>'now-48h'"
-```
-### Getting the total number of Falcon OverWatch events
-```powershell
 ```
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/155/falcon-overwatch-dashboard-apis)._

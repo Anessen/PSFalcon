@@ -53,6 +53,31 @@ do {
 )
 ```
 # Hosts
+## Add a list of hostnames to a host group
+**NOTE**: This script expects a text file that contains case-sensitive hostnames (one per line) for the `-Path` parameter.
+```powershell
+param(
+    [Parameter(Mandatory = $true, Position = 1)]
+    [ValidatePattern('\.csv$')]
+    [string] $Path,
+
+    [Parameter(Mandatory = $true, Position = 2)]
+    [ValidatePattern('\w{32}')]
+    [string] $GroupId
+)
+$Hostnames = (Get-Content $Path).Normalize()
+$Hosts = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
+    # Retrieve the device_id for hostnames in groups of 20
+    $Filter = (($Hostnames[$i..($i + 19)]).foreach{
+        if ($_ -ne '') {
+            "hostname:['$_']"
+        }
+    }) -join ','
+    Get-FalconHost -Filter $Filter
+}
+# Add hosts to group
+Invoke-FalconHostGroupAction -Name add-hosts -Id $GroupId -HostIds $Hosts
+```
 ## Find duplicate hosts and hide them
 **NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
 ```powershell

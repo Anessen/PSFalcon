@@ -1,3 +1,8 @@
+## Getting Member CIDs
+### List member CIDs
+```powershell
+Get-FalconMemberCID [-Detailed] [-All]
+```
 ## Managing CID Groups
 ### List CID groups by ID
 ```powershell

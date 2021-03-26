@@ -1,5 +1,4 @@
-## Getting Member CIDs
-### List member CIDs
+## List member CIDs
 ```powershell
 Get-FalconMemberCID [-Detailed] [-All]
 ```

@@ -6,10 +6,12 @@
 ## Assign detections involving a specific file to a user
 ```powershell
 param(
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true,
+        Position = 1)]
     [string] $Username,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true,
+        Position = 2)]
     [string] $Filename
 )
 # Get User identifier
@@ -61,11 +63,13 @@ do {
 **NOTE**: This script expects a text file that contains case-sensitive hostnames (one per line) for the `-Path` parameter.
 ```powershell
 param(
-    [Parameter(Mandatory = $true, Position = 1)]
+    [Parameter(Mandatory = $true,
+        Position = 1)]
     [ValidatePattern('\.csv$')]
     [string] $Path,
 
-    [Parameter(Mandatory = $true, Position = 2)]
+    [Parameter(Mandatory = $true,
+        Position = 2)]
     [ValidatePattern('\w{32}')]
     [string] $GroupId
 )
@@ -116,6 +120,7 @@ try {
 ## Network contain a device by Hostname
 ```powershell
 param(
+    [Parameter(Mandatory = $true)]
     [string] $Hostname
 )
 # Get identifier for target system and choose the most recently seen (in case of duplicates)
@@ -196,12 +201,15 @@ $CIDs.foreach{
 ## Run a command against a group of devices
 ```powershell
 param(
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true,
+        Position = 1)]
     [string] $GroupName,
 
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $true,
+        Position = 2)]
     [string] $Command,
 
+    [Parameter(Position = 3)]
     [string] $Arguments,
 
     [boolean] $QueueOffline
@@ -312,7 +320,10 @@ Get-FalconIndicator @Param | Select-Object indicator, type, malicious_confidence
 ## Create a report with additional Host fields
 ```powershell
 param(
+    [Parameter(Position = 1)]
     [int] $Days = 7,
+
+    [Parameter(Position = 2)]
     [array] $Fields = @('last_seen', 'mac_address', 'serial_number', 'external_ip')
 )
 if ($Fields -notcontains 'device_id') {

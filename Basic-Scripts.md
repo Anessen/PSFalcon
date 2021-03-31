@@ -47,7 +47,7 @@ do {
 
     if ($Ids) {
         # Export list of ids being hidden
-        $Ids | Export-Csv -Path $pwd\hidden_detections.csv -NoTypeInformation -Append -Force
+        $Ids | Out-File -FilePath $pwd\hidden_detections.txt -Append -Force
 
         # Hide group of detections
         Edit-FalconDetection -Ids $Ids -ShowInUi $false

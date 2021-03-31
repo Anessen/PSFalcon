@@ -5,6 +5,7 @@
 
 ## Assign detections involving a specific file to a user
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [Parameter(Mandatory = $true,
         Position = 1)]
@@ -35,6 +36,7 @@ Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 
 ## Find and hide large numbers of detections
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param (
     [Parameter(Mandatory = $true)]
     [string] $Filename
@@ -62,6 +64,7 @@ do {
 ## Add a list of hostnames to a host group
 **NOTE**: This script expects a text file that contains case-sensitive hostnames (one per line) for the `-Path` parameter.
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [Parameter(Mandatory = $true,
         Position = 1)]
@@ -89,6 +92,7 @@ Invoke-FalconHostGroupAction -Name add-hosts -Id $GroupId -HostIds $Hosts
 ## Find duplicate hosts and hide them
 **NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [switch] $Confirm
 )
@@ -119,6 +123,7 @@ try {
 ```
 ## Network contain a device by Hostname
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [Parameter(Mandatory = $true)]
     [string] $Hostname
@@ -136,6 +141,7 @@ if ($HostId) {
 ## Network contain a list of Hostnames from a CSV file
 **NOTE**: This example requires a CSV with a column labeled `Hostname`. It will create a new CSV with that includes the hostname, device_id and containment request status.
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [Parameter(Mandatory = $true)]
     [ValidatePattern('\.csv$')]
@@ -170,6 +176,7 @@ if (Test-Path $OutputFile) {
 ## Get host information from multiple Falcon instances
 **NOTE**: This example requires that you input values for `<client_id>`, `<client_secret>`, and each `<member_cid>`. To avoid hard-coding credentials you could pass them as parameters instead.
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 # ClientId, ClientSecret and MemberCids
 $ClientId = '<client_id>'
 $ClientSecret = '<client_secret>'
@@ -200,6 +207,7 @@ $CIDs.foreach{
 # Real-time Response
 ## Run a command against a group of devices
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [Parameter(Mandatory = $true,
         Position = 1)]
@@ -252,6 +260,7 @@ if ($Members) {
 # Sensor Installers
 ## Download the installer package assigned to a Sensor Update policy
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [Parameter(Mandatory = $true)]
     [ValidatePattern('\w{32}')]
@@ -300,6 +309,7 @@ if ($InstallerId -and $Filename) {
 # Threat Intelligence
 ## Export domain and IP indicators updated within the last week to CSV
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 $UnixDate = [DateTimeOffset]::Now.AddDays(-7).ToUnixTimeSeconds()
 $Param = @{
     Filter = "(type:'ip_address',type:'domain')+last_updated:>$UnixDate"
@@ -319,6 +329,7 @@ Get-FalconIndicator @Param | Select-Object indicator, type, malicious_confidence
 # Vulnerabilities
 ## Create a report with additional Host fields
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [Parameter(Position = 1)]
     [int] $Days = 7,

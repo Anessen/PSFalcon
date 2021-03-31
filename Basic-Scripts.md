@@ -6,7 +6,10 @@
 ## Assign detections involving a specific file to a user
 ```powershell
 param(
+    [Parameter(Mandatory = $true)]
     [string] $Username,
+
+    [Parameter(Mandatory = $true)]
     [string] $Filename
 )
 # Get User identifier
@@ -31,6 +34,7 @@ Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 ## Find and hide large numbers of detections
 ```powershell
 param (
+    [Parameter(Mandatory = $true)]
     [string] $Filename
 )
 do {

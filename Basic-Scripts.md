@@ -37,7 +37,7 @@ Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 ## Find and hide large numbers of detections
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
-param (
+param(
     [Parameter(Mandatory = $true)]
     [string] $Filename
 )

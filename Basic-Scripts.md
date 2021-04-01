@@ -79,7 +79,7 @@ param(
 $Hostnames = (Get-Content $Path).Normalize()
 $Hosts = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
     # Retrieve the device_id for hostnames in groups of 20
-    $Filter = ($Hostnames[$i..($i + 19)]) | ForEach-Object {
+    $Filter = ($Hostnames[$i..($i + 19)] | ForEach-Object {
         if ($_ -ne '') {
             "hostname:['$_']"
         }

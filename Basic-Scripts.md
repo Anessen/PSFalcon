@@ -79,7 +79,7 @@ param(
 $Hostnames = (Get-Content $Path).Normalize()
 $Hosts = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
     # Retrieve the device_id for hostnames in groups of 20
-    $Filter = (($Hostnames[$i..($i + 19)]).foreach{
+    $Filter = ($Hostnames[$i..($i + 19)]) | ForEach-Object {
         if ($_ -ne '') {
             "hostname:['$_']"
         }
@@ -151,13 +151,13 @@ $OutputFile = "Containment_$(Get-Date -Format FileDateTime).csv"
 $Hostnames = (Import-Csv $Path).Hostname
 $Hosts = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
     # Retrieve the device_id for hostnames in groups of 20
-    $Filter = (($Hostnames[$i..($i + 19)]).foreach{
+    $Filter = ($Hostnames[$i..($i + 19)] | ForEach-Object {
         if ($_ -ne '') {
             "hostname:['$_']"
         }
     }) -join ','
     $Output = Get-FalconHost -Filter $Filter -Detailed | Select-Object hostname, device_id
-    ($Output).foreach{
+    $Output | ForEach-Object {
         # Add property for each host to update after containment request
         $_.PSObject.Properties.Add((New-Object PSNoteProperty('Contain_Requested', $false)))
     }
@@ -183,7 +183,7 @@ $ClientSecret = '<client_secret>'
 $CIDs = @('<member_cid>', '<member_cid>')
 
 # Enumerate $CIDs
-$CIDs.foreach{
+$CIDs | ForEach-Object {
     $Param = @{
         ClientId = $ClientId
         ClientSecret = $ClientSecret

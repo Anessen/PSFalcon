@@ -89,6 +89,29 @@ $Hosts = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
 # Add hosts to group
 Invoke-FalconHostGroupAction -Name add-hosts -Id $GroupId -HostIds $Hosts
 ```
+## Hide hosts based on last_seen time
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
+param(
+    [Parameter(Mandatory = $true)]
+    [int] $Days
+)
+$Param = @{
+    Filter = "last_seen:<'Last $Days days'"
+    Limit = 5000
+    All = $true
+}
+$Hosts = Get-FalconHost @Param
+if ($Hosts) {
+    $Param = @{
+        Name = 'hide_host'
+        Ids = $Hosts
+    }
+    Invoke-FalconHostAction @Param
+} else {
+    "No hosts found using filter: $Filter"
+}
+```
 ## Find duplicate hosts and hide them
 **NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
 ```powershell

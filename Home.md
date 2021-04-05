@@ -73,6 +73,7 @@
 * [Find and hide large numbers of detections](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#find-and-hide-large-numbers-of-detections)
 ### Hosts
 * [Add a list of hostnames to a host group](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#add-a-list-of-hostnames-to-a-host-group)
+* [Hide hosts based on last_seen time](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#hide-hosts-based-on-last_seen-time)
 * [Find duplicate hosts and hide them](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#find-duplicate-hosts-and-hide-them)
 * [Network contain a device by Hostname](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#network-contain-a-device-by-hostname)
 * [Network contain a list of Hostnames from a CSV file](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#network-contain-a-list-of-hostnames-from-a-csv-file)

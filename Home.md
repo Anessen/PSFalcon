@@ -11,7 +11,7 @@
 * Requesting and revoking OAuth2 access tokens, switching cloud environments, and 'child' CIDs
 ### [Filtering and the Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)
 * Using the Falcon Query Language to limit results and combining multiple filter conditions and values
-### [Configuration import and export](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import)
+### [Configuration Export and Import](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import)
 * Export configured items from one CID, and restore or re-create them in the same or different CID(s)
 ### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
 * Converting results to CSV using `Export-FalconReport`

@@ -16,6 +16,7 @@ Similar to the regular command, a zip file will be created, but in this example 
 ```powershell
 Export-FalconConfig -Items HostGroup, FirewallGroup, FirewallPolicy
 ```
+**NOTE**: You can view the available export items using the `-Help` parameter.
 ## Import configurations
 When you run the `Import-FalconConfig` command, all of the files within the zip will be loaded and the corresponding items will be retrieved from your authenticated Falcon environment for analysis. If one or more of the items aren't present in your environment, they will be created.
 ```powershell

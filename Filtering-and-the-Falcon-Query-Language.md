@@ -10,11 +10,11 @@ The simplest FQL statements require a single condition and value. For instance, 
 ```powershell
 Get-FalconHost -Filter "hostname:'ONE'"
 ```
-Many filters will automatically return partial matches, but you can include wildcards (`*`)...
+Many filters will automatically return partial matches, but you can include wildcards (`*`):
 ```powershell
 Get-FalconHost -Filter "hostname:*'*ONE*'"
 ```
-...and you can restrict results to exact matches (including case) using square brackets:
+Using square brackets will restrict results to exact matches (including case):
 ```powershell
 Get-FalconHost -Filter "hostname:['ONE']"
 ```

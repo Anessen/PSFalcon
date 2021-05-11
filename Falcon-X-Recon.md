@@ -5,7 +5,7 @@ Get-FalconReconRule [-Detailed]
 ```
 ### Creating a monitoring rule
 ```powershell
-New-FalconReconRule -Name psfalcon_example -Topic SA_BRAND_PRODUCT -Filter "phrase:'psfalcon_example_phrase'" -Priority low -Permissions private
+New-FalconReconRule -Name psfalcon_example -Topic SA_AUTHOR -Filter "author:'example_author'" -Priority low -Permissions private
 ```
 ### Creating multiple monitoring rules in a single request
 ```powershell

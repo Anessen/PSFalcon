@@ -79,6 +79,8 @@
 ### [Users and Roles](https://github.com/CrowdStrike/psfalcon/wiki/Users-and-Roles)
 * Create, find, modify and delete Falcon console users
 * Add or remove user roles
+### [Zero Trust Assessment](https://github.com/CrowdStrike/psfalcon/wiki/Zero-Trust-Assessment)
+* Retrieve Zero Trust Assessment results by host
 # Basic Scripts
 ### Detections
 * [Assign detections involving a specific file to a user](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#assign-detections-involving-a-specific-file-to-a-user)

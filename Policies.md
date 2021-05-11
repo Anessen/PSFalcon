@@ -262,4 +262,36 @@ Get-FalconIOAGroup -Filter "name:'updatedRuleGroup'+platform:'mac'"
 ```powershell
 Get-FalconIOARule -Filter "id:'<id>'+rules.name:'BugRule'" [-Detailed] [-All]
 ```
+## Custom IOCs
+### Creating a domain indicator
+```powershell
+New-FalconIOC -Type domain -Value example01.com -Action detect -Severity medium -Description 'test description' -Platforms windows, mac, linux -Tags test_tag -HostGroups <host_group_id>, <host_group_id> -Expiration 2021-05-01
+```
+### Creating multiple indicators in a single request
+```powershell
+```
+### Finding domain indicator identifiers
+```powershell
+Get-FalconIOC -Filter "type:'domain'
+```
+### Retrieving details about an indicator by its identifier
+```powershell
+Get-FalconIOC -Ids <id>, <id>
+```
+### Retrieving indicator details in large batches
+```powershell
+Get-FalconIOC -Filter "type:'domain'+tags:'MalDomain_20201215'+tags:'domains_mac'" -Detailed
+```
+## Updating indicators
+### Updating an indicator by identifier
+```powershell
+Edit-FalconIOC -Id <id> -Source testSource -Action detect -Severity low -Description 'test description update' -Platforms windows -Tags test_tag2 -HostGroups all -Expiration '2021-05-01T12:00:00Z'
+```
+### Bulk updating filtered indicators
+```powershell
+```
+### Deleting indicators by identifier
+```powershell
+Remove-FalconIOC -Ids <id>, <id>
+```
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/85/detection-and-prevention-policies-apis)._

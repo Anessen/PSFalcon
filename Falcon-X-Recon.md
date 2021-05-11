@@ -64,6 +64,7 @@ Edit-FalconReconAction -Id <id> -Frequency weekly
 ```
 ### Deleting email notifications for a monitoring rule
 ```powershell
+Remove-FalconReconAction -Id <id>
 ```
 ## Managing notifications from monitoring rule matches
 ### Querying notifications

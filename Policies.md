@@ -269,6 +269,31 @@ New-FalconIOC -Type domain -Value example01.com -Action detect -Severity medium 
 ```
 ### Creating multiple indicators in a single request
 ```powershell
+$Array = @(
+    @{
+        type = "domain"
+        value = "example01.com"
+        action = "detect"
+        severity = "medium"
+        description = "test description"
+        platforms = @("windows", "mac", "linux")
+        tags = @("test_tag")
+        host_groups = @("<id>")
+    },
+    @{
+        type = "sha256"
+        value = "a88787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91cc"
+        source = "bd20201216"
+        filename = "iexplore.exe"
+        action = "prevent"
+        severity = "high"
+        description = "test block description"
+        platforms = @("windows")
+        tags = @("test_tag", "test_tag2")
+        applied_globally = $true
+    }
+)
+New-FalconIOC -Array $Array
 ```
 ### Finding domain indicator identifiers
 ```powershell
@@ -286,9 +311,6 @@ Get-FalconIOC -Filter "type:'domain'+tags:'MalDomain_20201215'+tags:'domains_mac
 ### Updating an indicator by identifier
 ```powershell
 Edit-FalconIOC -Id <id> -Source testSource -Action detect -Severity low -Description 'test description update' -Platforms windows -Tags test_tag2 -HostGroups all -Expiration '2021-05-01T12:00:00Z'
-```
-### Bulk updating filtered indicators
-```powershell
 ```
 ### Deleting indicators by identifier
 ```powershell

@@ -1,4 +1,4 @@
-**NOTE**: These commands were removed in PSFalcon v2.0.8 and replaced with the new [Custom Indicator APIs]().
+**NOTE**: These commands were removed in PSFalcon v2.0.8 and replaced with the new [Custom Indicator APIs](https://github.com/CrowdStrike/psfalcon/wiki/Policies#custom-iocs).
 ### Finding domain and IPv4 IOCs
 ```powershell
 Get-FalconIOC -Type domain, ipv4 [-Detailed] [-All]

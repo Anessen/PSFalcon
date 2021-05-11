@@ -49,4 +49,35 @@ Edit-FalconReconRule -Array $Array
 ```powershell
 Remove-FalconReconRule -Ids <id>, <id>
 ```
+## Setting up email notifications for monitoring rules
+### Querying monitoring rule actions
+```powershell
+Get-FalconReconAction [-Detailed]
+```
+### Creating email notifications for a monitoring rule
+```powershell
+```
+### Updating email notifications for a monitoring rule
+```powershell
+```
+### Deleting email notifications for a monitoring rule
+```powershell
+```
+## Managing notifications from monitoring rule matches
+### Querying notifications
+```powershell
+```
+## Getting data from notifications
+### Get simplified data from notifications
+```powershell
+```
+### Get raw intelligence data from notifications
+```powershell
+```
+### Get data from notifications translated into English
+```powershell
+```
+### Get raw intelligence data from notifications translated into English
+```powershell
+```
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/162/falcon-x-recon-apis)._

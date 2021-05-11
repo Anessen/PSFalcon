@@ -69,18 +69,23 @@ Remove-FalconReconAction -Id <id>
 ## Managing notifications from monitoring rule matches
 ### Querying notifications
 ```powershell
+Get-FalconReconNotification
 ```
 ## Getting data from notifications
 ### Get simplified data from notifications
 ```powershell
+Get-FalconReconNotification [-Detailed]
 ```
 ### Get raw intelligence data from notifications
 ```powershell
+Get-FalconReconNotification -Ids <id>, <id> -Intel
 ```
 ### Get data from notifications translated into English
 ```powershell
+Get-FalconReconNotification -Ids <id>, <id> -Translate
 ```
 ### Get raw intelligence data from notifications translated into English
 ```powershell
+Get-FalconReconNotification -Ids <id>, <id> -Combined
 ```
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/162/falcon-x-recon-apis)._

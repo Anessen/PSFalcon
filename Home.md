@@ -16,7 +16,7 @@
 ### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
 * Converting results to CSV using `Export-FalconReport`
 # Using Commands
-### [Custom IOCs](https://github.com/CrowdStrike/psfalcon/wiki/Custom-IOCs)
+### [Custom IOCs -- DEPRECATED](https://github.com/CrowdStrike/psfalcon/wiki/Custom-IOCs)
 * Create, find, modify and delete Custom Indicators of Compromise
 ### [Cloud Workload Discovery](https://github.com/CrowdStrike/psfalcon/wiki/Cloud-Workload-Discovery)
 * Register and list cloud accounts and settings for Cloud Workload Discovery
@@ -53,8 +53,14 @@
 ### [OverWatch Dashboards](https://github.com/CrowdStrike/psfalcon/wiki/OverWatch-Dashboards)
 * Get information about Falcon OverWatch activity across all CrowdStrike customers
 ### [Policies](https://github.com/CrowdStrike/psfalcon/wiki/Policies)
-* Create, find, modify and delete Device Control, Firewall Management, Prevention, Sensor Update and Real-time Response policies
+* Create, find, modify and delete policies
 * Assign or remove Host Groups from policies
+* Manage policy precedence
+* Create, find, modify or delete Machine Learning exclusions
+* Create, find, modify or delete Sensor Visibility exclusions
+* Find, modify or delete Indicator of Attack (IOA) exclusions
+* Create, find, modify or delete Custom Indicators (IOCs)
+* Create, find, modify or delete Custom Indicators of Attack
 ### [Real-time Response](https://github.com/CrowdStrike/psfalcon/wiki/Real-time-Response)
 * Create and find information about Real-time Response sessions with single or batches of devices
 * Create, find, modify and delete custom scripts and 'put' files

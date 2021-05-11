@@ -28,6 +28,10 @@
 * Capture sample of event data
 ### [Falcon Complete Dashboards](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-Complete-Dashboards)
 * Get information about Falcon Complete activity in your Falcon instance
+### [Falcon X Recon](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-X-Recon)
+* Create, find, modify and delete monitoring rules
+* Create, find, modify and delete email notifications for a monitoring rule
+* Find notifications from monitoring rule matches
 ### [Firewall Management](https://github.com/CrowdStrike/psfalcon/wiki/Firewall-Management)
 * Create, find, modify and delete Falcon Firewall Management rule groups and rules
 * Find information about rule groups, rules and related Firewall Management properties

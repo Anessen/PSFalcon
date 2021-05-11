@@ -56,7 +56,7 @@ Get-FalconReconAction [-Detailed]
 ```
 ### Creating email notifications for a monitoring rule
 ```powershell
-New-FalconReconAction -Id <id> -Type email -Frequency daily -Recipients user@example.com
+New-FalconReconAction -RuleId <rule_id> -Type email -Frequency daily -Recipients user@example.com
 ```
 ### Updating email notifications for a monitoring rule
 ```powershell

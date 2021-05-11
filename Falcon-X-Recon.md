@@ -60,6 +60,7 @@ New-FalconReconAction -RuleId <rule_id> -Type email -Frequency daily -Recipients
 ```
 ### Updating email notifications for a monitoring rule
 ```powershell
+Edit-FalconReconAction -Id <id> -Frequency weekly
 ```
 ### Deleting email notifications for a monitoring rule
 ```powershell

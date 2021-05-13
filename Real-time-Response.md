@@ -73,6 +73,7 @@ $Confirm | Where-Object { $_.sha256 -and $_.created_at -and $_.session_id } | Fo
     Receive-FalconGetFile @Param
 }
 ```
+You can re-run the previous command examples (`Confirm-FalconGetFile` and `Receive-FalconGetFile`) repeatedly to download additional files as their uploads complete from each individual host.
 ## Find Real-time Response sessions
 **NOTE**: Only sessions created by your OAuth2 API Client will be visible using the following commands.
 ```powershell

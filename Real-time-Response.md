@@ -52,6 +52,27 @@ Update-FalconSession -SessionId $Session.session_id
 ```powershell
 Invoke-FalconDeploy -HostIds <id>, <id> -Path $pwd\File.exe [-QueueOffline]
 ```
+## Use Real-time Response to download a file from multiple hosts
+```powershell
+$Get = Invoke-FalconRTR -Command get -Arguments "C:\example.exe" -HostIds <id>, <id>
+```
+Once the batch 'get' request has been submitted using `Invoke-FalconRTR`, you can check the status of each `batch_get_cmd_req_id` to see if the file is ready to download.
+```powershell
+$Confirm = ($Get.batch_get_cmd_req_id | Group-Object).Name | ForEach-Object {
+    Confirm-FalconGetFile -BatchGetCmdReqId $_
+}
+```
+The upload from the host has completed once the file has populated `sha256` and `created_at` values. You can use the `sha256` and `session_id` values to download the files, and in the following example, each file will be downloaded and saved in your local directory, using the `sha256` and `aid` values to name the archive.
+```powershell
+$Confirm | Where-Object { $_.sha256 -and $_.created_at -and $_.session_id } | ForEach-Object {
+    $Param = @{
+        Sha256 = $_.sha256
+        SessionId = $_.session_id
+        Path = "$pwd\$($_.aid)_$($_.sha256).7z"
+    }
+    Receive-FalconGetFile @Param
+}
+```
 ## Find Real-time Response sessions
 **NOTE**: Only sessions created by your OAuth2 API Client will be visible using the following commands.
 ```powershell

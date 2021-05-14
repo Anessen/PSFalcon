@@ -227,6 +227,21 @@ $CIDs | ForEach-Object {
     }
 }
 ```
+# Policies
+### Modify all Sensor Visibility Exclusions to include an additional Host Group
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
+param(
+    [Parameter(Mandatory = $true,
+        Position = 1)]
+    [ValidatePattern('\w{32}')]
+    [string] $GroupId
+)
+$SVEs = Get-FalconSVExclusion -Detailed -All
+foreach ($SVE in $SVEs) {
+    Edit-FalconSVExclusion -Id $SVE.id -GroupIds @($SVE.groups.id, $GroupId)
+}
+```
 # Real-time Response
 ## Run a command against a group of devices
 ```powershell

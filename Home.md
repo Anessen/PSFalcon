@@ -16,8 +16,6 @@
 ### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
 * Converting results to CSV using `Export-FalconReport`
 # Using Commands
-### [Custom IOCs -- DEPRECATED](https://github.com/CrowdStrike/psfalcon/wiki/Custom-IOCs)
-* Create, find, modify and delete Custom Indicators of Compromise
 ### [Cloud Workload Discovery](https://github.com/CrowdStrike/psfalcon/wiki/Cloud-Workload-Discovery)
 * Register and list cloud accounts and settings for Cloud Workload Discovery
 ### [Detections and Incidents](https://github.com/CrowdStrike/psfalcon/wiki/Detections-and-Incidents)

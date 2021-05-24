@@ -20,11 +20,16 @@ Install-Module -Name PSFalcon -Scope CurrentUser
 
 **NOTE**: If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. Having both can cause possible complications, so if there's no need to have the old version, it's best to `Uninstall-Module -Name PSFalcon` and remove old versions (v1.x.x) before installing the latest (v2.x.x or newer).
 
-3. Verify that the module installed
-
-`Get-Command` will list the commands included with PSFalcon. If it was successfully installed, you can import the module then get a list of commands along with a version number that matches the GitHub master repository.
+3. Import the module
+Once the module is installed, it needs to be imported. This must happen [every time you intend to use the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation#import-the-module).
 ```powershell
 Import-Module -Name PSFalcon
+```
+
+4. List available commands [Optional]
+
+`Get-Command` will list the commands included with PSFalcon. If the module was successfully imported, you will be able to list the available commands and their respective version number.
+```powershell
 Get-Command -Module PSFalcon
 ```
 If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [Manual Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation#manual-installation).

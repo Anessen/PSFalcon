@@ -2,11 +2,6 @@ The `Export-FalconReport` command translates the API response into something tha
 
 If one of these examples doesn't provide the specific data you're seeking, try using the PSFalcon command, manipulating the results, and using `Export-Csv` directly.
 
-## Custom IOCs
-```powershell
-Get-FalconIOC [-Detailed] [-All] | Export-FalconReport -Path .\IOCs.csv
-```
-
 ## Custom Scripts and Put Files (Real-time Response)
 ```powershell
 Get-FalconScript [-Detailed] [-All] | Export-FalconReport -Path .\Scripts.csv

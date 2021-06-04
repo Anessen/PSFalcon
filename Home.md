@@ -95,6 +95,7 @@
 ### Policies
 * [Modify all Sensor Visibility Exclusions to include an additional Host Group](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
 * [Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#assign-a-list-of-host-group-names-to-a-specific-policy-id-within-a-list-of-child-cids)
+* [Output a list of assigned Host Groups for designated Policy ids within child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#output-a-list-of-assigned-host-groups-for-designated-policy-ids-within-child-cids)
 ### Real-time Response
 * [Run a command against a group of devices](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#run-a-command-against-a-group-of-devices)
 ### Sensor Installers

@@ -230,7 +230,7 @@ $CIDs | ForEach-Object {
 }
 ```
 # Host Groups
-### Verify that a list of Host Groups exist within child CIDs
+## Verify that a list of Host Groups exist within child CIDs
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 [CmdletBinding()]
@@ -315,7 +315,7 @@ end {
 }
 ```
 # Policies
-### Modify all Sensor Visibility Exclusions to include an additional Host Group
+## Modify all Sensor Visibility Exclusions to include an additional Host Group
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
@@ -329,7 +329,7 @@ foreach ($SVE in $SVEs) {
     Edit-FalconSVExclusion -Id $SVE.id -GroupIds @($SVE.groups.id, $GroupId)
 }
 ```
-### Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs
+## Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 [CmdletBinding()]
@@ -435,6 +435,82 @@ end {
     if (Test-Path -Path $LogLocation) {
         # Output log file and path
         Get-ChildItem -Path $LogLocation
+    }
+}
+```
+## Output a list of assigned Host Groups for designated Policy ids within child CIDs
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{32}')]
+    [string] $ClientId,
+
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{40}')]
+    [string] $ClientSecret,
+
+    [Parameter()]
+    [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
+    [string] $Cloud,
+
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{32}')]
+    [array] $MemberCIDs,
+
+    [Parameter(Mandatory = $true)]
+    [ValidateSet('DeviceControl', 'Firewall', 'Prevention', 'Response', 'SensorUpdate')]
+    [string] $PolicyType,
+
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{32}')]
+    [array] $PolicyIds
+)
+begin {
+    $Filename = "$($PolicyType)PolicyAssignments_$(Get-Date -Format FileDate).csv"
+    $OutputPath = "$(Join-Path -Path ([Environment]::CurrentDirectory) -ChildPath $Filename)"
+}
+process {
+    foreach ($CID in $MemberCIDs) {
+        $Param = @{
+            ClientId = $ClientId
+            ClientSecret = $ClientSecret
+            MemberCid = ($CID).ToLower()
+        }
+        if ($Cloud) {
+            $Param.Add('Cloud', $Cloud)
+        }
+        # Authenticate with Member CID
+        Request-FalconToken @Param
+        try {
+            # Get policy information
+            $InvokeCommand = "Get-Falcon$($PolicyType)Policy"
+            & $InvokeCommand -Ids $PolicyIds | Select-Object id, groups | ForEach-Object {
+                [PSCustomObject] @{
+                    # Output with CID, policy id and assigned groups
+                    CID = $CID
+                    PolicyId = "$($_.id)"
+                    Groups = $_.groups.id -join ', '
+                } | Export-Csv -Path $OutputPath -NoTypeInformation -Append
+            }
+            Write-Host "Output assigned Host Groups for policies in CID: $CID"
+        } catch {
+            # Output error and end script
+            $_
+            break
+        } finally {
+            # Remove authentication token and credentials for next CID
+            Revoke-FalconToken
+
+            # Sleep for 5 seconds to avoid rate limiting on token request
+            Start-Sleep -Seconds 5
+        }
+    }
+}
+end {
+    if (Test-Path -Path $OutputPath) {
+        Get-ChildItem -Path $OutputPath
     }
 }
 ```

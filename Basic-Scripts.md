@@ -244,6 +244,115 @@ foreach ($SVE in $SVEs) {
     Edit-FalconSVExclusion -Id $SVE.id -GroupIds @($SVE.groups.id, $GroupId)
 }
 ```
+### Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{32}')]
+    [string] $ClientId,
+
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{40}')]
+    [string] $ClientSecret,
+
+    [Parameter()]
+    [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
+    [string] $Cloud,
+
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{32}')]
+    [array] $MemberCIDs,
+
+    [Parameter(Mandatory = $true)]
+    [array] $GroupNames,
+
+    [Parameter(Mandatory = $true)]
+    [ValidateSet('DeviceControl', 'Firewall', 'Prevention', 'Response', 'SensorUpdate')]
+    [string] $PolicyType,
+
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{32}')]
+    [string] $PolicyId
+)
+begin {
+    # Log file name and output location
+    $LogName = "AssignGroup_$(Get-Date -Format FileDateTime).log"
+    $LogLocation = "$(Join-Path -Path ([Environment]::CurrentDirectory) -ChildPath $LogName)"
+
+    function Write-LogEntry ([string] $Source, [string] $Message) {
+        # Write output and add to log file
+        "[$(Get-Date -Format 'yyyy-MM-dd hh:mm:ss') $Source] $Message" | Tee-Object -FilePath $LogLocation -Append
+    }
+}
+process {
+    foreach ($CID in $MemberCIDs) {
+        $Param = @{
+            ClientId = $ClientId
+            ClientSecret = $ClientSecret
+            MemberCid = ($CID).ToLower()
+        }
+        if ($Cloud) {
+            $Param.Add('Cloud', $Cloud)
+        }
+        # Authenticate with Member CID
+        Request-FalconToken @Param
+        try {
+            ($GroupNames).foreach{
+                # Get Host Group Id
+                $GroupId = Get-FalconHostGroup -Filter "name:'$(($_).ToLower())'"
+                if ($GroupId) {
+                    # Assign Host Group to policy
+                    $InvokeCommand = "Invoke-Falcon$($PolicyType)PolicyAction"
+                    $Param = @{
+                        Name = 'add-host-group'
+                        Id = $PolicyId
+                        GroupId = $GroupId
+                    }
+                    $Assigned = & $InvokeCommand @Param
+                    if ($Assigned) {
+                        $Param = @{
+                            Source = $InvokeCommand
+                            Message = "Assigned group $($GroupId) to $($PolicyType) policy" +
+                                " $($Assigned.id) in CID $($CID)"
+                        }
+                        Write-LogEntry @Param
+                    } else {
+                        $Param = @{
+                            Source = $InvokeCommand
+                            Message = "Failed to assign group $($GroupId) to $($PolicyId) in CID $($CID)"
+                        }
+                        Write-LogEntry @Param
+                    }
+                } else {
+                    $Param = @{
+                        Source = 'Get-FalconHostGroup'
+                        Message = "No results for group name '$_' in CID $($CID)"
+                    }
+                    Write-LogEntry @Param
+                }
+            }
+        } catch {
+            # Output error and end script
+            $_
+            break
+        } finally {
+            # Remove authentication token and credentials for next CID
+            Revoke-FalconToken
+
+            # Sleep for 5 seconds to avoid rate limiting on token request
+            Start-Sleep -Seconds 5
+        }
+    }
+}
+end {
+    if (Test-Path -Path $LogLocation) {
+        # Output log file and path
+        Get-ChildItem -Path $LogLocation
+    }
+}
+```
 # Real-time Response
 ## Run a command against a group of devices
 ```powershell

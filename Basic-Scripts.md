@@ -229,6 +229,90 @@ $CIDs | ForEach-Object {
     }
 }
 ```
+# Host Groups
+### Verify that a list of Host Groups exist within child CIDs
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{32}')]
+    [string] $ClientId,
+
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{40}')]
+    [string] $ClientSecret,
+
+    [Parameter()]
+    [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
+    [string] $Cloud,
+
+    [Parameter(Mandatory = $true)]
+    [ValidatePattern('\w{32}')]
+    [array] $MemberCIDs,
+
+    [Parameter(Mandatory = $true)]
+    [array] $GroupNames
+)
+begin {
+    # Log file name and output location
+    $OutputFile = "VerifyGroup_$(Get-Date -Format FileDateTime).csv"
+    $OutputPath = "$(Join-Path -Path ([Environment]::CurrentDirectory) -ChildPath $OutputFile)"
+}
+process {
+    foreach ($CID in $MemberCIDs) {
+        $Param = @{
+            ClientId = $ClientId
+            ClientSecret = $ClientSecret
+            MemberCid = ($CID).ToLower()
+        }
+        if ($Cloud) {
+            $Param.Add('Cloud', $Cloud)
+        }
+        # Authenticate with Member CID
+        Request-FalconToken @Param
+        try {
+            # Get group information
+            $Groups = for ($i = 0; $i -lt $GroupNames.count; $i += 20) {
+                [array] $NameFilter = ($GroupNames[$i..($i + 19)]).foreach{
+                    "name:'$(($_).ToLower())'"
+                }
+                Get-FalconHostGroup -Filter ($NameFilter -join ',') -Detailed | Select-Object id, name
+            }
+            # Create output object
+            $Output = [PSCustomObject] @{
+                CID = $CID
+            }
+            foreach ($GroupName in $GroupNames) {
+                # Add each group name and id
+                $IdValue = if ($Groups.name -contains $GroupName) {
+                    ($Groups | Where-Object { $_.name -eq $GroupName }).id
+                } else {
+                    $null
+                }
+                $Output.PSObject.Properties.Add((New-Object PSNoteProperty($GroupName, $IdValue)))
+            }
+            # Output to CSV
+            $Output | Export-Csv -Path $OutputPath -NoTypeInformation -Append
+        } catch {
+            # Output error and end script
+            $_
+            break
+        } finally {
+            # Remove authentication token and credentials for next CID
+            Revoke-FalconToken
+
+            # Sleep for 5 seconds to avoid rate limiting on token request
+            Start-Sleep -Seconds 5
+        }
+    }
+}
+end {
+    if (Test-Path -Path $OutputPath) {
+        Get-ChildItem -Path $OutputPath
+    }
+}
+```
 # Policies
 ### Modify all Sensor Visibility Exclusions to include an additional Host Group
 ```powershell

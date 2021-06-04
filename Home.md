@@ -90,6 +90,8 @@
 * [Network contain a device by Hostname](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#network-contain-a-device-by-hostname)
 * [Network contain a list of Hostnames from a CSV file](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#network-contain-a-list-of-hostnames-from-a-csv-file)
 * [Get host information from multiple Falcon instances](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#get-host-information-from-multiple-falcon-instances)
+### Host Groups
+* [Verify that a list of Host Groups exist within Child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#verify-that-a-list-of-host-groups-exist-within-child-cids)
 ### Policies
 * [Modify all Sensor Visibility Exclusions to include an additional Host Group](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
 * [Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#assign-a-list-of-host-group-names-to-a-specific-policy-id-within-a-list-of-child-cids)

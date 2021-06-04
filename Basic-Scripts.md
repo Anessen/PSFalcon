@@ -294,6 +294,7 @@ process {
             }
             # Output to CSV
             $Output | Export-Csv -Path $OutputPath -NoTypeInformation -Append
+            Write-Host "Output Host Groups for CID: $CID"
         } catch {
             # Output error and end script
             $_

@@ -45,8 +45,12 @@ $Report = Get-FalconReport -Ids <id>
 ```powershell
 Receive-FalconArtifact -Id $Report.ioc_report_strict_csv_artifact_id -Path .\ioc_report_strict_csv_artifact_id.csv
 ```
-## Check your submission quota
+## Check your Sandbox submission quota
 ```powershell
 Get-FalconSubmissionQuota
+```
+## Check your QuickScan submission quota
+```powershell
+Get-FalconQuickScanQuota
 ```
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/92/falcon-x-apis)._

@@ -30,6 +30,7 @@ New-FalconPreventionPolicy -PlatformName Windows -Name "Demo Policy" -Descriptio
 Invoke-FalconPreventionPolicyAction -ActionName add-host-group -Id <id> -GroupId <id>
 ```
 ### Set Prevention policy precedence
+**NOTE**: All policy ids (with the exception of `platform_default`) must be supplied in precedence order.
 ```powershell
 Set-FalconPreventionPrecedence -PlatformName Windows -Ids <id>, <id>
 ```

@@ -41,7 +41,6 @@ Get-FalconFirewallGroup -Ids <id>, <id>
 ```
 ### Updating firewall rule groups
 ```powershell
-Edit-FalconFirewallGroup -PolicyId <id> 
 ```
 ### Deleting firewall rule groups
 ```powershell

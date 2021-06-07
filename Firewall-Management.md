@@ -1,6 +1,6 @@
 ## Managing firewall rule groups
 ### Creating firewall rule groups
-Firewall rules can be added at the time of group creation, or added after the group is created using `Edit-FalconFirewallGroup`. The `-Rules` parameter accepts a PowerShell array of rule objects which are converted to Json before submission.
+The `-Rules` parameter accepts a PowerShell array of rule objects which are converted to Json before submission.
 ```powershell
 $Rules = @(
     @{

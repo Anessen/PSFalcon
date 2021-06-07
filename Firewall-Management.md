@@ -75,7 +75,8 @@ Invoke-FalconFirewallPolicyAction -Name disable -Id <id>
 Remove-FalconFirewallPolicy -Ids <id>, <id>
 ```
 ### Managing firewall policy precedence
+**NOTE**: All policy ids (with the exception of `platform_default`) must be supplied in desired precedence order.
 ```powershell
-Set-FalconFirewallPrecedence -PlatformName Windows -Ids <id_1>, <id_2>, <id_3>
+Set-FalconFirewallPrecedence -PlatformName Windows -Ids <id>, <id>
 ```
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/107/falcon-firewall-management-apis)._

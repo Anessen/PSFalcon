@@ -50,27 +50,32 @@ Remove-FalconFirewallGroup -Ids <id>, <id>
 ```powershell
 ```
 ## Managing firewall policies
-```powershell
-```
 ### Creating firewall policies
 ```powershell
+New-FalconFirewallPolicy -PlatformName Windows -Name 'Test Policy' -Description 'Firewall test policy'
 ```
 ### Updating firewall policies
 ```powershell
+Edit-FalconFirewallPolicy -Id <id> -Name 'Test Policy 1 Name Changed'
 ```
 ### Copying firewall policies
 ```powershell
+New-FalconFirewallPolicy -PlatformName Windows -Name 'Cloned Test Policy' -Description 'Firewall test cloned policy' -CloneId <id>
 ```
 ### Enabling firewall policies
 ```powershell
+Invoke-FalconFirewallPolicyAction -Name enable -Id <id>
 ```
 ### Disabling firewall policies
 ```powershell
+Invoke-FalconFirewallPolicyAction -Name disable -Id <id>
 ```
 ### Deleting firewall policies
 ```powershell
+Remove-FalconFirewallPolicy -Ids <id>, <id>
 ```
 ### Managing firewall policy precedence
 ```powershell
+Set-FalconFirewallPrecedence -PlatformName Windows -Ids <id_1>, <id_2>, <id_3>
 ```
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/107/falcon-firewall-management-apis)._

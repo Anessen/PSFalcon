@@ -123,7 +123,7 @@ param(
 )
 try {
     # Get detailed information about devices
-    $Hosts = Get-FalconHost -Detailed -Limit 5000 -All
+    $Hosts = Get-FalconHost -Detailed -All
 
     # Use Find-FalconDuplicate to find duplicate hosts
     if ($Hosts) {
@@ -219,7 +219,7 @@ $CIDs | ForEach-Object {
 
     try {
         # Gather and export Host data
-        Get-FalconHost -Limit 5000 -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
+        Get-FalconHost -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
     } catch {
         # Break 'foreach' loop if host retrieval/export fails
         throw $_
@@ -537,7 +537,7 @@ $GroupId = Get-FalconHostGroup -Filter "name:'$($GroupName.ToLower())'"
 
 if ($GroupId) {
     # Get host identifiers for members of $GroupId
-    $Members = Get-FalconHostGroupMember -Id $GroupId -Limit 500 -All
+    $Members = Get-FalconHostGroupMember -Id $GroupId -All
 } else {
     throw "No host group found matching '$GroupName'"
 }

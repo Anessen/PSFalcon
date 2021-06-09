@@ -98,7 +98,6 @@ param(
 )
 $Param = @{
     Filter = "last_seen:<'Last $Days days'"
-    Limit = 5000
     All = $true
 }
 $Hosts = Get-FalconHost @Param
@@ -623,7 +622,6 @@ if ($InstallerId -and $Filename) {
 $UnixDate = [DateTimeOffset]::Now.AddDays(-7).ToUnixTimeSeconds()
 $Param = @{
     Filter = "(type:'ip_address',type:'domain')+last_updated:>$UnixDate"
-    Limit = 5000
     Detailed = $true
     All = $true
 }
@@ -657,7 +655,6 @@ $ExportName = "$pwd\Vulnerabilities_$((Get-Date).AddDays(-$Days).ToString('yyyyM
 # Gather vulnerabilities within date range (default: last 7 days) and export to CSV
 $Param = @{
     Filter = "created_timestamp:>'Last $Days days'"
-    Limit = 400
     Detailed = $true
     All = $true
     Verbose = $true

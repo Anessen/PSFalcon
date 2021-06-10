@@ -602,6 +602,10 @@ process {
     Invoke-FalconRTR @Param
 }
 ```
+## Upload and execute a local script as a secondary process
+**NOTE**: Similar to the [other example](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script) this will run a script as a secondary PowerShell process on the target device, which helps when scripts are expected to exceed the Real-time Response timeout limit.
+```powershell
+```
 # Sensor Installers
 ## Download the installer package assigned to a Sensor Update policy
 ```powershell

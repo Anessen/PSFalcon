@@ -603,7 +603,7 @@ process {
 }
 ```
 ## Upload and execute a local script as a secondary process
-**NOTE**: Similar to the [other example](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script) this will run a script as a secondary PowerShell process on the target device, which helps when scripts are expected to exceed the Real-time Response timeout limit.
+**NOTE**: Similar to the [other example](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script) this will run a script as a secondary PowerShell process on the target device, which helps when scripts are expected to exceed the Real-time Response timeout limit. The downside is that you will not be able to return results from the script unless you write them to a local file on the target host that you access later.
 ```powershell
 [CmdletBinding()]
 param(

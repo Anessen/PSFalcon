@@ -566,6 +566,42 @@ if ($Members) {
     throw "No members found in host group '$GroupName' [$GroupId]"
 }
 ```
+## Execute and run a local script using Real-time Response
+**NOTE**: This will get the content of a script from the local administrator computer, encode it (to minimize potential errors due to quotation marks) and run it as a "Raw" script using `Invoke-FalconRTR`.
+```powershell
+[CmdletBinding()]
+param(
+    [Parameter(
+        Mandatory = $true,
+        Position = 1)]
+    [ValidateScript({ Test-Path $_ })]
+    [string] $Path,
+
+    [Parameter(
+        Mandatory = $true,
+        Position = 2)]
+    [ValidatePattern('\w{32}')]
+    [array] $HostIds,
+
+    [Parameter(Position = 3)]
+    [int] $Timeout
+)
+begin {
+    $EncodedScript = [Convert]::ToBase64String(
+        [System.Text.Encoding]::Unicode.GetBytes((Get-Content -Path $Path)))
+}
+process {
+    $Param = @{
+        Command = 'runscript'
+        Arguments = '-Raw=```powershell.exe -Enc ' + $EncodedScript + '```'
+        HostIds = $HostIds
+    }
+    if ($HostIds.count -gt 1 -and $Timeout) {
+        $Param['Timeout'] = $Timeout
+    }
+    Invoke-FalconRTR @Param
+}
+```
 # Sensor Installers
 ## Download the installer package assigned to a Sensor Update policy
 ```powershell

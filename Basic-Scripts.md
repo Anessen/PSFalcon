@@ -566,7 +566,7 @@ if ($Members) {
     throw "No members found in host group '$GroupName' [$GroupId]"
 }
 ```
-## Upload and execute a local script using Real-time Response
+## Upload and execute a local script
 **NOTE**: This will get the content of a script from the local administrator computer, encode it (to minimize potential errors due to quotation marks) and run it as a "Raw" script using `Invoke-FalconRTR`.
 ```powershell
 [CmdletBinding()]

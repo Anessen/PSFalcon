@@ -45,14 +45,11 @@ Import-Module -Name PSFalcon
 #Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='<version>'}
 ```
 _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._
-## Basic Troubleshooting
-The `Start-Transcript` and `Stop-Transcript` PowerShell commands capture a PowerShell session to a log file, and using
-the `-Verbose` and `-Debug` parameters with each PSFalcon command will output additional information which can be
-useful in troubleshooting efforts.
+## Basic Troubleshooting and Support
+* Set `$VerbosePreference` and `$DebugPreference` to `'Continue'`
+* Run `Start-Transcript`, `Show-FalconModule`, the affected PSFalcon commands or script, and `Stop-Transcript`
+* [Create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues)
 
-If you run into any problems using PSFalcon, please capture a transcript of the commands you ran (including
-adding the `-Verbose` and `-Debug` parameters), run `Show-FalconModule` and save the resulting
-output, then [create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues).
 ## Manual Installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub. **_If the installation from the PowerShell Gallery worked, there's no need to follow any of the steps included in this section._**
 

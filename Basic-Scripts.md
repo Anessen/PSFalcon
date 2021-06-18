@@ -101,7 +101,7 @@ param(
 
     [Parameter(Mandatory = $true,
         Position = 2)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [string] $GroupId
 )
 $Hostnames = (Get-Content $Path).Normalize()
@@ -263,11 +263,11 @@ $CIDs | ForEach-Object {
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [string] $ClientId,
 
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{40}')]
+    [ValidatePattern('^\w{40}$')]
     [string] $ClientSecret,
 
     [Parameter()]
@@ -275,7 +275,7 @@ param(
     [string] $Cloud,
 
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [array] $MemberCIDs,
 
     [Parameter(Mandatory = $true)]
@@ -348,7 +348,7 @@ end {
 param(
     [Parameter(Mandatory = $true,
         Position = 1)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [string] $GroupId
 )
 $SVEs = Get-FalconSVExclusion -Detailed -All
@@ -362,11 +362,11 @@ foreach ($SVE in $SVEs) {
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [string] $ClientId,
 
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{40}')]
+    [ValidatePattern('^\w{40}$')]
     [string] $ClientSecret,
 
     [Parameter()]
@@ -374,7 +374,7 @@ param(
     [string] $Cloud,
 
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [array] $MemberCIDs,
 
     [Parameter(Mandatory = $true)]
@@ -385,7 +385,7 @@ param(
     [string] $PolicyType,
 
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [string] $PolicyId
 )
 begin {
@@ -471,11 +471,11 @@ end {
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [string] $ClientId,
 
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{40}')]
+    [ValidatePattern('^\w{40}$')]
     [string] $ClientSecret,
 
     [Parameter()]
@@ -483,7 +483,7 @@ param(
     [string] $Cloud,
 
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [array] $MemberCIDs,
 
     [Parameter(Mandatory = $true)]
@@ -491,7 +491,7 @@ param(
     [string] $PolicyType,
 
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [array] $PolicyIds
 )
 begin {
@@ -608,7 +608,7 @@ param(
     [Parameter(
         Mandatory = $true,
         Position = 2)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [array] $HostIds,
 
     [Parameter(Position = 3)]
@@ -644,7 +644,7 @@ param(
     [Parameter(
         Mandatory = $true,
         Position = 2)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [array] $HostIds,
 
     [Parameter(Position = 3)]
@@ -672,7 +672,7 @@ process {
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [Parameter(Mandatory = $true)]
-    [ValidatePattern('\w{32}')]
+    [ValidatePattern('^\w{32}$')]
     [string] $PolicyId
 )
 # Retrieve Sensor Update policy detail

@@ -2,7 +2,7 @@
 **WARNING**: The code provided below is for example purposes only and is offered 'as is' with no support.
 ***
 
-**NOTE**: The examples below assume you have a valid authentication token. If you request the token within your script, you can add the following parameters and code toward the beginning of the examples (which might require a bit of rearranging).
+**NOTE**: Many examples below assume you have a valid authentication token. If you wish to request the token within your script, you can add the following parameters and code (which might require a bit of rearranging).
 ```powershell
 param(
     [Parameter(Mandatory = $true)]

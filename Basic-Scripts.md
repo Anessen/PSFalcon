@@ -616,7 +616,7 @@ param(
 )
 begin {
     $EncodedScript = [Convert]::ToBase64String(
-        [System.Text.Encoding]::Unicode.GetBytes((Get-Content -Path $Path)))
+        [System.Text.Encoding]::Unicode.GetBytes((Get-Content -Path $Path -Raw)))
 }
 process {
     $Param = @{
@@ -652,7 +652,7 @@ param(
 )
 begin {
     $EncodedScript = [Convert]::ToBase64String(
-        [System.Text.Encoding]::Unicode.GetBytes((Get-Content -Path $Path)))
+        [System.Text.Encoding]::Unicode.GetBytes((Get-Content -Path $Path -Raw)))
 }
 process {
     $Param = @{

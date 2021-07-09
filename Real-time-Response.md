@@ -40,6 +40,7 @@ $Command = Invoke-FalconCommand -Command ls -Arguments C:\Windows -SessionId $Se
 ```powershell
 Confirm-FalconCommand -CloudRequestId $Command.cloud_request_id
 ```
+**NOTE**: This step is important! Without retrieving the results from an issued command, the Real-time Response session may not reflect that actions have taken place. For instance, If you `cd` and don't confirm, you'll stay in your current directory.
 ### Refresh the session to prevent expiration
 **NOTE**: Required when you expect to exceed the default session expiration time (10 minutes).
 ```powershell

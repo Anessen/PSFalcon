@@ -30,7 +30,6 @@ $Param = @{}
 Request-FalconToken @Param
 ```
 # Detections
-
 ## Assign detections involving a specific file to a user
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
@@ -61,7 +60,6 @@ Write-Host "Assigning $($Ids.count) detections involving '$Filename' to '$Userna
 # Modify detections
 Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 ```
-
 ## Find and hide large numbers of detections
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
@@ -87,54 +85,6 @@ do {
     # Exit once no more detections are available
     $Ids
 )
-```
-# Device Control Policies
-## Add a list of combined_id exceptions to a policy
-**NOTE**: This script will create 'FULL_ACCESS' exceptions for the 'MASS_STORAGE' class within an existing policy. You can modify the hashtable created in `$Exceptions` to add key/value pairs like `vendor_name` or `product_name`.
-```powershell
-#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory = $true, Position = 1)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $PolicyId,
-
-    [Parameter(Mandatory = $true, Position = 2)]
-    [array] $CombinedIds
-)
-begin {
-    # Maximum number of exceptions to add per request
-    $Max = 50
-}
-process {
-    for ($i = 0; $i -lt ($CombinedIds | Measure-Object).Count; $i += $Max) {
-        # Create exceptions in groups of $Max
-        $IdGroup = $CombinedIds[$i..($i + ($Max - 1))]
-        [array] $Exceptions = $IdGroup | ForEach-Object {
-            @{
-                action = 'FULL_ACCESS'
-                combined_id = $_
-            }
-        }
-        $Settings = @{
-            classes = @(
-                @{
-                    id = 'MASS_STORAGE'
-                    exceptions = $Exceptions
-                }
-            )
-        }
-        Edit-FalconDeviceControlPolicy -Id $PolicyId -Settings $Settings | ForEach-Object {
-            # Validate presence of 'combined_id' in policy
-            $PolicyExceptions = ($_.settings.classes | Where-Object { $_.id -eq 'MASS_STORAGE' }).exceptions
-            ($IdGroup).foreach{
-                if ($PolicyExceptions.combined_id -contains $_) {
-                    Write-Output "OK: $_"
-                }
-            }
-        }
-    }
-}
 ```
 # Hosts
 ## Add a list of hostnames to a host group
@@ -586,6 +536,53 @@ process {
 end {
     if (Test-Path -Path $OutputPath) {
         Get-ChildItem -Path $OutputPath
+    }
+}
+```
+## Add a list of combined_id exceptions to a Device Control policy
+**NOTE**: This script will create 'FULL_ACCESS' exceptions for the 'MASS_STORAGE' class within an existing policy. You can modify the hashtable created in `$Exceptions` to add key/value pairs like `vendor_name` or `product_name`.
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $true, Position = 1)]
+    [ValidatePattern('^\w{32}$')]
+    [string] $PolicyId,
+
+    [Parameter(Mandatory = $true, Position = 2)]
+    [array] $CombinedIds
+)
+begin {
+    # Maximum number of exceptions to add per request
+    $Max = 50
+}
+process {
+    for ($i = 0; $i -lt ($CombinedIds | Measure-Object).Count; $i += $Max) {
+        # Create exceptions in groups of $Max
+        $IdGroup = $CombinedIds[$i..($i + ($Max - 1))]
+        [array] $Exceptions = $IdGroup | ForEach-Object {
+            @{
+                action = 'FULL_ACCESS'
+                combined_id = $_
+            }
+        }
+        $Settings = @{
+            classes = @(
+                @{
+                    id = 'MASS_STORAGE'
+                    exceptions = $Exceptions
+                }
+            )
+        }
+        Edit-FalconDeviceControlPolicy -Id $PolicyId -Settings $Settings | ForEach-Object {
+            # Validate presence of 'combined_id' in policy
+            $PolicyExceptions = ($_.settings.classes | Where-Object { $_.id -eq 'MASS_STORAGE' }).exceptions
+            ($IdGroup).foreach{
+                if ($PolicyExceptions.combined_id -contains $_) {
+                    Write-Output "OK: $_"
+                }
+            }
+        }
     }
 }
 ```

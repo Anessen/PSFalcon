@@ -83,6 +83,8 @@
 ### Detections
 * [Assign detections involving a specific file to a user](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#assign-detections-involving-a-specific-file-to-a-user)
 * [Find and hide large numbers of detections](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#find-and-hide-large-numbers-of-detections)
+### Device Control Policies
+* [Add a list of combined_id exceptions to a policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#add-a-list-of-combined_id-exceptions-to-a-policy)
 ### Hosts
 * [Add a list of hostnames to a host group](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#add-a-list-of-hostnames-to-a-host-group)
 * [Hide hosts based on last_seen time](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#hide-hosts-based-on-last_seen-time)

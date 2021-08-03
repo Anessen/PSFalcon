@@ -29,3 +29,6 @@ $Param = @{}
 }
 Request-FalconToken @Param
 ```
+***
+**WARNING**: The code provided below is for example purposes only and is offered 'as is' with no support.
+***

@@ -1,34 +1,6 @@
 ***
 **WARNING**: The code provided below is for example purposes only and is offered 'as is' with no support.
 ***
-
-**NOTE**: Many examples below assume you have a valid authentication token. If you wish to request the token within your script, you can add the following parameters and code (which might require a bit of rearranging).
-```powershell
-param(
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $ClientId,
-
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{40}$')]
-    [string] $ClientSecret,
-
-    [Parameter()]
-    [ValidateSet('us-1', 'us-2', 'us-gov-1', 'eu-1')]
-    [string] $Cloud,
-
-    [Parameter()]
-    [ValidatePattern('^\w{32}$')]
-    [string] $MemberCid
-)
-$Param = @{}
-@('ClientId', 'ClientSecret', 'Cloud', 'MemberCid').foreach{
-    if ($PSBoundParameters.$_) {
-        $Param[$_] = $PSBoundParameters.$_
-    }
-}
-Request-FalconToken @Param
-```
 # Detections
 ## Assign detections involving a specific file to a user
 ```powershell

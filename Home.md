@@ -80,7 +80,6 @@
 ### [Zero Trust Assessment](https://github.com/CrowdStrike/psfalcon/wiki/Zero-Trust-Assessment)
 * Retrieve Zero Trust Assessment results by host
 # Basic Scripts
-**NOTE**: [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples) can utilized within existing scripts. The "Basic Scripts" listed below are designed to be used to complete a specific task, but could be spliced into relevant pieces.
 ### Detections
 * [Assign detections involving a specific file to a user](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#assign-detections-involving-a-specific-file-to-a-user)
 * [Find and hide large numbers of detections](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#find-and-hide-large-numbers-of-detections)

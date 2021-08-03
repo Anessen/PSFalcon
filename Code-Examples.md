@@ -1,5 +1,8 @@
-This page contains example code that can be used to help make scripts with PSFalcon.
+***
+**WARNING**: The code provided below is for example purposes only and is offered 'as is' with no support.
+***
 ## Authorization token request for a single CID
+An example of how to include authorization information as parameters within a script.
 ```powershell
 param(
     [Parameter(Mandatory = $true)]

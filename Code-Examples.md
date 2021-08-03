@@ -3,7 +3,7 @@
 ***
 **NOTE**: These code snippets can be inserted into existing scripts to perform various tasks. 'Workflow' examples can be found under [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts).
 ## Authorization token request for a single CID
-An example of how to include authorization information as parameters within a script.
+An example of how to include authorization information as parameters and perform a token request.
 ```powershell
 param(
     [Parameter(Mandatory = $true)]

@@ -1,6 +1,7 @@
 ***
 **WARNING**: The code provided below is for example purposes only and is offered 'as is' with no support.
 ***
+**NOTE**: [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples) can utilized within existing scripts. The "Basic Scripts" listed below are designed to be used to complete a specific task, but could be spliced into relevant pieces.
 # Detections
 ## Assign detections involving a specific file to a user
 ```powershell

@@ -5,6 +5,7 @@
 ## Authorization token request for a single CID
 An example of how to include OAuth2 API Client information as parameters and perform an authorization token request. Once complete, the authorization token is stored within the PSFalcon module and re-used for subsequent requests.
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 param(
     [Parameter(Mandatory = $true)]
     [ValidatePattern('^\w{32}$')]
@@ -35,6 +36,7 @@ To perform certain actions, you'll need an identifier for a specific resource wi
 
 The following example shows how you can add the retrieval of these identifiers, convert to an absolute file path, normalize the input (which sometimes is a problem when the values are converted to Json for an API request) and ignore any blank values. Once complete, you can use the `$Ids` variable with another PSFalcon command.
 ```powershell
+#Requires -Version 5.1
 param(
     [Parameter(Mandatory = $true)]
     [ValidateScript({

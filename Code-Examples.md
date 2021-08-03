@@ -1,7 +1,7 @@
 ***
 **WARNING**: The code provided below is for example purposes only and is offered 'as is' with no support.
 ***
-**NOTE**: These code snippets can be inserted into existing scripts to perform various tasks. 'Workflow' examples can be found under [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts).
+**NOTE**: These examples can be inserted into scripts, but are not designed to complete an entire workflow. _See [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
 ## Authorization token request for a single CID
 Include authorization information as parameters and perform a token request.
 ```powershell

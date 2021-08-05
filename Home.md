@@ -15,7 +15,7 @@
 * Export configured items from one CID, and restore or re-create them in the same or different CID(s)
 ### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
 * Converting results to CSV using `Export-FalconReport`
-# Using Commands
+# Commands
 ### [Cloud Workload Discovery](https://github.com/CrowdStrike/psfalcon/wiki/Cloud-Workload-Discovery)
 * Register and list cloud accounts and settings for Cloud Workload Discovery
 ### [Detections and Incidents](https://github.com/CrowdStrike/psfalcon/wiki/Detections-and-Incidents)

@@ -1,7 +1,5 @@
 ***
-**WARNING**: The code provided below is for example purposes only and is offered 'as is' with no support.
-
-These examples can be inserted into scripts, but are not designed to complete an entire workflow. _See [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
+The code provided below is for example purposes only and is offered 'as is' with no support. These examples can be inserted into scripts, but are not designed to complete an entire workflow. _See [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
 ***
 # Authentication
 ## Request authorization for a CID and run command(s)
@@ -138,7 +136,5 @@ $Ids = ((Get-Content -Path $InputFile).Normalize()).foreach{
 }
 ```
 ***
-**WARNING**: The code provided above is for example purposes only and is offered 'as is' with no support.
-
-These examples can be inserted into scripts, but are not designed to complete an entire workflow. _See [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
+The code provided above is for example purposes only and is offered 'as is' with no support. These examples can be inserted into scripts, but are not designed to complete an entire workflow. _See [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
 ***

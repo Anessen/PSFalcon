@@ -31,6 +31,62 @@ $Param = @{}
 }
 Request-FalconToken @Param
 ```
+## Run PSFalcon commands in Member CIDs
+In multi-CID configurations, you can create an OAuth2 API Client Id/Secret in the "parent" CID that has access to the "child" or "member" CIDs. Some data is visible at the parent level, but some data is only visible within the child. After creating an API Client, you can use that to retrieve a list of all available member CIDs (or provide specific members using `-MemberCids`) and run PSFalcon commands within each child, while pausing between authorization token request attempts to avoid rate limiting.
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $true, Position = 1)]
+    [ValidatePattern('^\w{32}$')]
+    [string] $ClientId,
+
+    [Parameter(Mandatory = $true, Position = 2)]
+    [ValidatePattern('^\w{40}$')]
+    [string] $ClientSecret,
+
+    [Parameter(Position = 3)]
+    [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
+    [string] $Cloud,
+
+    [Parameter(Position = 4)]
+    [ValidatePattern('^\w{32}$')]
+    [string] $MemberCids
+)
+begin {
+    # OAuth2 token request parameters
+    $TokenParam = @{
+        ClientId     = $ClientId
+        ClientSecret = $ClientSecret
+    }
+    if ($Cloud) {
+        $TokenParam['Cloud'] = $Cloud
+    }
+    if (!$MemberCids) {
+        # Gather available Member CIDs
+        Request-FalconToken @TokenParam
+        if ((Test-FalconToken).Token -eq $true) {
+            [array] $MemberCids = (Get-FalconMemberCid -Detailed -All | Where-Object {
+                $_.status -eq 'active' }).child_cid
+            Revoke-FalconToken
+        }
+    }
+}
+process {
+    foreach ($Cid in $MemberCids) {
+        try {
+            # Insert code to run and output data from each CID here
+        } catch {
+            Write-Error $_
+        } finally {
+            if ((Test-FalconToken).Token -eq $true) {
+                Revoke-FalconToken
+            }
+            Start-Sleep -Seconds 5
+        }
+    }
+}
+```
 ## Retrieve a list of identifiers from a text file
 To perform certain actions, you'll need an identifier for a specific resource within your Falcon environment--Host identifiers for Real-time Response or Network Containment, Host Group identifiers for policy assignment, etc.
 

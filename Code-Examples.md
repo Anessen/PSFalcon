@@ -3,7 +3,7 @@
 ***
 **NOTE**: These examples can be inserted into scripts, but are not designed to complete an entire workflow. _See [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
 ## Request authorization for a CID and run command(s)
-An example of how to include OAuth2 API Client information as parameters and perform an authorization token request. Once complete, the authorization token is stored within the PSFalcon module and re-used for subsequent requests.
+An example of how to include OAuth2 API Client information as parameters and perform an authorization token request to the associated CID or "member" CID.
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 [CmdletBinding()]

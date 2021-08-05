@@ -2,13 +2,13 @@
 The code provided below is for example purposes only and is offered 'as is' with no support. For scripts designed to complete an entire workflow, _see [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
 ***
 ### Authentication
-* [Request authorization for a CID and run command(s)](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-for-a-cid-and-run-commands)
+* [Request authorization for a CID and run commands](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-for-a-cid-and-run-commands)
 * [Run commands in Member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#run-commands-in-member-cids)
 ### Ingesting Data
 * [Retrieve a list of identifiers from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-a-list-of-identifiers-from-a-text-file)
 ***
 # Authentication
-## Request authorization for a CID and run command(s)
+## Request authorization for a CID and run commands
 An example of how to include OAuth2 API Client information as parameters and perform an authorization token request to the associated CID or "member" CID.
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}

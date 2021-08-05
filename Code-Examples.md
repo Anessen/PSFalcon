@@ -2,7 +2,7 @@
 **WARNING**: The code provided below is for example purposes only and is offered 'as is' with no support.
 ***
 **NOTE**: These examples can be inserted into scripts, but are not designed to complete an entire workflow. _See [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
-## Authorization token request for a single CID
+## Request authorization for a CID and run command(s)
 An example of how to include OAuth2 API Client information as parameters and perform an authorization token request. Once complete, the authorization token is stored within the PSFalcon module and re-used for subsequent requests.
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
@@ -23,13 +23,28 @@ param(
     [ValidatePattern('^\w{32}$')]
     [string] $MemberCid
 )
-$Param = @{}
-@('ClientId', 'ClientSecret', 'Cloud', 'MemberCid').foreach{
-    if ($PSBoundParameters.$_) {
-        $Param[$_] = $PSBoundParameters.$_
+begin {
+    $TokenParam = @{}
+    @('ClientId', 'ClientSecret', 'Cloud', 'MemberCid').foreach{
+        if ($PSBoundParameters.$_) {
+            $TokenParam[$_] = $PSBoundParameters.$_
+        }
     }
 }
-Request-FalconToken @Param
+process {
+    try {
+        Request-FalconToken @TokenParam
+        if ((Test-FalconToken).Token -eq $true) {
+            # Insert code to run and output data here
+        }
+    } catch {
+        throw $_
+    } finally {
+        if ((Test-FalconToken).Token -eq $true) {
+            Revoke-FalconToken
+        }
+    }
+}
 ```
 ## Run commands in Member CIDs
 In multi-CID configurations, you can create an OAuth2 API Client Id/Secret in the "parent" CID that has access to the "child" or "member" CIDs. Some data is visible at the parent level, but some data is only visible within the child. After creating an API Client, you can use that to retrieve a list of all available member CIDs (or provide specific members using `-MemberCids`) and run PSFalcon commands within each child, while pausing between authorization token request attempts to avoid rate limiting.
@@ -37,30 +52,28 @@ In multi-CID configurations, you can create an OAuth2 API Client Id/Secret in th
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory = $true, Position = 1)]
+    [Parameter(Mandatory = $true)]
     [ValidatePattern('^\w{32}$')]
     [string] $ClientId,
 
-    [Parameter(Mandatory = $true, Position = 2)]
+    [Parameter(Mandatory = $true)]
     [ValidatePattern('^\w{40}$')]
     [string] $ClientSecret,
 
-    [Parameter(Position = 3)]
+    [Parameter()]
     [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
     [string] $Cloud,
 
-    [Parameter(Position = 4)]
+    [Parameter()]
     [ValidatePattern('^\w{32}$')]
-    [string] $MemberCids
+    [array] $MemberCids
 )
 begin {
-    # OAuth2 token request parameters
-    $TokenParam = @{
-        ClientId     = $ClientId
-        ClientSecret = $ClientSecret
-    }
-    if ($Cloud) {
-        $TokenParam['Cloud'] = $Cloud
+    $TokenParam = @{}
+    @('ClientId', 'ClientSecret', 'Cloud').foreach{
+        if ($PSBoundParameters.$_) {
+            $TokenParam[$_] = $PSBoundParameters.$_
+        }
     }
     if (!$MemberCids) {
         # Gather available Member CIDs

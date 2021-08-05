@@ -103,8 +103,8 @@ process {
         }
     }
 }
-# Ingesting data
 ```
+# Ingesting data
 ## Retrieve a list of identifiers from a text file
 To perform certain actions, you'll need an identifier for a specific resource within your Falcon environment--Host identifiers for Real-time Response or Network Containment, Host Group identifiers for policy assignment, etc.
 

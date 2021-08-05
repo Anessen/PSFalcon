@@ -3,9 +3,9 @@ The examples provided below are for example purposes only and are offered 'as is
 ***
 ### Authentication
 * [Request authorization token and run commands](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-token-and-run-commands)
-* [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-token-and-run-commands)
+* [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#authorize-and-run-commands-in-member-cids)
 ### Ingesting Data
-* [Retrieve identifiers from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-token-and-run-commands)
+* [Retrieve items from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-items-from-a-text-file)
 ***
 # Authentication
 ## Request authorization token and run commands
@@ -109,10 +109,8 @@ process {
 }
 ```
 # Ingesting data
-## Retrieve identifiers from a text file
-To perform certain actions, you'll need an identifier for a specific resource within your Falcon environment--Host identifiers for Real-time Response or Network Containment, Host Group identifiers for policy assignment, etc.
-
-The following example shows how you can add the retrieval of these identifiers, convert to an absolute file path, normalize the input (which sometimes is a problem when the values are converted to Json for an API request) and ignore any blank values. Once complete, you can use the `$Ids` variable with another PSFalcon command.
+## Retrieve items from a text file
+Collect a list of items (identifiers, hostnames, group names, etc.) from an absolute file path, normalize the input (which sometimes is a problem when the values are converted to Json for an API request), exclude blank values and save to the variable `$Items`. Once complete, you can use the `$Items` variable with another PSFalcon command.
 ```powershell
 #Requires -Version 5.1
 param(
@@ -133,7 +131,7 @@ $InputFile = if (![IO.Path]::IsPathRooted($PSBoundParameters.Path)) {
 } else {
     $PSBoundParameters.Path
 }
-$Ids = ((Get-Content -Path $InputFile).Normalize()).foreach{
+$Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
     if ($_ -ne '') {
         $_
     }

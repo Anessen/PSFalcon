@@ -7,7 +7,7 @@ The examples provided below are for example purposes only and are offered 'as is
 ### Ingesting Data
 * [Retrieve items from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-items-from-a-text-file)
 ### Manipulating Data
-* [Add properties to an object]()
+* [Add properties to an object](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#add-properties-to-an-object)
 ***
 # Authentication
 ## Request authorization token and run commands

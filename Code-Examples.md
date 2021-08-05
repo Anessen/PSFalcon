@@ -2,13 +2,13 @@
 The code provided below is for example purposes only and is offered 'as is' with no support. For scripts designed to complete an entire workflow, _see [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
 ***
 ### Authentication
-* [Request authorization for a CID and run commands](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-for-a-cid-and-run-commands)
-* [Run commands in Member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#run-commands-in-member-cids)
+* [Request authorization token and run commands]()
+* [Authorize and run commands in member CIDs]()
 ### Ingesting Data
-* [Retrieve a list of identifiers from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-a-list-of-identifiers-from-a-text-file)
+* [Retrieve identifiers from a text file]()
 ***
 # Authentication
-## Request an authorization token and run commands
+## Request authorization token and run commands
 An example of how to include OAuth2 API Client information as parameters and perform an authorization token request to the associated CID or "member" CID.
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
@@ -111,7 +111,7 @@ process {
 }
 ```
 # Ingesting data
-## Retrieve a list of identifiers from a text file
+## Retrieve identifiers from a text file
 To perform certain actions, you'll need an identifier for a specific resource within your Falcon environment--Host identifiers for Real-time Response or Network Containment, Host Group identifiers for policy assignment, etc.
 
 The following example shows how you can add the retrieval of these identifiers, convert to an absolute file path, normalize the input (which sometimes is a problem when the values are converted to Json for an API request) and ignore any blank values. Once complete, you can use the `$Ids` variable with another PSFalcon command.

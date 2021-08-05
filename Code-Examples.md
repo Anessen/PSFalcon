@@ -141,6 +141,19 @@ $Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
 ```
 # Manipulating data
 ### Add properties to an object
+Most PSFalcon commands return `[PSCustomObject]` results. One of the (fastest ways)[https://ramblingcookiemonster.github.io/Decorating-Objects/] to add properties to a `[PSCustomObject]` can be converted into a simple function that you can re-use.
+```powershell
+#Requires -Version 5.1
+function Add-Field ($Object, $Name, $Value) {
+    # Add property to [PSCustomObject]
+    $Object.PSObject.Properties.Add((New-Object PSNoteProperty($Name, $Value)))
+}
+```
+For example, if you wanted to add property `test` with value `abc` to a `Get-FalconHost` result:
+```powershell
+$HostObject = Get-FalconHost -Filter "hostname:'EXAMPLE-PC'" -Detailed
+Add-Field -Object $HostObject -Name 'test' -Value 'abc'
+```
 ***
 The examples provided above are for example purposes only and are offered 'as is' with no support.
 ***

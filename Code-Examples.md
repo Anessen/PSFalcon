@@ -6,6 +6,7 @@
 An example of how to include OAuth2 API Client information as parameters and perform an authorization token request. Once complete, the authorization token is stored within the PSFalcon module and re-used for subsequent requests.
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
+[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
     [ValidatePattern('^\w{32}$')]

@@ -1,5 +1,5 @@
 ***
-The code provided below is for example purposes only and is offered 'as is' with no support. [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples) contains specific sections of code that can help construct scripts.
+The code provided below is for example purposes only and is offered 'as is' with no support. For specific pieces of code that can help construct scripts, _see [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples)_.
 ***
 # Detections
 ## Assign detections involving a specific file to a user
@@ -807,5 +807,5 @@ if (Test-Path $ExportName) {
 }
 ```
 ***
-The code provided above is for example purposes only and is offered 'as is' with no support. [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples) contains specific sections of code that can help construct scripts.
+The code provided above is for example purposes only and is offered 'as is' with no support.  For specific pieces of code that can help construct scripts, _see [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples)_.
 ***

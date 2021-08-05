@@ -41,9 +41,7 @@ begin {
 process {
     try {
         Request-FalconToken @TokenParam
-        if ((Test-FalconToken).Token -eq $true) {
-            # Insert code to run and output data here
-        }
+        # Insert code to run and output data here
     } catch {
         throw $_
     } finally {

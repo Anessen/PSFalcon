@@ -75,7 +75,10 @@ begin {
 process {
     foreach ($Cid in $MemberCids) {
         try {
-            # Insert code to run and output data from each CID here
+            Request-FalconToken @TokenParam
+            if ((Test-FalconToken).Token -eq $true) {
+                # Insert code to run and output data from each CID here
+            }
         } catch {
             Write-Error $_
         } finally {

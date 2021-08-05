@@ -1,6 +1,12 @@
 ***
 The code provided below is for example purposes only and is offered 'as is' with no support. For scripts designed to complete an entire workflow, _see [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
 ***
+### Authentication
+* [Request authorization for a CID and run command(s)](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-for-a-cid-and-run-commands)
+* [Run commands in Member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#run-commands-in-member-cids)
+### Ingesting Data
+* [Retrieve a list of identifiers from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-a-list-of-identifiers-from-a-text-file)
+***
 # Authentication
 ## Request authorization for a CID and run command(s)
 An example of how to include OAuth2 API Client information as parameters and perform an authorization token request to the associated CID or "member" CID.
@@ -103,8 +109,8 @@ process {
         }
     }
 }
+# Ingesting identifiers
 ```
-# Ingesting data
 ## Retrieve a list of identifiers from a text file
 To perform certain actions, you'll need an identifier for a specific resource within your Falcon environment--Host identifiers for Real-time Response or Network Containment, Host Group identifiers for policy assignment, etc.
 

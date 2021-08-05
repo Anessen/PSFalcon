@@ -1,7 +1,7 @@
 ***
-**WARNING**: The code provided below is for example purposes only and is offered 'as is' with no support.
+The code provided below is for example purposes only and is offered 'as is' with no support. [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples) contains specific sections of code that can be used to help construct your own scripts.
 ***
-**NOTE**: [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples) can utilized within existing scripts. The "Basic Scripts" listed below are designed to be used to complete a specific task, but could be spliced into relevant pieces.
+**NOTE**: 
 # Detections
 ## Assign detections involving a specific file to a user
 ```powershell
@@ -808,5 +808,5 @@ if (Test-Path $ExportName) {
 }
 ```
 ***
-**WARNING**: The code provided above is for example purposes only and is offered 'as is' with no support.
+The code provided above is for example purposes only and is offered 'as is' with no support. [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples) contains specific sections of code that can be used to help construct your own scripts.
 ***

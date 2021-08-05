@@ -2,10 +2,10 @@
 The code provided below is for example purposes only and is offered 'as is' with no support. For scripts designed to complete an entire workflow, _see [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)._
 ***
 ### Authentication
-* [Request authorization token and run commands]()
-* [Authorize and run commands in member CIDs]()
+* [Request authorization token and run commands](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-token-and-run-commands)
+* [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-token-and-run-commands)
 ### Ingesting Data
-* [Retrieve identifiers from a text file]()
+* [Retrieve identifiers from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-token-and-run-commands)
 ***
 # Authentication
 ## Request authorization token and run commands

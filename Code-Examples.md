@@ -6,6 +6,8 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#authorize-and-run-commands-in-member-cids)
 ### Ingesting Data
 * [Retrieve items from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-items-from-a-text-file)
+### Manipulating Data
+* [Add properties to an object]()
 ***
 # Authentication
 ## Request authorization token and run commands
@@ -137,6 +139,8 @@ $Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
     }
 }
 ```
+# Manipulating data
+### Add properties to an object
 ***
 The examples provided above are for example purposes only and are offered 'as is' with no support.
 ***

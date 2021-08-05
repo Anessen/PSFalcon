@@ -15,6 +15,10 @@
 * Export configured items from one CID, and restore or re-create them in the same or different CID(s)
 ### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
 * Converting results to CSV using `Export-FalconReport`
+### [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples)
+* Examples for doing specific things with PowerShell and PSFalcon
+### [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)
+* Examples designed to complete an entire workflow
 # Commands
 ### [Cloud Workload Discovery](https://github.com/CrowdStrike/psfalcon/wiki/Cloud-Workload-Discovery)
 * Register and list cloud accounts and settings for Cloud Workload Discovery
@@ -79,8 +83,3 @@
 * Add or remove user roles
 ### [Zero Trust Assessment](https://github.com/CrowdStrike/psfalcon/wiki/Zero-Trust-Assessment)
 * Retrieve Zero Trust Assessment results by host
-# Examples
-### [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples)
-* Examples for doing specific things with PowerShell and PSFalcon
-### [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)
-* Examples designed to complete an entire workflow

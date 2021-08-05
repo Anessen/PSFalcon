@@ -141,7 +141,7 @@ $Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
 ```
 # Manipulating data
 ### Add properties to an object
-Most PSFalcon commands return `[PSCustomObject]` results. One of the (fastest ways)[https://ramblingcookiemonster.github.io/Decorating-Objects/] to add properties to a `[PSCustomObject]` can be converted into a simple function that you can re-use.
+Most PSFalcon commands return `[PSCustomObject]` results. One of the [fastest ways](https://ramblingcookiemonster.github.io/Decorating-Objects/) to add properties to a `[PSCustomObject]` can be converted into a simple function that you can re-use.
 ```powershell
 #Requires -Version 5.1
 function Add-Field ($Object, $Name, $Value) {

@@ -79,3 +79,8 @@
 * Add or remove user roles
 ### [Zero Trust Assessment](https://github.com/CrowdStrike/psfalcon/wiki/Zero-Trust-Assessment)
 * Retrieve Zero Trust Assessment results by host
+# Examples
+### [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples)
+* Examples for doing specific things with PowerShell and PSFalcon
+### [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)
+* Examples designed to complete an entire workflow

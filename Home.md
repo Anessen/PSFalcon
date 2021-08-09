@@ -9,6 +9,7 @@
 * Common parameters and result pagination
 ### [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
 * Requesting and revoking OAuth2 access tokens, switching cloud environments, and 'child' CIDs
+* Verifying your OAuth2 access token status
 ### [Filtering and the Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)
 * Using the Falcon Query Language to limit results and combining multiple filter conditions and values
 ### [Configuration Export and Import](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import)

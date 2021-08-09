@@ -1,4 +1,4 @@
-## Finding a list of Commands
+## Listing commands
 After importing the module you can view the list of commands provided with PSFalcon:
 
 ```powershell

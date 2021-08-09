@@ -6,7 +6,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#authorize-and-run-commands-in-member-cids)
 ### Ingesting Data
 * [Retrieve items from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-items-from-a-text-file)
-### Manipulating Data
+### Manipulating Objects
 * [Add properties to an object](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#add-properties-to-an-object)
 ***
 # Authentication
@@ -139,7 +139,7 @@ $Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
     }
 }
 ```
-# Manipulating data
+# Manipulating Objects
 ### Add properties to an object
 Most PSFalcon commands return `[PSCustomObject]` results. One of the [fastest ways](https://ramblingcookiemonster.github.io/Decorating-Objects/) to add properties to a `[PSCustomObject]` can be converted into a simple function that you can re-use.
 ```powershell

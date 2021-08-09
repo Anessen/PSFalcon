@@ -1,17 +1,15 @@
 ## Requesting a Token
-During a PowerShell session, you must have a valid OAuth2 token in order to make requests to the CrowdStrike Falcon API endpoints.
+During a PowerShell session, you must have a valid OAuth2 access token in order to make requests to the CrowdStrike Falcon APIs.
 
-If you have already input your credentials, PSFalcon requests a token on your behalf when you issue a command. Otherwise, you must request a token and provide the credentials. You can do this using `Request-FalconToken`, or input your ClientId/ClientSecret when prompted after issuing a PSFalcon command.
+If you have already provided your credentials, PSFalcon requests a token on your behalf when you issue a command. Otherwise, you must request a token and provide the credentials. You can do this using `Request-FalconToken`, or input your ClientId/ClientSecret when prompted after issuing a PSFalcon command.
 
-**NOTE**: If you allow the module to prompt for your ClientId/ClientSecret, you will default to the 'us-1' cloud.
-
+**NOTE**: If you allow the module to prompt for your ClientId/ClientSecret, you will default to the 'us-1' Cloud.
 ```powershell
 Request-FalconToken
 ClientId: <string>
 ClientSecret: <string>
 ```
-
-After a valid OAuth2 token is received, it caches with your credentials. Your cached token is checked and refreshed as needed while running PSFalcon commands.
+After a valid OAuth2 token is received, it is cached with your credentials. Your cached token is checked and refreshed as needed while running PSFalcon commands.
 
 ### Child environments
 If you're using an MSSP ("Flight Control") configuration, you can target specific child environments using the `-MemberCid` parameter during authentication token requests. Your choice is saved and all requests are sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID.

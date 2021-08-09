@@ -26,4 +26,11 @@ Authentication tokens expire after 30 minutes. If you wish to revoke an existing
 ```powershell
 Revoke-FalconToken
 ```
+
+### Verifying token status
+`Test-FalconToken` can be used to verify whether you have an active OAuth2 access token cached. The `Token` property of the output from `Test-FalconToken` provides a `[boolean]` value of your current status.
+```powershell
+(Test-FalconToken).Token
+$true
+```
 _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._

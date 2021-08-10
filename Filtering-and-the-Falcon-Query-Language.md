@@ -37,7 +37,7 @@ For example, at exactly 14:00 hours \(Pacific Standard Time\) on November 10, 20
 ```powershell
 Get-FalconHost -Filter "last_seen:>'Last 2 days'" -Verbose
 ```
-PSFalcon converts your filter to the following value \(seen through the use of the `-Verbose` parameter\):
+PSFalcon converts your filter to the following value \(seen through the `Write-Verbose` output\):
 ```powershell
-VERBOSE: [Get-Query] filter=last_seen:>'2020-11-10T22:00:00.0000000Z'
+VERBOSE: [ApiClient.Invoke] ... ?filter=last_seen:>'2020-11-10T22:00:00Z'
 ```

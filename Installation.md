@@ -40,6 +40,14 @@ _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Comman
 * Set `$VerbosePreference` and `$DebugPreference` to `'Continue'`
 * Run `Start-Transcript`, `Show-FalconModule`, the affected PSFalcon commands or script, and `Stop-Transcript`
 * [Create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues)
+## Folder Redirection
+If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
+cases, you can extract PSFalcon and import the module directly:
+```powershell
+Expand-Archive .\psfalcon-<version>.zip .
+Move-Item .\psfalcon-<version>\ .\PSFalcon
+Import-Module .\PSFalcon
+```
 # Manual Installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub. **_If the installation from the PowerShell Gallery worked, there's no need to follow any of the steps included in this section._**
 
@@ -77,12 +85,4 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM          10838 PSFalcon.psd1
 -----           1/25/2021 10:37 AM            944 PSFalcon.psm1
 -----           1/25/2021 10:37 AM           1322 README.md
-```
-## Folder Redirection
-If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
-cases, you can extract PSFalcon and import the module directly:
-```powershell
-Expand-Archive .\psfalcon-<version>.zip .
-Move-Item .\psfalcon-<version>\ .\PSFalcon
-Import-Module .\PSFalcon
 ```

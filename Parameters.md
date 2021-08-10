@@ -24,4 +24,5 @@ Get-FalconHost -Ids $ids
 The `-Detailed` parameter will also break up the secondary command into appropriately sized groups, avoiding errors when retrieving details about large numbers of identifiers.
 ## Advanced Parameters
 Each command was written as an [advanced function](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced?view=powershell-7) which enables support for common PowerShell parameters, including `-Verbose` which provides more explicit information during a request and help you understand how PSFalcon works.
+
 _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._

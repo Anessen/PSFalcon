@@ -8,7 +8,7 @@ The module included on the PowerShell Gallery is signed and requires an Executio
 Get-ExecutionPolicy
 ```
 ### Download the module
-Use the `Install-Module` command to download and install the module under your user account
+Use the `Install-Module` command to download and install the module under your user account.
 ```powershell
 Install-Module -Name PSFalcon -Scope CurrentUser
 ```

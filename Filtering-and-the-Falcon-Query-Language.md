@@ -5,7 +5,7 @@ Many PSFalcon commands support the use of [Falcon Query Language](https://falcon
 
 Values in an FQL statement tend to either be restricted to `$true`, `$false`, an `integer` or a `string` (description, date or time, etc). 
 
-## Simple Filters
+# Simple Filters
 The simplest FQL statements require a single condition and value. For instance, to find the host identifier for a device with the hostname `ONE`, use the following filter:
 ```powershell
 Get-FalconHost -Filter "hostname:'ONE'"
@@ -18,7 +18,7 @@ Using square brackets will restrict results to exact matches (including case):
 ```powershell
 Get-FalconHost -Filter "hostname:['ONE']"
 ```
-## Multiple Values
+# Multiple Values
 Additional conditions and values can be added using the proper [operator](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-fql#Operators). The following filter example will retrieve the host identifier for a device that has a hostname of `ONE` and is running Windows:
 ```powershell
 Get-FalconHost -Filter "hostname:'ONE'+platform_name:'Windows'"

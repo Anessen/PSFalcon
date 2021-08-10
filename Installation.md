@@ -13,16 +13,6 @@ Install-Module -Name PSFalcon -Scope CurrentUser
 You may be prompted with a warning that the PowerShell Gallery is an untrusted repository. You can accept and continue to install the module. You can permanently change this using `Set-PSRepository`. You may also be prompted to update your NuGet package to interact with the PowerShell Gallery. This is the method that the gallery uses to install modules and is required to use it.
 
 If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. You can use `Uninstall-Module -Name PSFalcon -AllVersions` to remove all existing versions of the module.
-## Import the module
-Once the module is installed, it needs to be imported. This must happen [every time you intend to use the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation#import-the-module).
-```powershell
-Import-Module -Name PSFalcon
-```
-## List available commands [Optional]
-`Get-Command` will list the commands included with PSFalcon. If the module was successfully imported, you will be able to list the available commands and their respective version number.
-```powershell
-Get-Command -Module PSFalcon
-```
 If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [Manual Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation#manual-installation).
 # Import the Module
 The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.

@@ -14,17 +14,6 @@ You may be prompted with a warning that the PowerShell Gallery is an untrusted r
 
 If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. You can use `Uninstall-Module -Name PSFalcon -AllVersions` to remove all existing versions of the module.
 If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [Manual Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation#manual-installation).
-# Import the Module
-The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.
-## During a session
-**NOTE**: The `Import-Module` command can be added to your PowerShell `$PROFILE` to automatically load the module when you start PowerShell.
-```powershell
-Import-Module -Name PSFalcon
-```
-## During the beginning of a script
-```powershell
-#Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='<version>'}
-```
 # Manual Installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub. **_If the installation from the PowerShell Gallery worked, there's no need to follow any of the steps included in this section._**
 
@@ -62,6 +51,17 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM          10838 PSFalcon.psd1
 -----           1/25/2021 10:37 AM            944 PSFalcon.psm1
 -----           1/25/2021 10:37 AM           1322 README.md
+```
+# Import the Module
+The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.
+## During a session
+**NOTE**: The `Import-Module` command can be added to your PowerShell `$PROFILE` to automatically load the module when you start PowerShell.
+```powershell
+Import-Module -Name PSFalcon
+```
+## During the beginning of a script
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='<version>'}
 ```
 # Basic Troubleshooting and Support
 * Set `$VerbosePreference` and `$DebugPreference` to `'Continue'`

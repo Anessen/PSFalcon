@@ -1,5 +1,5 @@
 # Use the PowerShell Gallery
-The PowerShell Gallery is the easiest way to install PSFalcon. If not already present, you must [install PowerShell](https://github.com/PowerShell/PowerShell#get-powershell) before proceeding.
+The PowerShell Gallery is the easiest way to install the module. If not present, you must [install PowerShell](https://github.com/PowerShell/PowerShell#get-powershell) before proceeding.
 ## Verify your Execution Policy
 The module included on the PowerShell Gallery is signed and requires an ExecutionPolicy of `RemoteSigned` or lower (Bypass and Unrestricted will also work, though they are less secure). If your ExecutionPolicy is set to `Restricted` you will not be able to install the module from the PowerShell Gallery. You can check your current ExecutionPolicy with `Get-ExecutionPolicy` and change it to `RemoteSigned` using `Set-ExecutionPolicy`.
 ```powershell

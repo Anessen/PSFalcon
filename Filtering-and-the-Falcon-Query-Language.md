@@ -35,7 +35,7 @@ Get-FalconHost -Filter "(hostname:'ONE'+platform_name:'Windows'),(hostname:!'TWO
 
 For example, at exactly 14:00 hours \(Pacific Standard Time\) on November 10, 2020 if you attempted to use `Get-FalconHost` with the following filter:
 ```powershell
-Get-FalconHost -Filter "last_seen:>'Last 2 days'" -Verbose
+Get-FalconHost -Filter "last_seen:>'Last 2 days'"
 ```
 PSFalcon converts your filter to the following value \(seen through the `Write-Verbose` output\):
 ```powershell

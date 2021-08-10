@@ -14,18 +14,15 @@ Get-ExecutionPolicy
 ```powershell
 Install-Module -Name PSFalcon -Scope CurrentUser
 ```
-**NOTE**: You may be prompted with a warning that the PowerShell Gallery is an untrusted repository. You can accept and continue to install the module. You can permanently change this using `Set-PSRepository`.
+You may be prompted with a warning that the PowerShell Gallery is an untrusted repository. You can accept and continue to install the module. You can permanently change this using `Set-PSRepository`. You may also be prompted to update your NuGet package to interact with the PowerShell Gallery. This is the method that the gallery uses to install modules and is required to use it.
 
-**NOTE**: You may be prompted to update your NuGet package to interact with the PowerShell Gallery. This is the method that the gallery uses to install modules and is required to use the PowerShell Gallery.
-
-**NOTE**: If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. Having both can cause possible complications, so if there's no need to have the old version, it's best to `Uninstall-Module -Name PSFalcon` and remove old versions (v1.x.x) before installing the latest (v2.x.x or newer).
+If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. You can use `Uninstall-Module -Name PSFalcon -AllVersions` to remove all existing versions of the module.
 
 3. Import the module
 Once the module is installed, it needs to be imported. This must happen [every time you intend to use the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation#import-the-module).
 ```powershell
 Import-Module -Name PSFalcon
 ```
-
 4. List available commands [Optional]
 
 `Get-Command` will list the commands included with PSFalcon. If the module was successfully imported, you will be able to list the available commands and their respective version number.
@@ -56,7 +53,7 @@ If you're unable to use the PowerShell Gallery to install the module, you can do
 1. Download the [latest release](https://github.com/CrowdStrike/psfalcon/releases) as a ZIP
 2. Unpack the archive and move the contents of the folder into your User Modules directory
 
-**NOTE**: These commands assume you are running in a standard user (non-admin) PowerShell session and do not have [Folder Redirection](https://github.com/CrowdStrike/psfalcon/wiki/Installation#folder-redirection) enabled. Unpacking the module in the wrong place will lead to various errors that can prevent you from importing the module or running various commands (including malformed URLs).
+**NOTE**: These commands assume you are running in a standard user (non-admin) PowerShell session and do not have [Folder Redirection](https://github.com/CrowdStrike/psfalcon/wiki/Installation#folder-redirection) enabled. Unpacking the module in the wrong place will lead to various errors that can prevent you from importing the module or running various commands.
 
 **NOTE**: You may receive an error about the destination folders not existing when attempting to move the module files. If you do, create the folders first then move the module files into them.
 

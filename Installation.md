@@ -42,7 +42,7 @@ _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Comman
 * [Create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues)
 ## Folder Redirection
 If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
-cases, you can extract PSFalcon and import the module directly:
+cases, you can [extract PSFalcon](https://github.com/CrowdStrike/psfalcon/wiki/Installation#manual-installation) and import the module directly:
 ```powershell
 Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ .\PSFalcon

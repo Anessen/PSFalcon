@@ -1,13 +1,11 @@
-## Install PowerShell
-If not already present, install [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell).
-## Use the PowerShell Gallery
-The PowerShell Gallery offers the easiest method to install PSFalcon.
-### Verify your Execution Policy
+# Use the PowerShell Gallery
+The PowerShell Gallery offers the easiest method to install PSFalcon. If not already present, you must install [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell) before proceeding.
+## Verify your Execution Policy
 The module included on the PowerShell Gallery is signed and requires an ExecutionPolicy of `RemoteSigned` or lower (Bypass and Unrestricted will also work, though they are less secure). If your ExecutionPolicy is set to `Restricted` you will not be able to install the module from the PowerShell Gallery. You can check your current ExecutionPolicy with `Get-ExecutionPolicy` and change it to `RemoteSigned` using `Set-ExecutionPolicy`.
 ```powershell
 Get-ExecutionPolicy
 ```
-### Download the module
+## Download the module
 Use the `Install-Module` command to download and install the module under your user account.
 ```powershell
 Install-Module -Name PSFalcon -Scope CurrentUser
@@ -15,35 +13,34 @@ Install-Module -Name PSFalcon -Scope CurrentUser
 You may be prompted with a warning that the PowerShell Gallery is an untrusted repository. You can accept and continue to install the module. You can permanently change this using `Set-PSRepository`. You may also be prompted to update your NuGet package to interact with the PowerShell Gallery. This is the method that the gallery uses to install modules and is required to use it.
 
 If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. You can use `Uninstall-Module -Name PSFalcon -AllVersions` to remove all existing versions of the module.
-### Import the module
+## Import the module
 Once the module is installed, it needs to be imported. This must happen [every time you intend to use the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation#import-the-module).
 ```powershell
 Import-Module -Name PSFalcon
 ```
-### List available commands [Optional]
+## List available commands [Optional]
 `Get-Command` will list the commands included with PSFalcon. If the module was successfully imported, you will be able to list the available commands and their respective version number.
 ```powershell
 Get-Command -Module PSFalcon
 ```
 If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [Manual Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation#manual-installation).
-## Import the Module
+# Import the Module
 The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.
-### During a session
+## During a session
 **NOTE**: The `Import-Module` command can be added to your PowerShell `$PROFILE` to automatically load the module when you start PowerShell.
 ```powershell
 Import-Module -Name PSFalcon
 ```
-### During the beginning of a script
+## During the beginning of a script
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='<version>'}
 ```
 _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._
-## Basic Troubleshooting and Support
+# Basic Troubleshooting and Support
 * Set `$VerbosePreference` and `$DebugPreference` to `'Continue'`
 * Run `Start-Transcript`, `Show-FalconModule`, the affected PSFalcon commands or script, and `Stop-Transcript`
 * [Create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues)
-
-## Manual Installation
+# Manual Installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub. **_If the installation from the PowerShell Gallery worked, there's no need to follow any of the steps included in this section._**
 
 1. Download the [latest release](https://github.com/CrowdStrike/psfalcon/releases) as a ZIP

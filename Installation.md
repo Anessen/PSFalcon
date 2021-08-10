@@ -74,7 +74,6 @@ If done correctly, your `PSFalcon\<version>` module folder will look like this:
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 d----           1/26/2021 10:40 AM                Class
-d----           1/26/2021 10:40 AM                Data
 d----           1/26/2021 10:40 AM                Private
 d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM           1946 LICENSE

@@ -2,29 +2,24 @@
 If not already present, install [PowerShell](https://github.com/PowerShell/PowerShell#get-powershell).
 ## Use the PowerShell Gallery
 The PowerShell Gallery offers the easiest method to install PSFalcon.
-
-1. Verify your Execution Policy
-
+### Verify your Execution Policy
 The module included on the PowerShell Gallery is signed and requires an ExecutionPolicy of `RemoteSigned` or lower (Bypass and Unrestricted will also work, though they are less secure). If your ExecutionPolicy is set to `Restricted` you will not be able to install the module from the PowerShell Gallery. You can check your current ExecutionPolicy with `Get-ExecutionPolicy` and change it to `RemoteSigned` using `Set-ExecutionPolicy`.
-
 ```powershell
 Get-ExecutionPolicy
 ```
-2. Use the `Install-Module` command to download and install the module under your user account
+### Use the `Install-Module` command to download and install the module under your user account
 ```powershell
 Install-Module -Name PSFalcon -Scope CurrentUser
 ```
 You may be prompted with a warning that the PowerShell Gallery is an untrusted repository. You can accept and continue to install the module. You can permanently change this using `Set-PSRepository`. You may also be prompted to update your NuGet package to interact with the PowerShell Gallery. This is the method that the gallery uses to install modules and is required to use it.
 
 If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. You can use `Uninstall-Module -Name PSFalcon -AllVersions` to remove all existing versions of the module.
-
-3. Import the module
+### Import the module
 Once the module is installed, it needs to be imported. This must happen [every time you intend to use the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation#import-the-module).
 ```powershell
 Import-Module -Name PSFalcon
 ```
-4. List available commands [Optional]
-
+### List available commands [Optional]
 `Get-Command` will list the commands included with PSFalcon. If the module was successfully imported, you will be able to list the available commands and their respective version number.
 ```powershell
 Get-Command -Module PSFalcon

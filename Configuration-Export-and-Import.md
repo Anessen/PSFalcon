@@ -7,7 +7,7 @@ The `Export-FalconConfig` and `Import-FalconConfig` commands require read and wr
 **NOTE**: If you attempt to import an item that depends on another item and that dependency was not created, then the item itself will not be created either. For example, if you attempt to import a Machine Learning Exclusion that is assigned to the Host Group "Example Group" and "Example Group" already exists in your environment, the exclusion will not be created. However, if it is possible to create the item without the dependency (like a policy without assigned Host Groups), it will still be created.
 
 ## Export all configurations
-This will create a file called `FalconConfig_<FileDateTime>.zip` in your current directory containing all the available configuration options.
+This will create a file called `FalconConfig_<FileDate>.zip` in your current directory containing all the available configuration options.
 ```powershell
 Export-FalconConfig
 ```
@@ -20,5 +20,5 @@ Export-FalconConfig -Items HostGroup, FirewallGroup, FirewallPolicy
 ## Import configurations
 When you run the `Import-FalconConfig` command, all of the files within the zip will be loaded and the corresponding items will be retrieved from your authenticated Falcon environment for analysis. If one or more of the items aren't present in your environment, they will be created.
 ```powershell
-Import-FalconConfig -Path .\FalconConfig_<FileDateTime>.zip
+Import-FalconConfig -Path .\FalconConfig_<FileDate>.zip
 ```

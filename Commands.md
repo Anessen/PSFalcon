@@ -45,7 +45,7 @@ The following examples are for PSFalcon v2.0.x and may include syntax difference
 ## Real-time Response
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/90/real-time-response-apis)._
 
-**NOTE**: PSFalcon has a custom command named `Invoke-FalconRTR` that is designed to perform all the necessary steps to initiate a session with one or more hosts, send a command and output the results. **This command is not designed for a multi-step Real-time Response workflow** and will negatively impact certain operations. For instance, if you were to `cd` into a directory and attempt to `put` a file by running `Invoke-FalconRTR` twice, `Invoke-FalconRTR` will reset back to the root of your system drive between the `cd` and `put` commands, causing the file to be placed in the wrong directory.
+PSFalcon has a custom command named `Invoke-FalconRTR` that is designed to perform all the necessary steps to initiate a session with one or more hosts, send a command and output the results. **This command is not designed for a multi-step Real-time Response workflow** and will negatively impact certain operations. For instance, if you were to `cd` into a directory and attempt to `put` a file by running `Invoke-FalconRTR` twice, `Invoke-FalconRTR` will reset back to the root of your system drive between the `cd` and `put` commands, causing the file to be placed in the wrong directory.
 ```powershell
 Invoke-FalconRTR -Command ls -Arguments C:\Windows -HostIds <id>, <id>
 ```
@@ -54,11 +54,22 @@ If the hosts you're targeting are currently offline, you can add your Real-time 
 Invoke-FalconRTR -Command runscript -Arguments "-CloudFile='HelloWorld'" -HostIds <id>, <id> -QueueOffline $true
 ```
 If you find that your script needs to be more complex, you can follow the instructions below to create a custom Real-time Response workflow with multiple commands.
-
 **NOTE**: PSFalcon includes commands for each Real-time Response permission level.
 * `Invoke-FalconCommand`, `Confirm-FalconCommand`
 * `Invoke-FalconResponderCommand`, `Confirm-FalconResponderCommand`
 * `Invoke-FalconAdminCommand`, `Confirm-FalconAdminCommand`
+### Use Real-time Response to upload and run an executable
+**NOTE**: The command `Invoke-FalconDeploy` was developed to support mass-deployment of Falcon Forensics. It is designed to upload a file to your ‘Put’ Files library, create a session with target hosts, push the file to those hosts, then execute it and output the results to CSV.
+
+**NOTE**: Because Real-time Response does not interact with logged in users, the executable must be able to be run silently and without user interaction.
+```powershell
+Invoke-FalconDeploy -HostIds <id>, <id> -Path $pwd\File.exe [-QueueOffline]
+```
+### Retrieve detail about queued Real-time Response sessions
+**NOTE**: PSFalcon has a custom command named `Get-FalconQueue` which will create a CSV file with information about sessions that have pending queued commands or have been created in the last 7 days (by default). If you wish to get more specific, you can use `Get-FalconSession` to find queued sessions, and the command below to get detailed information.
+```powershell
+Get-FalconQueue [-Days]
+```
 ### Start a batch session with multiple hosts
 ```powershell
 $Batch = Start-FalconSession -HostIds <id>, <id>
@@ -89,13 +100,6 @@ Confirm-FalconCommand -CloudRequestId $Command.cloud_request_id
 **NOTE**: Refreshing the session is required when you expect to exceed the default expiration time (10 minutes).
 ```powershell
 Update-FalconSession -SessionId $Session.session_id
-```
-### Use Real-time Response to upload and run an executable
-**NOTE**: The command `Invoke-FalconDeploy` was developed to support mass-deployment of Falcon Forensics. It is designed to upload a file to your ‘Put’ Files library, create a session with target hosts, push the file to those hosts, then execute it and output the results to CSV.
-
-**NOTE**: Because Real-time Response does not interact with logged in users, the executable must be able to be run silently and without user interaction.
-```powershell
-Invoke-FalconDeploy -HostIds <id>, <id> -Path $pwd\File.exe [-QueueOffline]
 ```
 ### Use Real-time Response to download a file from multiple hosts
 ```powershell
@@ -128,11 +132,6 @@ Get-FalconSession [-Detailed] [-All]
 **NOTE**: Only sessions created by your OAuth2 API Client will be visible using the following commands.
 ```powershell
 Get-FalconSession -Ids <id>, <id> -Queue
-```
-### Retrieve detail about queued Real-time Response sessions
-**NOTE**: PSFalcon has a custom command named `Get-FalconQueue` which will create a CSV file with information about sessions that have pending queued commands or have been created in the last 7 days (by default). If you wish to get more specific, you can use `Get-FalconSession` to find queued sessions, and the command below to get detailed information.
-```powershell
-Get-FalconQueue [-Days]
 ```
 ### Create a new Real-time Response script
 ```powershell

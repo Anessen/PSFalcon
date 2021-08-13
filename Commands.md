@@ -4,7 +4,7 @@ After importing the module you can view the list of commands provided with PSFal
 Get-Command -Module PSFalcon
 ```
 # Using commands
-## PSFalcon v2.1.x+
+## PSFalcon v2.1+
 Information about PSFalcon commands and their parameters is available using the PowerShell `Get-Help` command. Using the `-Examples`, `-Detailed` or `-Full` parameter(s) provides additional information.
 ```powershell
 Get-Help Request-FalconToken
@@ -37,7 +37,7 @@ PS> Request-FalconToken -Help
       Pattern : \w{32}
 ```
 # Using commands
-**NOTE**: These examples are for PSFalcon v2.0.x. Examples for v2.1.x+ can be found using:
+**NOTE**: These examples are for PSFalcon v2.0.x. Examples for v2.1+ can be found using:
 ```powershell
 Get-Help <command> -Examples
 ```

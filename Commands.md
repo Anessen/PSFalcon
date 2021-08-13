@@ -4,12 +4,12 @@ After importing the module you can view the list of commands provided with PSFal
 Get-Command -Module PSFalcon
 ```
 # Using commands
-## PSFalcon v2.1+
+## PSFalcon v2.1.x+
 Information about PSFalcon commands and their parameters is available using the PowerShell `Get-Help` command. Using the `-Examples`, `-Detailed` or `-Full` parameter(s) provides additional information.
 ```powershell
 Get-Help Request-FalconToken
 ```
-## PSFalcon v2.0
+## PSFalcon v2.0.x
 Because PSFalcon uses dynamic parameters, the traditional PowerShell `Get-Help` command doesn't show parameters that can be used with PSFalcon commands. Instead, use `<command> -Help` to call a custom function that displays information about the available parameters and a basic description of their use.
 ```powershell
 PS> Request-FalconToken -Help
@@ -36,6 +36,8 @@ PS> Request-FalconToken -Help
       Position : 4
       Pattern : \w{32}
 ```
+# Examples
+The examples provided below are for PSFalcon v2.0.x. Examples for v2.1.x can be found using `Get-Help <command> -Examples`.
 ## Users and Roles
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/87/users-and-roles-apis)._
 ### Create a new user

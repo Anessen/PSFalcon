@@ -5,6 +5,7 @@
 * Basic troubleshooting and bug reports
 ### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
 * Basic command information and finding help
+* Examples of using commands
 ### [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
 * Common parameters and result pagination
 ### [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)

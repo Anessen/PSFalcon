@@ -36,6 +36,15 @@ PS> Request-FalconToken -Help
       Position : 4
       Pattern : \w{32}
 ```
+# Converting results to CSV
+`Export-FalconReport` translates a [PSCustomObject] into something that is more CSV-friendly and then uses `Export-Csv`.
+```powershell
+<command> [-Detailed] [-All] | Export-FalconReport -Path .\example.csv
+```
+If you wish to validate the output before creating a CSV, try:
+```powershell
+<command> [-Detailed] [-All] | Export-FalconReport -Path .\example.csv -WhatIf
+```
 # Command examples
 **NOTE**: Examples for PSFalcon v2.1+ can be found using:
 ```powershell

@@ -36,7 +36,7 @@ PS> Request-FalconToken -Help
       Position : 4
       Pattern : \w{32}
 ```
-# Using commands
+# Command examples
 **NOTE**: Examples for PSFalcon v2.1+ can be found using:
 ```powershell
 Get-Help <command> -Examples

@@ -1,4 +1,4 @@
-Many PSFalcon commands support the use of [Falcon Query Language](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-fql) \("FQL"\) statements using the `-Filter` parameter. However, it is important to keep in mind:
+Many PSFalcon commands support the use of [Falcon Query Language](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-fql) \("FQL"\) statements using the `-Filter` parameter. When using `-Filter`, it is important to keep in mind...
 
 * **_Available FQL filters and their syntax will vary between APIs and are not determined by PSFalcon_**
 * Each FQL filter and value may be case-sensitive (exact case, lowercase only, etc.)

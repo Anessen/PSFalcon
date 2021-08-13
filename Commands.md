@@ -62,14 +62,14 @@ If you find that your script needs to be more complex, you can follow the instru
 * `Invoke-FalconCommand`, `Confirm-FalconCommand`
 * `Invoke-FalconResponderCommand`, `Confirm-FalconResponderCommand`
 * `Invoke-FalconAdminCommand`, `Confirm-FalconAdminCommand`
-### Use Real-time Response to upload and run an executable
+### Invoke-FalconDeploy
 `Invoke-FalconDeploy` was developed to support mass-deployment of Falcon Forensics. It is designed to upload a file to your ‘Put’ Files library, create a session with target hosts, push the file to those hosts, then execute it and output the results to CSV.
 
 **NOTE**: Because Real-time Response does not interact with logged in users, the executable must be able to be run silently and without user interaction.
 ```powershell
 Invoke-FalconDeploy -HostIds <id>, <id> -Path $pwd\File.exe [-QueueOffline]
 ```
-### Retrieve detail about queued Real-time Response sessions
+### Get-FalconQueue
 `Get-FalconQueue` will create a CSV file with information about sessions that have pending queued commands or have been created in the last 7 days (by default).
 ```powershell
 Get-FalconQueue [-Days]

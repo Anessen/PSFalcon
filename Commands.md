@@ -3,7 +3,7 @@ After importing the module you can view the list of commands provided with PSFal
 ```powershell
 Get-Command -Module PSFalcon
 ```
-# Using commands
+# Finding help
 ## PSFalcon v2.1+
 Information about PSFalcon commands and their parameters is available using the PowerShell `Get-Help` command. Using the `-Examples`, `-Detailed` or `-Full` parameter(s) provides additional information.
 ```powershell
@@ -40,6 +40,43 @@ PS> Request-FalconToken -Help
 **NOTE**: These examples are for PSFalcon v2.0.x. Examples for v2.1+ can be found using:
 ```powershell
 Get-Help <command> -Examples
+```
+## Sensor Installers
+_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/109/sensor-download-apis)._
+### Find all available sensor installers for Linux
+```powershell
+Get-FalconInstaller -Filter "platform:'linux'" [-Detailed] [-All]
+```
+### Find all available sensor installers for a specific OS version
+```powershell
+Get-FalconInstaller -Filter "os:'Amazon Linux'" [-Detailed] [-All]
+```
+### Retrieve detailed information about a specific sensor installer
+```powershell
+Get-FalconInstaller -Ids <id>
+```
+### Download a sensor installer
+```powershell
+Receive-FalconInstaller -Id <id> -Path .\WindowsSensor.exe
+```
+### Find your Customer ID and Checksum \(CCID\)
+```powershell
+Get-FalconCCID
+```
+## Spotlight
+_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/98/spotlight-apis)._
+### Search for vulnerabilities
+**NOTE**: The Spotlight API requires the use of a filter when requesting results.
+```powershell
+Get-FalconVulnerability -Filter "created_timestamp:>'2019-11-25T22:36:12Z'" [-Detailed] [-All]
+```
+### Get information about specific vulnerabilities
+```powershell
+Get-FalconVulnerability -Ids <id>, <id>
+```
+### Get information about specific remediations
+```powershell
+Get-FalconRemediation -Ids <id>, <id>
 ```
 ## Threat Intelligence
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/72/intel-apis)._

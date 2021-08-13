@@ -42,6 +42,369 @@ PS> Request-FalconToken -Help
 Get-Help <command> -Examples
 ```
 The following examples are for PSFalcon v2.0.x and may include syntax differences compared to v2.1+.
+## MalQuery
+_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/113/malquery-apis)._
+### Perform a simple YARA search for a specific hash
+**NOTE**: PSFalcon has a custom command named `Search-FalconMalQueryHash` which will run a simple YARA-based hash search to find a SHA256 value.
+```powershell
+Search-FalconMalQueryHash -Sha256 <sha256>
+```
+### Schedule a hunt
+```powershell
+Invoke-FalconMalQuery -FilterFiletypes pe32 -MaxSize 1200KB -FilterMeta sha256, label, family -YaraRule "rule CrowdStrike_16142_01 : wiper { strings: $ = { 41 61 43 63 64 44 65 46 66 47 68 69 4B 4C 6C 4D 6D 6E 4E 6F 4F 70 50 72 52 73 53 54 74 55 75 56 76 77 57 78 79 5A 7A 33 32 2E 5C 45 62 67 6A 48 49 20 5F 59 51 42 3A 22 2F 40 } condition: all of them and filesize < 800KB }"
+```
+### Perform an exact search
+```powershell
+Invoke-FalconMalQuery -FilterMeta sha256, type, size -FilterFiletypes pe32, pe64 -MaxSize 1200KB -MinDate 2017/01/01 -Limit 20 -Type hex -Value 8948208b480833ca33f989502489482889782c8bd7
+```
+### Perform a fuzzy search
+```powershell
+Invoke-FalconMalQuery -Limit 3 -Type ascii -Value ".8@bVn7r&k" -Fuzzy
+```
+### Check the status of a search
+```powershell
+Get-FalconMalQuery -Ids <id>, <id>
+```
+### Retrieve MalQuery sample metadata
+```powershell
+Get-FalconMalQuerySample -Ids <sha256>, <sha256>
+```
+### Download a MalQuery sample
+```powershell
+Receive-FalconMalQuerySample -Id <sha256> -Path .\infected.exe
+```
+### Download an archive of multiple MalQuery samples
+```powershell
+$Request = Group-FalconMalQuerySample -Samples <sha256>, <sha256>
+Receive-FalconMalQuerySample -Id $Request.reqid -Path .\infected.zip
+```
+### Check your MalQuery quota
+```powershell
+Get-FalconMalQueryQuota
+```
+## OverWatch Dashboards
+_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/155/falcon-overwatch-dashboard-apis)._
+### Getting the total number of Falcon OverWatch detections for the past 48 hours
+```powershell
+Get-FalconOverWatchDetection -Filter "detect_time:>'now-48h'"
+```
+### Getting the total number of Falcon OverWatch events that occurred across all customers
+```powershell
+Get-FalconOverWatchEvent -Filter "total_count:>1"
+```
+### Getting the total number of Falcon OverWatch incidents for the past 48 hours
+```powershell
+Get-FalconOverWatchIncident -Filter "detect_time:>'now-48h'"
+```
+## Policies
+_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/85/detection-and-prevention-policies-apis)._
+### Create a Prevention policy
+```powershell
+$Settings = @(
+    @{
+        id = "AdditionalUserModeData"
+        value = @{
+            enabled = $true
+        }
+    },
+    @{
+        id = "EndUserNotifications"
+        value = @{
+            enabled = $true
+        }
+    },
+    @{
+        id = "CloudAntiMalware"
+        value = @{
+            detection = "MODERATE"
+            prevention = "MODERATE"
+        }
+    }
+)
+New-FalconPreventionPolicy -PlatformName Windows -Name "Demo Policy" -Description "This is a demo policy" -Settings $Settings
+```
+### Assign a host group to a Prevention policy
+```powershell
+Invoke-FalconPreventionPolicyAction -ActionName add-host-group -Id <id> -GroupId <id>
+```
+### Set Prevention policy precedence
+**NOTE**: All policy ids (with the exception of `platform_default`) must be supplied in precedence order.
+```powershell
+Set-FalconPreventionPrecedence -PlatformName Windows -Ids <id>, <id>
+```
+### Get all Prevention policies
+```powershell
+Get-FalconPreventionPolicy -All [-Detailed]
+```
+### Finding the uninstallation token for a host
+```powershell
+Get-FalconUninstallToken -DeviceId <id>
+```
+### Finding the maintenance token that applies to any host within a given policy
+```powershell
+Get-FalconUninstallToken -DeviceId MAINTENANCE
+```
+### Create Machine Learning exclusions
+```powershell
+New-FalconMLExclusion -Value '/foo' -ExcludedFrom blocking, extraction -GroupIds all -Comment 'creating foo'
+```
+### Find Machine Learning exclusions
+```powershell
+Get-FalconMLExclusion [-Detailed] [-All]
+```
+### Modify Machine Learning exclusions
+```powershell
+Edit-FalconMLExclusion -Id <id> -Value '/foo*'
+```
+### Delete Machine Learning exclusions
+```powershell
+Remove-FalconMLExclusion -Ids <id>, <id>
+```
+### Create Sensor Visibility exclusions
+```powershell
+New-FalconSVExclusion -Value '/foo' -GroupIds all -Comment 'creating'
+```
+### Find Sensor Visibility exclusions
+```powershell
+Get-FalconSVExclusion [-Detailed] [-All]
+```
+### Modify Sensor Visibility exclusions
+```powershell
+Edit-FalconSVExclusion -Id <id> -Value '/foochanged*'
+```
+### Delete Sensor Visibility exclusions
+```powershell
+Remove-FalconSVExclusion -Ids <id>, <id>
+```
+### Modify IOA exclusions
+```powershell
+Edit-FalconIOAExclusion -Id <id> -ImagePath '.*\\Windows\\System32\\choice1\.exe'
+```
+### Find IOA exclusions
+```powershell
+Get-FalconIOAExclusion [-Detailed]
+```
+### Delete IOA exclusions
+```powershell
+Remove-FalconIOAExclusion -Ids <id>, <id>
+```
+### Find custom IOA rule types
+```powershell
+Get-FalconIOAType [-Detailed]
+```
+### Find custom IOA severities
+```powershell
+Get-FalconIOASeverity [-Detailed]
+```
+### Find custom IOA platforms
+```powershell
+Get-FalconIOAPlatform [-Detailed]
+```
+### Create custom IOA rule groups
+```powershell
+New-FalconIOAGroup -Platform mac -Name newRuleGroup -Description "My new mac rule group"
+```
+### Modify custom IOA rule groups
+```powershell
+$Current = Get-FalconIOAGroup -Filter "name:'newRuleGroup'" -Detailed
+Edit-FalconIOAGroup -Id $Current.id -Name "updatedRuleGroup" -Enabled $true -RulegroupVersion $Current.version -Description "My updated mac rule group" -Comment "Updated using PSFalcon"
+```
+### Find custom IOA rule groups
+```powershell
+Get-FalconIOAGroup [-Detailed]
+```
+### Delete custom IOA rule groups
+```powershell
+Remove-FalconIOAGroup -Ids <id>, <id>
+```
+### Create custom IOA rules
+```powershell
+$Group = Get-FalconIOAGroup -Filter "name:'updatedRuleGroup'" -Detailed
+$FieldValues = @{
+    label = 'Grandparent Image Filename'
+    name = 'GrandparentImageFilename'
+    type = 'excludable'
+    values = @(
+        @{
+            label = 'include'
+            value = '.+bug.exe'
+        }
+    )
+}
+New-FalconIOARule -RulegroupId $Group.id -Name "BugRule" -PatternSeverity critical -RuletypeId 5 -DispositionId 30 -FieldValues $FieldValues
+```
+### Modify custom IOA rules
+```powershell
+$Group = Get-FalconIOAGroup -Filter "name:'updatedRuleGroup'" -Detailed
+$RuleUpdates = @(
+    @{
+        name = 'BugRule'
+        pattern_severity = 'critical'
+        enabled = $true
+        description = 'Stops the bug'
+        disposition_id = 30
+        instance_id = '1'
+        field_values = @(
+            @{
+                label = 'Grandparent Image Filename'
+                name = 'GrandparentImageFilename'
+                type = 'excludable'
+                values = @(
+                    @{
+                        label = 'include'
+                        value = '.+updatebug.exe'
+                    }
+                )
+            },
+            @{
+                label = 'Grandparent Command Line'
+                name = 'GrandparentCommandLine'
+                type = 'excludable'
+                values = @(
+                    @{
+                        label = 'include'
+                        value = '.*'
+                    }
+                )
+            },
+            @{
+                label = 'Parent Image Filename'
+                name = 'ParentImageFilename'
+                type = 'excludable'
+                values = @(
+                      @{
+                          label = 'include'
+                          value = '.*'
+                       }
+                  )
+            },
+            @{
+                label = 'Parent Command Line'
+                name = 'ParentCommandLine'
+                type = 'excludable'
+                values = @(
+                    @{
+                         label = 'include'
+                         value = '.*'
+                    }
+                )
+            },
+            @{
+                label = 'Image Filename'
+                name = 'ImageFilename'
+                type = 'excludable'
+                values = @(
+                    @{
+                        label = 'include'
+                        value = '.*'
+                    }
+                )
+            },
+            @{
+                label = 'Command Line'
+                name = 'CommandLine'
+                type = 'excludable'
+                values = @(
+                    @{
+                        label = 'include'
+                        value = '.*'
+                    }
+                )
+            }
+        )
+    }
+)
+Edit-FalconIOARule -RulegroupId $Group.id -RulegroupVersion $Group.version -RuleUpdates $RuleUpdates -Comment "Updated using PSFalcon"
+```
+### Find custom IOA rules
+```powershell
+Get-FalconIOARule [-Detailed]
+```
+### Delete custom IOA rules
+```powershell
+Remove-FalconIOARule -RulegroupId <id> -Ids <id>, <id>
+```
+### Validating field values
+```powershell
+$Fields = @(
+    @{
+        label = 'Grandparent Image Filename'
+        name = 'GrandparentImageFilename'
+        type = 'excludable'
+        values = @(
+            @{
+                label = 'include'
+                value = '.+attacker.exe'
+            }
+        )
+    }
+)
+Test-FalconIOARule -Fields $Fields
+```
+### Find custom IOA rule groups matching a query
+```powershell
+Get-FalconIOAGroup -Filter "name:'updatedRuleGroup'+platform:'mac'" -Detailed
+```
+### Find custom IOA rule group identifiers matching a query
+```powershell
+Get-FalconIOAGroup -Filter "name:'updatedRuleGroup'+platform:'mac'"
+```
+### Find a custom IOA rule identifier by name within a rule group
+```powershell
+Get-FalconIOARule -Filter "id:'<id>'+rules.name:'BugRule'" [-Detailed] [-All]
+```
+### Creating a domain indicator
+```powershell
+New-FalconIOC -Type domain -Value example01.com -Action detect -Severity medium -Description 'test description' -Platforms windows, mac, linux -Tags test_tag -HostGroups <host_group_id>, <host_group_id> -Expiration 2021-05-01
+```
+### Creating multiple indicators in a single request
+```powershell
+$Array = @(
+    @{
+        type = "domain"
+        value = "example01.com"
+        action = "detect"
+        severity = "medium"
+        description = "test description"
+        platforms = @("windows", "mac", "linux")
+        tags = @("test_tag")
+        host_groups = @("<id>")
+    },
+    @{
+        type = "sha256"
+        value = "a88787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91cc"
+        source = "bd20201216"
+        filename = "iexplore.exe"
+        action = "prevent"
+        severity = "high"
+        description = "test block description"
+        platforms = @("windows")
+        tags = @("test_tag", "test_tag2")
+        applied_globally = $true
+    }
+)
+New-FalconIOC -Array $Array
+```
+### Finding domain indicator identifiers
+```powershell
+Get-FalconIOC -Filter "type:'domain'
+```
+### Retrieving details about an indicator by its identifier
+```powershell
+Get-FalconIOC -Ids <id>, <id>
+```
+### Retrieving indicator details in large batches
+```powershell
+Get-FalconIOC -Filter "type:'domain'+tags:'MalDomain_20201215'+tags:'domains_mac'" -Detailed
+```
+### Updating an indicator by identifier
+```powershell
+Edit-FalconIOC -Id <id> -Source testSource -Action detect -Severity low -Description 'test description update' -Platforms windows -Tags test_tag2 -HostGroups all -Expiration '2021-05-01T12:00:00Z'
+```
+### Deleting indicators by identifier
+```powershell
+Remove-FalconIOC -Ids <id>, <id>
+```
 ## Real-time Response
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/90/real-time-response-apis)._
 ### Invoke-FalconRtr

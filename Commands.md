@@ -56,7 +56,7 @@ PS> Request-FalconToken -Help
 * [Spotlight](https://github.com/CrowdStrike/psfalcon/wiki/Spotlight)
 * [Threat Intelligence](https://github.com/CrowdStrike/psfalcon/wiki/Threat-Intelligence)
 * [Users and Roles](https://github.com/CrowdStrike/psfalcon/wiki/Users-and-Roles)
-* [Zero Trust Assessment](https://github.com/CrowdStrike/psfalcon/wiki/Using-Commands#zero-trust-assessment-1)
+* [Zero Trust Assessment](https://github.com/CrowdStrike/psfalcon/wiki/Commands#zero-trust-assessment-1)
 
 # Zero Trust Assessment
 ## Retrieving Zero Trust Assessment data by host

@@ -57,13 +57,13 @@ PS> Request-FalconToken -Help
 * [Threat Intelligence](https://github.com/CrowdStrike/psfalcon/wiki/Commands#threat-intelligence-1)
 * [Users and Roles](https://github.com/CrowdStrike/psfalcon/wiki/Commands#users-and-roles-1)
 * [Zero Trust Assessment](https://github.com/CrowdStrike/psfalcon/wiki/Commands#zero-trust-assessment-1)
-# Users and Roles
+## Users and Roles
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/87/users-and-roles-apis)._
-## Create a new user
+### Create a new user
 ```powershell
 New-FalconUser -Username jane.doe@example.com
 ```
-## List all users
+### List all users
 ```powershell
 Get-FalconUser [-Detailed]
 ```
@@ -71,15 +71,15 @@ Get-FalconUser [-Detailed]
 ```powershell
 Get-FalconUser -Ids <id>, <id>
 ```
-## Modify a user
+### Modify a user
 ```powershell
 Edit-FalconUser -Id <id> -FirstName Jane -LastName Doe
 ```
-## Remove a user
+### Remove a user
 ```powershell
 Remove-FalconUser -Id <id>
 ```
-## List all available user roles
+### List all available user roles
 ```powershell
 Get-FalconRole [-Detailed]
 ```
@@ -87,17 +87,17 @@ Get-FalconRole [-Detailed]
 ```powershell
 Get-FalconRole -UserId <id> [-Detailed]
 ```
-## Assign roles to a user
+### Assign roles to a user
 ```powershell
 Add-FalconRole -Ids <id>, <id> -UserId <id>
 ```
-## Revoke roles from a user
+### Revoke roles from a user
 ```powershell
 Remove-FalconRole -Ids <id>, <id> -UserId <id>
 ```
-# Zero Trust Assessment
+## Zero Trust Assessment
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/156/zero-trust-assessment-apis)._
-## Retrieving Zero Trust Assessment data by host
+### Retrieving Zero Trust Assessment data by host
 ```powershell
 Get-FalconZTA -Ids <id>, <id>
 ```

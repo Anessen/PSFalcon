@@ -37,10 +37,11 @@ PS> Request-FalconToken -Help
       Pattern : \w{32}
 ```
 # Using commands
-**NOTE**: These examples are for PSFalcon v2.0.x. Examples for v2.1+ can be found using:
+**NOTE**: Examples for PSFalcon v2.1+ can be found using:
 ```powershell
 Get-Help <command> -Examples
 ```
+The following examples are for PSFalcon v2.0.x and may have some minor differences from v2.1+.
 ## Sensor Installers
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/109/sensor-download-apis)._
 ### Find all available sensor installers for Linux

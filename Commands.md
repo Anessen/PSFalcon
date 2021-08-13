@@ -44,7 +44,7 @@ Get-Help <command> -Examples
 The following examples are for PSFalcon v2.0.x and may include syntax differences compared to v2.1+.
 ## Real-time Response
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/90/real-time-response-apis)._
-
+### Start a session, run a command, output results
 PSFalcon has a custom command named `Invoke-FalconRTR` that is designed to perform all the necessary steps to initiate a session with one or more hosts, send a command and output the results.
 
 **This command is not designed for a multi-step Real-time Response workflow** and will negatively impact certain operations.

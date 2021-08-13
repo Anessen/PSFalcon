@@ -36,27 +36,6 @@ PS> Request-FalconToken -Help
       Position : 4
       Pattern : \w{32}
 ```
-# Command examples
-* [Cloud Workload Discovery](https://github.com/CrowdStrike/psfalcon/wiki/Commands#cloud-workload-discovery-1)
-* [Detections and Incidents](https://github.com/CrowdStrike/psfalcon/wiki/Commands#detections-and-incidents-1)
-* [Event Streams](https://github.com/CrowdStrike/psfalcon/wiki/Commands#event-streams-1)
-* [Falcon Complete Dashboards](https://github.com/CrowdStrike/psfalcon/wiki/Commands#falcon-complete-dashboards-1)
-* [Falcon X Recon](https://github.com/CrowdStrike/psfalcon/wiki/Commands#falcon-x-recon-1)
-* [Firewall Management](https://github.com/CrowdStrike/psfalcon/wiki/Commands#firewall-management-1)
-* [Flight Control](https://github.com/CrowdStrike/psfalcon/wiki/Commands#flight-control-1)
-* [Horizon](https://github.com/CrowdStrike/psfalcon/wiki/Commands#horizon-1)
-* [Hosts and Host Groups](https://github.com/CrowdStrike/psfalcon/wiki/Commands#hosts-and-host-groups-1)
-* [Installation Tokens](https://github.com/CrowdStrike/psfalcon/wiki/Commands#installation-tokens-1)
-* [MalQuery](https://github.com/CrowdStrike/psfalcon/wiki/Commands#malquery-1)
-* [OverWatch Dashboards](https://github.com/CrowdStrike/psfalcon/wiki/Commands#overwatch-dashboards-1)
-* [Policies](https://github.com/CrowdStrike/psfalcon/wiki/Commands#policies-1)
-* [Real-time Response](https://github.com/CrowdStrike/psfalcon/wiki/Commands#real-time-response-1)
-* [Sandbox and QuickScan](https://github.com/CrowdStrike/psfalcon/wiki/Commands#sandbox-and-quickscan-1)
-* [Sensor Installers](https://github.com/CrowdStrike/psfalcon/wiki/Commands#sensor-installers-1)
-* [Spotlight](https://github.com/CrowdStrike/psfalcon/wiki/Commands#spotlight-1)
-* [Threat Intelligence](https://github.com/CrowdStrike/psfalcon/wiki/Commands#threat-intelligence-1)
-* [Users and Roles](https://github.com/CrowdStrike/psfalcon/wiki/Commands#users-and-roles-1)
-* [Zero Trust Assessment](https://github.com/CrowdStrike/psfalcon/wiki/Commands#zero-trust-assessment-1)
 ## Users and Roles
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/87/users-and-roles-apis)._
 ### Create a new user

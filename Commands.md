@@ -44,6 +44,7 @@ Get-Help <command> -Examples
 The following examples are for PSFalcon v2.0.x and may include syntax differences compared to v2.1+.
 ## Real-time Response
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/90/real-time-response-apis)._
+
 **NOTE**: PSFalcon has a custom command named `Invoke-FalconRTR` that is designed to perform all the necessary steps to initiate a session with one or more hosts, send a command and output the results. **This command is not designed for a multi-step Real-time Response workflow** and will negatively impact certain operations. For instance, if you were to `cd` into a directory and attempt to `put` a file by running `Invoke-FalconRTR` twice, `Invoke-FalconRTR` will reset back to the root of your system drive between the `cd` and `put` commands, causing the file to be placed in the wrong directory.
 ```powershell
 Invoke-FalconRTR -Command ls -Arguments C:\Windows -HostIds <id>, <id>

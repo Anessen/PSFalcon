@@ -36,8 +36,11 @@ PS> Request-FalconToken -Help
       Position : 4
       Pattern : \w{32}
 ```
-# Examples
-The examples provided below are for PSFalcon v2.0.x. Examples for v2.1.x can be found using `Get-Help <command> -Examples`.
+# Using commands
+**NOTE**: These examples are for PSFalcon v2.0.x. Examples for v2.1.x can be found using:
+```powershell
+Get-Help <command> -Examples
+```
 ## Users and Roles
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/87/users-and-roles-apis)._
 ### Create a new user

@@ -4,6 +4,7 @@ After importing the module you can view the list of commands provided with PSFal
 Get-Command -Module PSFalcon
 ```
 # Finding help
+_Also see [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)._
 ## PSFalcon v2.1+
 Information about PSFalcon commands and their parameters is available using the PowerShell `Get-Help` command. Using the `-Examples`, `-Detailed` or `-Full` parameter(s) provides additional information.
 ```powershell

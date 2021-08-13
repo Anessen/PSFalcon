@@ -12,7 +12,6 @@
 * Limiting results and combining multiple filter conditions and values
 ### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
 * Basic command information and help
-### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
 * Converting PSFalcon results to CSV
 ### [Configuration Export and Import](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import)
 * Export configured items, then restore or re-create them

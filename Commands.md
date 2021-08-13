@@ -42,6 +42,144 @@ PS> Request-FalconToken -Help
 Get-Help <command> -Examples
 ```
 The following examples are for PSFalcon v2.0.x and may include syntax differences compared to v2.1+.
+## Falcon Complete Dashboards
+_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/151/falcon-complete-dashboard-apis)._
+### Search for Falcon Complete detection, device collection or incident identifiers
+```powershell
+Get-FalconCompleteDetection [-All]
+```
+```powershell
+Get-FalconCompleteCollection [-All]
+```
+```powershell
+Get-FalconCompleteIncident [-All]
+```
+### Display the total number of Falcon Complete detections, device collections or incidents
+```powershell
+Get-FalconCompleteDetection -Total
+```
+```powershell
+Get-FalconCompleteCollection -Total
+```
+```powershell
+Get-FalconCompleteIncident -Total
+```
+### Search for Falcon Complete allowlist, blocklist, escalation, or remediation identifiers
+```powershell
+Get-FalconCompleteAllowlist [-All]
+```
+```powershell
+Get-FalconCompleteBlocklist [-All]
+```
+```powershell
+Get-FalconCompleteEscalation [-All]
+```
+```powershell
+Get-FalconCompleteRemediation [-All]
+```
+### Display the total number of Falcon Complete allowlist, blocklist, escalation, and remediation tickets
+```powershell
+Get-FalconCompleteAllowlist -Total
+```
+```powershell
+Get-FalconCompleteBlocklist -Total
+```
+```powershell
+Get-FalconCompleteEscalation -Total
+```
+```powershell
+Get-FalconCompleteRemediation -Total
+```
+## Falcon X Recon
+_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/162/falcon-x-recon-apis)._
+### Finding a monitoring rule
+```powershell
+Get-FalconReconRule [-Detailed]
+```
+### Creating a monitoring rule
+```powershell
+New-FalconReconRule -Name psfalcon_example -Topic SA_AUTHOR -Filter "author:'example_author'" -Priority low -Permissions private
+```
+### Creating multiple monitoring rules in a single request
+```powershell
+$Array = @(
+    @{
+        name = "psfalcon_example_1"
+        topic = "SA_BRAND_PRODUCT"
+        filter = "phrase:'psfalcon_example_phrase'"
+        priority = "low"
+        permissions = "private"
+    },
+    @{
+        name = "psfalcon_example_2"
+        topic = "SA_BIN"
+        filter = "ccbin:'1234'"
+        priority = "medium"
+        permissions = "public"
+    }
+)
+New-FalconReconRule -Array $Array
+```
+### Updating a monitoring rule
+```powershell
+Edit-FalconReconRule -Id <id> -Name psfalcon_example_updated -Priority medium
+```
+### Updating multiple monitoring rules in a single request
+```powershell
+$Array = @(
+    @{
+        id = <id>
+        priority = "high"
+    },
+    @{
+        id = <id>
+        priority = "high"
+    }
+)
+Edit-FalconReconRule -Array $Array
+```
+### Deleting a monitoring rule
+```powershell
+Remove-FalconReconRule -Ids <id>, <id>
+```
+## Setting up email notifications for monitoring rules
+### Querying monitoring rule actions
+```powershell
+Get-FalconReconAction [-Detailed]
+```
+### Creating email notifications for a monitoring rule
+```powershell
+New-FalconReconAction -RuleId <rule_id> -Type email -Frequency daily -Recipients user@example.com
+```
+### Updating email notifications for a monitoring rule
+```powershell
+Edit-FalconReconAction -Id <id> -Frequency weekly
+```
+### Deleting email notifications for a monitoring rule
+```powershell
+Remove-FalconReconAction -Id <id>
+```
+## Managing notifications from monitoring rule matches
+### Querying notifications
+```powershell
+Get-FalconReconNotification
+```
+### Get simplified data from notifications
+```powershell
+Get-FalconReconNotification [-Detailed]
+```
+### Get raw intelligence data from notifications
+```powershell
+Get-FalconReconNotification -Ids <id>, <id> -Intel
+```
+### Get data from notifications translated into English
+```powershell
+Get-FalconReconNotification -Ids <id>, <id> -Translate
+```
+### Get raw intelligence data from notifications translated into English
+```powershell
+Get-FalconReconNotification -Ids <id>, <id> -Combined
+```
 ## Firewall Management
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/107/falcon-firewall-management-apis)._
 ### Creating firewall rule groups
@@ -284,7 +422,7 @@ Get-FalconHorizonSchedule [-CloudPlatform]
 ```powershell
 Edit-FalconHorizonSchedule -CloudPlatform aws -ScanSchedule 2h
 ```
-## Hosts and host groups
+## Hosts and Host Groups
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/84/host-and-host-group-management-apis)._
 ### Hosts that match an AWS Instance ID
 ```powershell

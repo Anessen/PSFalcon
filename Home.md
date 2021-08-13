@@ -8,7 +8,7 @@
 * Verifying access token status
 ### [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
 * Common parameters and pagination handling
-### [Filtering and the Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)
+### [Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-Query-Language)
 * Limiting results and combining multiple filter conditions and values
 ### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
 * Basic command information and help

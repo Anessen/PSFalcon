@@ -3,21 +3,20 @@
 * Downloading and installing the module using the PowerShell Gallery or GitHub
 * Importing the module
 * Basic troubleshooting and bug reports
-### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
-* Basic command information and finding help
-* Examples of using commands
-### [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
-* Common parameters and result pagination
 ### [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
 * Requesting and revoking OAuth2 access tokens, switching cloud environments, and 'child' CIDs
-* Verifying your OAuth2 access token status
+* Verifying access token status
+### [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
+* Common parameters and pagination handling
 ### [Filtering and the Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-and-the-Falcon-Query-Language)
-* Using the Falcon Query Language to limit results and combining multiple filter conditions and values
-### [Configuration Export and Import](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import)
-* Export configured items from one CID, and restore or re-create them in the same or different CID(s)
+* Limiting results and combining multiple filter conditions and values
+### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
+* Basic command information and help
 ### [CSV Output](https://github.com/CrowdStrike/psfalcon/wiki/CSV-Output)
-* Converting results to CSV using `Export-FalconReport`
+* Converting PSFalcon results to CSV
+### [Configuration Export and Import](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import)
+* Export configured items, then restore or re-create them
 ### [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples)
-* Examples for doing specific things with PowerShell and PSFalcon
+* Help building scripts with PowerShell and PSFalcon
 ### [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts)
 * Examples designed to complete an entire workflow

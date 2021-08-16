@@ -112,7 +112,7 @@ process {
 ```
 # Ingesting data
 ## Retrieve items from a text file or CSV
-Collect a list of items (identifiers, hostnames, group names, etc.) from an absolute file path, normalize the input (which sometimes is a problem when the values are converted to Json for an API request), exclude blank values and save to the variable `$Items`. Once complete, you can use the `$Items` variable with another PSFalcon command.
+Collect a list of items (identifiers, hostnames, group names, etc.) from a text file, exclude blank values and save to the variable `$Items`, which can be used with a PSFalcon command.
 ```powershell
 #Requires -Version 5.1
 param(
@@ -138,6 +138,29 @@ $Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
         $_
     }
 }
+```
+Collect a list of hostnames from a CSV, using the column 'Hostname':
+```powershell
+#Requires -Version 5.1
+param(
+    [Parameter(Mandatory = $true)]
+    [ValidateScript({
+        if (Test-Path $_) {
+            $true
+        } else {
+            throw "Cannot find path '$_' because it does not exist."
+        }
+    })]
+    [string] $Path
+)
+$InputFile = if (![IO.Path]::IsPathRooted($PSBoundParameters.Path)) {
+    $FullPath = Join-Path -Path (Get-Location).Path -ChildPath $PSBoundParameters.Path
+    $FullPath = Join-Path -Path $FullPath -ChildPath '.'
+    [IO.Path]::GetFullPath($FullPath)
+} else {
+    $PSBoundParameters.Path
+}
+$Items = (Import-Csv -Path $InputFile).Hostname
 ```
 # Manipulating Objects
 ### Add properties to an object

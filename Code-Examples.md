@@ -5,7 +5,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Request authorization token and run commands](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-token-and-run-commands)
 * [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#authorize-and-run-commands-in-member-cids)
 ### Ingesting Data
-* [Retrieve items from a text file](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-items-from-a-text-file)
+* [Retrieve items from a text file or CSV](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-items-from-a-text-file-or-csv)
 ### Manipulating Objects
 * [Add properties to an object](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#add-properties-to-an-object)
 ***
@@ -111,7 +111,7 @@ process {
 }
 ```
 # Ingesting data
-## Retrieve items from a text file
+## Retrieve items from a text file or CSV
 Collect a list of items (identifiers, hostnames, group names, etc.) from an absolute file path, normalize the input (which sometimes is a problem when the values are converted to Json for an API request), exclude blank values and save to the variable `$Items`. Once complete, you can use the `$Items` variable with another PSFalcon command.
 ```powershell
 #Requires -Version 5.1

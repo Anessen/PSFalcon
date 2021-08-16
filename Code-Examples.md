@@ -139,27 +139,8 @@ $Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
     }
 }
 ```
-Collect a list of hostnames from a CSV, using the column `Hostname`.
+Collecting a list of hostnames (using the column `Hostname`) from a CSV can be done by modifying the `$Items` line.
 ```powershell
-#Requires -Version 5.1
-param(
-    [Parameter(Mandatory = $true)]
-    [ValidateScript({
-        if (Test-Path $_) {
-            $true
-        } else {
-            throw "Cannot find path '$_' because it does not exist."
-        }
-    })]
-    [string] $Path
-)
-$InputFile = if (![IO.Path]::IsPathRooted($PSBoundParameters.Path)) {
-    $FullPath = Join-Path -Path (Get-Location).Path -ChildPath $PSBoundParameters.Path
-    $FullPath = Join-Path -Path $FullPath -ChildPath '.'
-    [IO.Path]::GetFullPath($FullPath)
-} else {
-    $PSBoundParameters.Path
-}
 $Items = (Import-Csv -Path $InputFile).Hostname
 ```
 # Manipulating Objects

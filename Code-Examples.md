@@ -141,7 +141,11 @@ $Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
 ```
 Collecting a list of hostnames (using the column `Hostname`) from a CSV can be done by modifying the `$Items` line.
 ```powershell
-$Items = (Import-Csv -Path $InputFile).Hostname
+$Items = ((Import-Csv -Path $InputFile).Hostname).foreach{
+    if ($_ -ne '') {
+        $_
+    }
+}
 ```
 # Manipulating Objects
 ### Add properties to an object

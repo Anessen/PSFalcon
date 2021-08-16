@@ -139,7 +139,7 @@ $Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
     }
 }
 ```
-Collect a list of hostnames from a CSV, using the column `Hostname`:
+Collect a list of hostnames from a CSV, using the column `Hostname`.
 ```powershell
 #Requires -Version 5.1
 param(

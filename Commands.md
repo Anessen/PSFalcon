@@ -200,7 +200,6 @@ Edit-FalconReconRule -Array $Array
 ```powershell
 Remove-FalconReconRule -Ids <id>, <id>
 ```
-## Setting up email notifications for monitoring rules
 ### Querying monitoring rule actions
 ```powershell
 Get-FalconReconAction [-Detailed]
@@ -217,7 +216,6 @@ Edit-FalconReconAction -Id <id> -Frequency weekly
 ```powershell
 Remove-FalconReconAction -Id <id>
 ```
-## Managing notifications from monitoring rule matches
 ### Querying notifications
 ```powershell
 Get-FalconReconNotification

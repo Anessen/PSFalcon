@@ -148,9 +148,10 @@ $Items = ((Import-Csv -Path $InputFile).Hostname).foreach{
     }
 }
 ```
-### Retrieve identifiers using a list
+## Retrieve identifiers using a list
 The `Filter` parameter, which accepts a [Falcon Query Language]() statement, will accept 20 conditions at a time. If you have a list of hostnames that you need to match with their identifiers, you can loop through the list and output the hostname and identifier as new objects in an array contained in `$Hosts`. The example below assumes you have already ingested the list of hostnames into the `$Items` variable.
 ```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 $Hosts = for ($i = 0; $i -lt $Items.count; $i += 20) {
     # Retrieve device_id for hostnames in groups of 20
     $Filter = ($Items[$i..($i + 19)] | ForEach-Object {
@@ -162,7 +163,7 @@ $Hosts = for ($i = 0; $i -lt $Items.count; $i += 20) {
 }
 ```
 # Manipulating Objects
-### Add properties to an object
+## Add properties to an object
 Most PSFalcon commands return `[PSCustomObject]` results. One of the [fastest ways](https://ramblingcookiemonster.github.io/Decorating-Objects/) to add properties to a `[PSCustomObject]` can be converted into a simple function that you can re-use.
 ```powershell
 #Requires -Version 5.1

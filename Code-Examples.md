@@ -179,42 +179,33 @@ $HostObject = Get-FalconHost -Filter "hostname:'EXAMPLE-PC'" -Detailed
 Add-Property -Object $HostObject -Name 'test' -Value 'abc'
 ```
 ## Iterate properties of an object
-Different types of objects require different methods to figure out what properties are available in an object. When dealing with a `[hashtable]` or `[PSCustomObject]`, you can easily list the keys, values, or both, and use `.GetEnumerator()` and `.Where({})` to filter:
+Different types of objects require different methods to figure out what properties are available in an object. Most PSFalcon command results are arrays of `[PSCustomObject]` values, which allows manipulation in several different ways, but they're not always easy to understand to someone inexperienced with PowerShell. It's easiest to start with your result saved to a variable:
 ```powershell
-PS>$Hashtable = @{ key1 = 'value'; key2 = 123 }
-PS>$Hashtable -is [hashtable]
-True
-PS>$Hashtable.Keys
-key2
-key1
-PS>$Hashtable.Values
-123
-value
-PS>($Hashtable.GetEnumerator()).foreach{ $_.Key; $_.Value }
-key2
-123
-key1
-value
-PS>foreach ($Pair in $Hashtable.GetEnumerator().Where({ $_.Key -eq 'key1' })) { $Pair.Value }
-value
+PS>$Hosts = Get-FalconHost -Detailed
 ```
+From there, you can use `Select-Object` to choose certain properties:
 ```powershell
-PS>[PSCustomObject] $Object = @{ prop1 = 'value2'; prop2 = 456 }
-PS>$Object -is [PSCustomObject]
-True
-PS>$Object.Keys
-prop2
-prop1
-PS>$Object.Values
-456
-value2
-PS>($Object.GetEnumerator()).foreach{ $_.Key; $_.Value }
-prop2
-456
-prop1
-value2
-PS>foreach ($Pair in $Object.GetEnumerator().Where({ $_.Key -eq 'prop1' })) { $Pair.Value }
-value2
+PS>$Hosts | Select-Object device_id, hostname, local_ip
+
+device_id   hostname     local_ip
+---------   --------     --------
+<redacted>  EXAMPLE-PC1  192.168.0.10
+<redacted>  EXAMPLE-PC2  192.168.0.11
+...
+```
+`Where-Object` can be used to filter for results with specific properties, using an exact match, or a RegEx match:
+```powershell
+PS>$Hosts | Where-Object { $_.hostname -eq 'EXAMPLE-PC2' } | Select-Object device_id, hostname, local_ip
+
+device_id   hostname     local_ip
+---------   --------     --------
+<redacted>  EXAMPLE-PC2  192.168.0.11
+
+PS>$Hosts | Where-Object { $_.hostname -match 'PC2' } | Select-Object device_id, hostname, local_ip
+
+device_id   hostname     local_ip
+---------   --------     --------
+<redacted>  EXAMPLE-PC2  192.168.0.11
 ```
 ***
 The examples provided above are for example purposes only and are offered 'as is' with no support.

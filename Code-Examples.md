@@ -6,6 +6,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#authorize-and-run-commands-in-member-cids)
 ### Ingesting Data
 * [Retrieve items from a text file or CSV](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-items-from-a-text-file-or-csv)
+* [Retrieve identifiers using a list](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-identifiers-using-a-list)
 ### Manipulating Objects
 * [Add properties to an object](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#add-properties-to-an-object)
 ***
@@ -145,6 +146,19 @@ $Items = ((Import-Csv -Path $InputFile).Hostname).foreach{
     if ($_ -ne '') {
         $_
     }
+}
+```
+### Retrieve identifiers using a list
+The `Filter` parameter, which accepts a [Falcon Query Language]() statement, will accept 20 conditions at a time. If you have a list of hostnames that you need to match with their identifiers, you can loop through the list and output the hostname and identifier as new objects in an array contained in `$Hosts`. The example below assumes you have already ingested the list of hostnames into the `$Items` variable.
+```powershell
+$Hosts = for ($i = 0; $i -lt $Items.count; $i += 20) {
+    # Retrieve device_id for hostnames in groups of 20
+    $Filter = ($Items[$i..($i + 19)] | ForEach-Object {
+        if ($_ -ne '') {
+            "hostname:['$_']"
+        }
+    }) -join ','
+    Get-FalconHost -Filter $Filter -Detailed | Select-Object hostname, device_id
 }
 ```
 # Manipulating Objects

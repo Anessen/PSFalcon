@@ -149,7 +149,7 @@ $Items = ((Import-Csv -Path $InputFile).Hostname).foreach{
 }
 ```
 ## Retrieve identifiers using a list
-The `Filter` parameter, which accepts a [Falcon Query Language]() statement, will accept 20 conditions at a time. If you have a list of hostnames that you need to match with their identifiers, you can loop through the list and output the hostname and identifier as new objects in an array contained in `$Hosts`. The example below assumes you have already ingested the list of hostnames into the `$Items` variable.
+The `Filter` parameter, which accepts a [Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-Query-Language) statement, will accept 20 conditions at a time. If you have a list of hostnames that you need to match with their identifiers, you can loop through the list and output the hostname and identifier as new objects in an array contained in `$Hosts`. The example below assumes you have already ingested the list of hostnames into the `$Items` variable.
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
 $Hosts = for ($i = 0; $i -lt $Items.count; $i += 20) {

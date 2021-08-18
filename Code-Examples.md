@@ -9,6 +9,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Retrieve identifiers using a list](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-identifiers-using-a-list)
 ### Manipulating Objects
 * [Add properties to an object](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#add-properties-to-an-object)
+* [Iterate properties of an object](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#iterate-properties-of-an-object)
 ***
 # Authentication
 ## Request authorization token and run commands

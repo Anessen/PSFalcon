@@ -177,6 +177,44 @@ For example, if you wanted to add property `test` with value `abc` to a `Get-Fal
 $HostObject = Get-FalconHost -Filter "hostname:'EXAMPLE-PC'" -Detailed
 Add-Property -Object $HostObject -Name 'test' -Value 'abc'
 ```
+## Iterate properties of an object
+Different types of objects require different methods to figure out what properties are available in an object. When dealing with a `[hashtable]` or `[PSCustomObject]`, you can easily list the keys, values, or both, and use `.GetEnumerator()` and `.Where({})` to filter:
+```powershell
+PS>$Hashtable = @{ key1 = 'value'; key2 = 123 }
+PS>$Hashtable -is [hashtable]
+True
+PS>$Hashtable.Keys
+key2
+key1
+PS>$Hashtable.Values
+123
+value
+PS>($Hashtable.GetEnumerator()).foreach{ $_.Key; $_.Value }
+key2
+123
+key1
+value
+PS>foreach ($Pair in $Hashtable.GetEnumerator().Where({ $_.Key -eq 'key1' })) { $Pair.Value }
+value
+```
+```powershell
+PS>[PSCustomObject] $Object = @{ prop1 = 'value2'; prop2 = 456 }
+PS>$Object -is [PSCustomObject]
+True
+PS>$Object.Keys
+prop2
+prop1
+PS>$Object.Values
+456
+value2
+PS>($Object.GetEnumerator()).foreach{ $_.Key; $_.Value }
+prop2
+456
+prop1
+value2
+PS>foreach ($Pair in $Object.GetEnumerator().Where({ $_.Key -eq 'prop1' })) { $Pair.Value }
+value2
+```
 ***
 The examples provided above are for example purposes only and are offered 'as is' with no support.
 ***

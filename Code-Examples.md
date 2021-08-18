@@ -179,7 +179,9 @@ $HostObject = Get-FalconHost -Filter "hostname:'EXAMPLE-PC'" -Detailed
 Add-Property -Object $HostObject -Name 'test' -Value 'abc'
 ```
 ## Iterate properties of an object
-Different types of objects require different methods to figure out what properties are available in an object. Most PSFalcon command results are arrays of `[PSCustomObject]` values, which allows manipulation in several different ways, but they're not always easy to understand to someone inexperienced with PowerShell. It's easiest to start with your result saved to a variable:
+Different types of objects require different methods to figure out what properties are available in an object. Most PSFalcon command results are arrays of `[PSCustomObject]` values, which allows manipulation in several different ways, but they're not always easy to understand to someone inexperienced with PowerShell.
+
+It's easiest to start with your result saved to a variable:
 ```powershell
 PS>$Hosts = Get-FalconHost -Detailed
 ```
@@ -191,7 +193,7 @@ device_id   hostname     local_ip
 ---------   --------     --------
 <redacted>  EXAMPLE-PC1  192.168.0.10
 <redacted>  EXAMPLE-PC2  192.168.0.11
-...
+
 ```
 `Where-Object` can be used to filter for results with specific properties, using an exact match, or a RegEx match:
 ```powershell
@@ -206,6 +208,45 @@ PS>$Hosts | Where-Object { $_.hostname -match 'PC2' } | Select-Object device_id,
 device_id   hostname     local_ip
 ---------   --------     --------
 <redacted>  EXAMPLE-PC2  192.168.0.11
+```
+`Group-Object` can help determine counts, like devices by `agent_version`, or devices by `os_version`:
+```powershell
+PS>$Hosts | Group-Object agent_version
+
+Count Name                      Group
+----- ----                      -----
+    2 6.26.14003.0              {@{device_id=...
+
+PS>$Hosts | Group-Object os_version
+
+Count Name                      Group
+----- ----                      -----
+    2 Windows 10                {@{device_id=...
+```
+Things become more complex when you don't know what properties are available, and it can be made more difficult when those properties aren't part of the object. For example, the Falcon APIs will omit properties when they aren't present, like when a device is not joined to a domain:
+```powershell
+PS>$Hosts | Select-Object device_id, hostname, machine_domain
+
+device_id   hostname     machine_domain
+---------   --------     --------
+<redacted>  EXAMPLE-PC1  
+<redacted>  EXAMPLE-PC2  example.com
+```
+To determine the number of properties that are present on both objects, it's easy to count the array itself. Unfortunately, PowerShell will only display the properties of the first object in the array. Properties for each object are only displayed when checking each object individually:
+```powershell
+PS>($Hosts | Get-Member | Where-Object { $_.MemberType -eq 'NoteProperty' }).Count
+42
+PS>$Hosts | ForEach-Object { ($_ | Get-Member | Where-Object { $_.MemberType -eq 'NoteProperty' }).Count }
+42
+45
+```
+Checking each object for the property names, then grouping them and selecting the unique properties can provide a list of the available property names across all objects in the array:
+```powershell
+PS>($Hosts | ForEach-Object { ($_ | Get-Member | Where-Object { $_.MemberType -eq 'NoteProperty' }).Name } | Group-Object).Name
+agent_load_flags
+agent_local_time
+agent_version
+...
 ```
 ***
 The examples provided above are for example purposes only and are offered 'as is' with no support.

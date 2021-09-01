@@ -10,6 +10,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Find duplicate hosts and hide them](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#find-duplicate-hosts-and-hide-them)
 * [Network contain a device by Hostname](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#network-contain-a-device-by-hostname)
 * [Network contain a list of Hostnames from a CSV file](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#network-contain-a-list-of-hostnames-from-a-csv-file)
+* [Output selected Host info and replace ids with names](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#output-selected-host-info-and-replace-ids-with-names)
 * [Get host information from multiple Falcon instances](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#get-host-information-from-multiple-falcon-instances)
 ### Host Groups
 * [Verify that a list of Host Groups exist within Child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#verify-that-a-list-of-host-groups-exist-within-child-cids)

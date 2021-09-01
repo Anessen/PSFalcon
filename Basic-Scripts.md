@@ -223,6 +223,94 @@ if (Test-Path $OutputFile) {
     Get-ChildItem $OutputFile
 }
 ```
+## Output selected Host info and replace ids with names
+Designed to replace all 'ids' with the related 'name', under each Host result. The fields you'd like to include from each host result can be added to the `$Fields` variable.
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.1.2'}
+[CmdletBinding()]
+param()
+begin {
+    # Fields to include with the export to CSV (host group and policy data is automatically added)
+    $Fields = @('device_id', 'hostname', 'last_seen', 'first_seen', 'local_ip', 'external_ip', 'agent_version')
+}
+process {
+    # Retrieve all host information and filter to selected fields
+    $Fields += 'device_policies', 'groups'
+    $HostInfo = Get-FalconHost -Detailed -All | Select-Object $Fields
+    if ($HostInfo) {
+        # Create hashtable to store object detail for hosts
+        $Related = @{
+            DeviceControlPolicy = @{}
+            FirewallPolicy      = @{}
+            IoaGroup            = @{}
+            PreventionPolicy    = @{}
+            ResponsePolicy      = @{}
+            SensorUpdatePolicy  = @{}
+            HostGroup           = @{}
+        }
+        foreach ($ItemType in $Related.Keys) {
+            # Match policy type to the label used with hosts
+            $HostLabel = switch ($ItemType) {
+                'DeviceControlPolicy' { 'device_control' }
+                'HostGroup'           { 'groups' }
+                'IoaGroup'            { 'rule_groups' }
+                'ResponsePolicy'      { 'remote_response' }
+                'SensorUpdatePolicy'  { 'sensor_update' }
+                default               { ($_ -replace 'Policy', $null).ToLower() }
+            }
+            $Ids = if ($ItemType -eq 'IoaGroup') {
+                # Collect IOA rule group identifiers
+                ($HostInfo.device_policies.prevention.rule_groups | Group-Object).Name
+            } elseif ($ItemType -match 'Policy$') {
+                # Collect policy identifiers
+                ($HostInfo.device_policies.$HostLabel.policy_id | Group-Object).Name
+            } else {
+                # Collect host group identifiers
+                ($HostInfo.groups | Group-Object).Name
+            }
+            # Collect names and identifiers for each item in hashtable
+            $Content = & "Get-Falcon$($ItemType)" -Ids $Ids | Select-Object id, name
+            if ($Content) {
+                $Content | ForEach-Object {
+                    $Related.$ItemType["$($_.id)"] = "$($_.name)"
+                }
+            } else {
+                Write-Error "Unable to collect '$ItemType' information. Check permissions."
+            }
+            $HostInfo | ForEach-Object {
+                # Define new property names to add to output
+                $Name = if ($ItemType -eq 'HostGroup') {
+                    "host_$($HostLabel)"
+                } elseif ($ItemType -eq 'IoaGroup') {
+                    "ioa_$($HostLabel)"
+                } else {
+                    "$($HostLabel)_policy"
+                }
+                $Value = if ($ItemType -eq 'HostGroup') {
+                    # Replace host group identifiers with names and remove 'groups'
+                    ($_.groups | ForEach-Object { $Related.$ItemType.$_ }) -join ','
+                    [void] $_.PSObject.Properties.Remove('groups')
+                } elseif ($ItemType -eq 'IoaGroup') {
+                    # Replace IOA rule group identifiers with names
+                    ($_.device_policies.prevention.rule_groups | ForEach-Object {
+                        $Related.$ItemType.$_ }) -join ','
+                } else {
+                    # Replace policy identifiers with names and add as '<type>_policy'
+                    $Related.$ItemType.($_.device_policies.$HostLabel.policy_id)
+                }
+                $_.PSObject.Properties.Add((New-Object PSNoteProperty($Name, $Value)))
+            }
+        }
+        $HostInfo | Where-Object { $_.device_policies } | ForEach-Object {
+            # Remove redundant 'device_policies' property
+            [void] $_.PSObject.Properties.Remove('device_policies')
+        }
+        $HostInfo
+    } else {
+        Write-Error "Unable to collect Host information. Check permissions."
+    }
+}
+```
 ## Get host information from multiple Falcon instances
 **NOTE**: This example requires that you input values for `<client_id>`, `<client_secret>`, and each `<member_cid>`. To avoid hard-coding credentials you could pass them as parameters instead.
 ```powershell

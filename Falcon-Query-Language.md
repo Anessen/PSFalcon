@@ -2,6 +2,7 @@ Many PSFalcon commands support the use of [Falcon Query Language](https://falcon
 
 * **_Available FQL filters and their syntax will vary between APIs and are not determined by PSFalcon_**
 * Each FQL filter and value may be case-sensitive (exact case, lowercase only, etc.)
+* Each FQL filter statement can contain a maximum of 20 properties
 
 Values in an FQL statement tend to either be restricted to `$true`, `$false`, an `integer` or a `string` (description, date or time, etc). 
 

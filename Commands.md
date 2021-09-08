@@ -44,7 +44,7 @@ PS> Request-FalconToken -Help
 ```
 If you wish to validate the output before creating a CSV, try:
 ```powershell
-<command> [-Detailed] [-All] | Export-FalconReport -Path .\example.csv -WhatIf
+<command> [-Detailed] [-All] | Export-FalconReport
 ```
 # Command examples
 **NOTE**: Examples for PSFalcon v2.1+ can be found using:

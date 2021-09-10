@@ -1001,15 +1001,36 @@ Confirm-FalconCommand -CloudRequestId $Command.cloud_request_id
 ```powershell
 Update-FalconSession -SessionId $Session.session_id
 ```
-### Use Real-time Response to download a file from multiple hosts
+### Use Real-time Response to download a file
+**NOTE**: `Invoke-FalconRtr` can be used to initialize a batch session and issue the `get` command. The results will include the `batch_get_cmd_req_id` that can be used with `Confirm-FalconGetFile` to verify the extraction has completed, and then `Receive-FalconGetFile` can be used to download the file(s).
+
+To download a file from a single host, start with a Real-time Response session:
 ```powershell
-$Get = Invoke-FalconRTR -Command get -Arguments "C:\example.exe" -HostIds <id>, <id>
+$Init = Start-FalconSession -HostId <id>
 ```
-Once the batch 'get' request has been submitted using `Invoke-FalconRTR`, you can check the status of each `batch_get_cmd_req_id` to see if the file is ready to download.
+Follow it with a `get` command:
 ```powershell
-$Confirm = ($Get.batch_get_cmd_req_id | Group-Object).Name | ForEach-Object {
-    Confirm-FalconGetFile -BatchGetCmdReqId $_
-}
+$Get = Invoke-FalconAdminCommand -SessionId $Init.session_id -Command get -Arguments C:\path\to\file.exe
+```
+Verify that the extraction of the file has completed:
+```powershell
+$Confirm = Confirm-FalconGetFile -SessionId $Init.session_id
+```
+Once the results of `Confirm-FalconGetFile` contain a SHA256 value (indicating the extraction has completed), you can download the file:
+```powershell
+Receive-FalconGetFile -Sha256 $Confirm.sha256 -SessionId $Init.session_id -Path C:\path\to\local\download.7z
+```
+The process is similar for multiple hosts, but uses slightly different commands after starting the session:
+```powershell
+$Init = Start-FalconSession -HostIds <id>, <id>
+```
+Send the `get` command to the session:
+```powershell
+$Get = Invoke-FalconBatchGet -BatchId $Init.batch_id -FilePath C:\path\to\file.exe
+```
+Verify that extraction of the files has completed:
+```powershell
+$Confirm = Confirm-FalconGetFile -BatchGetCmdReqId $Get.batch_get_cmd_req_id
 ```
 The upload from the host has completed once the file has populated `sha256` and `created_at` values. You can use the `sha256` and `session_id` values to download the files, and in the following example, each file will be downloaded and saved in your local directory, using the `sha256` and `aid` values to name the archive.
 ```powershell

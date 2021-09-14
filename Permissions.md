@@ -40,7 +40,7 @@
 |Edit-FalconUser|usermgmt:write|
 |Edit-FalconUserGroup|mssp:write|
 |Export-FalconConfig| |
-|Export-FalconReport| |
+|Export-FalconReport|'write' for each configuration exported|
 |Find-FalconDuplicate|devices:read, devices:write|
 |Get-FalconActor|falconx-actors:read|
 |Get-FalconBehavior|incidents:read|
@@ -144,7 +144,7 @@
 |Get-FalconVulnerability|spotlight-vulnerabilities:read|
 |Get-FalconZta|zero-trust-assessment:read|
 |Group-FalconMalQuerySample|malquery:write|
-|Import-FalconConfig|'write' for each configuration item imported|
+|Import-FalconConfig|'write' for each configuration imported|
 |Invoke-FalconAdminCommand|real-time-response-admin:write|
 |Invoke-FalconBatchGet|real-time-response:write|
 |Invoke-FalconCommand|real-time-response:read|

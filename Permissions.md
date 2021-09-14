@@ -112,8 +112,8 @@
 |Get-FalconPreventionPolicy|prevention-policies:read|
 |Get-FalconPreventionPolicyMember|prevention-policies:read|
 |Get-FalconPutFile|real-time-response-admin:write|
-|Get-FalconQuarantine| |
-|Get-FalconQueue|real-time-response-admin:read, real-time-response-admin:write|
+|Get-FalconQuarantine|quarantine:read|
+|Get-FalconQueue|real-time-response-admin:write|
 |Get-FalconQuickScan|quick-scan:read|
 |Get-FalconQuickScanQuota|quick-scan:read|
 |Get-FalconReconAction|recon-monitoring-rules:read|
@@ -144,12 +144,12 @@
 |Get-FalconVulnerability|spotlight-vulnerabilities:read|
 |Get-FalconZta|zero-trust-assessment:read|
 |Group-FalconMalQuerySample|malquery:write|
-|Import-FalconConfig| |
+|Import-FalconConfig|'write' for each configuration item imported|
 |Invoke-FalconAdminCommand|real-time-response-admin:write|
 |Invoke-FalconBatchGet|real-time-response:write|
 |Invoke-FalconCommand|real-time-response:read|
 |Invoke-FalconContainerScan|kubernetes-protection:write|
-|Invoke-FalconDeploy|real-time-response-admin:write|
+|Invoke-FalconDeploy|devices:read, real-time-response-admin:write|
 |Invoke-FalconDeviceControlPolicyAction|device-control-policies:write|
 |Invoke-FalconFirewallPolicyAction|firewall-management:write|
 |Invoke-FalconHostAction|devices:write|
@@ -157,7 +157,7 @@
 |Invoke-FalconIncidentAction|incidents:write|
 |Invoke-FalconMalQuery|malquery:write|
 |Invoke-FalconPreventionPolicyAction|prevention-policies:write|
-|Invoke-FalconQuarantineAction| |
+|Invoke-FalconQuarantineAction|quarantine:write|
 |Invoke-FalconResponderCommand|real-time-response:write|
 |Invoke-FalconResponsePolicyAction|response-policies:write|
 |Invoke-FalconRtr|real-time-response:read, real-time-response:write, real-time-response-admin:write|
@@ -202,7 +202,7 @@
 |Receive-FalconMalQuerySample|malquery:read|
 |Receive-FalconRule|falconx-rules:read|
 |Receive-FalconSample|samplestore:read|
-|Receive-FalconScheduledReport| |
+|Receive-FalconScheduledReport|scheduled-report:read|
 |Remove-FalconCidGroup|mssp:write|
 |Remove-FalconCidGroupMember|mssp:write|
 |Remove-FalconCommand|real-time-response:read|
@@ -226,7 +226,7 @@
 |Remove-FalconPreventionPolicy|prevention-policies:write|
 |Remove-FalconPutFile|real-time-response-admin:write|
 |Remove-FalconReconAction|recon-monitoring-rules:write|
-|Remove-FalconReconNotification| |
+|Remove-FalconReconNotification|recon-monitoring-rules:write|
 |Remove-FalconReconRule|recon-monitoring-rules:write|
 |Remove-FalconReport|falconx-sandbox:write|
 |Remove-FalconResponsePolicy|response-policies:write|
@@ -255,7 +255,7 @@
 |Show-FalconModule| |
 |Start-FalconSession|real-time-response:read|
 |Test-FalconIoaRule|custom-ioa:write|
-|Test-FalconQuarantineAction| |
+|Test-FalconQuarantineAction|quarantine:write|
 |Test-FalconToken| |
 |Uninstall-FalconSensor|devices:write, sensor-update-policies:write, real-time-response-admin:write|
 |Update-FalconDiscoverAwsSetting|cloud-connect-aws:write|

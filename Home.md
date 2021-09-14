@@ -13,6 +13,8 @@
 ### [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
 * Basic command information and help
 * Converting PSFalcon results to CSV
+### [Permissions](https://github.com/CrowdStrike/psfalcon/wiki/Permissions)
+* Required OAuth2 permissions by command
 ### [Configuration Export and Import](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import)
 * Export configured items, then restore or re-create them
 ### [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples)

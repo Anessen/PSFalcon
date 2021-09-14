@@ -39,8 +39,8 @@
 |Edit-FalconSvExclusion|sensor-visibility-exclusions:write|
 |Edit-FalconUser|usermgmt:write|
 |Edit-FalconUserGroup|mssp:write|
-|Export-FalconConfig| |
-|Export-FalconReport|'write' for each configuration exported|
+|Export-FalconConfig|'write' for each configuration exported|
+|Export-FalconReport| |
 |Find-FalconDuplicate|devices:read, devices:write|
 |Get-FalconActor|falconx-actors:read|
 |Get-FalconBehavior|incidents:read|

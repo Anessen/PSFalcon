@@ -113,7 +113,7 @@
 |Get-FalconPreventionPolicyMember|prevention-policies:read|
 |Get-FalconPutFile|real-time-response-admin:write|
 |Get-FalconQuarantine|quarantine:read|
-|Get-FalconQueue|real-time-response-admin:write|
+|Get-FalconQueue|real-time-response:read, real-time-response:write, real-time-response-admin:write|
 |Get-FalconQuickScan|quick-scan:read|
 |Get-FalconQuickScanQuota|quick-scan:read|
 |Get-FalconReconAction|recon-monitoring-rules:read|

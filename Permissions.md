@@ -1,9 +1,10 @@
 |Command|Permission(s)|
 |-------|-------------|
 |Add-FalconCidGroupMember|mssp:write|
+|Add-FalconGroupingTag|devices:write|
 |Add-FalconGroupRole|mssp:write|
-|Add-FalconHostTag|devices:write|
 |Add-FalconRole|usermgmt:write|
+|Add-FalconSensorTag|real-time-response-admin:write|
 |Add-FalconUserGroupMember|mssp:write|
 |Confirm-FalconAdminCommand|real-time-response-admin:write|
 |Confirm-FalconCommand|real-time-response:read|
@@ -127,6 +128,7 @@
 |Get-FalconRole|usermgmt:read|
 |Get-FalconRule|falconx-rules:read|
 |Get-FalconSample|samplestore:read|
+|Get-FalconSensorTag|real-time-response:read|
 |Get-FalconScheduledReport|scheduled-report:read|
 |Get-FalconScore|incidents:read|
 |Get-FalconScript|real-time-response-admin:write|
@@ -213,10 +215,10 @@
 |Remove-FalconFirewallPolicy|firewall-management:write|
 |Remove-FalconGetFile|real-time-response:write|
 |Remove-FalconGroupRole|mssp:write|
+|Remove-FalconGroupingTag|devices:write|
 |Remove-FalconHorizonAwsAccount|cspm-registration:write|
 |Remove-FalconHorizonAzureAccount|cspm-registration:write|
 |Remove-FalconHostGroup|host-group:write|
-|Remove-FalconHostTag|devices:write|
 |Remove-FalconInstallToken|installation-tokens:write|
 |Remove-FalconIoaExclusion|self-service-ioa-exclusions:write|
 |Remove-FalconIoaGroup|custom-ioa:write|
@@ -233,6 +235,7 @@
 |Remove-FalconRole|usermgmt:write|
 |Remove-FalconSample|samplestore:write|
 |Remove-FalconScript|real-time-response-admin:write|
+|Remove-FalconSensorTag|real-time-response-admin:write|
 |Remove-FalconSensorUpdatePolicy|sensor-update-policies:write|
 |Remove-FalconSession|real-time-response:read|
 |Remove-FalconSvExclusion|sensor-visibility-exclusions:write|

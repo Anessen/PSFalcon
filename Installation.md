@@ -66,10 +66,6 @@ Import-Module -Name PSFalcon
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='<version>'}
 ```
-# Basic Troubleshooting and Support
-* Set `$VerbosePreference` and `$DebugPreference` to `'Continue'`
-* Run `Start-Transcript`, `Show-FalconModule`, the affected PSFalcon commands or script, and `Stop-Transcript`
-* [Create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues)
 ## Folder Redirection
 If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
 cases, you can extract PSFalcon and import the module directly.
@@ -78,3 +74,7 @@ Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ .\PSFalcon
 Import-Module .\PSFalcon
 ```
+# Basic Troubleshooting and Support
+* Set `$VerbosePreference` and `$DebugPreference` to `'Continue'`
+* Run `Start-Transcript`, `Show-FalconModule`, the affected PSFalcon commands or script, and `Stop-Transcript`
+* [Create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues)

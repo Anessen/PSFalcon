@@ -8,13 +8,13 @@
 ## [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
 * Requesting and revoking OAuth2 access tokens, switching cloud environments, and 'child' CIDs
 * Verifying access token status
-## [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
-* Common parameters and pagination handling
-## [Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-Query-Language)
-* Limiting results and combining multiple filter conditions and values
 ## [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)
 * Basic command information and help
 * Converting PSFalcon results to CSV
+## [Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-Query-Language)
+* Limiting results and combining multiple filter conditions and values
+## [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
+* Common parameters and pagination handling
 ## [Permissions](https://github.com/CrowdStrike/psfalcon/wiki/Permissions)
 * Required OAuth2 permissions by command
 ## [Configuration Export and Import](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import)

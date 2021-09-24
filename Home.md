@@ -1,10 +1,11 @@
 ![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
 ![Twitter URL](https://img.shields.io/twitter/url?label=Follow%20%40CrowdStrike&style=social&url=https%3A%2F%2Ftwitter.com%2FCrowdStrike)
 
-## [Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation)
+# [Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation)
 * Downloading and installing the module using the PowerShell Gallery or GitHub
 * Importing the module
 * Basic troubleshooting and bug reports
+# Using PSFalcon
 ## [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
 * Requesting and revoking OAuth2 access tokens, switching cloud environments, and 'child' CIDs
 * Verifying access token status
@@ -17,6 +18,7 @@
 * Common parameters and pagination handling
 ## [Permissions](https://github.com/CrowdStrike/psfalcon/wiki/Permissions)
 * Required OAuth2 permissions by command
+# Examples
 ## [Configuration Export and Import](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import)
 * Export configured items, then restore or re-create them
 ## [Code Examples](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples)

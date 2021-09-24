@@ -14,5 +14,3 @@
     + [FalconPy](https://github.com/CrowdStrike/falconpy/wiki) - Python 3
     + [goFalcon](https://pkg.go.dev/github.com/crowdstrike/gofalcon) - Go
     + [PSFalcon](https://github.com/CrowdStrike/psfalcon/wiki) - Powershell
-
-![CrowdStrike Falcon](image/csfalcon.png)

@@ -1,3 +1,6 @@
+![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
+![Twitter URL](https://img.shields.io/twitter/url?label=Follow%20%40CrowdStrike&style=social&url=https%3A%2F%2Ftwitter.com%2FCrowdStrike)
+
 # Use the PowerShell Gallery
 The PowerShell Gallery is the easiest way to install the module. If not present, you must [install PowerShell](https://github.com/PowerShell/PowerShell#get-powershell) before proceeding.
 ## Verify your Execution Policy
@@ -72,7 +75,7 @@ using module PSFalcon
 ```
 ## Folder Redirection
 If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
-cases, you can extract PSFalcon and import the module directly using the [latest release](https://github.com/CrowdStrike/psfalcon/releases).
+cases, you can extract PSFalcon and import the module directly.
 ```powershell
 Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ .\PSFalcon

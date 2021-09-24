@@ -62,9 +62,13 @@ The PSFalcon module must be loaded at the beginning of a PowerShell session or s
 ```powershell
 Import-Module -Name PSFalcon
 ```
-## During the beginning of a script
+## Within a script
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='<version>'}
+```
+There are certain times that a `#Requires` statement will have trouble loading the `[ApiClient]` class that PSFalcon creates when you initially `Request-FalconToken`. If you see an error about `[ApiClient]` not being a valid class, you can try a `using` statement at the beginning of your script instead.
+```powershell
+using module PSFalcon
 ```
 ## Folder Redirection
 If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these

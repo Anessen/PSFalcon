@@ -3,7 +3,7 @@
 
 # Use the PowerShell Gallery
 The PowerShell Gallery is the easiest way to install the module. If not present, you must [install PowerShell](https://github.com/PowerShell/PowerShell#get-powershell) before proceeding.
-## Verify your Execution Policy
+## Verify your execution policy
 The module included on the PowerShell Gallery is signed and requires an ExecutionPolicy of `RemoteSigned` or lower. If your ExecutionPolicy is set to `Restricted` you will not be able to install the module from the PowerShell Gallery. You can check your current ExecutionPolicy with `Get-ExecutionPolicy` and change it to `RemoteSigned` using `Set-ExecutionPolicy`.
 ```powershell
 Get-ExecutionPolicy
@@ -58,7 +58,7 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM            944 PSFalcon.psm1
 -----           1/25/2021 10:37 AM           1322 README.md
 ```
-# Import the Module
+# Import the module
 The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.
 ## During a session
 **NOTE**: The `Import-Module` command can be added to your PowerShell `$PROFILE` to automatically load the module when you start PowerShell.
@@ -73,15 +73,15 @@ There are certain times that a `#Requires` statement will have trouble loading t
 ```powershell
 using module PSFalcon
 ```
-## Folder Redirection
-If you have “Folder Redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
+## Folder redirection
+If you have “folder redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
 cases, you can extract PSFalcon and import the module directly.
 ```powershell
 Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ .\PSFalcon
 Import-Module .\PSFalcon
 ```
-# Basic Troubleshooting and Support
+# Basic troubleshooting and support
 * Set `$VerbosePreference` and `$DebugPreference` to `'Continue'`
 * Run `Start-Transcript`, `Show-FalconModule`, the affected PSFalcon commands or script, and `Stop-Transcript`
 * [Create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues)

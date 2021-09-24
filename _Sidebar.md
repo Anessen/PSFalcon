@@ -1,4 +1,3 @@
-* [Home](Home)
 * [Installing PSFalcon](Installation)
 * __Using PSFalcon__
     + [Authentication](Authentication)

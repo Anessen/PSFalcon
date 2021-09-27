@@ -1,3 +1,6 @@
+![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
+![Twitter URL](https://img.shields.io/twitter/url?label=Follow%20%40CrowdStrike&style=social&url=https%3A%2F%2Ftwitter.com%2FCrowdStrike)
+
 Many PSFalcon commands support the use of [Falcon Query Language](https://falcon.crowdstrike.com/support/documentation/45/falcon-query-language-fql) \("FQL"\) statements using the `-Filter` parameter. When using `-Filter`, it is important to keep in mind...
 
 * **_Available FQL filters and their syntax will vary between APIs and are not determined by PSFalcon_**

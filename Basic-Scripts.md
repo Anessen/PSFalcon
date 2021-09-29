@@ -15,6 +15,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Output selected Host info and replace ids with names](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#output-selected-host-info-and-replace-ids-with-names)
 * [Get host information from multiple Falcon instances](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#get-host-information-from-multiple-falcon-instances)
 ### Host Groups
+* [Create a host group and add a list of devices by hostname](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#create-a-host-group-and-add-a-list-of-devices-by-hostname)
 * [Verify that a list of Host Groups exist within Child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#verify-that-a-list-of-host-groups-exist-within-child-cids)
 ### Policies
 * [Modify all Sensor Visibility Exclusions to include an additional Host Group](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
@@ -346,6 +347,55 @@ $CIDs | ForEach-Object {
 }
 ```
 # Host Groups
+## Create a host group and add a list of devices by hostname
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.1'}
+param(
+    [Parameter(Mandatory = $true, Position = 1)]
+    [ValidatePattern('\.txt$')]
+    [ValidateScript({
+        if (Test-Path -Path $_ -PathType Leaf) {
+            $true
+        } else {
+            throw "Cannot find path '$_' because it does not exist or is a directory."
+        }
+    })]
+    [string] $Path,
+
+    [Parameter(Mandatory = $true, Position = 2)]
+    [string] $Name,
+
+    [Parameter(Position = 3)]
+    [string] $Description
+)
+process {
+    try {
+        # Import hostnames and create host group
+        $Hostnames = (Get-Content -Path $PSBoundParameters.Path).Normalize()
+        $Param = @{
+            GroupType = 'static'
+            Name      = $PSBoundParameters.Name
+        }
+        if ($PSBoundParameters.Description) {
+            $Param['Description'] = $PSBoundParameters.Description
+        }
+        $Group = New-FalconHostGroup @Param
+        [array] $HostIds = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
+            # Retrieve the device_id for hostnames in groups of 20
+            $Filter = ($Hostnames[$i..($i + 19)] | ForEach-Object {
+                if ($_ -ne '') {
+                    "hostname:['$_']"
+                }
+            }) -join ','
+            ,(Get-FalconHost -Filter $Filter)
+        }
+        # Add hosts to group
+        Invoke-FalconHostGroupAction -Name add-hosts -Id $Group.id -HostIds $HostIds
+    } catch {
+        throw $_
+    }
+}
+```
 ## Verify that a list of Host Groups exist within child CIDs
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}

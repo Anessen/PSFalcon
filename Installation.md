@@ -6,15 +6,18 @@ The PowerShell Gallery is the easiest way to install the module. If not present,
 
 ## Verify your Execution Policy
 The module included on the PowerShell Gallery is signed and requires an ExecutionPolicy of `RemoteSigned` or lower. If your ExecutionPolicy is set to `Restricted` you will not be able to install the module from the PowerShell Gallery. You can check your current ExecutionPolicy with `Get-ExecutionPolicy` and change it to `RemoteSigned` using `Set-ExecutionPolicy`.
+
 ```powershell
 Get-ExecutionPolicy
 ```
 
 ## Download the Module
 Use the `Install-Module` command to download and install the module under your user account.
+
 ```powershell
 Install-Module -Name PSFalcon -Scope CurrentUser
 ```
+
 You may be prompted with a warning that the PowerShell Gallery is an untrusted repository. You can accept and continue to install the module. You can permanently change this using `Set-PSRepository`. You may also be prompted to update your NuGet package to interact with the PowerShell Gallery. This is the method that the gallery uses to install modules and is required to use it.
 
 If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. You can use `Uninstall-Module -Name PSFalcon -AllVersions` to remove all existing versions of the module.
@@ -22,6 +25,7 @@ If you're running an older version of PSFalcon, you must include the `-Force` pa
 If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [manual Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation#manual-installation).
 
 Once you have completed the installation, you must [import the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation#import-the-module) every time you intend to use it.
+
 # Manual Installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub. **_If the installation from the PowerShell Gallery worked, there's no need to follow any of the steps included in this section._**
 
@@ -33,22 +37,30 @@ If you're unable to use the PowerShell Gallery to install the module, you can do
 **NOTE**: You may receive an error about the destination folders not existing when attempting to move the module files. If you do, create the folders first then move the module files into them.
 
 *Read more about [Installing PowerShell Modules](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module)*.
-* Linux/MacOS
+
+## Linux/MacOS
+
 ```powershell
 Expand-Archive ./psfalcon-<version>.zip .
 Move-Item ./psfalcon-<version>/ $HOME/.local/share/powershell/Modules/PSFalcon/<version>/ -Force
 ```
-* Windows (PowerShell Core/6+)
+
+## Windows (PowerShell Core/6+)
+
 ```powershell
 Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ $HOME\Documents\PowerShell\Modules\PSFalcon\<version>\ -Force
 ```
-* Windows (PowerShell Desktop/5.1)
+
+## Windows (PowerShell Desktop/5.1)
+
 ```powershell
 Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\<version>\ -Force
 ```
+
 If done correctly, your `PSFalcon\<version>` module folder will look like this:
+
 ```powershell
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
@@ -60,30 +72,44 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM            944 PSFalcon.psm1
 -----           1/25/2021 10:37 AM           1322 README.md
 ```
-# Import the module
+
+# Import the Module
+
 The PSFalcon module must be loaded at the beginning of a PowerShell session or script in order to access the commands included with PSFalcon.
-## During a session
+
+## During a Session
+
 **NOTE**: The `Import-Module` command can be added to your PowerShell `$PROFILE` to automatically load the module when you start PowerShell.
+
 ```powershell
 Import-Module -Name PSFalcon
 ```
-## Within a script
+
+## Within a Script
+
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName='PSFalcon';ModuleVersion='<version>'}
 ```
+
 There are certain times that a `#Requires` statement will have trouble loading the `[ApiClient]` class that PSFalcon creates when you initially `Request-FalconToken`. If you see an error about `[ApiClient]` not being a valid class, you can try a `using` statement at the beginning of your script instead.
+
 ```powershell
 using module PSFalcon
 ```
-## Folder redirection
+
+## Folder Redirection
+
 If you have “folder redirection” in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
 cases, you can extract PSFalcon and import the module directly.
+
 ```powershell
 Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ .\PSFalcon
 Import-Module .\PSFalcon
 ```
-# Basic troubleshooting and support
+
+# Basic Troubleshooting and Support
+
 * Set `$VerbosePreference` and `$DebugPreference` to `'Continue'`
 * Run `Start-Transcript`, `Show-FalconModule`, the affected PSFalcon commands or script, and `Stop-Transcript`
 * [Create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues)

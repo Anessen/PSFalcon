@@ -144,20 +144,16 @@ if ($Hosts) {
 ## Find duplicate hosts and hide them
 **NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
 
-**WARNING**: `Find-FalconDuplicate` only determines whether or not a device is a "duplicate" by hostname. There may be a legitimate reason that two devices have the same hostname in your environment. It is your responsibility to determine whether or not the hosts reported by `Find-FalconDuplicate` are correct. This script does not provide you with an opportunity to review those hosts before they are hidden, but it does output a list after the hiding is complete. If devices are hidden incorrectly they will continue to communicate with Falcon and can be restored from the trash using their `aid` value and `Invoke-FalconHostAction`.
+**WARNING**: `Find-FalconDuplicate` only determines whether or not a device is a "duplicate" by hostname in this example. There may be a legitimate reason that two devices have the same hostname in your environment. It is your responsibility to determine whether or not the hosts reported by `Find-FalconDuplicate` are correct. This script does not provide you with an opportunity to review those hosts before they are hidden, but it does output a list after the hiding is complete. If devices are hidden incorrectly they will continue to communicate with Falcon and can be restored from the trash using their `aid` value and `Invoke-FalconHostAction`.
 ```powershell
-#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.0'}
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.1'}
 param(
     [switch] $Confirm
 )
 try {
-    # Get detailed information about devices
-    $Hosts = Get-FalconHost -Detailed -All
-
     # Use Find-FalconDuplicate to find duplicate hosts
-    if ($Hosts) {
-        $Duplicates = Find-FalconDuplicate -Hosts $Hosts
-    }
+    $Duplicates = Find-FalconDuplicate
+
     if ($Duplicates.device_id -and $Confirm) {
         # Output duplicate list to CSV
         $Duplicates | Export-Csv -Path .\duplicates.csv -NoTypeInformation

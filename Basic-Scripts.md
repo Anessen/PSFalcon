@@ -28,6 +28,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Upload and execute a local script as a secondary process](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script)
 ### Sensor Installers
 * [Download the installer package assigned to a Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-the-installer-package-assigned-to-a-sensor-update-policy)
+* [Download the installer package assigned to your default Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
 ### Threat Intelligence
 * [Export domain and IP indicators updated within the last week to CSV](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ### Vulnerabilities
@@ -895,6 +896,64 @@ if ($InstallerId -and $Filename) {
     Receive-FalconInstaller -Id $InstallerId -Path "$pwd\$Filename"
 } else {
     throw "No sensor installer available matching '$BuildVersion'"
+}
+```
+## Download the installer package assigned to your default Sensor Update policy
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.1'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory = $true, Position = 1)]
+    [ValidateScript({
+        if (Test-Path -Path $_ -PathType Container) {
+            $true
+        } else {
+            throw "Cannot find path '$_' because it does not exist or is not a directory."
+        }
+    })]
+    [string] $Path
+)
+begin {
+    # Enable verbose output
+    $VerbosePreference = 'Continue'
+
+    # Ensure absolute path for output directory
+    $OutputDirectory = if (![IO.Path]::IsPathRooted($PSBoundParameters.Path)) {
+        $FullPath = Join-Path -Path (Get-Location).Path -ChildPath $PSBoundParameters.Path
+        $FullPath = Join-Path -Path $FullPath -ChildPath '.'
+        [IO.Path]::GetFullPath($FullPath)
+    } else {
+        $PSBoundParameters.Path
+    }
+}
+process {
+    # Retrieve default policy information and extract build version
+    $Default = Get-FalconSensorUpdatePolicy -Filter "name:'platform_default'+platform_name:'Windows'" -Detailed
+    $BuildVersion = ($Default.settings.build).Split('|',2)[0]
+
+    # Download list of available installers and match with build version
+    $Installers = Get-FalconInstaller -Filter "platform:'windows'" -Detailed
+    $Match = $Installers | Where-Object { $_.version -match "^\d\.\d{1,2}\.$BuildVersion" }
+
+    if ($Match.name -and $Match.sha256) {
+        # Check for existing sensor installer package
+        $OutputFile = Join-Path -Path $OutputDirectory -ChildPath $Match.name
+        if (Test-Path -Path $OutputFile) {
+            if ((Get-FileHash -Path $OutputFile -Algorithm SHA256).Hash.ToLower() -eq $Match.sha256) {
+                throw "An identical item with the specified name $OutputFile already exists."
+            } else {
+                Remove-Item -Path $OutputFile -Force
+            }
+        }
+        # Download and output package information with local file path
+        Receive-FalconInstaller -Id $Match.sha256 -Path $OutputFile | Out-Null
+        $Match | ForEach-Object {
+            $_.PSObject.Properties.Add((New-Object PSNoteProperty('file_path', $OutputFile)))
+            $_
+        }
+    } else {
+        throw "No available sensor package found matching '$BuildVersion'."
+    }
 }
 ```
 # Threat Intelligence

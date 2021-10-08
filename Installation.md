@@ -110,6 +110,6 @@ Import-Module .\PSFalcon
 
 # Basic Troubleshooting and Support
 
-* Set `$VerbosePreference` and `$DebugPreference` to `'Continue'`
+* Set `$VerbosePreference` to `'Continue'`
 * Run `Start-Transcript`, `Show-FalconModule`, the affected PSFalcon commands or script, and `Stop-Transcript`
 * [Create an issue on GitHub](https://github.com/CrowdStrike/psfalcon/issues)

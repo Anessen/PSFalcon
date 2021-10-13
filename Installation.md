@@ -22,7 +22,7 @@ You may be prompted with a warning that the PowerShell Gallery is an untrusted r
 
 If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like to install the latest version alongside the old version. You can use `Uninstall-Module -Name PSFalcon -AllVersions` to remove all existing versions of the module.
 
-If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [manual Installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation#manual-installation).
+If the PowerShell Gallery isn't accessible in your environment or the installation failed, you can try a [manual installation](https://github.com/CrowdStrike/psfalcon/wiki/Installation#manual-installation).
 
 Once you have completed the installation, you must [import the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation#import-the-module) every time you intend to use it.
 

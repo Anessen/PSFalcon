@@ -26,7 +26,7 @@ If the PowerShell Gallery isn't accessible in your environment or the installati
 
 Once you have completed the installation, you must [import the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation#import-the-module) every time you intend to use it.
 
-# Manual Installation
+# Manual installation
 If you're unable to use the PowerShell Gallery to install the module, you can download directly from GitHub. **_If the installation from the PowerShell Gallery worked, there's no need to follow any of the steps included in this section._**
 
 1. Download the [latest release](https://github.com/CrowdStrike/psfalcon/releases) as a ZIP

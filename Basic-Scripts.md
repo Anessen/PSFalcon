@@ -102,7 +102,7 @@ using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
 param(
     [Parameter(Mandatory = $true,
         Position = 1)]
-    [ValidatePattern('\.csv$')]
+    [ValidatePattern('\.txt$')]
     [string] $Path,
 
     [Parameter(Mandatory = $true,

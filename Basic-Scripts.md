@@ -1011,7 +1011,7 @@ $ExportName = "$pwd\Vulnerabilities_$((Get-Date).AddDays(-$Days).ToString('yyyyM
 
 # Gather vulnerabilities within date range (default: last 7 days) and export to CSV
 $Param = @{
-    Filter = "created_timestamp:>'Last $Days days'"
+    Filter = "created_timestamp:>'last $Days days'"
     Detailed = $true
     All = $true
     Verbose = $true

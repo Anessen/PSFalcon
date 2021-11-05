@@ -872,49 +872,45 @@ param(
     [ValidatePattern('^\w{32}$')]
     [string] $PolicyId
 )
-# Retrieve Sensor Update policy detail
-$Policy = Get-FalconSensorUpdatePolicy -Ids $PolicyId -ErrorAction 'SilentlyContinue'
-
-if ($Policy) {
-    # Capture OS name and assigned build version
-    $PlatformName = $Policy.platform_name.ToLower()
-    $BuildVersion = ($Policy.settings.build).Split('|')[0]
-
-    # Get list of available installers for OS
-    $Installers = Get-FalconInstaller -Filter "platform:'$PlatformName'" -Detailed
-} else {
-    throw "No policy found matching '$PolicyId'"
-}
-if ($Installers) {
-    # Select specific installer package matching the Sensor Update policy build version
-    $Match = $Installers | Where-Object { $_.version -match "^\d\.\d{1,2}\.$BuildVersion" }
-
-    if ($Match) {
-       # Capture SHA256 and output filename
-       $InstallerId = $Match.sha256
-       $Filename = $Match.name
+try {
+    # Retrieve Sensor Update policy detail
+    $Policy = Get-FalconSensorUpdatePolicy -Ids $PolicyId
+    if ($Policy.platform_name -and $Policy.settings) {
+        # Use build and sensor_version to create regex pattern
+        [regex] $Pattern = "^($([regex]::Escape(
+            ($Policy.settings.sensor_version -replace '\.\d+$',$null)))\.\d{1,}|\d\.\d{1,}\.$(
+            $Policy.settings.build.Split('|')[0]))$"
+        $Match = try {
+            # Select matching installer from list for 'platform_name' using regex pattern
+            Get-FalconInstaller -Filter "platform:'$($Policy.platform_name.ToLower())'" -Detailed |
+                Where-Object { $_.version -match $Pattern -and $_.description -match 'Falcon Sensor' }
+        } catch {
+            throw 'Unable to find installer through version match'
+        }
+        if ($Match.sha256 -and $Match.name) {
+            $Installer = Join-Path -Path (Get-Location).Path -ChildPath $Match.name
+            if ((Test-Path $Installer) -and ((Get-FileHash -Algorithm SHA256 -Path $Installer) -eq $Match.sha256)) {
+                # Abort if matching file already exists
+                throw "File exists with matching hash [$($Match.sha256)]"
+            } elseif (Test-Path $Installer) {
+                # Remove other versions
+                Remove-Item -Path $Installer -Force
+            }
+            # Download the installer package
+            Receive-FalconInstaller -Id $Match.sha256 -Path $Installer
+        } else {
+            throw "Properties 'sha256' or 'name' missing from installer result"
+        }
     }
-} else {
-    throw "Unable to retrieve installer list; check client permissions"
-}
-if ($InstallerId -and $Filename) {
-    if (Test-Path "$pwd\$Filename") {
-        # Check for existing file and compare SHA256 hashes
-        $ExistingHash = (Get-FileHash -Algorithm SHA256 -Path "$pwd\$Filename").Hash.ToLower()
-
-        if ($ExistingHash -eq $InstallerId) {
-            throw "File already exists [$InstallerId]"
-        } 
-    }    
-    # Download the installer package
-    Receive-FalconInstaller -Id $InstallerId -Path "$pwd\$Filename"
-} else {
-    throw "No sensor installer available matching '$BuildVersion'"
+} catch {
+    throw $_
 }
 ```
 ## Download the installer package assigned to your default Sensor Update policy
 ```powershell
-#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.1'}
+#Requires -Version 5.1
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+[CmdletBinding()]
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true, Position = 1)]
@@ -928,9 +924,6 @@ param(
     [string] $Path
 )
 begin {
-    # Enable verbose output
-    $VerbosePreference = 'Continue'
-
     # Ensure absolute path for output directory
     $OutputDirectory = if (![IO.Path]::IsPathRooted($PSBoundParameters.Path)) {
         $FullPath = Join-Path -Path (Get-Location).Path -ChildPath $PSBoundParameters.Path
@@ -941,32 +934,49 @@ begin {
     }
 }
 process {
-    # Retrieve default policy information and extract build version
-    $Default = Get-FalconSensorUpdatePolicy -Filter "name:'platform_default'+platform_name:'Windows'" -Detailed
-    $BuildVersion = ($Default.settings.build).Split('|',2)[0]
-
-    # Download list of available installers and match with build version
-    $Installers = Get-FalconInstaller -Filter "platform:'windows'" -Detailed
-    $Match = $Installers | Where-Object { $_.version -match "^\d\.\d{1,2}\.$BuildVersion" }
-
-    if ($Match.name -and $Match.sha256) {
-        # Check for existing sensor installer package
-        $OutputFile = Join-Path -Path $OutputDirectory -ChildPath $Match.name
-        if (Test-Path -Path $OutputFile) {
-            if ((Get-FileHash -Path $OutputFile -Algorithm SHA256).Hash.ToLower() -eq $Match.sha256) {
-                throw "An identical item with the specified name $OutputFile already exists."
-            } else {
-                Remove-Item -Path $OutputFile -Force
+    try {
+        # Retrieve Sensor Update policy detail
+        $Policy = Get-FalconSensorUpdatePolicy -Filter "platform_name:'Windows'+name:'platform_default'" -Detailed
+        if ($Policy.platform_name -and $Policy.settings) {
+            # Use build and sensor_version to create regex pattern
+            [regex] $Pattern = "^($([regex]::Escape(
+                ($Policy.settings.sensor_version -replace '\.\d+$',$null)))\.\d{1,}|\d\.\d{1,}\.$(
+                $Policy.settings.build.Split('|')[0]))$"
+            $Match = try {
+                # Select matching installer from list for 'platform_name' using regex pattern
+                Get-FalconInstaller -Filter "platform:'$($Policy.platform_name.ToLower())'" -Detailed |
+                    Where-Object { $_.version -match $Pattern -and $_.description -match 'Falcon Sensor' }
+            } catch {
+                throw 'Unable to find installer through version match'
             }
+            if ($Match.sha256 -and $Match.name) {
+                $Installer = Join-Path -Path $OutputDirectory -ChildPath $Match.name
+                if ((Test-Path $Installer) -and ((Get-FileHash -Algorithm SHA256 -Path $Installer) -eq $Match.sha256)) {
+                    # Abort if matching file already exists
+                    throw "File exists with matching hash [$($Match.sha256)]"
+                } elseif (Test-Path $Installer) {
+                    # Remove other versions
+                    Remove-Item -Path $Installer -Force
+                }
+                # Download the installer package
+                $Receive = Receive-FalconInstaller -Id $Match.sha256 -Path $Installer
+                if (Test-Path $Receive.FullName) {
+                    $Match | ForEach-Object {
+                        # Output installer information with 'file_path' of local file
+                        $_.PSObject.Properties.Add((New-Object PSNoteProperty('file_path', $Receive.FullName)))
+                        $_
+                    }
+                } else {
+                    throw "Installer download failed [$($Match.sha256)]"
+                }
+            } else {
+                throw "Properties 'sha256' or 'name' missing from installer result"
+            }
+        } else {
+            throw "Unable to retrieve default policy for Windows"
         }
-        # Download and output package information with local file path
-        Receive-FalconInstaller -Id $Match.sha256 -Path $OutputFile | Out-Null
-        $Match | ForEach-Object {
-            $_.PSObject.Properties.Add((New-Object PSNoteProperty('file_path', $OutputFile)))
-            $_
-        }
-    } else {
-        throw "No available sensor package found matching '$BuildVersion'."
+    } catch {
+        throw $_
     }
 }
 ```

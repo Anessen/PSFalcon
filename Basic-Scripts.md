@@ -38,7 +38,7 @@ The examples provided below are for example purposes only and are offered 'as is
 ## Assign detections involving a specific file to a user
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Mandatory = $true,
         Position = 1)]
@@ -69,7 +69,7 @@ Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
 ## Find and hide large numbers of detections
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Mandatory = $true)]
     [string] $Filename
@@ -98,7 +98,7 @@ do {
 **NOTE**: This script expects a text file that contains case-sensitive hostnames (one per line) for the `-Path` parameter.
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Mandatory = $true,
         Position = 1)]
@@ -126,7 +126,7 @@ Invoke-FalconHostGroupAction -Name add-hosts -Id $GroupId -HostIds $Hosts
 ## Hide hosts based on last_seen time
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Mandatory = $true)]
     [int] $Days
@@ -179,7 +179,7 @@ try {
 ## Network contain a device by Hostname
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Mandatory = $true)]
     [string] $Hostname
@@ -198,7 +198,7 @@ if ($HostId) {
 **NOTE**: This example requires a CSV with a column labeled `Hostname`. It will create a new CSV with that includes the hostname, device_id and containment request status.
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Mandatory = $true)]
     [ValidatePattern('\.csv$')]
@@ -322,7 +322,7 @@ process {
 **NOTE**: This example requires that you input values for `<client_id>`, `<client_secret>`, and each `<member_cid>`. To avoid hard-coding credentials you could pass them as parameters instead.
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 # ClientId, ClientSecret and MemberCids
 $ClientId = '<client_id>'
 $ClientSecret = '<client_secret>'
@@ -403,7 +403,7 @@ process {
 ## Verify that a list of Host Groups exist within child CIDs
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
@@ -489,7 +489,7 @@ end {
 ## Modify all Sensor Visibility Exclusions to include an additional Host Group
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Mandatory = $true,
         Position = 1)]
@@ -504,7 +504,7 @@ foreach ($SVE in $SVEs) {
 ## Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
@@ -614,7 +614,7 @@ end {
 ## Output a list of assigned Host Groups for designated Policy ids within child CIDs
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
@@ -692,7 +692,7 @@ end {
 **NOTE**: This script will create 'FULL_ACCESS' exceptions for the 'MASS_STORAGE' class within an existing policy. You can modify the hashtable created in `$Exceptions` to add key/value pairs like `vendor_name` or `product_name`.
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true, Position = 1)]
@@ -740,7 +740,7 @@ process {
 ## Run a command against a group of devices
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Mandatory = $true,
         Position = 1)]
@@ -866,7 +866,7 @@ process {
 ## Download the installer package assigned to a Sensor Update policy
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Mandatory = $true)]
     [ValidatePattern('^\w{32}$')]
@@ -974,7 +974,7 @@ process {
 ## Export domain and IP indicators updated within the last week to CSV
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 $UnixDate = [DateTimeOffset]::Now.AddDays(-7).ToUnixTimeSeconds()
 $Param = @{
     Filter = "(type:'ip_address',type:'domain')+last_updated:>$UnixDate"
@@ -994,7 +994,7 @@ Get-FalconIndicator @Param | Select-Object indicator, type, malicious_confidence
 ## Create a report with additional Host fields
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 param(
     [Parameter(Position = 1)]
     [int] $Days = 7,

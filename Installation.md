@@ -89,7 +89,7 @@ Import-Module -Name PSFalcon
 
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 ```
 
 ## Folder redirection

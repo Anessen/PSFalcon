@@ -911,7 +911,6 @@ try {
 #Requires -Version 5.1
 using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 [CmdletBinding()]
-[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true, Position = 1)]
     [ValidateScript({

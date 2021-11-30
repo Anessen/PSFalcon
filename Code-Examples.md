@@ -18,7 +18,7 @@ The examples provided below are for example purposes only and are offered 'as is
 An example of how to include OAuth2 API Client information as parameters and perform an authorization token request to the associated CID or "member" CID.
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
@@ -62,7 +62,7 @@ process {
 In multi-CID configurations, you can create an OAuth2 API Client Id/Secret in the "parent" CID that has access to the "child" or "member" CIDs. Some data is visible at the parent level, but some data is only visible within the child. After creating an API Client, you can use that to retrieve a list of all available member CIDs (or provide specific members using `-MemberCids`) and run PSFalcon commands within each child, while pausing between authorization token request attempts to avoid rate limiting.
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
@@ -157,7 +157,7 @@ $Items = ((Import-Csv -Path $InputFile).Hostname).foreach{
 The `Filter` parameter, which accepts a [Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-Query-Language) statement, will accept 20 conditions at a time. If you have a list of hostnames that you need to match with their identifiers, you can loop through the list and output the hostname and identifier as new objects in an array contained in `$Hosts`. The example below assumes you have already ingested the list of hostnames into the `$Items` variable.
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion='2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 $Hosts = for ($i = 0; $i -lt $Items.count; $i += 20) {
     # Retrieve device_id for hostnames in groups of 20
     $Filter = ($Items[$i..($i + 19)] | ForEach-Object {

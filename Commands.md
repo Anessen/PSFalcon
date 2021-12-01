@@ -1101,7 +1101,7 @@ Get-FalconSubmission -Ids $Submission.id
 ### Submit files to QuickScan
 **NOTE**: The files submitted for QuickScan must be available via a previous upload using `Send-FalconSample`.
 ```powershell
-New-FalconQuickScan -Samples <sha256>, <sha256>
+New-FalconQuickScan -Ids <sha256>, <sha256>
 ```
 ### Search for QuickScans run in the last 7 days
 ```powershell

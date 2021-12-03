@@ -87,8 +87,10 @@
 |Get-FalconHorizonAwsAccount|cspm-registration:read|
 |Get-FalconHorizonAwsLink|cspm-registration:read|
 |Get-FalconHorizonAzureAccount|cspm-registration:read|
+|Get-FalconHorizonIoa|cspm-registration:read|
 |Get-FalconHorizonIoaEvent|cspm-registration:read|
 |Get-FalconHorizonIoaUser|cspm-registration:read|
+|Get-FalconHorizonIom|cspm-registration:read|
 |Get-FalconHorizonPolicy|cspm-registration:read|
 |Get-FalconHorizonSchedule|cspm-registration:read|
 |Get-FalconHost|devices:read|

@@ -14,11 +14,11 @@
 |Confirm-FalconDiscoverAwsAccess|cloud-connect-aws:write|
 |Confirm-FalconGetFile|real-time-response:write|
 |Confirm-FalconResponderCommand|real-time-response:write|
-|Copy-FalconDeviceControlPolicy|device-control-policies:read,device-control-policies:write|
-|Copy-FalconFirewallPolicy|firewall-policies:read,firewall-policies:write|
-|Copy-FalconPreventionPolicy|prevention-policies:read,prevention-policies:write|
-|Copy-FalconResponsePolicy|response-policies:read,response-policies:write|
-|Copy-FalconSensorUpdatePolicy|sensor-update-policies:read,sensor-update-policies:write|
+|Copy-FalconDeviceControlPolicy|device-control-policies:read, device-control-policies:write|
+|Copy-FalconFirewallPolicy|firewall-policies:read, firewall-policies:write|
+|Copy-FalconPreventionPolicy|prevention-policies:read, prevention-policies:write|
+|Copy-FalconResponsePolicy|response-policies:read, response-policies:write|
+|Copy-FalconSensorUpdatePolicy|sensor-update-policies:read, sensor-update-policies:write|
 |Edit-FalconCidGroup|mssp:write|
 |Edit-FalconContainerAwsAccount|kubernetes-protection:write|
 |Edit-FalconDetection|detects:write|

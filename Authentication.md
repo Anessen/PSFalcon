@@ -72,7 +72,7 @@ function Request-SecretToken ([string] $Name) {
     if (-not(Get-Module -Name PSFalcon)) {
         Import-Module -Name PSFalcon
     }
-    if ((Test-FalconToken).Token -eq $true) {
+    if ((Test-FalconToken -ErrorAction SilentlyContinue).Token -eq $true) {
         Revoke-FalconToken
     }
     $Secret = Get-Secret -Name $Name -Vault MyVault -AsPlainText

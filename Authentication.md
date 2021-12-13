@@ -33,4 +33,58 @@ Revoke-FalconToken
 ```powershell
 (Test-FalconToken).Token
 ```
+# Credential handling
+PSFalcon does not provide a method for securely handling your API client credentials. To encrypt your API client information, you'll need a third-party solution. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules) module is a cross-platform option that works with PSFalcon. You can follow the steps below to install the module and use it with `Request-FalconToken`.
+
+*NOTE*: [Microsoft.PowerShell.SecretManagement](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules) is a pre-requisite for the Microsoft.PowerShell.SecretStore module. It will be installed during the `Install-Module` step.
+```
+Install-Module -Name Microsoft.PowerShell.SecretStore -Scope CurrentUser
+```
+
+*NOTE*: Using the default configuration, Microsoft.PowerShell.SecretStore will prompt for a password to access your secret vault. You can remove the password requirement to use the vault with a script or as part of a scheduled task, which leaves the vault accessible to the account that was used to create it. You will be asked to create, confirm and remove a password after entering this command.
+```
+Set-SecretStoreConfiguration -Scope CurrentUser -Authentication None -Interaction None
+```
+
+Once the module is installed and configured as desired, create a vault to store your API client(s):
+```
+Register-SecretVault -ModuleName Microsoft.PowerShell.SecretStore -Name MyVault
+```
+
+`Request-FalconToken` requires multiple parameters to request a token. Each individual API client can be stored with the relevant parameters in your new vault:
+```
+$ApiClient = @{
+    ClientId     = 'my_client_id'
+    ClientSecret = 'my_client_value'
+    Hostname     = 'https://api.crowdstrike.com'
+}
+Set-Secret -Name MyApiClient -Secret $ApiClient -Vault MyVault
+```
+
+Once stored, they can be retrieved using your chosen `-Name`, and you can [splat](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting?view=powershell-7.2) the parameters with `Request-FalconToken`:
+```
+Get-Secret -Name MyApiClient -Vault MyVault -AsPlainText | ForEach-Object { Request-FalconToken @_ }
+```
+
+If desired, a simple function can be added to your [PowerShell profile](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.2) to retrieve your credentials and request a token by name:
+```
+function Request-SecretToken ([string] $Name) {
+    if (-not(Get-Module -Name PSFalcon)) {
+        Import-Module -Name PSFalcon
+    }
+    if ((Test-FalconToken).Token -eq $true) {
+        Revoke-FalconToken
+    }
+    $Secret = Get-Secret -Name $Name -Vault MyVault -AsPlainText
+    if ($Secret) {
+        Request-FalconToken @Secret
+    } else {
+        throw "No secret found matching '$String'."
+    }
+}
+```
+Once added to your profile, you can retrieve your credential set and request a token in a single step:
+```
+Request-SecretToken MyApiClient
+```
 _Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._

@@ -8,6 +8,7 @@
 ## [Authentication](https://github.com/CrowdStrike/psfalcon/wiki/Authentication)
 * Requesting and revoking OAuth2 access tokens, switching cloud environments, and 'child' CIDs
 * Verifying access token status
+* Credential handling
 ## [Parameters](https://github.com/CrowdStrike/psfalcon/wiki/Parameters)
 * Common parameters and pagination handling
 ## [Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-Query-Language)

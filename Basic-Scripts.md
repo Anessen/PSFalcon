@@ -735,6 +735,115 @@ process {
         }
     }
 }
+## Create CSVs containing Device Control policy details and exceptions
+```powershell
+#Requires -Version 5.1
+using module @{
+    ModuleName    = 'PSFalcon'
+    ModuleVersion = '2.1'
+}
+[CmdletBinding(DefaultParameterSetName = 'Id')]
+param(
+    [Parameter(ParameterSetName = 'Id', Mandatory = $true, Position = 1)]
+    [Parameter(ParameterSetName = 'Name', Mandatory = $true, Position = 1)]
+    [ValidatePattern('^\w{32}$')]
+    [string] $ClientId,
+
+    [Parameter(ParameterSetName = 'Id', Mandatory = $true, Position = 2)]
+    [Parameter(ParameterSetName = 'Name', Mandatory = $true, Position = 2)]
+    [ValidatePattern('^\w{40}$')]
+    [string] $ClientSecret,
+
+    [Parameter(ParameterSetName = 'Id', Position = 3)]
+    [Parameter(ParameterSetName = 'Name', Position = 3)]
+    [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
+    [string] $Cloud,
+
+    [Parameter(ParameterSetName = 'Id', Mandatory = $true, Position = 4)]
+    [ValidatePattern('^\w{32}$')]
+    [string] $Id,
+
+    [Parameter(ParameterSetName = 'Name', Mandatory = $true, Position = 5)]
+    [string] $Name,
+
+    [Parameter(ParameterSetName = 'Id', Position = 6)]
+    [Parameter(ParameterSetName = 'Name', Position = 6)]
+    [ValidateScript({
+        if ((Test-Path $_) -eq $false) {
+            throw "Cannot find path '$_' because it does not exist."
+        } elseif ((Test-Path $_ -PathType Container) -eq $false) {
+            throw "'Path' must specify a folder."
+        } else {
+            $true
+        }
+    })]
+    [string] $Path
+
+)
+begin {
+    function Write-Output ([object] $Content, [string] $Type) {
+        if ($Content) {
+            $Param = @{
+                Path              = Join-Path -Path $OutputFolder -ChildPath "$(Get-Date -Format FileDate)_$(
+                    $Id)_$($Type).csv"
+                NoTypeInformation = $true
+                Append            = $true
+                Force             = $true
+            }
+            $Content | Export-Csv @Param
+        }
+    }
+    $OutputFolder = if (!$Path) {
+        (Get-Location).Path
+    } else {
+        $Path
+    }
+    $Param = @{
+        ClientId     = $ClientId
+        ClientSecret = $ClientSecret
+    }
+    if ($Cloud) {
+        $Param['Cloud'] = $Cloud
+    }
+    Request-FalconToken @Param
+    $VerbosePreference = 'Continue'
+}
+process {
+    $PolicyId = if ((Test-FalconToken).Token -eq $true) {
+        if ($Name) {
+            try {
+                Get-FalconDeviceControlPolicy -Filter "name:'$($Name.ToLower())'" -Detailed
+            } catch {
+                throw "No Device Control policy found matching '$($Name.ToLower())'."
+            }
+        } else {
+            $Id
+        }
+    }
+    if ($PolicyId) {
+        foreach ($Item in (Get-FalconDeviceControlPolicy -Ids $PolicyId)) {
+            $Item.settings.PSObject.Members.Where({ $_.MemberType -eq 'NoteProperty' }).foreach{
+                if ($_.Name -eq 'classes') {
+                    Write-Output ($_.Value | Select-Object id, action) 'classes'
+                    foreach ($Exception in ($_.Value).Where({ $_.exceptions }).exceptions) {
+                        Write-Output $Exception 'exceptions'
+                    }
+                } else {
+                    $Item.PSObject.Properties.Add((New-Object PSNoteProperty($_.Name, $_.Value)))
+                }
+            }
+            foreach ($Property in @('groups', 'settings')) {
+                if ($Item.$Property -and $Property -eq 'groups') {
+                    Write-Output ($Item.$Property | Select-Object id, name) $Property
+                }
+                $Item.PSObject.Properties.Remove($Property)
+            }
+            Write-Output $Item 'settings'
+            Write-Output (Get-FalconDeviceControlPolicyMember -Id $PolicyId -Detailed -All |
+                Select-Object device_id, hostname) 'members'
+        }
+    }
+}
 ```
 # Real-time Response
 ## Run a command against a group of devices

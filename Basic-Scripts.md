@@ -735,6 +735,7 @@ process {
         }
     }
 }
+```
 ## Create CSVs containing Device Control policy details and exceptions
 ```powershell
 #Requires -Version 5.1

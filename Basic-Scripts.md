@@ -22,6 +22,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
 * [Output a list of assigned Host Groups for designated Policy ids within child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#output-a-list-of-assigned-host-groups-for-designated-policy-ids-within-child-cids)
 * [Add a list of combined_id exceptions to a Device Control policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#add-a-list-of-combined_id-exceptions-to-a-device-control-policy)
+* [Create CSVs containing Device Control policy details and exceptions](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#create-csvs-containing-device-control-policy-details-and-exceptions)
 ### Real-time Response
 * [Run a command against a group of devices](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#run-a-command-against-a-group-of-devices)
 * [Upload and execute a local script](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script)

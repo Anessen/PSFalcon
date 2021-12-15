@@ -738,6 +738,7 @@ process {
 }
 ```
 ## Create CSVs containing Device Control policy details and exceptions
+This script will create a series of CSV files containing information about a given Device Control policy (settings, members, groups, exceptions, etc.).
 ```powershell
 #Requires -Version 5.1
 using module @{

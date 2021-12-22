@@ -206,7 +206,7 @@ param(
     [string] $Path
 )
 $OutputFile = "Containment_$(Get-Date -Format FileDateTime).csv"
-$Hostnames = (Import-Csv $Path).Hostname
+[array] $Hostnames = (Import-Csv $Path).Hostname
 $Hosts = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
     # Retrieve the device_id for hostnames in groups of 20
     $Filter = ($Hostnames[$i..($i + 19)] | ForEach-Object {

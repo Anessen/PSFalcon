@@ -28,7 +28,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Upload and execute a local script](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script)
 * [Upload and execute a local script as a secondary process](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script)
 ### Scheduled Reports
-* [Download your most recent scheduled report results]()
+* [Download your most recent scheduled report results](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-your-most-recent-scheduled-report-results)
 ### Sensor Installers
 * [Download the installer package assigned to a Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-the-installer-package-assigned-to-a-sensor-update-policy)
 * [Download the installer package assigned to your default Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-the-installer-package-assigned-to-your-default-sensor-update-policy)

@@ -27,6 +27,8 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Run a command against a group of devices](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#run-a-command-against-a-group-of-devices)
 * [Upload and execute a local script](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script)
 * [Upload and execute a local script as a secondary process](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script)
+### Scheduled Reports
+* [Download your most recent scheduled report results]()
 ### Sensor Installers
 * [Download the installer package assigned to a Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-the-installer-package-assigned-to-a-sensor-update-policy)
 * [Download the installer package assigned to your default Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
@@ -972,6 +974,17 @@ process {
         $Param['Timeout'] = $Timeout
     }
     Invoke-FalconRTR @Param
+}
+```
+# Scheduled Reports
+## Download your most recent scheduled report results
+This is a simple one-line script that will download the most recent scheduled report results into your current directory.
+```powershell
+#Requires -Version 5.1
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.1.6' }
+
+(Get-FalconScheduledReport -Detailed -All).last_execution | ForEach-Object {
+    Receive-FalconScheduledReport -Id $_.id -Path "$($_.result_metadata.report_file_name)"
 }
 ```
 # Sensor Installers

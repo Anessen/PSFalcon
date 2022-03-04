@@ -7,6 +7,7 @@
     + [Permissions](Permissions)
 * __Commands__
     + [Event Streams](Event-Streams)
+    + [Host and Host Group Management](Host-and-Host-Group-Management)
     + [Sensor Update Policy](Sensor-Update-Policy)
 * __Examples__
     + [Basic Scripts](Basic-Scripts)

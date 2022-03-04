@@ -75,7 +75,7 @@ Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ .\PSFalcon
 ```
 
-# Upgrading
+# Upgrade
 If the PowerShell Gallery was used to install the module, it can also be used to upgrade.
 ```powershell
 Update-Module -Name PSFalcon

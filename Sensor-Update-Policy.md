@@ -5,10 +5,6 @@ _CrowdStrike API Documentation: [US-1](https://falcon.crowdstrike.com/support/do
 
 |Command|Required Permission(s)|
 |-------|----------------------|
-|Copy-FalconDeviceControlPolicy|device-control-policies:read, device-control-policies:write|
-|Copy-FalconFirewallPolicy|firewall-policies:read, firewall-policies:write|
-|Copy-FalconPreventionPolicy|prevention-policies:read, prevention-policies:write|
-|Copy-FalconResponsePolicy|response-policies:read, response-policies:write|
 |Copy-FalconSensorUpdatePolicy|sensor-update-policies:read, sensor-update-policies:write|
 |Edit-FalconSensorUpdatePolicy|sensor-update-policies:write|
 |Get-FalconBuild|sensor-update-policies:read|

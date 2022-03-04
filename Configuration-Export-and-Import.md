@@ -1,5 +1,4 @@
 ![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
-![Twitter URL](https://img.shields.io/twitter/url?label=Follow%20%40CrowdStrike&style=social&url=https%3A%2F%2Ftwitter.com%2FCrowdStrike)
 
 The `Export-FalconConfig` command gathers configurable items from your Falcon environment and exports them as json files in a zip archive. Using the `Import-FalconConfig` command, you can re-create any items that are present in the export but are not present in your authenticated Falcon environment. 
 

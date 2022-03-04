@@ -1,4 +1,4 @@
-* [Installing PSFalcon](Installation)
+* [Installation, Upgrade and Removal](Installation,-Upgrade-and-Removal)
 * __Using PSFalcon__
     + [Authentication](Authentication)
     + [Commands](Commands)

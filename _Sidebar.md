@@ -5,6 +5,9 @@
     + [Falcon Query Language](Falcon-Query-Language)
     + [Parameters](Parameters)
     + [Permissions](Permissions)
+* __Commands__
+    + [Event Streams](Event-Streams)
+    + [Sensor Update Policy](Sensor-Update-Policy)
 * __Examples__
     + [Basic Scripts](Basic-Scripts)
     + [Code Examples](Code-Examples)

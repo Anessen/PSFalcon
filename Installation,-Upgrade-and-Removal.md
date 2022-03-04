@@ -90,3 +90,4 @@ If the PSFalcon module folder exists within the proper module path, you can use 
 ```powershell
 Uninstall-Module -Name PSFalcon -AllVersions
 ```
+If PSFalcon was manually installed, simply delete the module folder.

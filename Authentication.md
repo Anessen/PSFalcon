@@ -1,58 +1,70 @@
 ![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
-![Twitter URL](https://img.shields.io/twitter/url?label=Follow%20%40CrowdStrike&style=social&url=https%3A%2F%2Ftwitter.com%2FCrowdStrike)
-# Requesting a token
-During a PowerShell session, you must have a valid OAuth2 access token in order to make requests to the CrowdStrike Falcon APIs.
+![API Documentation](https://img.shields.io/badge/API%20Documentation-maroon?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAOCAYAAAAi2ky3AAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw1AUhU9TpaIVBzuIOGSoDmJBVEQ3rUIRKoRaoVUHk5f+CE0akhQXR8G14ODPYtXBxVlXB1dBEPwBcXNzUnSREu9LCi1ifPB4H+e9c7jvXkColZhmtY0Cmm6bqURczGRXxNAruhAEMI1hmVnGrCQl4bu+7hHg512MZ/m/+3N1qzmLAQGReIYZpk28Tjy5aRuc94kjrCirxOfEIyYVSPzIdcXjN84FlwWeGTHTqTniCLFYaGGlhVnR1IgniKOqplO+kPFY5bzFWStVWKNO/sNwTl9e4jrtASSwgEVIEKGggg2UYCNGp06KhRTdx338/a5fIpdCrg0wcsyjDA2y6wefwe/eWvnxMS8pHAfaXxznYxAI7QL1quN8HztO/QQIPgNXetNfrgFTn6RXm1r0COjZBi6um5qyB1zuAH1PhmzKrsTnL+TzwPsZjSkL9N4Cnate3xr3OH0A0tSr5A1wcAgMFSh7zeffHa19+/dNo38/hq9yr+iELI0AAAAGYktHRAAAAAAAAPlDu38AAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQflDAsTByz7Va2cAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAYBJREFUKM+lkjFIlVEYht/zn3sFkYYUyUnIRcemhCtCU6JQOLiIU+QeJEQg6BBIm0s4RBCBLjq5OEvgJC1uOniJhivesLx17/97/vO9b4NK4g25157hfHCGB773/cA0HZIEAKiMj+LWiOxljG/i96pnCFP58XHnrWX2+9cj0dYl9Yu2FE9/9rXrcAAgs2eSyiBfOe/XRD503h/CuffOubQVUXL+Jh9BllzBbyJJBgDclVkO4Kukd8zzkXJbeUljIldFTstsmSHM6S81ma2KfPKlFdkGAMY4wzx/bbXapMy21My+YizdKNq5mDzLkrxafSxySFKjSWX2oTmjKzz4vN0r2lOFcL/Q3V0/mX95ILMXTTGYVfaut/aP2+oCMAvnZgCcsF5fcR0dg65YHAdwB+QApADvu0AuOe/ftlJAD7Nsgmm6yBjDtfWORJZlNtFyo/lR5Z7MyheKA5ktSur7sTAHazSG27pehjAiaVfkN8b4XFIJ/wOzbOx07VNRUuHy7w98CzCcGPyWywAAAABJRU5ErkJggg==)[![EU 1](https://img.shields.io/badge/-EU--1-grey?style=for-the-badge&labelColor=darkred&lo[%E2%80%A6]iaVfkN8b4XFIJ/wOzbOx07VNRUuHy7w98CzCcGPyWywAAAABJRU5ErkJggg==)](https://falcon.eu-1.crowdstrike.com/support/documentation/93/oauth2-auth-token-apis)[![US-1](https://img.shields.io/badge/-US--1-grey?style=for-the-badge&labelColor=darkred&lo[%E2%80%A6]iaVfkN8b4XFIJ/wOzbOx07VNRUuHy7w98CzCcGPyWywAAAABJRU5ErkJggg==)](https://falcon.crowdstrike.com/support/documentation/93/oauth2-auth-token-apis)[![US-2](https://img.shields.io/badge/-US--2-grey?style=for-the-badge&labelColor=darkred&lo[%E2%80%A6]iaVfkN8b4XFIJ/wOzbOx07VNRUuHy7w98CzCcGPyWywAAAABJRU5ErkJggg==)](https://falcon.us-2.crowdstrike.com/support/documentation/93/oauth2-auth-token-apis)[![US-GOV-1](https://img.shields.io/badge/-US--GOV--1-grey?style=for-the-badge&labelColor=darkred&lo[%E2%80%A6]iaVfkN8b4XFIJ/wOzbOx07VNRUuHy7w98CzCcGPyWywAAAABJRU5ErkJggg==)](https://falcon.laggar.gcw.crowdstrike.com/support/documentation/93/oauth2-auth-token-apis)
 
-If you have already provided your credentials, PSFalcon requests a token on your behalf when you issue a command. Otherwise, you must request a token and provide the credentials. You can do this using `Request-FalconToken`, or input your ClientId/ClientSecret when prompted after issuing a PSFalcon command.
+|Command|Permission|
+|-------|----------|
+|[Request-FalconToken](#get-an-auth-token)| |
+|[Revoke-FalconToken](#revoke-an-auth-token)| |
+|[Test-FalconToken](#verifying-token-status)| |
 
-**NOTE**: If you allow the module to prompt for your ClientId/ClientSecret, you will default to the 'us-1' Cloud.
-```powershell
-Request-FalconToken
-ClientId: <string>
-ClientSecret: <string>
-```
+## Get an auth token
+During a PowerShell session, you must have a valid OAuth2 access token in order to make requests to the CrowdStrike Falcon APIs. You can do this using `Request-FalconToken`, or input your ClientId/ClientSecret when prompted after issuing a PSFalcon command.
+
 After a valid OAuth2 token is received, it is cached with your credentials. Your cached token is checked and refreshed as needed while running PSFalcon commands.
+```powershell
+Request-FalconToken -ClientId 'client_id' -ClientSecret 'client_secret'
+```
 
-## Child environments
-If you're using an MSSP ("Flight Control") configuration, you can target specific child environments using the `-MemberCid` parameter during authentication token requests. Your choice is saved and all requests are sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID.
+**WARNING**: `Request-FalconToken` defaults to the 'us-1' cloud. If your environment exists within a different cloud, you must define it using either the `-Cloud` or `-Hostname` parameters when making your initial access token request.
 
-## Alternate clouds
-Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` parameter to choose a different Cloud environment, or `-Hostname` to set it using the full URL value.
+### Alternate clouds
+Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` or `-Hostname` parameters to set it using a cloud, or full URL value. The accepted hostname values can be viewed using tab auto-completion. Your Cloud/Hostname choice is saved and all requests are sent using the cached information.
 
-The accepted hostname values can be viewed using tab auto-completion after entering the `-Cloud` or `-Hostname` parameter(s). Your Cloud/Hostname choice is saved and all requests are sent using the cached information.
+### Child environments
+In MSSP (also known as "Flight Control") configurations, you can target specific child environments ("CIDs") using the `-MemberCid` parameter during authentication token requests. Your choice is saved and all requests are sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID, or you `Revoke-FalconToken`.
 
-# Revoking a token
-Authentication tokens expire after 30 minutes. If you wish to revoke an existing token, you can use `Revoke-FalconToken`.
-
-**NOTE**: Revoking a token will also clear your credentials. This is useful if you wish to switch between different Falcon environments.
+## Revoke an auth token
 ```powershell
 Revoke-FalconToken
 ```
-# Verifying token status
-`Test-FalconToken` can be used to verify whether you have an active OAuth2 access token cached. The `Token` property of the output from `Test-FalconToken` provides a `[boolean]` value of your current status.
-```powershell
-(Test-FalconToken).Token
-```
-# Credential handling
-PSFalcon does not provide a method for securely handling your API client credentials. To encrypt your API client information, you'll need a third-party solution. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules) module is a cross-platform option that works with PSFalcon. You can follow the steps below to install the module and use it with `Request-FalconToken`.
 
-*NOTE*: [Microsoft.PowerShell.SecretManagement](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules) is a pre-requisite for the Microsoft.PowerShell.SecretStore module. It will be installed during the `Install-Module` step.
+## Verifying token status
+`Test-FalconToken` can be used to verify whether you have an active OAuth2 access token cached.
+```powershell
+PS>Test-FalconToken
+
+Token Hostname                    ClientId                         MemberCid
+----- --------                    --------                         ---------
+ True https://api.crowdstrike.com REDACTED
+
 ```
+
+The `Token` property of the output from `Test-FalconToken` provides a `[boolean]` value of your current status.
+```powershell
+PS>(Test-FalconToken).Token
+True
+
+```
+# Securing credentials
+PSFalcon does not provide a method for securely handling your API client credentials. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules) module is a cross-platform option that works with PSFalcon. You can follow the steps below to install the module and use it with `Request-FalconToken`.
+
+*NOTE*: [Microsoft.PowerShell.SecretManagement](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules) is a pre-requisite for the `Microsoft.PowerShell.SecretStore` module. It will be installed during the `Install-Module` step.
+```powershell
 Install-Module -Name Microsoft.PowerShell.SecretStore -Scope CurrentUser
 ```
 
-*NOTE*: Using the default configuration, Microsoft.PowerShell.SecretStore will prompt for a password to access your secret vault. You can remove the password requirement to use the vault with a script or as part of a scheduled task, which leaves the vault accessible to the account that was used to create it. You will be asked to create, confirm and remove a password after entering this command.
-```
+*NOTE*: Using the default configuration, `Microsoft.PowerShell.SecretStore` will prompt for a password to access your secret vault. You can remove the password requirement to use the vault with a script or as part of a scheduled task, which leaves the vault accessible to the account that was used to create it. You will be asked to create, confirm and remove a password after entering this command.
+```powershell
 Set-SecretStoreConfiguration -Scope CurrentUser -Authentication None -Interaction None
 ```
 
 Once the module is installed and configured as desired, create a vault to store your API client(s):
-```
+```powershell
 Register-SecretVault -ModuleName Microsoft.PowerShell.SecretStore -Name MyVault
 ```
 
-`Request-FalconToken` requires multiple parameters to request a token. Each individual API client can be stored with the relevant parameters in your new vault:
-```
+`Request-FalconToken` requires multiple parameters to request a token. Each individual API client can be stored with the relevant parameters (including `MemberCid`) in your new vault:
+```powershell
 $ApiClient = @{
     ClientId     = 'my_client_id'
     ClientSecret = 'my_client_value'
@@ -61,18 +73,17 @@ $ApiClient = @{
 Set-Secret -Name MyApiClient -Secret $ApiClient -Vault MyVault
 ```
 
-Once stored, they can be retrieved using your chosen `-Name`, and you can [splat](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting?view=powershell-7.2) the parameters with `Request-FalconToken`:
-```
+Once stored, credentials can be retrieved using your chosen `-Name`, and you can [splat the parameters](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting) with `Request-FalconToken`:
+```powershell
 Get-Secret -Name MyApiClient -Vault MyVault -AsPlainText | ForEach-Object { Request-FalconToken @_ }
 ```
 
-If desired, a simple function can be added to your [PowerShell profile](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.2) to retrieve your credentials and request a token by name:
-```
+If desired, a simple function can be added to [your PowerShell profile](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles) to retrieve your credentials and request a token by name:
+```powershell
 function Request-SecretToken ([string] $Name) {
     if (-not(Get-Module -Name PSFalcon)) {
         Import-Module -Name PSFalcon
-    }
-    if ((Test-FalconToken -ErrorAction SilentlyContinue).Token -eq $true) {
+    } elseif ((Test-FalconToken -ErrorAction SilentlyContinue).Token -eq $true) {
         Revoke-FalconToken
     }
     $Secret = Get-Secret -Name $Name -Vault MyVault -AsPlainText
@@ -84,7 +95,6 @@ function Request-SecretToken ([string] $Name) {
 }
 ```
 Once added to your profile, you can retrieve your credential set and request a token in a single step:
-```
+```powershell
 Request-SecretToken MyApiClient
 ```
-_Learn more about [Commands](https://github.com/CrowdStrike/psfalcon/wiki/Commands)._

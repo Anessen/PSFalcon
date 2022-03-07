@@ -9,6 +9,7 @@
     + [Event Streams](Event-Streams)
     + [Host and Host Group Management](Host-and-Host-Group-Management)
     + [Installation Tokens](Installation-Tokens)
+    + [Sensor Download](Sensor-Download)
     + [Sensor Update Policy](Sensor-Update-Policy)
     + [Users and Roles](Users-and-Roles)
 * __Examples__

@@ -7,6 +7,7 @@
     + [Permissions](Permissions)
 * __Commands__
     + [Event Streams](Event-Streams)
+    + [Flight Control](Flight-Control)
     + [Host and Host Group Management](Host-and-Host-Group-Management)
     + [Installation Tokens](Installation-Tokens)
     + [Scheduled Reports and Searches](Scheduled-Reports-and-Searches)

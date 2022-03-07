@@ -6,7 +6,7 @@
 * [Upgrading the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation,-Upgrade-and-Removal#upgrade)
 * [Removing the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation,-Upgrade-and-Removal#upgrade)
 ## Authentication
-* [Requesting](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#get-an-auth-token) and [revoking](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#revoke-an-auth-token) OAuth2 access tokens, switching [cloud environments](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#alternate-clouds) and [child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#child-environments).
+* [Requesting](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#get-an-auth-token) and [revoking](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#revoke-an-auth-token) OAuth2 access tokens, switching [cloud environments](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#alternate-clouds) and [child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#child-environments)
 * [Verifying access token status](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#verifying-token-status)
 * [Securing credentials](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#verifying-token-status)
 ## Parameters

@@ -10,6 +10,7 @@
     + [Host and Host Group Management](Host-and-Host-Group-Management)
     + [Installation Tokens](Installation-Tokens)
     + [Sensor Update Policy](Sensor-Update-Policy)
+    + [Users and Roles](Users-and-Roles)
 * __Examples__
     + [Basic Scripts](Basic-Scripts)
     + [Code Examples](Code-Examples)

@@ -114,6 +114,7 @@ Get-FalconSvExclusion [-Detailed] [-All]
 ```powershell
 Edit-FalconSvExclusion -Id <id> -Value '/foochanged*'
 ```
+_See [Modify all Sensor Visibility exclusions to include an additional Host Group](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)._
 ### Delete Sensor Visibility exclusions
 ```powershell
 Remove-FalconSvExclusion -Ids <id>, <id>

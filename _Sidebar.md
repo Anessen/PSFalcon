@@ -9,6 +9,7 @@
     + [Event Streams](Event-Streams)
     + [Host and Host Group Management](Host-and-Host-Group-Management)
     + [Installation Tokens](Installation-Tokens)
+    + [Scheduled Reports and Searches](Scheduled-Reports-and-Searches)
     + [Sensor Download](Sensor-Download)
     + [Sensor Update Policy](Sensor-Update-Policy)
     + [Users and Roles](Users-and-Roles)

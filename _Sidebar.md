@@ -18,6 +18,7 @@
     + [Sensor Update Policy](Sensor-Update-Policy)
     + [USB Device Control Policy](USB-Device-Control-Policy)
     + [Users and Roles](Users-and-Roles)
+    + [Zero Trust Assessment](Zero-Trust-Assessment)
 * __Examples__
     + [Basic Scripts](Basic-Scripts)
     + [Code Examples](Code-Examples)

@@ -19,7 +19,7 @@
     + [USB Device Control Policy](USB-Device-Control-Policy)
     + [Users and Roles](Users-and-Roles)
     + [Zero Trust Assessment](Zero-Trust-Assessment)
-* __Examples__
+* __Additional Examples__
     + [Basic Scripts](Basic-Scripts)
     + [Code Examples](Code-Examples)
     + [Configuration Export and Import](Configuration-Export-and-Import)

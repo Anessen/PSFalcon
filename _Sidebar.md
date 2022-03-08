@@ -16,6 +16,7 @@
     + [Scheduled Reports and Searches](Scheduled-Reports-and-Searches)
     + [Sensor Download](Sensor-Download)
     + [Sensor Update Policy](Sensor-Update-Policy)
+    + [USB Device Control Policy](USB-Device-Control-Policy)
     + [Users and Roles](Users-and-Roles)
 * __Examples__
     + [Basic Scripts](Basic-Scripts)

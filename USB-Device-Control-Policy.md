@@ -112,6 +112,7 @@ $Settings = @{
 }
 Edit-FalconDeviceControlPolicy -Id <id> -Settings $Settings
 ```
+_See [Add a list of combined_id exceptions to a Device Control policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#add-a-list-of-combined_id-exceptions-to-a-device-control-policy)._
 ### Delete exceptions
 ```powershell
 $Settings = @{ delete_exceptions = @('id', 'id') }
@@ -122,6 +123,7 @@ Edit-FalconDeviceControlPolicy -Id <id> -Settings $Settings
 $Policy = Get-FalconDeviceControlPolicy -Ids <id>
 $Policy.settings.classes.Where({ $_.id -eq 'MASS_STORAGE' }).exceptions
 ```
+_See [Create CSVs containing Device Control policy details and exceptions](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#create-csvs-containing-device-control-policy-details-and-exceptions)._
 ### Assign host groups to a policy
 ```powershell
 Invoke-FalconDeviceControlPolicyAction -Name add-host-group -Id <id> -GroupId <id>

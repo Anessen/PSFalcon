@@ -12,6 +12,7 @@
     + [Host and Host Group Management](Host-and-Host-Group-Management)
     + [Incident and Detection Monitoring](Incident-and-Detection-Monitoring)
     + [Installation Tokens](Installation-Tokens)
+    + [Real Time Response Policy](Real-Time-Response-Policy)
     + [Scheduled Reports and Searches](Scheduled-Reports-and-Searches)
     + [Sensor Download](Sensor-Download)
     + [Sensor Update Policy](Sensor-Update-Policy)

@@ -39,13 +39,12 @@ If the hosts you're targeting are currently offline, you can add your Real-time 
 ```powershell
 Invoke-FalconRtr -Command runscript -Arguments "-CloudFile='HelloWorld'" -HostIds <id>, <id> -QueueOffline $true
 ```
-If you find that your script needs to be more complex, you can follow the instructions below to create a custom Real-time Response workflow with multiple commands.
-
 **WARNING**: This command is not designed for a multi-step Real-time Response workflow and will negatively impact certain operations.
 
 For instance, if you were to `cd` into a directory and attempt to `put` a file by running `Invoke-FalconRtr` twice, `Invoke-FalconRtr` will reset back to the root of your system drive between the `cd` and `put` commands, causing the file to be placed in the wrong directory.
 
-**NOTE**: PSFalcon includes commands for each Real-time Response permission level.
+If you find that your script needs to be more complex, you can follow the instructions below to create a custom Real-time Response workflow with multiple commands. PSFalcon includes commands for each Real-time Response permission level.
+
 * `Invoke-FalconCommand`, `Confirm-FalconCommand`
 * `Invoke-FalconResponderCommand`, `Confirm-FalconResponderCommand`
 * `Invoke-FalconAdminCommand`, `Confirm-FalconAdminCommand`

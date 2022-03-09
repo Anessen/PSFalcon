@@ -10,7 +10,7 @@
 ```powershell
 Get-FalconAsset -Filter "entity_type:'managed'+product_type_desc:'Workstation'+platform_name:'Windows'+last_seen_timestamp:>'now-7d'" [-Detailed] [-All]
 ```
-## Get information about specific assets
+### Get information about specific assets
 ```powershell
 Get-FalconAsset -Ids <id>, <id>
 ```

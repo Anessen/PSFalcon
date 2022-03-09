@@ -181,17 +181,3 @@ Receive-FalconMalQuerySample -Id $Request.reqid -Path .\infected.zip
 ```powershell
 Get-FalconMalQueryQuota
 ```
-## OverWatch Dashboards
-_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/155/falcon-overwatch-dashboard-apis)._
-### Getting the total number of Falcon OverWatch detections for the past 48 hours
-```powershell
-Get-FalconOverWatchDetection -Filter "detect_time:>'now-48h'"
-```
-### Getting the total number of Falcon OverWatch events that occurred across all customers
-```powershell
-Get-FalconOverWatchEvent -Filter "total_count:>1"
-```
-### Getting the total number of Falcon OverWatch incidents for the past 48 hours
-```powershell
-Get-FalconOverWatchIncident -Filter "detect_time:>'now-48h'"
-```

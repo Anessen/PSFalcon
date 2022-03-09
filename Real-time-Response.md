@@ -32,9 +32,6 @@
 ## Invoke-FalconRtr
 PSFalcon has a custom command named `Invoke-FalconRtr` that is designed to perform all the necessary steps to initiate a session with one or more hosts, send a command and output the results.
 
-_**This command is not designed for a multi-step Real-time Response workflow and will negatively impact certain operations**_.
-
-For instance, if you were to `cd` into a directory and attempt to `put` a file by running `Invoke-FalconRtr` twice, `Invoke-FalconRtr` will reset back to the root of your system drive between the `cd` and `put` commands, causing the file to be placed in the wrong directory.
 ```powershell
 Invoke-FalconRtr -Command ls -Arguments C:\Windows -HostIds <id>, <id>
 ```
@@ -44,10 +41,15 @@ Invoke-FalconRtr -Command runscript -Arguments "-CloudFile='HelloWorld'" -HostId
 ```
 If you find that your script needs to be more complex, you can follow the instructions below to create a custom Real-time Response workflow with multiple commands.
 
+**WARNING**: This command is not designed for a multi-step Real-time Response workflow and will negatively impact certain operations.
+
+For instance, if you were to `cd` into a directory and attempt to `put` a file by running `Invoke-FalconRtr` twice, `Invoke-FalconRtr` will reset back to the root of your system drive between the `cd` and `put` commands, causing the file to be placed in the wrong directory.
+
 **NOTE**: PSFalcon includes commands for each Real-time Response permission level.
 * `Invoke-FalconCommand`, `Confirm-FalconCommand`
 * `Invoke-FalconResponderCommand`, `Confirm-FalconResponderCommand`
 * `Invoke-FalconAdminCommand`, `Confirm-FalconAdminCommand`
+
 ## Invoke-FalconDeploy
 `Invoke-FalconDeploy` was developed to support mass-deployment of Falcon Forensics. It is designed to upload a file to your 'Put Files' library, create a session with target hosts, push the file to those hosts, then execute it and output the results to CSV.
 

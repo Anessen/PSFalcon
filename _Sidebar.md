@@ -9,6 +9,7 @@
     + [Detection and Prevention Policies](Detection-and-Prevention-Policies)
     + [Discover](Discover)
     + [Event Streams](Event-Streams)
+    + [Falcon Complete Dashboards](Falcon-Complete-Dashboards)
     + [FileVantage](FileVantage)
     + [Firewall Management](Firewall-Management)
     + [Flight Control](Flight-Control)

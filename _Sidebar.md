@@ -7,6 +7,7 @@
     + [Permissions](Permissions)
 * __Commands__
     + [Detection and Prevention Policies](Detection-and-Prevention-Policies)
+    + [Discover](Discover)
     + [Event Streams](Event-Streams)
     + [Firewall Management](Firewall-Management)
     + [Flight Control](Flight-Control)

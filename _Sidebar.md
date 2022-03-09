@@ -18,6 +18,7 @@
     + [Host and Host Group Management](Host-and-Host-Group-Management)
     + [Incident and Detection Monitoring](Incident-and-Detection-Monitoring)
     + [Installation Tokens](Installation-Tokens)
+    + [Intel](Intel)
     + [Real-time Response Policy](Real-time-Response-Policy)
     + [Real-time Response](Real-time-Response)
     + [Scheduled Reports and Searches](Scheduled-Reports-and-Searches)

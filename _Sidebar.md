@@ -1,11 +1,11 @@
-* [Installation, Upgrade and Removal](Installation,-Upgrade-and-Removal)
 * __Using PSFalcon__
     + [Authentication](Authentication)
     + [Commands](Commands)
     + [Falcon Query Language](Falcon-Query-Language)
+    + [Installation, Upgrade and Removal](Installation,-Upgrade-and-Removal)
     + [Parameters](Parameters)
     + [Permissions](Permissions)
-* __Commands__
+* __Commands and Permissions__
     + [Detection and Prevention Policies](Detection-and-Prevention-Policies)
     + [Discover](Discover)
     + [Event Streams](Event-Streams)

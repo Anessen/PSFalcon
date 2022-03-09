@@ -54,7 +54,7 @@ If you find that your script needs to be more complex, you can follow the instru
 
 **NOTE**: Because Real-time Response does not interact with logged in users, the executable must be able to be run silently and without user interaction.
 ```powershell
-Invoke-FalconDeploy -HostIds <id>, <id> -Path $pwd\File.exe [-QueueOffline]
+Invoke-FalconDeploy -HostIds <id>, <id> -Path .\File.exe [-QueueOffline]
 ```
 ## Get-FalconQueue
 `Get-FalconQueue` will create a CSV file with information about sessions that have pending queued commands or have been created in the last 7 days (by default).

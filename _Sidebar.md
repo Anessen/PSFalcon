@@ -9,6 +9,7 @@
     + [Detection and Prevention Policies](Detection-and-Prevention-Policies)
     + [Discover](Discover)
     + [Event Streams](Event-Streams)
+    + [FileVantage](FileVantage)
     + [Firewall Management](Firewall-Management)
     + [Flight Control](Flight-Control)
     + [Horizon](Horizon)

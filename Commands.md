@@ -53,54 +53,6 @@ If you wish to validate the output before creating a CSV, try:
 Get-Help <command> -Examples
 ```
 The following examples are for PSFalcon v2.0.x and may include syntax differences compared to v2.1+.
-## Falcon Complete Dashboards
-_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/151/falcon-complete-dashboard-apis)._
-### Search for Falcon Complete detection, device collection or incident identifiers
-```powershell
-Get-FalconCompleteDetection [-All]
-```
-```powershell
-Get-FalconCompleteCollection [-All]
-```
-```powershell
-Get-FalconCompleteIncident [-All]
-```
-### Display the total number of Falcon Complete detections, device collections or incidents
-```powershell
-Get-FalconCompleteDetection -Total
-```
-```powershell
-Get-FalconCompleteCollection -Total
-```
-```powershell
-Get-FalconCompleteIncident -Total
-```
-### Search for Falcon Complete allowlist, blocklist, escalation, or remediation identifiers
-```powershell
-Get-FalconCompleteAllowlist [-All]
-```
-```powershell
-Get-FalconCompleteBlocklist [-All]
-```
-```powershell
-Get-FalconCompleteEscalation [-All]
-```
-```powershell
-Get-FalconCompleteRemediation [-All]
-```
-### Display the total number of Falcon Complete allowlist, blocklist, escalation, and remediation tickets
-```powershell
-Get-FalconCompleteAllowlist -Total
-```
-```powershell
-Get-FalconCompleteBlocklist -Total
-```
-```powershell
-Get-FalconCompleteEscalation -Total
-```
-```powershell
-Get-FalconCompleteRemediation -Total
-```
 ## Falcon X Recon
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/162/falcon-x-recon-apis)._
 ### Finding a monitoring rule
@@ -242,58 +194,6 @@ Get-FalconOverWatchEvent -Filter "total_count:>1"
 ### Getting the total number of Falcon OverWatch incidents for the past 48 hours
 ```powershell
 Get-FalconOverWatchIncident -Filter "detect_time:>'now-48h'"
-```
-## Sandbox and QuickScan
-_See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/92/falcon-x-apis)._
-### Upload files for submission
-```powershell
-$Sample = Send-FalconSample -Path C:\virus.exe -Filename virus.exe -Comment 'bad file'
-```
-### Submit an uploaded sample for analysis in a sandbox environment
-```powershell
-$Submission = New-FalconSubmission -Sha256 $Sample.sha256 -EnvironmentId win7_x86 -SubmitName virus.exe
-```
-### Check the progress of samples previously submitted for analysis
-```powershell
-Get-FalconSubmission -Ids $Submission.id
-```
-### Submit files to QuickScan
-**NOTE**: The files submitted for QuickScan must be available via a previous upload using `Send-FalconSample`.
-```powershell
-New-FalconQuickScan -Ids <sha256>, <sha256>
-```
-### Search for QuickScans run in the last 7 days
-```powershell
-Get-FalconQuickScan -Filter "created_timestamp:>'Last 7 days'" [-Detailed]
-```
-### Retrieve information about a QuickScan
-```powershell
-Get-FalconQuickScan -Ids <id>
-```
-### View a summary-level sandbox report
-```powershell
-Get-FalconReport -Ids <id>, <id> -Summary
-```
-### View a sandbox report
-```powershell
-Get-FalconReport -Ids <id>, <id>
-```
-### Download artifacts
-**NOTE**: The identifiers needed to download artifacts can be found in a sandbox report.
-```powershell
-$Report = Get-FalconReport -Ids <id>
-```
-### Download a strict IOC pack
-```powershell
-Receive-FalconArtifact -Id $Report.ioc_report_strict_csv_artifact_id -Path .\ioc_report_strict_csv_artifact_id.csv
-```
-### Check your Sandbox submission quota
-```powershell
-Get-FalconSubmissionQuota
-```
-### Check your QuickScan submission quota
-```powershell
-Get-FalconQuickScanQuota
 ```
 ## Threat Intelligence
 _See [CrowdStrike API Documentation](https://falcon.crowdstrike.com/support/documentation/72/intel-apis)._

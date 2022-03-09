@@ -130,7 +130,7 @@ $Confirm | Where-Object { $_.sha256 -and $_.created_at -and $_.session_id } | Fo
     $Param = @{
         Sha256 = $_.sha256
         SessionId = $_.session_id
-        Path = "$pwd\$($_.aid)_$($_.sha256).7z"
+        Path = ".\$($_.aid)_$($_.sha256).7z"
     }
     Receive-FalconGetFile @Param
 }

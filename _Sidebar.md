@@ -10,6 +10,7 @@
     + [Discover](Discover)
     + [Event Streams](Event-Streams)
     + [Falcon Complete Dashboards](Falcon-Complete-Dashboards)
+    + [Falcon X](Falcon-X)
     + [FileVantage](FileVantage)
     + [Firewall Management](Firewall-Management)
     + [Flight Control](Flight-Control)

@@ -17,6 +17,7 @@
     + [Horizon](Horizon)
     + [Host and Host Group Management](Host-and-Host-Group-Management)
     + [Incident and Detection Monitoring](Incident-and-Detection-Monitoring)
+    + [Identity Protection](Identity-Protection)
     + [Installation Tokens](Installation-Tokens)
     + [Intel](Intel)
     + [MalQuery](MalQuery)

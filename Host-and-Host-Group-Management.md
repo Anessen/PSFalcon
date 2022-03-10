@@ -90,6 +90,7 @@ Invoke-FalconHostAction -Name contain -Ids <id>, <id>
 Invoke-FalconHostAction -Name lift_containment -Ids <id>, <id>
 ```
 _See [Network contain a device by Hostname](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#network-contain-a-device-by-hostname)._
+
 _See [Network contain a list of Hostnames from a CSV file](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#network-contain-a-list-of-hostnames-from-a-csv-file)._
 ## Deleting and restoring hosts
 ```powershell

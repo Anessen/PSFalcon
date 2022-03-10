@@ -1,10 +1,5 @@
 ![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
 
-|Command|Permission|
-|-------|----------|
-|Export-FalconConfig| |
-|Import-FalconConfig| |
-
 # Export all configurations
 The `Export-FalconConfig` command gathers configurable items from your Falcon environment and exports them as a ZIP archive. The following example will create a file called `FalconConfig_<FileDate>.zip` in your current directory containing all the available configurations.
 ```powershell

@@ -32,7 +32,7 @@
 * __Additional Examples__
     + [Basic Scripts](Basic-Scripts)
     + [Code Examples](Code-Examples)
-    + [Configuration Export and Import](Configuration-Export-and-Import)
+    + [Importing and Exporting Falcon Configurations](Importing-and-Exporting-Falcon-Configurations)
 * __CrowdStrike SDKs__
     + [FalconPy](https://github.com/CrowdStrike/falconpy/wiki) - Python 3
     + [goFalcon](https://pkg.go.dev/github.com/crowdstrike/gofalcon) - Go

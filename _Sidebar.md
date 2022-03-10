@@ -20,6 +20,7 @@
     + [Installation Tokens](Installation-Tokens)
     + [Intel](Intel)
     + [MalQuery](MalQuery)
+    + [Quarantine](Quarantine)
     + [Real-time Response Policy](Real-time-Response-Policy)
     + [Real-time Response](Real-time-Response)
     + [Scheduled Reports and Searches](Scheduled-Reports-and-Searches)

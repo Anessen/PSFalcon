@@ -12,7 +12,7 @@
 * [Requesting](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#get-an-auth-token) and [revoking](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#revoke-an-auth-token) OAuth2 access tokens, switching [cloud environments](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#alternate-clouds) and [child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#child-environments)
 * [Verifying access token status](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#verifying-token-status)
 * [Securing credentials](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#verifying-token-status)
-## Filtering
+## Filtering Results
 * [Limiting results](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-Results#Falcon-Query-Language) and [combining multiple filter conditions and values](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-Results#multiple-values)
 ## Additional Examples
 Individual commands and their required permissions are listed in the "Commands and Permissions" section, aligning with how they are displayed in the CrowdStrike Falcon API documentation. A few additional pages are included that cover PSFalcon-specific examples.

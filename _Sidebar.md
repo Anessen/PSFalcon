@@ -2,7 +2,7 @@
     + [Installation, Upgrade and Removal](Installation,-Upgrade-and-Removal)
     + [Importing, Syntax and Output](Importing,-Syntax-and-Output)
     + [Authentication](Authentication)
-    + [Filtering Results](Falcon-Query-Language)
+    + [Filtering](Filtering)
 * __Commands and Permissions__
     + [Detection and Prevention Policies](Detection-and-Prevention-Policies)
     + [Discover](Discover)

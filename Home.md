@@ -5,7 +5,7 @@
 * [Removing the module](https://github.com/CrowdStrike/psfalcon/wiki/Installation,-Upgrade-and-Removal#removal)
 ## Importing, Syntax and Output
 * [Importing into PowerShell](https://github.com/CrowdStrike/psfalcon/wiki/Importing,-Syntax-and-Output#Import-the-Module)
-* [Finding Commands](https://github.com/CrowdStrike/psfalcon/wiki/Importing,-Syntax-and-Output#List-available-commands)
+* [Finding commands](https://github.com/CrowdStrike/psfalcon/wiki/Importing,-Syntax-and-Output#List-available-commands)
 * [Using parameters](https://github.com/CrowdStrike/psfalcon/wiki/Importing,-Syntax-and-Output#Using-parameters) and dealing with [pagination handling](https://github.com/CrowdStrike/psfalcon/wiki/Importing,-Syntax-and-Output#-all)
 ## Authentication
 * [Requesting](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#get-an-auth-token) and [revoking](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#revoke-an-auth-token) OAuth2 access tokens, switching [cloud environments](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#alternate-clouds) and [child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#child-environments)

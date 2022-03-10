@@ -1,10 +1,8 @@
 * __Using PSFalcon__
-    + [Authentication](Authentication)
-    + [Commands](Commands)
-    + [Falcon Query Language](Falcon-Query-Language)
     + [Installation, Upgrade and Removal](Installation,-Upgrade-and-Removal)
-    + [Parameters](Parameters)
-    + [Permissions](Permissions)
+    + [Importing, Syntax and Output](Importing,-Syntax-and-Output)
+    + [Authentication](Authentication)
+    + [Filtering with the Falcon Query Language](Falcon-Query-Language)
 * __Commands and Permissions__
     + [Detection and Prevention Policies](Detection-and-Prevention-Policies)
     + [Discover](Discover)

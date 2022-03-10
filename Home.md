@@ -13,7 +13,7 @@
 * [Verifying access token status](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#verifying-token-status)
 * [Securing credentials](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#verifying-token-status)
 ## Filtering
-* [Limiting results](https://github.com/CrowdStrike/psfalcon/wiki/Filtering#Falcon-Query-Language) and [combining multiple filter conditions and values](https://github.com/CrowdStrike/psfalcon/wiki/Filtering#multiple-values)
+* [Limiting results](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-Results#Falcon-Query-Language) and [combining multiple filter conditions and values](https://github.com/CrowdStrike/psfalcon/wiki/Filtering-Results#multiple-values)
 ## Additional Examples
 Individual commands and their required permissions are listed in the "Commands and Permissions" section, aligning with how they are displayed in the CrowdStrike Falcon API documentation. A few additional pages are included that cover PSFalcon-specific examples.
 * [Export](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import#export-all-configurations) configured items, then [restore or re-create](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import#import-configurations) them

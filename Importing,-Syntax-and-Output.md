@@ -6,15 +6,12 @@ The PSFalcon module must be loaded at the beginning of a PowerShell session or s
 ```powershell
 Import-Module -Name PSFalcon
 ```
-
+**NOTE**: The `Import-Module` command can be added to your PowerShell `$PROFILE` to automatically load the module when you start PowerShell.
 ## Within a script
 ```powershell
 #Requires -Version 5.1
 using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 ```
-
-**NOTE**: The `Import-Module` command can be added to your PowerShell `$PROFILE` to automatically load the module when you start PowerShell.
-
 _Read more about [PowerShell profiles](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles)._
 
 # List available commands

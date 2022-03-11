@@ -7,7 +7,7 @@ directory containing all the available configurations.
 ```powershell
 Export-FalconConfig
 ```
-**NOTE**: Users are not included in the export/import process because they are unique and can not be duplicated.
+**NOTE**: Users are not included in the export/import process because they are unique and cannot be duplicated.
 ### Export specific configurations
 Similar to the regular command, a zip file will be created, but in this example it will only include `HostGroup`,
 `FirewallGroup` (including Firewall Rules) and `FirewallPolicy` items.

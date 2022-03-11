@@ -5,7 +5,6 @@
     + [Filtering Results](Filtering-Results)
 * __Commands and Permissions__
     + [Detection and Prevention Policies](Detection-and-Prevention-Policies)
-    + [Discover for Cloud and Containers (AWS)](Discover-for-Cloud-and-Containers-AWS)
     + [Discover](Discover)
     + [Event Streams](Event-Streams)
     + [Falcon Complete Dashboards](Falcon-Complete-Dashboards)

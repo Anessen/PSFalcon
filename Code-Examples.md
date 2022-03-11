@@ -1,16 +1,17 @@
 ![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
+![Twitter URL](https://img.shields.io/twitter/url?label=Follow%20%40CrowdStrike&style=social&url=https%3A%2F%2Ftwitter.com%2FCrowdStrike)
 ***
 The examples provided below are for example purposes only and are offered 'as is' with no support.
 ***
 ### Authentication
-* [Request authorization token and run commands](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#request-authorization-token-and-run-commands)
-* [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#authorize-and-run-commands-in-member-cids)
+* [Request authorization token and run commands](Code-Examples#request-authorization-token-and-run-commands)
+* [Authorize and run commands in member CIDs](Code-Examples#authorize-and-run-commands-in-member-cids)
 ### Ingesting Data
-* [Retrieve items from a text file or CSV](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-items-from-a-text-file-or-csv)
-* [Retrieve identifiers using a list](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-identifiers-using-a-list)
+* [Retrieve items from a text file or CSV](Code-Examples#retrieve-items-from-a-text-file-or-csv)
+* [Retrieve identifiers using a list](Code-Examples#retrieve-identifiers-using-a-list)
 ### Manipulating Objects
-* [Add properties to an object](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#add-properties-to-an-object)
-* [Iterate properties of an object](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#iterate-properties-of-an-object)
+* [Add properties to an object](Code-Examples#add-properties-to-an-object)
+* [Iterate properties of an object](Code-Examples#iterate-properties-of-an-object)
 ***
 # Authentication
 ## Request authorization token and run commands
@@ -139,30 +140,24 @@ $InputFile = if (![IO.Path]::IsPathRooted($PSBoundParameters.Path)) {
     $PSBoundParameters.Path
 }
 $Items = ((Get-Content -Path $InputFile).Normalize()).foreach{
-    if ($_ -ne '') {
-        $_
-    }
+    if (![string]::IsNullOrEmpty($_)) { $_ }
 }
 ```
 Collecting a list of hostnames (using the column `Hostname`) from a CSV can be done by modifying the `$Items` line.
 ```powershell
 $Items = ((Import-Csv -Path $InputFile).Hostname).foreach{
-    if ($_ -ne '') {
-        $_
-    }
+    if (![string]::IsNullOrEmpty($_)) { $_ }
 }
 ```
 ## Retrieve identifiers using a list
-The `Filter` parameter, which accepts a [Falcon Query Language](https://github.com/CrowdStrike/psfalcon/wiki/Falcon-Query-Language) statement, will accept 20 conditions at a time. If you have a list of hostnames that you need to match with their identifiers, you can loop through the list and output the hostname and identifier as new objects in an array contained in `$Hosts`. The example below assumes you have already ingested the list of hostnames into the `$Items` variable.
+The `Filter` parameter \(a Falcon Query Language statement\) will accept 20 conditions at a time. If you have a list of hostnames that you need to match with their identifiers, you can loop through the list and output the hostname and identifier as new objects in an array contained in `$Hosts`. The example below assumes you have already ingested the list of hostnames into the `$Items` variable.
 ```powershell
 #Requires -Version 5.1
 using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
 $Hosts = for ($i = 0; $i -lt $Items.count; $i += 20) {
     # Retrieve device_id for hostnames in groups of 20
     $Filter = ($Items[$i..($i + 19)] | ForEach-Object {
-        if ($_ -ne '') {
-            "hostname:['$_']"
-        }
+        if (![string]::IsNullOrEmpty($_)) { "hostname:['$_']" }
     }) -join ','
     Get-FalconHost -Filter $Filter -Detailed | Select-Object hostname, device_id
 }

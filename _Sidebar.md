@@ -8,6 +8,7 @@
     + [Discover](Discover)
     + [Event Streams](Event-Streams)
     + [Falcon Complete Dashboards](Falcon-Complete-Dashboards)
+    + [Falcon Complete Message Center](Falcon-Complete-Message-Center)
     + [Falcon OverWatch Dashboards](Falcon-OverWatch-Dashboards)
     + [Falcon X Recon](Falcon-X-Recon)
     + [Falcon X](Falcon-X)

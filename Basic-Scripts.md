@@ -3,38 +3,38 @@
 The examples provided below are for example purposes only and are offered 'as is' with no support.
 ***
 ### Detections
-* [Assign detections involving a specific file to a user](basic-scripts#assign-detections-involving-a-specific-file-to-a-user)
-* [Find and hide large numbers of detections](basic-scripts#find-and-hide-large-numbers-of-detections)
+* [Assign detections involving a specific file to a user](#assign-detections-involving-a-specific-file-to-a-user)
+* [Find and hide large numbers of detections](#find-and-hide-large-numbers-of-detections)
 ### Hosts
-* [Add a list of hostnames to a host group](basic-scripts#add-a-list-of-hostnames-to-a-host-group)
-* [Hide hosts based on last_seen time](basic-scripts#hide-hosts-based-on-last_seen-time)
-* [Find duplicate hosts and hide them](basic-scripts#find-duplicate-hosts-and-hide-them)
-* [Network contain a device by Hostname](basic-scripts#network-contain-a-device-by-hostname)
-* [Network contain a list of Hostnames from a CSV file](basic-scripts#network-contain-a-list-of-hostnames-from-a-csv-file)
-* [Output selected Host info and replace ids with names](basic-scripts#output-selected-host-info-and-replace-ids-with-names)
-* [Get host information from multiple Falcon instances](basic-scripts#get-host-information-from-multiple-falcon-instances)
+* [Add a list of hostnames to a host group](#add-a-list-of-hostnames-to-a-host-group)
+* [Hide hosts based on last_seen time](#hide-hosts-based-on-last_seen-time)
+* [Find duplicate hosts and hide them](#find-duplicate-hosts-and-hide-them)
+* [Network contain a device by Hostname](#network-contain-a-device-by-hostname)
+* [Network contain a list of Hostnames from a CSV file](#network-contain-a-list-of-hostnames-from-a-csv-file)
+* [Output selected Host info and replace ids with names](#output-selected-host-info-and-replace-ids-with-names)
+* [Get host information from multiple Falcon instances](#get-host-information-from-multiple-falcon-instances)
 ### Host Groups
-* [Create a host group and add a list of devices by hostname](basic-scripts#create-a-host-group-and-add-a-list-of-devices-by-hostname)
-* [Verify that a list of Host Groups exist within Child CIDs](basic-scripts#verify-that-a-list-of-host-groups-exist-within-child-cids)
+* [Create a host group and add a list of devices by hostname](#create-a-host-group-and-add-a-list-of-devices-by-hostname)
+* [Verify that a list of Host Groups exist within Child CIDs](#verify-that-a-list-of-host-groups-exist-within-child-cids)
 ### Policies
-* [Modify all Sensor Visibility Exclusions to include an additional Host Group](basic-scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
-* [Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs](basic-scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
-* [Output a list of assigned Host Groups for designated Policy ids within child CIDs](basic-scripts#output-a-list-of-assigned-host-groups-for-designated-policy-ids-within-child-cids)
-* [Add a list of combined_id exceptions to a Device Control policy](basic-scripts#add-a-list-of-combined_id-exceptions-to-a-device-control-policy)
-* [Create CSVs containing Device Control policy details and exceptions](basic-scripts#create-csvs-containing-device-control-policy-details-and-exceptions)
+* [Modify all Sensor Visibility Exclusions to include an additional Host Group](#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
+* [Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs](#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
+* [Output a list of assigned Host Groups for designated Policy ids within child CIDs](#output-a-list-of-assigned-host-groups-for-designated-policy-ids-within-child-cids)
+* [Add a list of combined_id exceptions to a Device Control policy](#add-a-list-of-combined_id-exceptions-to-a-device-control-policy)
+* [Create CSVs containing Device Control policy details and exceptions](#create-csvs-containing-device-control-policy-details-and-exceptions)
 ### Real-time Response
-* [Run a command against a group of devices](basic-scripts#run-a-command-against-a-group-of-devices)
-* [Upload and execute a local script](basic-scripts#upload-and-execute-a-local-script)
-* [Upload and execute a local script as a secondary process](basic-scripts#upload-and-execute-a-local-script)
+* [Run a command against a group of devices](#run-a-command-against-a-group-of-devices)
+* [Upload and execute a local script](#upload-and-execute-a-local-script)
+* [Upload and execute a local script as a secondary process](#upload-and-execute-a-local-script)
 ### Scheduled Reports
-* [Download your most recent scheduled report results](basic-scripts#download-your-most-recent-scheduled-report-results)
+* [Download your most recent scheduled report results](#download-your-most-recent-scheduled-report-results)
 ### Sensor Installers
-* [Download the installer package assigned to a Sensor Update policy](basic-scripts#download-the-installer-package-assigned-to-a-sensor-update-policy)
-* [Download the installer package assigned to your default Sensor Update policy](basic-scripts#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
+* [Download the installer package assigned to a Sensor Update policy](#download-the-installer-package-assigned-to-a-sensor-update-policy)
+* [Download the installer package assigned to your default Sensor Update policy](#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
 ### Threat Intelligence
-* [Export domain and IP indicators updated within the last week to CSV](basic-scripts#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
+* [Export domain and IP indicators updated within the last week to CSV](#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ### Vulnerabilities
-* [Create a report with additional Host fields](basic-scripts#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
+* [Create a report with additional Host fields](#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ***
 # Detections
 ## Assign detections involving a specific file to a user
@@ -938,7 +938,7 @@ process {
 }
 ```
 ## Upload and execute a local script as a secondary process
-**NOTE**: Similar to the [other example](basic-scripts#upload-and-execute-a-local-script) this will run a script as a secondary PowerShell process on the target device, which helps when scripts are expected to exceed the Real-time Response timeout limit. The downside is that you will not be able to return results from the script unless you write them to a local file on the target host that you access later.
+**NOTE**: Similar to the [other example](#upload-and-execute-a-local-script) this will run a script as a secondary PowerShell process on the target device, which helps when scripts are expected to exceed the Real-time Response timeout limit. The downside is that you will not be able to return results from the script unless you write them to a local file on the target host that you access later.
 ```powershell
 [CmdletBinding()]
 param(

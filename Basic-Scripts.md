@@ -3,38 +3,38 @@
 The examples provided below are for example purposes only and are offered 'as is' with no support.
 ***
 ### Detections
-* [Assign detections involving a specific file to a user](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#assign-detections-involving-a-specific-file-to-a-user)
-* [Find and hide large numbers of detections](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#find-and-hide-large-numbers-of-detections)
+* [Assign detections involving a specific file to a user](basic-scripts#assign-detections-involving-a-specific-file-to-a-user)
+* [Find and hide large numbers of detections](basic-scripts#find-and-hide-large-numbers-of-detections)
 ### Hosts
-* [Add a list of hostnames to a host group](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#add-a-list-of-hostnames-to-a-host-group)
-* [Hide hosts based on last_seen time](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#hide-hosts-based-on-last_seen-time)
-* [Find duplicate hosts and hide them](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#find-duplicate-hosts-and-hide-them)
-* [Network contain a device by Hostname](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#network-contain-a-device-by-hostname)
-* [Network contain a list of Hostnames from a CSV file](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#network-contain-a-list-of-hostnames-from-a-csv-file)
-* [Output selected Host info and replace ids with names](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#output-selected-host-info-and-replace-ids-with-names)
-* [Get host information from multiple Falcon instances](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#get-host-information-from-multiple-falcon-instances)
+* [Add a list of hostnames to a host group](basic-scripts#add-a-list-of-hostnames-to-a-host-group)
+* [Hide hosts based on last_seen time](basic-scripts#hide-hosts-based-on-last_seen-time)
+* [Find duplicate hosts and hide them](basic-scripts#find-duplicate-hosts-and-hide-them)
+* [Network contain a device by Hostname](basic-scripts#network-contain-a-device-by-hostname)
+* [Network contain a list of Hostnames from a CSV file](basic-scripts#network-contain-a-list-of-hostnames-from-a-csv-file)
+* [Output selected Host info and replace ids with names](basic-scripts#output-selected-host-info-and-replace-ids-with-names)
+* [Get host information from multiple Falcon instances](basic-scripts#get-host-information-from-multiple-falcon-instances)
 ### Host Groups
-* [Create a host group and add a list of devices by hostname](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#create-a-host-group-and-add-a-list-of-devices-by-hostname)
-* [Verify that a list of Host Groups exist within Child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#verify-that-a-list-of-host-groups-exist-within-child-cids)
+* [Create a host group and add a list of devices by hostname](basic-scripts#create-a-host-group-and-add-a-list-of-devices-by-hostname)
+* [Verify that a list of Host Groups exist within Child CIDs](basic-scripts#verify-that-a-list-of-host-groups-exist-within-child-cids)
 ### Policies
-* [Modify all Sensor Visibility Exclusions to include an additional Host Group](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
-* [Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
-* [Output a list of assigned Host Groups for designated Policy ids within child CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#output-a-list-of-assigned-host-groups-for-designated-policy-ids-within-child-cids)
-* [Add a list of combined_id exceptions to a Device Control policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#add-a-list-of-combined_id-exceptions-to-a-device-control-policy)
-* [Create CSVs containing Device Control policy details and exceptions](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#create-csvs-containing-device-control-policy-details-and-exceptions)
+* [Modify all Sensor Visibility Exclusions to include an additional Host Group](basic-scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
+* [Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs](basic-scripts#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
+* [Output a list of assigned Host Groups for designated Policy ids within child CIDs](basic-scripts#output-a-list-of-assigned-host-groups-for-designated-policy-ids-within-child-cids)
+* [Add a list of combined_id exceptions to a Device Control policy](basic-scripts#add-a-list-of-combined_id-exceptions-to-a-device-control-policy)
+* [Create CSVs containing Device Control policy details and exceptions](basic-scripts#create-csvs-containing-device-control-policy-details-and-exceptions)
 ### Real-time Response
-* [Run a command against a group of devices](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#run-a-command-against-a-group-of-devices)
-* [Upload and execute a local script](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script)
-* [Upload and execute a local script as a secondary process](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script)
+* [Run a command against a group of devices](basic-scripts#run-a-command-against-a-group-of-devices)
+* [Upload and execute a local script](basic-scripts#upload-and-execute-a-local-script)
+* [Upload and execute a local script as a secondary process](basic-scripts#upload-and-execute-a-local-script)
 ### Scheduled Reports
-* [Download your most recent scheduled report results](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-your-most-recent-scheduled-report-results)
+* [Download your most recent scheduled report results](basic-scripts#download-your-most-recent-scheduled-report-results)
 ### Sensor Installers
-* [Download the installer package assigned to a Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-the-installer-package-assigned-to-a-sensor-update-policy)
-* [Download the installer package assigned to your default Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
+* [Download the installer package assigned to a Sensor Update policy](basic-scripts#download-the-installer-package-assigned-to-a-sensor-update-policy)
+* [Download the installer package assigned to your default Sensor Update policy](basic-scripts#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
 ### Threat Intelligence
-* [Export domain and IP indicators updated within the last week to CSV](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
+* [Export domain and IP indicators updated within the last week to CSV](basic-scripts#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ### Vulnerabilities
-* [Create a report with additional Host fields](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
+* [Create a report with additional Host fields](basic-scripts#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ***
 # Detections
 ## Assign detections involving a specific file to a user
@@ -149,8 +149,6 @@ if ($Hosts) {
 }
 ```
 ## Find duplicate hosts and hide them
-**NOTE**: PSFalcon includes a command called `Find-FalconDuplicate` which will analyze the result of a `Get-FalconHost -Detailed` command to find potential duplicates (through grouping by hostname, then sorting by `last_seen` time and selecting all but the most recent).
-
 **WARNING**: `Find-FalconDuplicate` only determines whether or not a device is a "duplicate" by hostname in this example. There may be a legitimate reason that two devices have the same hostname in your environment. It is your responsibility to determine whether or not the hosts reported by `Find-FalconDuplicate` are correct. This script does not provide you with an opportunity to review those hosts before they are hidden, but it does output a list after the hiding is complete. If devices are hidden incorrectly they will continue to communicate with Falcon and can be restored from the trash using their `aid` value and `Invoke-FalconHostAction`.
 ```powershell
 #Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.1'}
@@ -940,7 +938,7 @@ process {
 }
 ```
 ## Upload and execute a local script as a secondary process
-**NOTE**: Similar to the [other example](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script) this will run a script as a secondary PowerShell process on the target device, which helps when scripts are expected to exceed the Real-time Response timeout limit. The downside is that you will not be able to return results from the script unless you write them to a local file on the target host that you access later.
+**NOTE**: Similar to the [other example](basic-scripts#upload-and-execute-a-local-script) this will run a script as a secondary PowerShell process on the target device, which helps when scripts are expected to exceed the Real-time Response timeout limit. The downside is that you will not be able to return results from the script unless you write them to a local file on the target host that you access later.
 ```powershell
 [CmdletBinding()]
 param(

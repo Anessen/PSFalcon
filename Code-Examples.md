@@ -1,17 +1,16 @@
 ![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
-![Twitter URL](https://img.shields.io/twitter/url?label=Follow%20%40CrowdStrike&style=social&url=https%3A%2F%2Ftwitter.com%2FCrowdStrike)
 ***
 The examples provided below are for example purposes only and are offered 'as is' with no support.
 ***
 ### Authentication
-* [Request authorization token and run commands](Code-Examples#request-authorization-token-and-run-commands)
-* [Authorize and run commands in member CIDs](Code-Examples#authorize-and-run-commands-in-member-cids)
+* [Request authorization token and run commands](#request-authorization-token-and-run-commands)
+* [Authorize and run commands in member CIDs](#authorize-and-run-commands-in-member-cids)
 ### Ingesting Data
-* [Retrieve items from a text file or CSV](Code-Examples#retrieve-items-from-a-text-file-or-csv)
-* [Retrieve identifiers using a list](Code-Examples#retrieve-identifiers-using-a-list)
+* [Retrieve items from a text file or CSV](#retrieve-items-from-a-text-file-or-csv)
+* [Retrieve identifiers using a list](#retrieve-identifiers-using-a-list)
 ### Manipulating Objects
-* [Add properties to an object](Code-Examples#add-properties-to-an-object)
-* [Iterate properties of an object](Code-Examples#iterate-properties-of-an-object)
+* [Add properties to an object](#add-properties-to-an-object)
+* [Iterate properties of an object](#iterate-properties-of-an-object)
 ***
 # Authentication
 ## Request authorization token and run commands

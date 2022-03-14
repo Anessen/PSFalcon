@@ -22,6 +22,7 @@
     + [Identity Protection](Identity-Protection)
     + [Installation Tokens](Installation-Tokens)
     + [Intel](Intel)
+    + [Kubernetes Protection](Kubernetes-Protection)
     + [MalQuery](MalQuery)
     + [Quarantine](Quarantine)
     + [Real-time Response Policy](Real-time-Response-Policy)

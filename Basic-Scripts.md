@@ -33,6 +33,8 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Download the installer package assigned to your default Sensor Update policy](#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
 ### Threat Intelligence
 * [Export domain and IP indicators updated within the last week to CSV](#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
+### Users
+* [Create users from CSV](#create-users-from-csv)
 ### Vulnerabilities
 * [Create a report with additional Host fields](#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ***
@@ -1119,6 +1121,62 @@ Get-FalconIndicator @Param | Select-Object indicator, type, malicious_confidence
         confidence = $_.malicious_confidence
         comment = "$(($_.Labels.name | Where-Object { $_ -notmatch 'MaliciousConfidence/*' }) -join ', ')"
     } | Export-Csv -Path .\indicators.csv -NoTypeInformation -Append
+}
+```
+# Users
+## Create users from CSV
+```powershell
+#Requires -Version 5.1
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+param(
+    [Parameter(Mandatory = $true, Position = 1)]
+    [ValidateSet('https://api.crowdstrike.com', 'https://api.us-2.crowdstrike.com',
+        'https://api.laggar.gcw.crowdstrike.com', 'https://api.eu-1.crowdstrike.com')]
+    [string] $BaseAddress,
+
+    [Parameter(Mandatory = $true, Position = 2)]
+    [ValidatePattern('^\w{32}$')]
+    [string] $ClientId,
+
+    [Parameter(Mandatory = $true, Position = 3)]
+    [ValidatePattern('^\w{40}$')]
+    [string] $ClientSecret,
+
+    [Parameter(Position = 4)]
+    [ValidatePattern('^\w{32}$')]
+    [string] $MemberCid,
+
+    [Parameter(Mandatory = $true, Position = 5)]
+    [ValidatePattern('\.csv$')]
+    [ValidateScript({ Test-Path $_ })]
+    [string] $Path
+)
+if ((Test-FalconToken).Token -eq $true) {
+    $CSV = Import-Csv $Path
+    @($CSV.PSObject.Properties.Name).foreach{
+        if ($_ -notmatch '^(Email|Firstname|Lastname|Roles)$') {
+            # Error if invalid columns exist
+            throw "Unexpected column. Ensure 'Email', 'Firstname', 'Lastname' and 'Roles' are present. ['$_']"
+        }
+    }
+    if ($CSV.Roles -and $CSV.Roles -match '\s') {
+        $Roles = Get-FalconRole -Detailed
+        foreach ($Name in $Roles.display_name) {
+            # Replace 'Display Names' (from console output) with role IDs
+            $CSV.Roles = $CSV.Roles -replace $Name, ($Roles | Where-Object { $_.display_name -eq $Name }).id
+        }
+    }
+    $CSV | ForEach-Object {
+        # Create user
+        $User = New-FalconUser -Username $_.Email -Firstname $_.Firstname -Lastname $_.Lastname
+        if ($User.uuid -and $_.Roles) {
+            # Assign roles
+            Add-FalconRole -UserId $User.uuid -Ids $_.Roles
+        } elseif ($User.uuid) {
+            # Assign 'falcon_console_guest' if roles are not present
+            Add-FalconRole -UserId $User.uuid -Ids falcon_console_guest
+        }
+    }
 }
 ```
 # Vulnerabilities

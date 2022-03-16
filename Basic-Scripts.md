@@ -1127,7 +1127,7 @@ Get-FalconIndicator @Param | Select-Object indicator, type, malicious_confidence
 ## Create users from CSV
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.1' }
 param(
     [Parameter(Mandatory = $true, Position = 1)]
     [ValidateSet('https://api.crowdstrike.com', 'https://api.us-2.crowdstrike.com',
@@ -1151,6 +1151,42 @@ param(
     [ValidateScript({ Test-Path $_ })]
     [string] $Path
 )
+$Param = @{
+    Hostname     = $BaseAddress
+    ClientId     = $ClientId
+    ClientSecret = $ClientSecret
+}
+if ($MemberCid) {
+    $Param['MemberCid'] = $MemberCid
+}
+Request-FalconToken @Param
+if ((Test-FalconToken).Token -eq $true) {
+    $CSV = Import-Csv $Path
+    @($CSV.PSObject.Properties.Name).foreach{
+        if ($_ -notmatch '^(Email|Firstname|Lastname|Roles)$') {
+            # Error if invalid columns exist
+            throw "Unexpected column. Ensure 'Email', 'Firstname', 'Lastname' and 'Roles' are present. ['$_']"
+        }
+    }
+    if ($CSV.Roles -and $CSV.Roles -match '\s') {
+        $Roles = Get-FalconRole -Detailed
+        foreach ($Name in $Roles.display_name) {
+            # Replace 'Display Names' (from console output) with role IDs
+            $CSV.Roles = $CSV.Roles -replace $Name, ($Roles | Where-Object { $_.display_name -eq $Name }).id
+        }
+    }
+    $CSV | ForEach-Object {
+        # Create user
+        $User = New-FalconUser -Username $_.Email -Firstname $_.Firstname -Lastname $_.Lastname
+        if ($User.uuid -and $_.Roles) {
+            # Assign roles
+            Add-FalconRole -UserId $User.uuid -Ids $_.Roles
+        } elseif ($User.uuid) {
+            # Assign 'falcon_console_guest' if roles are not present
+            Add-FalconRole -UserId $User.uuid -Ids falcon_console_guest
+        }
+    }
+}
 if ((Test-FalconToken).Token -eq $true) {
     $CSV = Import-Csv $Path
     @($CSV.PSObject.Properties.Name).foreach{

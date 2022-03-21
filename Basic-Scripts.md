@@ -1162,17 +1162,27 @@ if ($MemberCid) {
 Request-FalconToken @Param
 if ((Test-FalconToken).Token -eq $true) {
     $CSV = Import-Csv $Path
-    @($CSV.PSObject.Properties.Name).foreach{
-        if ($_ -notmatch '^(Email|Firstname|Lastname|Roles)$') {
-            # Error if invalid columns exist
-            throw "Unexpected column. Ensure 'Email', 'Firstname', 'Lastname' and 'Roles' are present. ['$_']"
+    @($CSV).foreach{
+        @($_.PSObject.Properties.Name).foreach{
+            if ($_ -notmatch '^(Email|Firstname|Lastname|Roles)$') {
+                # Error if invalid columns exist
+                throw "Unexpected column. Ensure 'Email', 'Firstname', 'Lastname' and 'Roles' are present. ['$_']"
+            }
+        }
+        if ($_.Roles) {
+            # Convert Roles into an [array]
+            $_.Roles = ($_.Roles -Split ',').Trim()
         }
     }
     if ($CSV.Roles -and $CSV.Roles -match '\s') {
+        # Replace 'Display Names' (from console output) with role IDs
         $Roles = Get-FalconRole -Detailed
-        foreach ($Name in $Roles.display_name) {
-            # Replace 'Display Names' (from console output) with role IDs
-            $CSV.Roles = $CSV.Roles -replace $Name, ($Roles | Where-Object { $_.display_name -eq $Name }).id
+        if ($Roles) {
+            @($CSV).foreach{
+                $_.Roles = @($_.Roles).foreach{
+                    $_ -replace $_, ($Roles | Where-Object display_name -eq $_).id
+                }
+            }
         }
     }
     $CSV | ForEach-Object {

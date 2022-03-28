@@ -305,7 +305,9 @@ process {
                         $Related.$ItemType.$_ }) -join ','
                 } else {
                     # Replace policy identifiers with names and add as '<type>_policy'
-                    $Related.$ItemType.($_.device_policies.$HostLabel.policy_id)
+                    if ($_.device_policies.$HostLabel.policy_id){
+                        $Related.$ItemType.($_.device_policies.$HostLabel.policy_id)
+                    }                
                 }
                 $_.PSObject.Properties.Add((New-Object PSNoteProperty($Name, $Value)))
             }

@@ -20,10 +20,6 @@ Register-FalconEventCollector -Uri https://cloud.community.humio.com -Token <str
 ```powershell
 Show-FalconEventCollector
 ```
-## Remove your collector
-```powershell
-Unregister-FalconEventCollector
-```
 ## Send objects to Humio
 Once a collector has been defined through `Register-FalconEventCollector`, any `[PSCustomObject]` can be sent to Humio.
 ```powershell
@@ -31,6 +27,10 @@ Get-FalconHost -Limit 1 -Detailed | Send-FalconEvent
 ```
 ```powershell
 Send-FalconEvent -Object ([PSCustomObject]@{ Example = 'my_string' })
+```
+## Remove your collector
+```powershell
+Unregister-FalconEventCollector
 ```
 # Webhook ingestion
 ## Send objects to Slack

@@ -170,6 +170,8 @@ try {
     } elseif ($Duplicates) {
         # Output list of duplicates
         Write-Output "Found $($Duplicates.count) potential duplicate hosts"
+        Write-Output "Check ./duplicates.csv for results"
+        $Duplicates | Export-Csv -Path .\duplicates.csv -NoTypeInformation
         Write-Output $Duplicates
     } else {
        Write-Output "No duplicates found."

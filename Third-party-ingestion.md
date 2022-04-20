@@ -4,10 +4,11 @@
 |-------|----------|
 |[Register-FalconEventCollector]()| |
 |[Send-FalconEvent]()| |
+|[Send-FalconWebhook]()| |
 |[Show-FalconEventCollector]()| |
 |[Unregister-FalconEventCollector]()| |
 
-# Humio
+# Humio event ingestion
 ## Configure a Humio collector
 The `-Enable` parameter is optional and will configure PSFalcon to send `requests` or `responses` to Humio as they occur.
 ```powershell
@@ -29,4 +30,13 @@ Get-FalconHost -Limit 1 -Detailed | Send-FalconEvent
 ```
 ```powershell
 Send-FalconEvent -Object ([PSCustomObject]@{ Example = 'my_string' })
+```
+# Webhook ingestion
+## Send objects to Slack
+Any `[PSCustomObject]` can be sent to a Slack webhook.
+```powershell
+Get-FalconHost -Limit 1 -Detailed | Send-FalconWebhook -Type Slack -Uri https://hooks.slack.com/services/... 
+```
+```powershell
+Send-FalconWebhook -Type Slack -Uri https://hooks.slack.com/services/... -Object ([PSCustomObject]@{ Example = 'my_string' })
 ```

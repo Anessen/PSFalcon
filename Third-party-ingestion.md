@@ -11,10 +11,11 @@
 # Humio event ingestion
 ## Configure a Humio collector
 The `-Enable` parameter is optional and will configure PSFalcon to send `requests` or `responses` to Humio as they occur.
+
+The `-Token` parameter expects your [Humio ingest token](https://library.humio.com/stable/docs/ingesting-data/ingest-tokens/).
 ```powershell
 Register-FalconEventCollector -Uri https://cloud.community.humio.com -Token <string> -Enable responses, requests
 ```
-The `-Token` parameter expects your [Humio ingest token](https://library.humio.com/stable/docs/ingesting-data/ingest-tokens/).
 ## Display your collector
 ```powershell
 Show-FalconEventCollector

@@ -18,4 +18,4 @@
 Individual commands and their required permissions are listed in the "Commands and Permissions" section, aligning with how they are displayed in the CrowdStrike Falcon API documentation. A few additional pages are included that cover PSFalcon-specific examples.
 * [Export](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import#export-all-configurations) configured items, then [restore or re-create](https://github.com/CrowdStrike/psfalcon/wiki/Configuration-Export-and-Import#import-configurations) them
 * [Example code](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples) to help with building scripts using PowerShell and PSFalcon
-* [Basic Scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts) designed to fulfill various goals using PSFalcon
+* [Basic scripts](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts) designed to fulfill various goals using PSFalcon

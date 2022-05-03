@@ -81,7 +81,7 @@ Archive:  ./npp_installer.zip
 
 Invoke-FalconDeploy -Archive npp_installer.zip -Run "npp.8.2.1.Installer.x64.exe" -Argument "/S" -HostId <id>
 ```
-Results will be stored locally in a FalconDeploy_TIMESTAMP.csv
+Results will be output to `FalconDeploy_<FileDateTime>.csv` within your local directory.
 
 ## Get-FalconQueue
 `Get-FalconQueue` will create a CSV file with information about sessions that have pending queued commands or have been created in the last 7 days (by default).

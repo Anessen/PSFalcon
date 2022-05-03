@@ -54,21 +54,23 @@ If you find that your script needs to be more complex, you can follow the instru
 * `Invoke-FalconAdminCommand`, `Confirm-FalconAdminCommand`
 
 ## Invoke-FalconDeploy
-`Invoke-FalconDeploy` was developed to support mass-deployment of Falcon Forensics, but has since been expanded to support more file types. It is designed to upload a file to your 'Put Files' library, create a session with target hosts, push the file to those hosts, then execute it and output the results to CSV. Supported file types via `-File` or `-Archive` are: (.ps1, .sh, .sh), executables, and archives (zip, tar, or tar.gz). 
+`Invoke-FalconDeploy` was developed to support mass-deployment of Falcon Forensics, but has since been expanded to support additional file types. It is designed to upload a file to your 'Put Files' library, create a session with target hosts, push the file to those hosts, then execute it (after expanding archives, when appropriate) and output the results to CSV.
 
-The files to be pushed to the host will be stored in the tmp directory (c:\windows\temp, /tmp/) under a folder called FalconDeploy_TIMESTAMP/.
+The `-File` and `-Run` parameters accept exectuables or scripts (`.ps1`, `.sh`, `.zsh`) while `-Archive` accepts `.zip`, `.tar`, `tar.gz` or `.tgz`.
+
+Files to be delivered to the host will be stored in the appropriate temporary directory (`C:\Windows\Temp` or `/tmp`) under a unique folder each time the command is run (`FalconDeploy_<FileDateTime>`).
 
 **NOTE**: Because Real-time Response does not interact with logged in users, the executable must be able to be run silently and without user interaction.
+### Upload and execute File.exe
 ```powershell
-# Execute File.exe
-Invoke-FalconDeploy -HostIds <id>, <id> -Path .\File.exe [-QueueOffline]
-
-# Install Notepad++ with the Silent switch "/S" on a group of machines
-Invoke-FalconDeploy -File ./npp.8.2.1.Installer.x64.exe -Argument "/S" -GroupId <groupId>
-
-# Upload an archive and execute a file inside
-# List contents of npp_installer.zip
-unzip -l ./npp_installer.zip
+Invoke-FalconDeploy -File .\File.exe -HostId <id>, <id> [-QueueOffline]
+```
+### Perform a silent Notepad++ installation on members of a host group
+```powershell
+Invoke-FalconDeploy -File ./npp.8.2.1.Installer.x64.exe -Argument '/S' -GroupId <groupId>
+```
+### Upload an archive and execute a file inside
+```powershell
 Archive:  ./npp_installer.zip
   Length      Date    Time    Name
 ---------  ---------- -----   ----
@@ -77,9 +79,8 @@ Archive:  ./npp_installer.zip
 ---------                     -------
   4399989                     2 files
 
-Invoke-FalconDeploy -Archive npp_installer.zip -Run "npp.8.2.1.Installer.x64.exe" -Argument "/S" -HostId <aid>
+Invoke-FalconDeploy -Archive npp_installer.zip -Run "npp.8.2.1.Installer.x64.exe" -Argument "/S" -HostId <id>
 ```
-
 Results will be stored locally in a FalconDeploy_TIMESTAMP.csv
 
 ## Get-FalconQueue

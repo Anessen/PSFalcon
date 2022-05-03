@@ -54,12 +54,34 @@ If you find that your script needs to be more complex, you can follow the instru
 * `Invoke-FalconAdminCommand`, `Confirm-FalconAdminCommand`
 
 ## Invoke-FalconDeploy
-`Invoke-FalconDeploy` was developed to support mass-deployment of Falcon Forensics. It is designed to upload a file to your 'Put Files' library, create a session with target hosts, push the file to those hosts, then execute it and output the results to CSV.
+`Invoke-FalconDeploy` was developed to support mass-deployment of Falcon Forensics, but has since been expanded to support more file types. It is designed to upload a file to your 'Put Files' library, create a session with target hosts, push the file to those hosts, then execute it and output the results to CSV. Supported file types via `-File` or `-Archive` are: (.ps1, .sh, .sh), executables, and archives (zip, tar, or tar.gz). 
+
+The files to be pushed to the host will be stored in the tmp directory (c:\windows\temp, /tmp/) under a folder called FalconDeploy_TIMESTAMP/.
 
 **NOTE**: Because Real-time Response does not interact with logged in users, the executable must be able to be run silently and without user interaction.
 ```powershell
+# Execute File.exe
 Invoke-FalconDeploy -HostIds <id>, <id> -Path .\File.exe [-QueueOffline]
+
+# Install Notepad++ with the Silent switch "/S" on a group of machines
+Invoke-FalconDeploy -File ./npp.8.2.1.Installer.x64.exe -Argument "/S" -GroupId <groupId>
+
+# Upload an archive and execute a file inside
+# List contents of npp_installer.zip
+unzip -l ./npp_installer.zip
+Archive:  ./npp_installer.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+  4399816  04-20-2022 09:51   npp.8.2.1.Installer.x64.exe
+      173  03-28-2022 12:35   some_other_file.csv
+---------                     -------
+  4399989                     2 files
+
+Invoke-FalconDeploy -Archive npp_installer.zip -Run "npp.8.2.1.Installer.x64.exe" -Argument "/S" -HostId <aid>
 ```
+
+Results will be stored locally in a FalconDeploy_TIMESTAMP.csv
+
 ## Get-FalconQueue
 `Get-FalconQueue` will create a CSV file with information about sessions that have pending queued commands or have been created in the last 7 days (by default).
 ```powershell

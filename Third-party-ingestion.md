@@ -6,6 +6,7 @@
 |[Send-FalconEvent](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#send-objects-to-humio)| |
 |[Send-FalconWebhook](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#webhook-ingestion)| |
 |[Show-FalconEventCollector](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#display-your-collector)| |
+|[Show-FalconMap](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#map-indicators)| |
 |[Unregister-FalconEventCollector](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#remove-your-collector)| |
 
 # Humio event ingestion
@@ -40,4 +41,12 @@ Get-FalconHost -Limit 1 -Detailed | Send-FalconWebhook -Type Slack -Uri https://
 ```
 ```powershell
 Send-FalconWebhook -Type Slack -Uri https://hooks.slack.com/services/... -Object ([PSCustomObject]@{ Example = 'my_string' })
+```
+# Falcon X Indicator Map
+## Map indicators
+```powershell
+Get-FalconIndicator -Filter "type:'hash_sha256'" -Limit 5 | Show-FalconMap
+```
+```powershell
+Show-FalconMap -Indicator www.google.com, 8.8.8.8
 ```

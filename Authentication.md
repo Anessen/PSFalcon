@@ -8,20 +8,31 @@
 |[Test-FalconToken](#verifying-token-status)| |
 
 ## Get an auth token
-During a PowerShell session, you must have a valid OAuth2 access token in order to make requests to the CrowdStrike Falcon APIs. You can do this using `Request-FalconToken`, or input your ClientId/ClientSecret when prompted after issuing a PSFalcon command.
+During a PowerShell session, you must have a valid OAuth2 access token in order to make requests to the CrowdStrike
+Falcon APIs. You can do this using `Request-FalconToken`, or input your ClientId/ClientSecret when prompted after
+issuing a PSFalcon command.
 
-After a valid OAuth2 token is received, it is cached with your credentials. Your cached token is checked and refreshed as needed while running PSFalcon commands.
+After a valid OAuth2 token is received, it is cached with your credentials. Your cached token is checked and
+refreshed as needed while running PSFalcon commands.
 ```powershell
 Request-FalconToken -ClientId 'client_id' -ClientSecret 'client_secret'
 ```
 
-**WARNING**: `Request-FalconToken` defaults to the 'us-1' cloud. If your environment exists within a different cloud, you must define it using either the `-Cloud` or `-Hostname` parameters when making your initial access token request.
+**WARNING**: `Request-FalconToken` defaults to the `us-1` cloud. If your environment exists within a different
+cloud, the module will attempt to use automatic redirection, except when the target cloud is `us-gov-1`. Defining
+`-Cloud` or `-Hostname` ensures that your token request goes to the proper cloud without relying on re-direction
+and is required when using `us-gov-1`.
 
 ### Alternate clouds
-Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` or `-Hostname` parameters to set it using a cloud, or full URL value. The accepted hostname values can be viewed using tab auto-completion. Your Cloud/Hostname choice is saved and all requests are sent using the cached information.
+Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` or `-Hostname`
+parameters to set it using a cloud, or full URL value. The accepted hostname values can be viewed using tab
+auto-completion. Your Cloud/Hostname choice is saved and all requests are sent using the cached information.
 
 ### Child environments
-In MSSP (also known as "Flight Control") configurations, you can target specific child environments ("CIDs") using the `-MemberCid` parameter during authentication token requests. Your choice is saved and all requests are sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID, or you `Revoke-FalconToken`.
+In MSSP (also known as "Flight Control") configurations, you can target specific child environments ("CIDs")
+using the `-MemberCid` parameter during authentication token requests. Your choice is saved and all requests are
+sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID,
+or you `Revoke-FalconToken`.
 
 ## Revoke an auth token
 ```powershell
@@ -46,14 +57,20 @@ True
 
 ```
 # Securing credentials
-PSFalcon does not provide a method for securely handling your API client credentials. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules) module is a cross-platform option that works with PSFalcon. You can follow the steps below to install the module and use it with `Request-FalconToken`.
+PSFalcon does not provide a method for securely handling your API client credentials. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules)
+module is a cross-platform option that works with PSFalcon. You can follow the steps below to install the module
+and use it with `Request-FalconToken`.
 
-*NOTE*: [Microsoft.PowerShell.SecretManagement](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules) is a pre-requisite for the `Microsoft.PowerShell.SecretStore` module. It will be installed during the `Install-Module` step.
+*NOTE*: [Microsoft.PowerShell.SecretManagement](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules) is a pre-requisite for the
+`Microsoft.PowerShell.SecretStore` module. It will be installed during the `Install-Module` step.
 ```powershell
 Install-Module -Name Microsoft.PowerShell.SecretStore -Scope CurrentUser
 ```
 
-*NOTE*: Using the default configuration, `Microsoft.PowerShell.SecretStore` will prompt for a password to access your secret vault. You can remove the password requirement to use the vault with a script or as part of a scheduled task, which leaves the vault accessible to the account that was used to create it. You will be asked to create, confirm and remove a password after entering this command.
+*NOTE*: Using the default configuration, `Microsoft.PowerShell.SecretStore` will prompt for a password to access
+your secret vault. You can remove the password requirement to use the vault with a script or as part of a
+scheduled task, which leaves the vault accessible to the account that was used to create it. You will be asked to
+create, confirm and remove a password after entering this command.
 ```powershell
 Set-SecretStoreConfiguration -Scope CurrentUser -Authentication None -Interaction None
 ```
@@ -63,7 +80,8 @@ Once the module is installed and configured as desired, create a vault to store 
 Register-SecretVault -ModuleName Microsoft.PowerShell.SecretStore -Name MyVault
 ```
 
-`Request-FalconToken` requires multiple parameters to request a token. Each individual API client can be stored with the relevant parameters (including `MemberCid`) in your new vault:
+`Request-FalconToken` requires multiple parameters to request a token. Each individual API client can be stored
+with the relevant parameters (including `MemberCid`) in your new vault:
 ```powershell
 $ApiClient = @{
     ClientId     = 'my_client_id'
@@ -73,12 +91,14 @@ $ApiClient = @{
 Set-Secret -Name MyApiClient -Secret $ApiClient -Vault MyVault
 ```
 
-Once stored, credentials can be retrieved using your chosen `-Name`, and you can [splat the parameters](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting) with `Request-FalconToken`:
+Once stored, credentials can be retrieved using your chosen `-Name`, and you can [splat the parameters](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting) with
+`Request-FalconToken`:
 ```powershell
 Get-Secret -Name MyApiClient -Vault MyVault -AsPlainText | ForEach-Object { Request-FalconToken @_ }
 ```
 
-If desired, a simple function can be added to [your PowerShell profile](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles) to retrieve your credentials and request a token by name:
+If desired, a simple function can be added to [your PowerShell profile](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles) to retrieve your
+credentials and request a token by name:
 ```powershell
 function Request-SecretToken ([string] $Name) {
     if (-not(Get-Module -Name PSFalcon)) {

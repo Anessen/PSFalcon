@@ -2,7 +2,7 @@
 
 ## Export all configurations
 The `Export-FalconConfig` command gathers configurable items from your Falcon environment and exports them as a
-ZIP archive. The following example will create a file called `FalconConfig_<FileDate>.zip` in your current
+ZIP archive. The following example will create a file called `FalconConfig_<FileDateTime>.zip` in your current
 directory containing all the available configurations.
 ```powershell
 Export-FalconConfig
@@ -19,7 +19,7 @@ Using the `Import-FalconConfig` command, you can re-create any items that are pr
 present in your authenticated Falcon environment. `Import-FalconConfig` loads the files within the ZIP, checks
 them against the existing items in the target environment, and creates any items that are not present.
 ```powershell
-Import-FalconConfig -Path .\FalconConfig_<FileDate>.zip
+Import-FalconConfig -Path .\FalconConfig_<FileDateTime>.zip
 ```
 **NOTE**: Unless `-AssignExisting` is included, items that depend on the existence of a specific host group will
 not be created.
@@ -33,7 +33,7 @@ will be created.
 Including the `-AssignExisting` parameter when running `Import-FalconConfig` will cause existing host groups to
 be assigned to created items when they match groups that would have been created as part of the import.
 ```powershell
-Import-FalconConfig -Path .\FalconConfig_<FileDate>.zip -AssignExisting
+Import-FalconConfig -Path .\FalconConfig_<FileDateTime>.zip -AssignExisting
 ```
 If `-AssignExisting` is not specified, existing items will not be assigned to created items when using
 `Import-FalconConfig`.
@@ -41,14 +41,14 @@ If `-AssignExisting` is not specified, existing items will not be assigned to cr
 The `-ModifyExisting` parameter forces the `Import-FalconConfig` command to analyze and modify a list of selected
 items based on your target import.
 ```powershell
-Import-FalconConfig -Path .\FalconConfig_<FileDate>.zip -ModifyExisting PreventionPolicy, SensorUpdatePolicy
+Import-FalconConfig -Path .\FalconConfig_<FileDateTime>.zip -ModifyExisting PreventionPolicy, SensorUpdatePolicy
 ```
 If `-ModifyExisting` is not specified, existing items will not be modified when using `Import-FalconConfig`.
 ### ModifyDefault
 `-ModifyDefault` works similarly to `-ModifyExisting`, but allows `Import-FalconConfig` to modify
 `platform_default` policies based on your target import.
 ```powershell
-Import-FalconConfig -Path .\FalconConfig_<FileDate>.zip -ModifyDefault PreventionPolicy
+Import-FalconConfig -Path .\FalconConfig_<FileDateTime>.zip -ModifyDefault PreventionPolicy
 ```
 If `-ModifyDefault` is not specified, `platform_default` policies will not be modified when using
 `Import-FalconConfig`.

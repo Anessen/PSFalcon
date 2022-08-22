@@ -51,11 +51,11 @@ Get-FalconHost -Ids <id>, <id> -Login
 ### Adding Falcon grouping tags
 `FalconGroupingTags` are like 'virtual' tags, added at a management level.
 ```powershell
-Add-FalconGroupingTag -Ids <id>, <id> -Tags FalconGroupingTag/tag1, FalconGroupingTag/tag2
+Add-FalconGroupingTag -Ids <id>, <id> -Tags FalconGroupingTags/tag1, FalconGroupingTags/tag2
 ```
 ### Removing Falcon grouping tags
 ```powershell
-Remove-FalconGroupingTag -Ids <id>, <id> -Tags FalconGroupingTag/tag1, FalconGroupingTag/tag2
+Remove-FalconGroupingTag -Ids <id>, <id> -Tags FalconGroupingTags/tag1, FalconGroupingTags/tag2
 ```
 ## Managing Sensor grouping tags
 ### Adding Sensor grouping tags

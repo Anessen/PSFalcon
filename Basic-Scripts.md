@@ -5,6 +5,7 @@ The examples provided below are for example purposes only and are offered 'as is
 ### Detections
 * [Assign detections involving a specific file to a user](#assign-detections-involving-a-specific-file-to-a-user)
 * [Find and hide large numbers of detections](#find-and-hide-large-numbers-of-detections)
+* [Export CustomIOC detections with tags](#export-customioc-detections-with-tags)
 ### Hosts
 * [Add a list of hostnames to a host group](#add-a-list-of-hostnames-to-a-host-group)
 * [Hide hosts based on last_seen time](#hide-hosts-based-on-last_seen-time)
@@ -31,6 +32,8 @@ The examples provided below are for example purposes only and are offered 'as is
 ### Sensor Installers
 * [Download the installer package assigned to a Sensor Update policy](#download-the-installer-package-assigned-to-a-sensor-update-policy)
 * [Download the installer package assigned to your default Sensor Update policy](#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
+### Sensor Update Policies
+* [Create a list of minimum sensor versions by Linux kernel](#create-a-list-of-minimum-sensor-versions-by-linux-kernel)
 ### Threat Intelligence
 * [Export domain and IP indicators updated within the last week to CSV](#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ### Users
@@ -96,6 +99,37 @@ do {
     # Exit once no more detections are available
     $Ids
 )
+```
+## Export CustomIOC detections with tags
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
+[string]$OutputFile = ".\custom_ioc_detections_$(Get-Date -Format FileDateTime).json"
+try {
+    # Retrieve all 'CustomIOC' detections
+    [object[]]$Detection = Get-FalconDetection -Filter "behaviors.display_name:*'CustomIOC*'" -Detailed -All
+    if ($Detection) {
+        # Create search filters for each detected Custom IOC and retrieve type, value, and tags
+        [string[]]$Filter = @($Detection.behaviors).foreach{
+            "type:'$($_.ioc_type)'+value:'$($_.ioc_value)'"
+        } | Select-Object -Unique
+        [object[]]$IocList = @($Filter).foreach{
+            Get-FalconIoc -Filter $_ -Detailed | Select-Object type,value,tags
+        }
+        foreach ($Ioc in $IocList) {
+            # Append 'ioc_tags' to relevant detection(s)
+            ($Detection | Where-Object { $_.behaviors.ioc_type -eq $Ioc.type -and $_.behaviors.ioc_value -eq
+            $Ioc.value }).behaviors | ForEach-Object {
+                $_.PSObject.Properties.Add((New-Object PSNoteProperty('ioc_tags',$Ioc.tags)))
+            }
+        }
+        # Export detections to Json
+        $Detection | ConvertTo-Json -Depth 16 >> ".\$OutputFile"
+        if (Test-Path $OutputFile) { Get-ChildItem $OutputFile | Select-Object FullName,Length,LastWriteTime }
+    }
+} catch {
+    throw $_
+}
 ```
 # Hosts
 ## Add a list of hostnames to a host group
@@ -1106,6 +1140,94 @@ process {
         }
     } catch {
         throw $_
+    }
+}
+```
+# Sensor Update Policies
+## Create a list of minimum sensor versions by Linux kernel
+```powershell
+#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.2'}
+<#
+.SYNOPSIS
+Generate a CSV of minimum supported sensor version by Linux kernel and distro_version
+.PARAMETER Path
+Path to a text file containing a list of kernels to compare
+#>
+[CmdletBinding(SupportsShouldProcess)]
+param(
+    [Parameter(Mandatory=$true,Position=1)]
+    [ValidateScript({
+        if (Test-Path $_ -PathType Leaf) {
+            $true
+        } else {
+            throw "Cannot find path '$_' because it does not exist or is not a file."
+        }
+    })]
+    [string]$Path
+)
+begin {
+    [string]$Path = if (![IO.Path]::IsPathRooted($PSBoundParameters.Path)) {
+        $FullPath = Join-Path -Path (Get-Location).Path -ChildPath $PSBoundParameters.Path
+        $FullPath = Join-Path -Path $FullPath -ChildPath '.'
+        [IO.Path]::GetFullPath($FullPath)
+    } else {
+        $PSBoundParameters.Path
+    }
+}
+process {
+    try {
+        # Gather list of kernels from text file
+        [string[]]$Kernel = Get-Content $Path | Where-Object { $null -ne $_ }
+        if ($Kernel) {
+            # Retrieve entire list of supported kernels
+            [object[]]$Request = Get-FalconKernel -Limit 500 -All
+            if ($Request) {
+                # Filter to supported kernels
+                [object[]]$Content = $Request | Where-Object { $Kernel -contains $_.release } |
+                    Select-Object release,architecture,distro,distro_version,
+                    base_package_supported_sensor_versions,ztl_supported_sensor_versions,
+                    ztl_module_supported_sensor_versions
+                if ($Content) {
+                    [System.Collections.Generic.List[object]]$Output = @($Content).foreach{
+                        # Create 'minimum_sensor_version' property, using lowest listed version
+                        [string]$Minimum = ($_ | Select-Object base_package_supported_sensor_versions,
+                        ztl_supported_sensor_versions,ztl_module_supported_sensor_versions
+                        ).PSObject.Properties.Value | Group-Object | Sort-Object Name |
+                        Select-Object -ExpandProperty Name -First 1
+                        [string]$Value = if ($Minimum) { $Minimum } else { 'UNKNOWN' }
+                        $_.PSObject.Properties.Add((New-Object PSNoteProperty('minimum_supported_sensor_version',
+                            $Value)))
+                        [void]($_.PSObject.Properties.Remove('base_package_supported_sensor_versions'))
+                        [void]($_.PSObject.Properties.Remove('ztl_supported_sensor_versions'))
+                        [void]($_.PSObject.Properties.Remove('ztl_module_supported_sensor_versions'))
+                        $_ | Select-Object release,architecture,distro,distro_version,
+                            minimum_supported_sensor_version
+                    }
+                    @($Kernel).foreach{
+                        if ($Output.release -notcontains $_) {
+                            $Output.Add([PSCustomObject]@{
+                                release = $_
+                                architecture = $null
+                                distro = $null
+                                distro_version = $null
+                                minimum_supported_sensor_version = 'NO_MATCH'
+                            })
+                        }
+                    }
+                    if (!$Output) { throw 'No results.' }
+                    [string]$Filename = Join-Path -Path (Get-Location).Path -ChildPath "$('KernelSupport',
+                        (Get-Date -Format FileDateTime) -join '_').csv"
+                    $Output | Export-Csv -Path $Filename -NoTypeInformation -Append
+                }
+            }
+        }
+    } catch {
+        throw $_
+    }
+}
+end {
+    if ($Filename -and (Test-Path $Filename -PathType Leaf) -eq $true) {
+        Get-ChildItem $Filename | Select-Object FullName,Length,LastWriteTime
     }
 }
 ```

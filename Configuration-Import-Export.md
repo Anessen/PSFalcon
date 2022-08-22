@@ -25,12 +25,31 @@ Import-FalconConfig -Path .\FalconConfig_<FileDate>.zip
 the item itself will not be created.
 
 For example, if you attempt to import a Machine Learning Exclusion that is assigned to the Host Group "Example
-Group" and "Example Group" already exists in your environment, the exclusion will not be created. Including the
-`-Force` parameter when running `Import-FalconConfig` will cause existing Host Groups to be used when they match
-groups that would have been created as part of the import.
+Group" and "Example Group" already exists in your environment, the exclusion will not be created. If it is
+possible to create the item without the dependency \(like a policy without assigned Host Groups\), it
+will be created.
 
-If it is possible to create the item without the dependency \(like a policy without assigned Host Groups\), it
-will still be created.
-
-**WARNING**: Only non-existing items will be imported. No existing policies, groups, exclusions or rules will be
-modified.
+### AssignExisting
+Including the `-AssignExisting` parameter when running `Import-FalconConfig` will cause existing Host Groups to
+be used when they match groups that would have been created as part of the import.
+```powershell
+Import-FalconConfig -Path .\FalconConfig_<FileDate>.zip -AssignExisting
+```
+If `-AssignExisting` is not specified, existing items will not be assigned to created items when using
+`Import-FalconConfig`.
+### ModifyExisting
+The `-ModifyExisting` parameter forces the `Import-FalconConfig` command to analyze and modify a list of provided
+items. For example, to modify any existing `PreventionPolicy` and `SensorUpdatePolicy` items that exist in the
+target environment based on your target import:
+```powershell
+Import-FalconConfig -Path .\FalconConfig_<FileDate>.zip -ModifyExisting PreventionPolicy, SensorUpdatePolicy
+```
+If `-ModifyExisting` is not specified, existing items will not be modified when using `Import-FalconConfig`.
+### ModifyDefault
+`-ModifyDefault` works similarly to `-ModifyExisting`, but allows `Import-FalconConfig` to modify
+`platform_default` policies based on your target import:
+```powershell
+Import-FalconConfig -Path .\FalconConfig_<FileDate>.zip -ModifyDefault PreventionPolicy
+```
+If `-ModifyDefault` is not specified, `platform_default` policies will not be modified when using
+`Import-FalconConfig`.

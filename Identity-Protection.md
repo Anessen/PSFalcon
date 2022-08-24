@@ -7,9 +7,9 @@
 
 ## Query for the first 5 administrator accounts
 ```powershell
-Invoke-FalconIdentityGraph -Query 'entities(roles:[BuiltinAdministratorRole] sortKey:PRIMARY_DISPLAY_NAME sortOrder:ASCENDING first:5) {nodes{primaryDisplayName secondaryDisplayName}}'
+Invoke-FalconIdentityGraph -Query '{entities(roles:[BuiltinAdministratorRole] sortKey:PRIMARY_DISPLAY_NAME sortOrder:ASCENDING first:5) {nodes{primaryDisplayName secondaryDisplayName}}}'
 ```
 ## Query for the top 10 users with the highest risk score
 ```powershell
-Invoke-FalconIdentityGraph -Query 'entities(types:[USER] minRiskScoreSeverity:MEDIUM sortKey: RISK_SCORE sortOrder:DESCENDING first:10) {nodes{primaryDisplayName secondaryDisplayName isHuman:hasRole(type:HumanUserAccountRole) isProgrammatic:hasRole(type:ProgrammaticUserAccountRole) ... on UserEntity{ emailAddresses} riskScore riskScoreSeverity riskFactors {type severity}}}'
+Invoke-FalconIdentityGraph -Query '{entities(types:[USER] minRiskScoreSeverity:MEDIUM sortKey: RISK_SCORE sortOrder:DESCENDING first:10) {nodes{primaryDisplayName secondaryDisplayName isHuman:hasRole(type:HumanUserAccountRole) isProgrammatic:hasRole(type:ProgrammaticUserAccountRole) ... on UserEntity{ emailAddresses} riskScore riskScoreSeverity riskFactors {type severity}}}}'
 ```

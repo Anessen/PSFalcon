@@ -17,8 +17,7 @@
 |Total|SwitchParameter|||||False|False|Display total result count instead of results|
 ## SYNTAX
 ```
-Get-FalconHost [[-Filter] <String>] [[-Sort] <String>] [[-Limit] <Int32>] [[-Include] <String[]>] [-Offset <String>]
-[-Detailed] [-All] [-Total] [-WhatIf] [-Confirm] [<CommonParameters>]
+Get-FalconHost [[-Filter] <String>] [[-Sort] <String>] [[-Limit] <Int32>] [[-Include] <String[]>] [-Offset <String>] [-Detailed] -All] [-Total] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 ```
 Get-FalconHost -Id <String[]> -State [-WhatIf] [-Confirm] [<CommonParameters>]
@@ -33,8 +32,7 @@ Get-FalconHost -Id <String[]> -Login [-WhatIf] [-Confirm] [<CommonParameters>]
 Get-FalconHost -Id <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 ```
-Get-FalconHost [[-Filter] <String>] [[-Sort] <String>] [[-Limit] <Int32>] [[-Include] <String[]>] [-Offset <String>]
--Hidden [-Detailed] [-All] [-Total] [-WhatIf] [-Confirm] [<CommonParameters>]
+Get-FalconHost [[-Filter] <String>] [[-Sort] <String>] [[-Limit] <Int32>] [[-Include] <String[]>] [-Offset <String>] -Hidden -Detailed] [-All] [-Total] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 ## USAGE
 _Generated from v2.2.2 on 20220907_

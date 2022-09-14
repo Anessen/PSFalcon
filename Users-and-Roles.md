@@ -46,7 +46,7 @@ Get-FalconRole [-Detailed]
 ```
 ## List roles assigned to a user
 ```powershell
-Get-FalconRole -UserId <id> [-Detailed]
+Get-FalconRole -UserId <id>
 ```
 ## Assign roles to a user
 ```powershell

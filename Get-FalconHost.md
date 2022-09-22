@@ -1,3 +1,4 @@
+# Get-FalconHost
 ﻿## SYNOPSIS
 Search for hosts
 ## DESCRIPTION

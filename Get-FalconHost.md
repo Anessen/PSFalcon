@@ -70,4 +70,5 @@ Get-FalconHost -Ids <id>, <id> -Network
 ```powershell
 Get-FalconHost -Ids <id>, <id> -Login
 ```
+**NOTE**: The `-Include` parameter can be used to append login history to other `Get-FalconHost` output.
 _Generated 20220922 using PSFalcon v2.2.3_

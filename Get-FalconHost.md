@@ -41,4 +41,33 @@ Get-FalconHost -Id <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 Get-FalconHost [[-Filter] <String>] [[-Sort] <String>] [[-Limit] <Int32>] [[-Include] <String[]>] [-Offset <String>] -Hidden [-Detailed] [-All] [-Total] -WhatIf] [-Confirm] [<CommonParameters>]
 ```
 ## USAGE
+## Finding all Windows hosts
+```powershell
+Get-FalconHost -Filter "platform_name:'Windows'" [-Detailed] [-All]
+```
+## Finding Falcon hosts that match a given AWS instance ID
+```powershell
+Get-FalconHost -Filter "instance_id:'<instance_id>'" [-Detailed] [-All]
+```
+## Finding hosts based on multiple query criteria
+```powershell
+Get-FalconHost -Filter "product_type_desc:'Workstation'+status:'normal'+platform_name:['Windows','Mac']+last_seen:>='2020-07-04'" [-Detailed] [-All]
+```
+## Retrieving a list of the first 100 hosts in your environment
+```powershell
+Get-FalconHost [-Detailed]
+```
+## Getting host details
+```powershell
+Get-FalconHost -Ids <id>, <id>
+```
+## Retrieving host NIC history
+```powershell
+Get-FalconHost -Ids <id>, <id> -Network
+```
+**NOTE**: The `-Include` parameter can be used to append NIC history to other `Get-FalconHost` output.
+## Retrieving info about last logged in users
+```powershell
+Get-FalconHost -Ids <id>, <id> -Login
+```
 _Generated 20220922 using PSFalcon v2.2.3_

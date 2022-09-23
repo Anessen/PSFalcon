@@ -30,6 +30,7 @@ $Settings = @{
                 @{
                     combined_id = '1133_2092_7A4F8BD0'
                     action = 'FULL_ACCESS'
+                    expiration_time = '2023-01-01T00:00:00Z'
                 }
             )
         },

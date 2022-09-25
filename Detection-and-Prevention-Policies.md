@@ -63,7 +63,7 @@ New-FalconPreventionPolicy -PlatformName Windows -Name 'Demo Policy' -Descriptio
 ```
 ### Assign host groups to policies
 ```powershell
-Invoke-FalconPreventionPolicyAction -ActionName add-host-group -Id <id> -GroupId <id>
+Invoke-FalconPreventionPolicyAction -Name add-host-group -Id <id> -GroupId <id>
 ```
 ### Find existing Prevention policies
 ```powershell

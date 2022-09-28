@@ -5,8 +5,8 @@
     + [Filtering Results](Filtering-Results)
 * __Commands and Permissions__
     + [Detection and Prevention Policies](Detection-and-Prevention-Policies)
-    + [Discover](Discover)
     + [Discover for Cloud and Containers](Discover-for-Cloud-and-Containers)
+    + [Discover](Discover)
     + [Event Streams](Event-Streams)
     + [Falcon Complete Dashboards](Falcon-Complete-Dashboards)
     + [Falcon Complete Message Center](Falcon-Complete-Message-Center)

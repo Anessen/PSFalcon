@@ -50,7 +50,7 @@ Get-FalconHost -Ids <id>, <id> -Login
 **NOTE**: The `-Include` parameter can be used to append login history to other `Get-FalconHost` output.
 ## Finding hosts with a list of hostnames
 A search with `Get-FalconHost` and a `hostname` filter is used to find `device_id` values that match a specific
-hostname. To find hosts using a list of hostnames, you can [loop through the list](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#retrieve-identifiers-using-a-list) or use `Find-FalconHostname`.
+hostname. To find hosts using a list of hostnames, you can [loop through the list](Code-Examples#retrieve-identifiers-using-a-list) or use `Find-FalconHostname`.
 
 `Find-FalconHostname` can accept a list of hostnames as an array, or from a plaintext file containing a hostname
 on each line. If a match is found, the `hostname` and `device_id` will be output, otherwise a warning message
@@ -106,9 +106,9 @@ Invoke-FalconHostAction -Name contain -Ids <id>, <id>
 ```powershell
 Invoke-FalconHostAction -Name lift_containment -Ids <id>, <id>
 ```
-_See [Network contain a device by Hostname](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#network-contain-a-device-by-hostname)._
+_See [Network contain a device by Hostname](basic-scripts#network-contain-a-device-by-hostname)._
 
-_See [Network contain a list of Hostnames from a CSV file](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#network-contain-a-list-of-hostnames-from-a-csv-file)._
+_See [Network contain a list of Hostnames from a CSV file](basic-scripts#network-contain-a-list-of-hostnames-from-a-csv-file)._
 ## Deleting and restoring hosts
 ```powershell
 Invoke-FalconHostAction -Name hide_host -Ids <id>, <id>
@@ -129,7 +129,7 @@ Find-FalconDuplicate
 ```powershell
 Find-FalconDuplicate | Export-Csv .\duplicates.csv
 ```
-_See [Find duplicate hosts and hide them](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#find-duplicate-hosts-and-hide-them)._
+_See [Find duplicate hosts and hide them](basic-scripts#find-duplicate-hosts-and-hide-them)._
 ## Creating host groups
 ### Creating a dynamic host group with a single assignment rule
 ```powershell
@@ -143,7 +143,7 @@ New-FalconHostGroup -GroupType dynamic -Name 'Dynamic group' -Description 'examp
 ```powershell
 New-FalconHostGroup -GroupType static -Name 'Test Group 45' -Description 'A demo group'
 ```
-_See [Create a host group and add a list of devices by hostname](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#create-a-host-group-and-add-a-list-of-devices-by-hostname)._
+_See [Create a host group and add a list of devices by hostname](basic-scripts#create-a-host-group-and-add-a-list-of-devices-by-hostname)._
 ## Managing hosts in a static host group
 ```powershell
 Invoke-FalconHostGroupAction -Name add-hosts -Id <id> -HostIds <id>, <id>
@@ -151,7 +151,7 @@ Invoke-FalconHostGroupAction -Name add-hosts -Id <id> -HostIds <id>, <id>
 ```powershell
 Invoke-FalconHostGroupAction -Name remove-hosts -Id <id> -HostIds <id>, <id>
 ```
-_See [Add a list of hostnames to a host group](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#add-a-list-of-hostnames-to-a-host-group)._
+_See [Add a list of hostnames to a host group](basic-scripts#add-a-list-of-hostnames-to-a-host-group)._
 ## Finding host groups
 ### Retrieving host group IDs with a filter
 ```powershell

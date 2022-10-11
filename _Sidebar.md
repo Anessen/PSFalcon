@@ -10,9 +10,9 @@
     + [Event Streams](Event-Streams)
     + [Falcon Complete Dashboards](Falcon-Complete-Dashboards)
     + [Falcon Complete Message Center](Falcon-Complete-Message-Center)
+    + [Falcon Intelligence](Falcon-Intelligence)
+    + [Falcon Intelligence Recon](Falcon-Intelligence-Recon)
     + [Falcon OverWatch Dashboards](Falcon-OverWatch-Dashboards)
-    + [Falcon X](Falcon-X)
-    + [Falcon X Recon](Falcon-X-Recon)
     + [FileVantage](FileVantage)
     + [Firewall Management](Firewall-Management)
     + [Flight Control](Flight-Control)
@@ -38,7 +38,7 @@
     + [Basic Scripts](Basic-Scripts)
     + [Code Examples](Code-Examples)
     + [Configuration Import/Export](Configuration-Import-Export)
-    + [Third-party ingestion](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion)
+    + [Third-party ingestion](Third-party-ingestion)
 * __CrowdStrike SDKs__
     + [FalconPy](https://github.com/CrowdStrike/falconpy/wiki) - Python 3
     + [goFalcon](https://pkg.go.dev/github.com/crowdstrike/gofalcon) - Go

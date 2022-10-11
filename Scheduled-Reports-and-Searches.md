@@ -35,7 +35,7 @@ Get-FalconScheduledReport -Ids <id>, <id> -Execution
 ```powershell
 Receive-FalconScheduledReport -Id <id> -Path <string>
 ```
-_See [Download your most recent scheduled report results](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#download-your-most-recent-scheduled-report-results)._
+_See [Download your most recent scheduled report results](basic-scripts#download-your-most-recent-scheduled-report-results)._
 ## Retry a failed report execution
 ```powershell
 Redo-FalconScheduledReport -Id <id>

@@ -26,7 +26,7 @@
 ```powershell
 Get-FalconMemberCid [-Detailed] [-All]
 ```
-_See [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/code-examples#authorize-and-run-commands-in-member-cids)._
+_See [Authorize and run commands in member CIDs](code-examples#authorize-and-run-commands-in-member-cids)._
 ## Managing CID groups
 ### List CID groups by ID
 ```powershell

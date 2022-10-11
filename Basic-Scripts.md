@@ -361,7 +361,7 @@ process {
 ## Get host information from multiple Falcon instances
 **NOTE**: This example requires that you input values for `<client_id>`, `<client_secret>`, and each `<member_cid>`. To avoid hard-coding credentials you could pass them as parameters instead.
 
-**NOTE**: This example is meant for multiple standalone Falcon instances, not those in a Parent/Child ("Flight Control") configuration. See [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Code-Examples#authorize-and-run-commands-in-member-cids).
+**NOTE**: This example is meant for multiple standalone Falcon instances, not those in a Parent/Child ("Flight Control") configuration. See [Authorize and run commands in member CIDs](Code-Examples#authorize-and-run-commands-in-member-cids).
 ```powershell
 #Requires -Version 5.1
 using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }

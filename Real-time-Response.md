@@ -39,9 +39,9 @@ If the hosts you're targeting are currently offline, you can add your Real-time 
 ```powershell
 Invoke-FalconRtr -Command runscript -Arguments "-CloudFile='HelloWorld'" -HostIds <id>, <id> -QueueOffline $true
 ```
-_See [Upload and execute a local script](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script)_.
+_See [Upload and execute a local script](Basic-Scripts#upload-and-execute-a-local-script)_.
 
-_See [Upload and execute a local script as a secondary process](https://github.com/CrowdStrike/psfalcon/wiki/Basic-Scripts#upload-and-execute-a-local-script-as-a-secondary-process)_.
+_See [Upload and execute a local script as a secondary process](Basic-Scripts#upload-and-execute-a-local-script-as-a-secondary-process)_.
 
 **WARNING**: This command is not designed for a multi-step Real-time Response workflow and will negatively impact certain operations.
 

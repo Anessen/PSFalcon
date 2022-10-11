@@ -11,7 +11,7 @@ Get-FalconZta -Ids <id>, <id>
 ```
 **NOTE**: The `-Include` parameter can be used to append Zero Trust Assessment results to `Get-FalconHost` output.
 
-_See [Host and Host Group Management](https://github.com/CrowdStrike/psfalcon/wiki/Host-and-Host-Group-Management)._
+_See [Host and Host Group Management](Host-and-Host-Group-Management)._
 ## Retrieving CID aggregate info
 ```powershell
 Get-FalconZta

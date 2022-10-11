@@ -2,12 +2,12 @@
 
 |Command|Permission|
 |-------|----------|
-|[Register-FalconEventCollector](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#configure-a-humio-collector)| |
-|[Send-FalconEvent](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#send-objects-to-humio)| |
-|[Send-FalconWebhook](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#webhook-ingestion)| |
-|[Show-FalconEventCollector](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#display-your-collector)| |
-|[Show-FalconMap](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#map-indicators)| |
-|[Unregister-FalconEventCollector](https://github.com/CrowdStrike/psfalcon/wiki/Third-party-ingestion#remove-your-collector)| |
+|[Register-FalconEventCollector](Third-party-ingestion#configure-a-humio-collector)| |
+|[Send-FalconEvent](Third-party-ingestion#send-objects-to-humio)| |
+|[Send-FalconWebhook](Third-party-ingestion#webhook-ingestion)| |
+|[Show-FalconEventCollector](Third-party-ingestion#display-your-collector)| |
+|[Show-FalconMap](Third-party-ingestion#map-indicators)| |
+|[Unregister-FalconEventCollector](Third-party-ingestion#remove-your-collector)| |
 
 # Humio event ingestion
 ## Configure a Humio collector

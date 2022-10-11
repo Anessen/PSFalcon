@@ -23,9 +23,9 @@ Get-FalconInstaller -Ids <id>
 ```powershell
 Receive-FalconInstaller -Id <id> -Path .\WindowsSensor.exe
 ```
-_See [Download the installer package assigned to a Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#download-the-installer-package-assigned-to-a-sensor-update-policy)._
+_See [Download the installer package assigned to a Sensor Update policy](basic-scripts#download-the-installer-package-assigned-to-a-sensor-update-policy)._
 
-_See [Download the installer package assigned to your default Sensor Update policy](https://github.com/CrowdStrike/psfalcon/wiki/basic-scripts#download-the-installer-package-assigned-to-your-default-sensor-update-policy)._
+_See [Download the installer package assigned to your default Sensor Update policy](basic-scripts#download-the-installer-package-assigned-to-your-default-sensor-update-policy)._
 ## Find your Customer ID and Checksum \(CCID\)
 ```powershell
 Get-FalconCcid

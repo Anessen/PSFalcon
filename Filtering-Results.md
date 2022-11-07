@@ -9,7 +9,7 @@ parameter. When using `-Filter`, it is important to keep in mind:
 * Each FQL filter and value may be case-sensitive (exact case, lowercase only, etc.)
 * Each FQL filter statement can contain a maximum of 20 properties
 
-Values in an FQL statement tend to either be restricted to `$true`, `$false`, an `integer` or a `string`
+Values in an FQL statement tend to either be restricted to `$true`, `$false`, `null`, an `integer`, or a `string`
 (description, date or time, etc).
 
 ## Comparison operators
@@ -28,6 +28,9 @@ Values in an FQL statement tend to either be restricted to `$true`, `$false`, an
 ```
 ```
 -Filter "name:*'*partial*'"
+```
+```
+-Filter "assigned_to_uid:null"
 ```
 ## Multiple filters
 Multiple filters can be combined with `+` (AND) or `,` (OR). URL encoding is performed by PSFalcon automatically

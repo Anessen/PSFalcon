@@ -42,7 +42,7 @@ Get-FalconHost -Limit 1 -Detailed | Send-FalconWebhook -Type Slack -Uri https://
 ```powershell
 Send-FalconWebhook -Type Slack -Uri https://hooks.slack.com/services/... -Object ([PSCustomObject]@{ Example = 'my_string' })
 ```
-# Falcon X Indicator Map
+# Falcon Intelligence Indicator Map
 ## Map indicators
 ```powershell
 Get-FalconIndicator -Filter "type:'hash_sha256'" -Limit 5 | Show-FalconMap

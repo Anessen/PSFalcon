@@ -2,16 +2,16 @@
 
 |Command|Permission|
 |-------|----------|
-|[Register-FalconEventCollector](Third-party-ingestion#configure-a-humio-collector)| |
-|[Send-FalconEvent](Third-party-ingestion#send-objects-to-humio)| |
+|[Register-FalconEventCollector](Third-party-ingestion#configure-a-falcon-logscale-collector)| |
+|[Send-FalconEvent](Third-party-ingestion#send-objects-to-falcon-logscale)| |
 |[Send-FalconWebhook](Third-party-ingestion#webhook-ingestion)| |
 |[Show-FalconEventCollector](Third-party-ingestion#display-your-collector)| |
 |[Show-FalconMap](Third-party-ingestion#map-indicators)| |
 |[Unregister-FalconEventCollector](Third-party-ingestion#remove-your-collector)| |
 
-# Humio event ingestion
-## Configure a Humio collector
-The `-Enable` parameter is optional and will configure PSFalcon to send `requests` or `responses` to Humio as they occur.
+# Falcon LogScale event ingestion
+## Configure a Falcon LogScale collector
+The `-Enable` parameter is optional and will configure PSFalcon to send `requests` or `responses` to Falcon LogScale as they occur.
 
 The `-Token` parameter expects your [Humio ingest token](https://library.humio.com/stable/docs/ingesting-data/ingest-tokens/).
 ```powershell
@@ -21,8 +21,8 @@ Register-FalconEventCollector -Uri https://cloud.community.humio.com -Token <str
 ```powershell
 Show-FalconEventCollector
 ```
-## Send objects to Humio
-Once a collector has been defined through `Register-FalconEventCollector`, any `[PSCustomObject]` can be sent to Humio.
+## Send objects to Falcon LogScale
+Once a collector has been defined through `Register-FalconEventCollector`, any `[PSCustomObject]` can be sent to Falcon LogScale.
 ```powershell
 Get-FalconHost -Limit 1 -Detailed | Send-FalconEvent
 ```

@@ -13,7 +13,7 @@
 ## Configure a Falcon LogScale collector
 The `-Enable` parameter is optional and will configure PSFalcon to send `requests` or `responses` to Falcon LogScale as they occur.
 
-The `-Token` parameter expects your [Falcon LogScale ingest token](https://library.humio.com/stable/docs/ingesting-data/ingest-tokens/).
+The `-Token` parameter expects your Falcon LogScale [ingest token](https://library.humio.com/stable/docs/ingesting-data/ingest-tokens/).
 ```powershell
 Register-FalconEventCollector -Uri https://cloud.community.humio.com -Token <string> -Enable responses, requests
 ```

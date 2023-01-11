@@ -31,8 +31,7 @@ Edit-FalconFirewallGroup [-DiffOperation] <Object[]> [[-Comment] <String>] [[-Ru
 ## USAGE
 ### Enable a firewall rule group
 ```powershell
-$DiffOperation = @(@{ op = 'replace'; path = '/enabled'; value = $true })
-Edit-FalconFirewallGroup -Id <id> -DiffOperation $DiffOperation
+Edit-FalconFirewallGroup -Id <id> -DiffOperation @{ op = 'replace'; path = '/enabled'; value = $true }
 ```
 ### Add a rule at the beginning of a firewall rule group
 ```powershell

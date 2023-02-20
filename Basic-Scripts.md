@@ -36,6 +36,7 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Download the installer package assigned to your default Sensor Update policy](#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
 ### Sensor Update Policies
 * [Create a list of minimum sensor versions by Linux kernel](#create-a-list-of-minimum-sensor-versions-by-linux-kernel)
+* [Modify the build of a Sensor Update policy by name](#modify-the-build-of-a-sensor-update-policy-by-name)
 ### Threat Intelligence
 * [Export domain and IP indicators updated within the last week to CSV](#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ### Users
@@ -1391,6 +1392,23 @@ end {
         Get-ChildItem $Filename | Select-Object FullName,Length,LastWriteTime
     }
 }
+```
+### Modify the build of a Sensor Update policy by name
+```powershell
+#Requires -Version 5.1
+using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+param(
+    [Parameter(Mandatory)]
+    [string]$Name,
+    [Parameter(Mandatory)]
+    [string]$Version
+)
+$Id = Get-FalconSensorUpdatePolicy -Filter "name:'$Name'"
+if (!$Id) { throw "No policy found matching '$Name'." }
+if ($Version -match '\.') { $Version = [string]($Version -split '\.')[-1] }
+if ((Get-FalconBuild).build -notcontains $Version) { throw "'$Version' is not a valid build number." }
+Edit-FalconSensorUpdatePolicy -Id $Id -Setting @{ build = $Version } | Select-Object id,name,@{ Label = 'build';
+    Expression = {$_.settings.build}}
 ```
 # Threat Intelligence
 ## Export domain and IP indicators updated within the last week to CSV

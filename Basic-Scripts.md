@@ -1403,7 +1403,7 @@ param(
     [Parameter(Mandatory)]
     [string]$Version
 )
-$Id = Get-FalconSensorUpdatePolicy -Filter "name:'$Name'"
+$Id = Get-FalconSensorUpdatePolicy -Filter "name.raw:'$Name'"
 if (!$Id) { throw "No policy found matching '$Name'." }
 if ($Version -match '\.') { $Version = [string]($Version -split '\.')[-1] }
 if ((Get-FalconBuild).build -notcontains $Version) { throw "'$Version' is not a valid build number." }

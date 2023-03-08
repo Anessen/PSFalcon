@@ -48,33 +48,30 @@ The examples provided below are for example purposes only and are offered 'as is
 ## Assign detections involving a specific file to a user
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+using module @{ ModuleName='PSFalcon'; ModuleVersion='2.2' }
 param(
-    [Parameter(Mandatory = $true,
-        Position = 1)]
-    [string] $Username,
-
-    [Parameter(Mandatory = $true,
-        Position = 2)]
-    [string] $Filename
+    [Parameter(Mandatory,Position=1)]
+    [string]$Username,
+    [Parameter(Mandatory,Position=2)]
+    [string]$Filename
 )
 # Get User identifier
-$Uuid = Get-FalconUser -Usernames $Username -ErrorAction SilentlyContinue
+$Uuid = Get-FalconUser -Username $Username -EA 0
+if (!$Uuid) { throw "No user identifier found for '$Username'." }
 
-if (-not $Uuid) {
-    throw "Invalid username: '$Username'"
+if (!(Get-FalconDetection -Filter "behaviors.filename:'$Filename'")) {
+    # Generate error if no detections are found for $Filename
+    throw "No detections found for '$Filename'."
 }
-# Get Detection identifiers involving $Filename
-$Ids = Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -All
-
-if (-not $Ids) {
-    throw "No detections found matching '$Filename'"
-}
-# Notify user that detections are being assigned
-Write-Host "Assigning $($Ids.count) detections involving '$Filename' to '$Username'..."
-
-# Modify detections
-Edit-FalconDetection -Ids $Ids -Status in_progress -AssignedToUuid $Uuid
+do {
+    # Retrieve 1,000 detections that are not assigned and assign them until none are left
+    $Edit = Get-FalconDetection -Filter "behaviors.filename:'$Filename'+assigned_to_uuid:!'$Uuid'" -Limit 1000 |
+        Edit-FalconDetection -AssignedToUuid $Uuid
+    if ($Edit.writes.resources_affected) {
+        Write-Host ('Assigned {0} detections to {1}.' -f $Edit.writes.resources_affected,$Uuid)
+        Start-Sleep -Seconds 5
+    }
+} while ( Get-FalconDetection -Filter "behaviors.filename:'$Filename'+assigned_to_uuid:!'$Uuid'" )
 ```
 ## Find and hide large numbers of detections
 ```powershell

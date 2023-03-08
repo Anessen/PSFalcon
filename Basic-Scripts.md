@@ -48,7 +48,7 @@ The examples provided below are for example purposes only and are offered 'as is
 ## Assign detections involving a specific file to a user
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName='PSFalcon'; ModuleVersion='2.2' }
+using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
 param(
     [Parameter(Mandatory,Position=1)]
     [string]$Username,

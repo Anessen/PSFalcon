@@ -4,8 +4,8 @@ The examples provided below are for example purposes only and are offered 'as is
 ***
 ### Detections
 * [Assign detections involving a specific file to a user](#assign-detections-involving-a-specific-file-to-a-user)
-* [Find and hide large numbers of detections](#find-and-hide-large-numbers-of-detections)
-* [Export CustomIOC detections with tags](#export-customioc-detections-with-tags)
+* [Export detections with Custom IOC tags](#export-detections-with-custom-ioc-tags)
+* [Hide detections involving a specific file](#hide-detections-involving-a-specific-file)
 ### Hosts
 * [Add a list of hostnames to a host group](#add-a-list-of-hostnames-to-a-host-group)
 * [Hide hosts based on last_seen time](#hide-hosts-based-on-last_seen-time)
@@ -65,42 +65,19 @@ if (!(Get-FalconDetection -Filter "behaviors.filename:'$Filename'")) {
 }
 do {
     # Retrieve 1,000 detections that are not assigned and assign them until none are left
-    $Edit = Get-FalconDetection -Filter "behaviors.filename:'$Filename'+assigned_to_uuid:!'$Uuid'" -Limit 1000 |
-        Edit-FalconDetection -AssignedToUuid $Uuid
+    if ($Id) { Start-Sleep -Seconds 5 }
+    $Param = @{
+        Filter = "behaviors.filename:'$Filename'+assigned_to_uuid:!'$Uuid'"
+        Limit = 1000
+        OutVariable = 'Id'
+    }
+    $Edit = Get-FalconDetection @Param | Edit-FalconDetection -AssignedToUuid $Uuid
     if ($Edit.writes.resources_affected) {
-        Write-Host ('Assigned {0} detections to {1}.' -f $Edit.writes.resources_affected,$Uuid)
-        Start-Sleep -Seconds 5
+        Write-Host ('Assigned {0} detection(s) to {1}...' -f $Edit.writes.resources_affected,$Uuid)
     }
-} while ( Get-FalconDetection -Filter "behaviors.filename:'$Filename'+assigned_to_uuid:!'$Uuid'" )
+} while ($Id)
 ```
-## Find and hide large numbers of detections
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-param(
-    [Parameter(Mandatory = $true)]
-    [string] $Filename
-)
-do {
-    # Gather up to 1,000 detections (maximum for an edit request) involving $Filename
-    $Ids = Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -Limit 1000
-
-    if ($Ids) {
-        # Export list of ids being hidden
-        $Ids | Out-File -FilePath $pwd\hidden_detections.txt -Append -Force
-
-        # Hide group of detections
-        Edit-FalconDetection -Ids $Ids -ShowInUi $false
-
-        # Pause to give the API time to clear them out before the next request
-        Start-Sleep -Seconds 5
-    }
-} while (
-    # Exit once no more detections are available
-    $Ids
-)
-```
-## Export CustomIOC detections with tags
+## Export detections with Custom IOC tags
 ```powershell
 #Requires -Version 5.1
 using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
@@ -130,6 +107,29 @@ try {
 } catch {
     throw $_
 }
+```
+## Hide detections involving a specific file
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+param(
+    [Parameter(Mandatory)]
+    [string]$Filename
+)
+if (!(Get-FalconDetection -Filter "behaviors.filename:'$Filename'")) {
+    # Generate error if no detections are found for $Filename
+    throw "No detections found for '$Filename'."
+}
+do {
+    # Retrieve 1,000 detections and hide them until none are left
+    if ($Id) { Start-Sleep -Seconds 5 }
+    $Edit = Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -Limit 1000 -OutVariable Id |
+        Edit-FalconDetection -ShowInUi $false
+    if ($Edit.writes.resources_affected) {
+        $Id >> "$pwd\hidden_detections.txt"
+        Write-Host ('Hid {0} detection(s)...' -f $Edit.writes.resources_affected)
+    }
+} while ($Id)
 ```
 # Hosts
 ## Add a list of hostnames to a host group

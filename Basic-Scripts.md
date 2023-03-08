@@ -51,7 +51,6 @@ The examples provided below are for example purposes only and are offered 'as is
 using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
 param(
     [Parameter(Mandatory,Position=1)]
-    [ValidatePattern('^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$')]
     [string]$Username,
     [Parameter(Mandatory,Position=2)]
     [string]$Filename

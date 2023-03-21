@@ -10,19 +10,20 @@ The examples provided below are for example purposes only and are offered 'as is
 * [Add a list of hostnames to a host group](#add-a-list-of-hostnames-to-a-host-group)
 * [Hide hosts based on last_seen time](#hide-hosts-based-on-last_seen-time)
 * [Find duplicate hosts and hide them](#find-duplicate-hosts-and-hide-them)
-* [Network contain a device by Hostname](#network-contain-a-device-by-hostname)
-* [Network contain a list of Hostnames from a CSV file](#network-contain-a-list-of-hostnames-from-a-csv-file)
-* [Output selected Host info and replace ids with names](#output-selected-host-info-and-replace-ids-with-names)
-* [Get host information from multiple Falcon instances](#get-host-information-from-multiple-falcon-instances)
+* [Network contain a device by hostname](#network-contain-a-device-by-hostname)
+* [Network contain a list of hostnames from a CSV file](#network-contain-a-list-of-hostnames-from-a-csv-file)
+* [Output selected host info and replace ids with names](#output-selected-host-info-and-replace-ids-with-names)
 ### Host Groups
 * [Create a host group and add a list of devices by hostname](#create-a-host-group-and-add-a-list-of-devices-by-hostname)
-* [Verify that a list of Host Groups exist within Child CIDs](#verify-that-a-list-of-host-groups-exist-within-child-cids)
+* [Verify that a list of host groups exist within child CIDs](#verify-that-a-list-of-host-groups-exist-within-child-cids)
 ### Policies
-* [Modify all Sensor Visibility Exclusions to include an additional Host Group](#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
-* [Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs](#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
-* [Output a list of assigned Host Groups for designated Policy ids within child CIDs](#output-a-list-of-assigned-host-groups-for-designated-policy-ids-within-child-cids)
 * [Add a list of combined_id exceptions to a Device Control policy](#add-a-list-of-combined_id-exceptions-to-a-device-control-policy)
+* [Assign a list of host group names to a specific policy within a list of child CIDs](#assign-a-list-of-host-group-names-to-a-specific-policy-within-a-list-of-child-cids)
+* [Create a list of minimum sensor versions by Linux kernel](#create-a-list-of-minimum-sensor-versions-by-linux-kernel)
 * [Create CSVs containing Device Control policy details and exceptions](#create-csvs-containing-device-control-policy-details-and-exceptions)
+* [Modify all Sensor Visibility Exclusions to include an additional host group](#modify-all-sensor-visibility-exclusions-to-include-an-additional-host-group)
+* [Modify the build of a Sensor Update policy by name](#modify-the-build-of-a-sensor-update-policy-by-name)
+* [Output a list of assigned Host Groups for designated Policy ids within child CIDs](#output-a-list-of-assigned-host-groups-for-designated-policy-ids-within-child-cids)
 ### Real-time Response
 * [Download the latest CsWinDiag archive from a list of hosts](#download-the-latest-cswindiag-archive-from-a-list-of-hosts)
 * [Execute CsWinDiag and download results from a list of hosts](#execute-cswindiag-and-download-results-from-a-list-of-hosts)
@@ -34,9 +35,6 @@ The examples provided below are for example purposes only and are offered 'as is
 ### Sensor Installers
 * [Download the installer package assigned to a Sensor Update policy](#download-the-installer-package-assigned-to-a-sensor-update-policy)
 * [Download the installer package assigned to your default Sensor Update policy](#download-the-installer-package-assigned-to-your-default-sensor-update-policy)
-### Sensor Update Policies
-* [Create a list of minimum sensor versions by Linux kernel](#create-a-list-of-minimum-sensor-versions-by-linux-kernel)
-* [Modify the build of a Sensor Update policy by name](#modify-the-build-of-a-sensor-update-policy-by-name)
 ### Threat Intelligence
 * [Export domain and IP indicators updated within the last week to CSV](#export-domain-and-ip-indicators-updated-within-the-last-week-to-csv)
 ### Users
@@ -81,7 +79,7 @@ do {
 ```powershell
 #Requires -Version 5.1
 using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
-[string]$OutputFile = ".\custom_ioc_detections_$(Get-Date -Format FileDateTime).json"
+[string]$OutputFile = Join-Path (Get-Location).Path "custom_ioc_detections_$(Get-Date -Format FileDateTime).json"
 try {
     # Retrieve all 'CustomIOC' detections
     [object[]]$Detection = Get-FalconDetection -Filter "behaviors.display_name:*'CustomIOC*'" -Detailed -All
@@ -95,13 +93,14 @@ try {
         }
         foreach ($Ioc in $IocList) {
             # Append 'ioc_tags' to relevant detection(s)
-            ($Detection | Where-Object { $_.behaviors.ioc_type -eq $Ioc.type -and $_.behaviors.ioc_value -eq
-            $Ioc.value }).behaviors | ForEach-Object {
+            ($Detection | Where-Object {
+                $_.behaviors.ioc_type -eq $Ioc.type -and $_.behaviors.ioc_value -eq $Ioc.value
+            }).behaviors | ForEach-Object {
                 $_.PSObject.Properties.Add((New-Object PSNoteProperty('ioc_tags',$Ioc.tags)))
             }
         }
         # Export detections to Json
-        $Detection | ConvertTo-Json -Depth 16 >> ".\$OutputFile"
+        $Detection | ConvertTo-Json -Depth 16 >> $OutputFile
         if (Test-Path $OutputFile) { Get-ChildItem $OutputFile | Select-Object FullName,Length,LastWriteTime }
     }
 } catch {
@@ -116,7 +115,8 @@ param(
     [Parameter(Mandatory)]
     [string]$Filename
 )
-if (!(Get-FalconDetection -Filter "behaviors.filename:'$Filename'")) {
+[string]$OutputFile = Join-Path (Get-Location).Path "hidden_detections_$(Get-Date -Format FileDateTime).txt"
+if ($null -eq (Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -Total)) {
     # Generate error if no detections are found for $Filename
     throw "No detections found for '$Filename'."
 }
@@ -126,278 +126,21 @@ do {
     $Edit = Get-FalconDetection -Filter "behaviors.filename:'$Filename'" -Limit 1000 -OutVariable Id |
         Edit-FalconDetection -ShowInUi $false
     if ($Edit.writes.resources_affected) {
-        $Id >> "$pwd\hidden_detections.txt"
+        # Notify of hidden detections and output detection_id values to text file
         Write-Host ('Hid {0} detection(s)...' -f $Edit.writes.resources_affected)
+        $Id >> $OutputFile
     }
 } while ($Id)
+if (Test-Path $OutputFile) { Get-ChildItem $OutputFile | Select-Object FullName,Length,LastWriteTime }
 ```
 # Hosts
 ## Add a list of hostnames to a host group
-**NOTE**: This script expects a text file that contains case-sensitive hostnames (one per line) for the `-Path` parameter.
+**NOTE**: This script expects a text file that contains case-sensitive hostnames (one per line) in `-Path`.
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 param(
-    [Parameter(Mandatory = $true,
-        Position = 1)]
-    [ValidatePattern('\.txt$')]
-    [string] $Path,
-
-    [Parameter(Mandatory = $true,
-        Position = 2)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $GroupId
-)
-$Hostnames = (Get-Content $Path).Normalize()
-$Hosts = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
-    # Retrieve the device_id for hostnames in groups of 20
-    $Filter = ($Hostnames[$i..($i + 19)] | ForEach-Object {
-        if ($_ -ne '') {
-            "hostname:['$_']"
-        }
-    }) -join ','
-    Get-FalconHost -Filter $Filter
-}
-# Add hosts to group
-Invoke-FalconHostGroupAction -Name add-hosts -Id $GroupId -HostIds $Hosts
-```
-## Hide hosts based on last_seen time
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-param(
-    [Parameter(Mandatory = $true)]
-    [int] $Days
-)
-$Param = @{
-    Filter = "last_seen:<'Last $Days days'"
-    All = $true
-}
-$Hosts = Get-FalconHost @Param
-if ($Hosts) {
-    $Param = @{
-        Name = 'hide_host'
-        Ids = $Hosts
-    }
-    Invoke-FalconHostAction @Param
-} else {
-    "No hosts found using filter: $Filter"
-}
-```
-## Find duplicate hosts and hide them
-**WARNING**: `Find-FalconDuplicate` only determines whether or not a device is a "duplicate" by hostname in this example. There may be a legitimate reason that two devices have the same hostname in your environment. It is your responsibility to determine whether or not the hosts reported by `Find-FalconDuplicate` are correct. This script does not provide you with an opportunity to review those hosts before they are hidden, but it does output a list after the hiding is complete. If devices are hidden incorrectly they will continue to communicate with Falcon and can be restored from the trash using their `aid` value and `Invoke-FalconHostAction`.
-```powershell
-#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.1'}
-param(
-    [switch] $Confirm
-)
-try {
-    # Use Find-FalconDuplicate to find duplicate hosts
-    $Duplicates = Find-FalconDuplicate
-
-    if ($Duplicates.device_id -and $Confirm) {
-        # Output duplicate list to CSV
-        $Duplicates | Export-Csv -Path .\duplicates.csv -NoTypeInformation
-
-        # Use Invoke-FalconHostAction to hide hosts
-        Invoke-FalconHostAction -Name hide_host -Ids $Duplicates.device_id
-    } elseif ($Duplicates) {
-        # Output list of duplicates
-        Write-Output "Found $($Duplicates.count) potential duplicate hosts"
-        Write-Output "Check ./duplicates.csv for results"
-        $Duplicates | Export-Csv -Path .\duplicates.csv -NoTypeInformation
-        Write-Output $Duplicates
-    } else {
-       Write-Output "No duplicates found."
-    }
-} catch {
-    Write-Error $_
-}
-```
-## Network contain a device by Hostname
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-param(
-    [Parameter(Mandatory = $true)]
-    [string] $Hostname
-)
-# Get identifier for target system and choose the most recently seen (in case of duplicates)
-$HostId = Get-FalconHost -Filter "hostname:'$Hostname'" -Sort last_seen.desc -Limit 1
-
-if ($HostId) {
-    # Contain host
-    Invoke-FalconHostAction -Name contain -Ids $HostId
-} else {
-    throw "No identifier found for '$Hostname'"
-}
-```
-## Network contain a list of Hostnames from a CSV file
-**NOTE**: This example requires a CSV with a column labeled `Hostname`. It will create a new CSV with that includes the hostname, device_id and containment request status.
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-param(
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('\.csv$')]
-    [string] $Path
-)
-$OutputFile = "Containment_$(Get-Date -Format FileDateTime).csv"
-[array] $Hostnames = (Import-Csv $Path).Hostname
-$Hosts = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
-    # Retrieve the device_id for hostnames in groups of 20
-    $Filter = ($Hostnames[$i..($i + 19)] | ForEach-Object {
-        if ($_ -ne '') {
-            "hostname:['$_']"
-        }
-    }) -join ','
-    $Output = Get-FalconHost -Filter $Filter -Detailed | Select-Object hostname, device_id
-    $Output | ForEach-Object {
-        # Add property for each host to update after containment request
-        $_.PSObject.Properties.Add((New-Object PSNoteProperty('Contain_Requested', $false)))
-    }
-    $Output
-}
-# Contain hosts and add status
-Invoke-FalconHostAction -Name contain -Ids $Hosts.device_id | ForEach-Object {
-    $Id = $_.id
-    ($Hosts | Where-Object { $_.device_id -eq $Id }).Contain_Requested = $true
-}
-$Hosts | Export-Csv -Path $OutputFile -NoTypeInformation
-if (Test-Path $OutputFile) {
-    Get-ChildItem $OutputFile
-}
-```
-## Output selected Host info and replace ids with names
-Designed to replace all 'ids' with the related 'name', under each Host result. The fields you'd like to include from each host result can be added to the `$Fields` variable.
-```powershell
-#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.1.2'}
-[CmdletBinding()]
-param()
-begin {
-    # Fields to include with the export to CSV (host group and policy data is automatically added)
-    $Fields = @('device_id', 'hostname', 'last_seen', 'first_seen', 'local_ip', 'external_ip', 'agent_version')
-}
-process {
-    # Retrieve all host information and filter to selected fields
-    $Fields += 'device_policies', 'groups'
-    $HostInfo = Get-FalconHost -Detailed -All | Select-Object $Fields
-    if ($HostInfo) {
-        # Create hashtable to store object detail for hosts
-        $Related = @{
-            DeviceControlPolicy = @{}
-            FirewallPolicy      = @{}
-            IoaGroup            = @{}
-            PreventionPolicy    = @{}
-            ResponsePolicy      = @{}
-            SensorUpdatePolicy  = @{}
-            HostGroup           = @{}
-        }
-        foreach ($ItemType in $Related.Keys) {
-            # Match policy type to the label used with hosts
-            $HostLabel = switch ($ItemType) {
-                'DeviceControlPolicy' { 'device_control' }
-                'HostGroup'           { 'groups' }
-                'IoaGroup'            { 'rule_groups' }
-                'ResponsePolicy'      { 'remote_response' }
-                'SensorUpdatePolicy'  { 'sensor_update' }
-                default               { ($_ -replace 'Policy', $null).ToLower() }
-            }
-            $Ids = if ($ItemType -eq 'IoaGroup') {
-                # Collect IOA rule group identifiers
-                ($HostInfo.device_policies.prevention.rule_groups | Group-Object).Name
-            } elseif ($ItemType -match 'Policy$') {
-                # Collect policy identifiers
-                ($HostInfo.device_policies.$HostLabel.policy_id | Group-Object).Name
-            } else {
-                # Collect host group identifiers
-                ($HostInfo.groups | Group-Object).Name
-            }
-            # Collect names and identifiers for each item in hashtable
-            $Content = & "Get-Falcon$($ItemType)" -Ids $Ids | Select-Object id, name
-            if ($Content) {
-                $Content | ForEach-Object {
-                    $Related.$ItemType["$($_.id)"] = "$($_.name)"
-                }
-            } else {
-                Write-Error "Unable to collect '$ItemType' information. Check permissions."
-            }
-            $HostInfo | ForEach-Object {
-                # Define new property names to add to output
-                $Name = if ($ItemType -eq 'HostGroup') {
-                    "host_$($HostLabel)"
-                } elseif ($ItemType -eq 'IoaGroup') {
-                    "ioa_$($HostLabel)"
-                } else {
-                    "$($HostLabel)_policy"
-                }
-                $Value = if ($ItemType -eq 'HostGroup') {
-                    # Replace host group identifiers with names and remove 'groups'
-                    ($_.groups | ForEach-Object { $Related.$ItemType.$_ }) -join ','
-                    [void] $_.PSObject.Properties.Remove('groups')
-                } elseif ($ItemType -eq 'IoaGroup') {
-                    # Replace IOA rule group identifiers with names
-                    ($_.device_policies.prevention.rule_groups | ForEach-Object {
-                        $Related.$ItemType.$_ }) -join ','
-                } else {
-                    # Replace policy identifiers with names and add as '<type>_policy'
-                    if ($_.device_policies.$HostLabel.policy_id){
-                        $Related.$ItemType.($_.device_policies.$HostLabel.policy_id)
-                    }                
-                }
-                $_.PSObject.Properties.Add((New-Object PSNoteProperty($Name, $Value)))
-            }
-        }
-        $HostInfo | Where-Object { $_.device_policies } | ForEach-Object {
-            # Remove redundant 'device_policies' property
-            [void] $_.PSObject.Properties.Remove('device_policies')
-        }
-        $HostInfo
-    } else {
-        Write-Error "Unable to collect Host information. Check permissions."
-    }
-}
-```
-## Get host information from multiple Falcon instances
-**NOTE**: This example requires that you input values for `<client_id>`, `<client_secret>`, and each `<member_cid>`. To avoid hard-coding credentials you could pass them as parameters instead.
-
-**NOTE**: This example is meant for multiple standalone Falcon instances, not those in a Parent/Child ("Flight Control") configuration. See [Authorize and run commands in member CIDs](Code-Examples#authorize-and-run-commands-in-member-cids).
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-# ClientId, ClientSecret and MemberCids
-$ClientId = '<client_id>'
-$ClientSecret = '<client_secret>'
-$CIDs = @('<member_cid>', '<member_cid>')
-
-# Enumerate $CIDs
-$CIDs | ForEach-Object {
-    $Param = @{
-        ClientId = $ClientId
-        ClientSecret = $ClientSecret
-        MemberCid = ($_).ToLower()
-    }
-    # Authenticate with CID
-    Request-FalconToken @Param
-
-    try {
-        # Gather and export Host data
-        Get-FalconHost -Detailed -All | Export-FalconReport ".\Hosts_for_MemberCid_$($_).csv"
-    } catch {
-        # Break 'foreach' loop if host retrieval/export fails
-        throw $_
-    } finally {
-        # Remove authentication token and credentials for next CID
-        Revoke-FalconToken
-    }
-}
-```
-# Host Groups
-## Create a host group and add a list of devices by hostname
-```powershell
-#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.1'}
-param(
-    [Parameter(Mandatory = $true, Position = 1)]
+    [Parameter(Mandatory,Position=1)]
     [ValidatePattern('\.txt$')]
     [ValidateScript({
         if (Test-Path -Path $_ -PathType Leaf) {
@@ -406,457 +149,559 @@ param(
             throw "Cannot find path '$_' because it does not exist or is a directory."
         }
     })]
-    [string] $Path,
-
-    [Parameter(Mandatory = $true, Position = 2)]
-    [string] $Name,
-
-    [Parameter(Position = 3)]
-    [string] $Description
+    [string]$Path,
+    [Parameter(Mandatory,Position=2)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$GroupId
 )
+# Error if host group does not exist
+if (!(Get-FalconHostGroup -Id $GroupId)) { throw "No host group found matching '$GroupId'." }
+
+# Use 'Find-FalconHostname' to match list and add hosts to host group
+Find-FalconHostname -Path $Path -OutVariable HostList | Invoke-FalconHostGroupAction -Name add-hosts -Id $GroupId
+
+# Error if 'Find-FalconHostname' found no matches
+if (!$HostList.hostname) { throw "No hosts found." }
+```
+## Hide hosts based on last_seen time
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+param(
+    [Parameter(Mandatory)]
+    [ValidateRange(1,44)]
+    [int]$Days
+)
+$Filter = ('last_seen:<{0}' -f "'now-$($Days)d'")
+Get-FalconHost -Filter $Filter -All -OutVariable HostList | Invoke-FalconHostAction -Name hide_host
+if (!$HostList) { "No hosts found using filter `"$Filter`"." }
+```
+## Find duplicate hosts and hide them
+**WARNING**: `Find-FalconDuplicate` only determines whether or not a device is a "duplicate" by hostname in this
+example. There may be a legitimate reason that two devices have the same hostname in your environment. It is your
+responsibility to determine whether or not the hosts reported by `Find-FalconDuplicate` are correct. This script
+does not provide you with an opportunity to review those hosts before they are hidden, but it does output a list
+after the hiding is complete. If devices are hidden incorrectly they will continue to communicate with Falcon
+and can be restored from the trash using their `aid` value and `Invoke-FalconHostAction`.
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+param(
+    [switch]$Confirm
+)
+[string]$OutputFile = Join-Path (Get-Location).Path "duplicates_$(Get-Date -Format FileDateTime).csv"
+
+# Use Find-FalconDuplicate to find duplicate hosts and hide them
+Find-FalconDuplicate -OutVariable Duplicate | Invoke-FalconHostAction -Name hide_host
+if ($Duplicate) {
+    # If duplicates were found, output to CSV and display file
+    $Duplicate | Export-Csv -Path $OutputFile -NoTypeInformation
+    if (Test-Path $OutputFile) { Get-ChildItem $OutputFile | Select-Object FullName,Length,LastWriteTime }
+}
+```
+## Network contain a device by hostname
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+param(
+    [Parameter(Mandatory)]
+    [string]$Hostname
+)
+# Get identifier for target system and choose the most recently seen (in case of duplicates)
+Get-FalconHost -Filter "hostname:['$Hostname']" -Sort last_seen.desc -Limit 1 -OutVariable Target |
+    Invoke-FalconHostAction -Name contain
+if (!$Target) { throw "No identifier found for '$Hostname'." }
+```
+## Network contain a list of hostnames from a CSV file
+**NOTE**: This example requires a CSV with a column labeled `hostname`. It will create a new CSV with that
+includes `hostname`, `device_id` and `contain_requested` status.
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+param(
+    [Parameter(Mandatory)]
+    [ValidatePattern('\.csv$')]
+    [string]$Path
+)
+[string]$OutputFile = Join-Path (Get-Location).Path "contained_$(Get-Date -Format FileDateTime).csv"
+$Import = Import-Csv -Path $Path
+if (!$Import.hostname) { throw "No 'hostname' column found in '$Path'." }
+
+# Use Find-FalconDuplicate to find duplicate hosts and contain them
+$Import.hostname | Find-FalconHostname -OutVariable HostList |
+    Invoke-FalconHostAction -Name contain -OutVariable ContainList
+if (!$HostList.hostname) {
+    # Error if no matches were found
+    throw "No hosts found."
+} else {
+    @($HostList).foreach{
+        # Add 'contain_requested' property and export to CSV
+        $Status = if ($ContainList.id -contains $_.device_id) { $true } else { $false }
+        $_.PSObject.Properties.Add((New-Object PSNoteProperty('contain_requested',$Status)))
+    }
+    $HostList | Export-Csv -Path $OutputFile -NoTypeInformation
+    if (Test-Path $OutputFile) { Get-ChildItem $OutputFile | Select-Object FullName,Length,LastWriteTime }
+}
+```
+## Output selected host info and replace ids with names
+This script will replace identifiers with the related `name` under each Host result. The fields to include can be
+defined under the `Field` variable. The output will be returned in the console.
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+# Fields to include with the export to CSV (host group and policy data is automatically added)
+[string[]]$Field = 'device_id','hostname','last_seen','first_seen','local_ip','external_ip','agent_version'
+$Field += 'device_policies','groups'
+
+# Retrieve all host information and filter to selected fields
+$HostInfo = Get-FalconHost -Detailed -All | Select-Object $Field
+if ($HostInfo) {
+    # Create hashtable to store object detail for hosts
+    $Related = @{
+        DeviceControlPolicy = @{}
+        FirewallPolicy = @{}
+        IoaGroup = @{}
+        PreventionPolicy = @{}
+        ResponsePolicy = @{}
+        SensorUpdatePolicy = @{}
+        HostGroup = @{}
+    }
+    foreach ($ItemType in $Related.Keys) {
+        # Match policy type to the label used with hosts
+        [string]$HostLabel = switch ($ItemType) {
+            'DeviceControlPolicy' { 'device_control' }
+            'HostGroup' { 'groups' }
+            'IoaGroup' { 'rule_groups' }
+            'ResponsePolicy' { 'remote_response' }
+            'SensorUpdatePolicy' { 'sensor_update' }
+            default { ($_ -replace 'Policy', $null).ToLower() }
+        }
+        [string[]]$Id = if ($ItemType -eq 'IoaGroup') {
+            # Collect IOA rule group identifiers
+            ($HostInfo.device_policies.prevention.rule_groups | Group-Object).Name
+        } elseif ($ItemType -match 'Policy$') {
+            # Collect policy identifiers
+            ($HostInfo.device_policies.$HostLabel.policy_id | Group-Object).Name
+        } else {
+            # Collect host group identifiers
+            ($HostInfo.groups | Group-Object).Name
+        }
+        # Collect names and identifiers for each item in hashtable
+        [object[]]$Content = & "Get-Falcon$($ItemType)" -Id $Id | Select-Object id,name
+        if ($Content) {
+            @($Content).foreach{ $Related.$ItemType["$($_.id)"] = "$($_.name)" }
+        } else {
+            Write-Error "Unable to collect '$ItemType' information. Check permissions."
+        }
+        @($HostInfo).foreach{
+            # Define new property names to add to output
+            [string]$Name = if ($ItemType -eq 'HostGroup') {
+                'host',$HostLabel -join '_'
+            } elseif ($ItemType -eq 'IoaGroup') {
+                'ioa',$HostLabel -join '_'
+            } else {
+                $HostLabel,'policy' -join '_'
+            }
+            $Value = if ($ItemType -eq 'HostGroup') {
+                # Replace host group identifiers with names and remove 'groups'
+                if ($_.groups) {
+                    ($_.groups | ForEach-Object { $Related.$ItemType.$_ }) -join ','
+                    [void]$_.PSObject.Properties.Remove('groups')
+                }
+            } elseif ($ItemType -eq 'IoaGroup') {
+                # Replace IOA rule group identifiers with names
+                if ($_.device_policies.prevention.rule_groups) {
+                    ($_.device_policies.prevention.rule_groups | ForEach-Object {
+                        $Related.$ItemType.$_
+                    }) -join ','
+                }
+            } else {
+                # Replace policy identifiers with names and add as '<type>_policy'
+                if ($_.device_policies.$HostLabel.policy_id){
+                    $Related.$ItemType.($_.device_policies.$HostLabel.policy_id)
+                }
+            }
+            $_.PSObject.Properties.Add((New-Object PSNoteProperty($Name,$Value)))
+        }
+    }
+    # Remove redundant 'device_policies' property
+    @($HostInfo).Where({ $_.device_policies }).foreach{ [void]$_.PSObject.Properties.Remove('device_policies') }
+    $HostInfo
+} else {
+    Write-Error "Unable to collect Host information. Check permissions."
+}
+```
+# Host Groups
+## Create a host group and add a list of devices by hostname
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+param(
+    [Parameter(Mandatory,Position=1)]
+    [ValidatePattern('\.txt$')]
+    [ValidateScript({
+        if (Test-Path -Path $_ -PathType Leaf) {
+            $true
+        } else {
+            throw "Cannot find path '$_' because it does not exist or is a directory."
+        }
+    })]
+    [string]$Path,
+    [Parameter(Mandatory,Position=2)]
+    [string]$Name,
+    [Parameter(Position=3)]
+    [string]$Description
+)
+# Create host group
+$Param = @{ GroupType = 'static'; Name = $Name }
+if ($Description) { $Param['Description'] = $Description }
+$Group = New-FalconHostGroup @Param
+if (!$Group) { throw "Failed to create host group. Check permissions." }
+
+# Use Find-FalconDuplicate to find hosts and add them to the new group
+Find-FalconHostname -Path $Path -OutVariable HostList | Invoke-FalconHostGroupAction -Name add-hosts -Id $Group.id
+if (!$HostList) { throw "No hosts found." }
+```
+## Verify that a list of host groups exist within child CIDs
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory,Position=1)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$ClientId,
+    [Parameter(Mandatory,Position=2)]
+    [ValidatePattern('^\w{40}$')]
+    [string]$ClientSecret,
+    [Parameter(Position=3)]
+    [ValidateSet('eu-1','us-gov-1','us-1','us-2')]
+    [string]$Cloud,
+    [Parameter(Position=4)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string[]]$MemberCid,
+    [Parameter(Mandatory,Position=5)]
+    [string[]]$GroupName
+)
+begin {
+    $Token = @{}
+    @('ClientId','ClientSecret','Cloud').foreach{
+        if ($PSBoundParameters.$_) { $Token[$_] = $PSBoundParameters.$_ }
+    }
+    if (!$MemberCid) {
+        Request-FalconToken @Token
+        if ((Test-FalconToken).Token -eq $true) {
+            # Gather available Member CIDs
+            [string[]]$MemberCid = Get-FalconMemberCid -Detailed -All | Where-Object {
+                $_.status -eq 'active' } | Select-Object -ExpandProperty child_cid
+            Revoke-FalconToken
+        }
+    }
+    # Log file name and output location
+    [string]$OutputFile = Join-Path (Get-Location).Path "VerifyGroup_$(Get-Date -Format FileDateTime).csv"
+
+}
+process {
+    foreach ($Cid in $MemberCid) {
+        try {
+            # Authenticate with Member CID
+            Request-FalconToken @Token -MemberCid $Cid
+            if ((Test-FalconToken).Token -eq $true) {
+                # Get group information
+                [object[]]$GroupList = for ($i=0; $i -lt ($GroupName | Measure-Object).Count; $i+=100) {
+                    [string]$Filter = (@($GroupName[$i..($i + 99)]).foreach{
+                        "name:'$(($_).ToLower())'"
+                    }) -join ','
+                    Get-FalconHostGroup -Filter $Filter -Detailed | Select-Object id,name
+                }
+                # Create output object
+                $Output = [PSCustomObject]@{ Cid = $Cid }
+                foreach ($Name in $GroupName) {
+                    # Add each group name and id
+                    [string]$Id = if ($GroupList.name -contains $Name) {
+                        ($GroupList | Where-Object { $_.name -eq $Name }).id
+                    } else {
+                        $null
+                    }
+                    $Output.PSObject.Properties.Add((New-Object PSNoteProperty($Name,$Id)))
+                }
+                # Output to CSV
+                $Output | Export-Csv -Path $OutputFile -NoTypeInformation -Append
+                Write-Host "Successfully output host groups for cid '$Cid'."
+            }
+        } catch {
+            Write-Error $_
+        } finally {
+            if ((Test-FalconToken).Token -eq $true) {
+                # Remove authentication token and sleep to avoid rate limiting
+                Revoke-FalconToken
+                Start-Sleep -Seconds 5
+            }
+        }
+    }
+}
+end { if (Test-Path $OutputFile) { Get-ChildItem $OutputFile | Select-Object FullName,Length,LastWriteTime }}
+```
+# Policies
+## Add a list of combined_id exceptions to a Device Control policy
+**NOTE**: This script will create `FULL_ACCESS` exceptions for the `MASS_STORAGE` class within an existing
+policy. You can modify the hashtable created in the `Exception` variable to add key/value pairs like
+`vendor_name` or `product_name`.
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+param(
+    [Parameter(Mandatory,Position=1)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$PolicyId,
+    [Parameter(Mandatory,Position=2)]
+    [string[]]$CombinedId
+)
+# Maximum number of exceptions to add per request
+$Max = 50
+for ($i=0; $i -lt ($CombinedId | Measure-Object).Count; $i+=$Max) {
+    # Create exceptions in groups of $Max
+    [string[]]$IdGroup = $CombinedId[$i..($i + ($Max - 1))]
+    [object[]]$Exception = @($IdGroup).foreach{ @{ action = 'FULL_ACCESS'; combined_id = $_ }}
+    $Setting = [PSCustomObject]@{ classes = @(@{ id = 'MASS_STORAGE'; exceptions = $Exception })}
+    @(Edit-FalconDeviceControlPolicy -Id $PolicyId -Setting $Setting).foreach{
+        # Validate presence of 'combined_id' in policy
+        [object[]]$Created = ($_.settings.classes | Where-Object { $_.id -eq 'MASS_STORAGE' }).exceptions
+        @($IdGroup).foreach{ if ($Created.combined_id -contains $_) { Write-Output "Added: $_" }}
+    }
+}
+```
+## Assign a list of host group names to a specific policy within a list of child CIDs
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory,Position=1)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$ClientId,
+    [Parameter(Mandatory,Position=2)]
+    [ValidatePattern('^\w{40}$')]
+    [string]$ClientSecret,
+    [Parameter(Position=3)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string[]]$MemberCid,
+    [Parameter(Position=4)]
+    [ValidateSet('eu-1','us-gov-1','us-1','us-2')]
+    [string]$Cloud,
+    [Parameter(Mandatory,Position=5)]
+    [string[]]$GroupName,
+    [Parameter(Mandatory,Position=6)]
+    [ValidateSet('DeviceControl','Firewall','Prevention','Response','SensorUpdate')]
+    [string]$PolicyType,
+    [Parameter(Mandatory,Position=7)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$PolicyId
+)
+begin {
+    $Token = @{}
+    @('ClientId','ClientSecret','Cloud').foreach{
+        if ($PSBoundParameters.$_) { $Token[$_] = $PSBoundParameters.$_ }
+    }
+    if (!$MemberCid) {
+        Request-FalconToken @Token
+        if ((Test-FalconToken).Token -eq $true) {
+            # Gather available Member CIDs
+            [string[]]$MemberCid = Get-FalconMemberCid -Detailed -All | Where-Object {
+                $_.status -eq 'active' } | Select-Object -ExpandProperty child_cid
+            Revoke-FalconToken
+        }
+    }
+    # Log file name and output location
+    [string]$OutputFile = Join-Path (Get-Location).Path "AssignGroup_$(Get-Date -Format FileDateTime).log"
+
+    function Write-LogEntry ([string]$Source,[string]$Message) {
+        # Write output and add to log file
+        "[$(Get-Date -Format 'yyyy-MM-dd hh:mm:ss') $Source] $Message" | Tee-Object -FilePath $OutputFile -Append
+    }
+}
+process {
+    foreach ($Cid in $MemberCid) {
+        try {
+            # Authenticate with Member CID
+            Request-FalconToken @Token -MemberCid $Cid
+            if ((Test-FalconToken).Token -eq $true) {
+                @($GroupName).foreach{
+                    # Get Host Group Id
+                    $GroupId = Get-FalconHostGroup -Filter "name:'$(($_).ToLower())'"
+                    if ($GroupId) {
+                        # Assign Host Group to policy
+                        $InvokeCommand = "Invoke-Falcon$($PolicyType)PolicyAction"
+                        $Param = @{ Name = 'add-host-group'; Id = $PolicyId; GroupId = $GroupId }
+                        $Assigned = & $InvokeCommand @Param
+                        $Message = if ($Assigned) {
+                            "Assigned group $GroupId to $PolicyType policy '$($Assigned.id)' in CID '$Cid'."
+                        } else {
+                            "Failed to assign group $GroupId to $PolicyType policy '$PolicyId' in CID '$Cid'."
+                        }
+                        Write-LogEntry $InvokeCommand $Message
+                    } else {
+                        Write-LogEntry 'Get-FalconHostGroup' "No results for group name '$_' in CID '$Cid'."
+                    }
+                }
+            }
+        } catch {
+            Write-Error $_
+        } finally {
+            if ((Test-FalconToken).Token -eq $true) {
+                # Remove authentication token and sleep to avoid rate limiting
+                Revoke-FalconToken
+                Start-Sleep -Seconds 5
+            }
+        }
+    }
+}
+end { if (Test-Path $OutputFile) { Get-ChildItem $OutputFile | Select-Object FullName,Length,LastWriteTime }}
+```
+## Create a list of minimum sensor versions by Linux kernel
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+<#
+.SYNOPSIS
+Generate a CSV of minimum supported sensor version by Linux kernel and distro_version
+.PARAMETER Path
+Path to a text file containing a list of kernels to compare
+#>
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory,Position=1)]
+    [ValidateScript({
+        if (Test-Path $_ -PathType Leaf) {
+            $true
+        } else {
+            throw "Cannot find path '$_' because it does not exist or is not a file."
+        }
+    })]
+    [string]$Path
+)
+begin {
+    [string]$Path = if (![IO.Path]::IsPathRooted($PSBoundParameters.Path)) {
+        $FullPath = Join-Path -Path (Get-Location).Path -ChildPath $PSBoundParameters.Path
+        $FullPath = Join-Path -Path $FullPath -ChildPath '.'
+        [IO.Path]::GetFullPath($FullPath)
+    } else {
+        $PSBoundParameters.Path
+    }
+    [string]$OutputFile = Join-Path (Get-Location).Path "KernelSupport_$(Get-Date -Format FileDateTime).csv"
+}
 process {
     try {
-        # Import hostnames and create host group
-        $Hostnames = (Get-Content -Path $PSBoundParameters.Path).Normalize()
-        $Param = @{
-            GroupType = 'static'
-            Name      = $PSBoundParameters.Name
-        }
-        if ($PSBoundParameters.Description) {
-            $Param['Description'] = $PSBoundParameters.Description
-        }
-        $Group = New-FalconHostGroup @Param
-        [array] $HostIds = for ($i = 0; $i -lt $Hostnames.count; $i += 20) {
-            # Retrieve the device_id for hostnames in groups of 20
-            $Filter = ($Hostnames[$i..($i + 19)] | ForEach-Object {
-                if ($_ -ne '') {
-                    "hostname:['$_']"
+        # Gather list of kernels from text file
+        [string[]]$Kernel = Get-Content $Path | Where-Object { ![string]::IsNullOrEmpty($_) }
+        if ($Kernel) {
+            # Retrieve entire list of supported kernels
+            [object[]]$Request = Get-FalconKernel -Limit 500 -All
+            if ($Request) {
+                # Filter to supported kernels
+                [object[]]$Content = $Request | Where-Object { $Kernel -contains $_.release } |
+                    Select-Object release,architecture,distro,distro_version,
+                    base_package_supported_sensor_versions,ztl_supported_sensor_versions,
+                    ztl_module_supported_sensor_versions
+                if ($Content) {
+                    [System.Collections.Generic.List[object]]$Output = @($Content).foreach{
+                        # Create 'minimum_sensor_version' property, using lowest listed version
+                        [string]$Minimum = ($_ | Select-Object base_package_supported_sensor_versions,
+                        ztl_supported_sensor_versions,ztl_module_supported_sensor_versions
+                        ).PSObject.Properties.Value | Group-Object | Sort-Object Name |
+                            Select-Object -ExpandProperty Name -First 1
+                        [string]$Value = if ($Minimum) { $Minimum } else { 'UNKNOWN' }
+                        $_.PSObject.Properties.Add((New-Object PSNoteProperty(
+                            'minimum_supported_sensor_version',$Value)))
+                        [void]$_.PSObject.Properties.Remove('base_package_supported_sensor_versions')
+                        [void]$_.PSObject.Properties.Remove('ztl_supported_sensor_versions')
+                        [void]$_.PSObject.Properties.Remove('ztl_module_supported_sensor_versions')
+                        $_ | Select-Object release,architecture,distro,distro_version,
+                            minimum_supported_sensor_version
+                    }
+                    @($Kernel).foreach{
+                        if ($Output.release -notcontains $_) {
+                            $Output.Add([PSCustomObject]@{
+                                release = $_
+                                architecture = $null
+                                distro = $null
+                                distro_version = $null
+                                minimum_supported_sensor_version = 'NO_MATCH'
+                            })
+                        }
+                    }
+                    if (!$Output) { throw 'No results.' }
+                    $Output | Export-Csv -Path $OutputFile -NoTypeInformation -Append
                 }
-            }) -join ','
-            ,(Get-FalconHost -Filter $Filter)
+            }
         }
-        # Add hosts to group
-        Invoke-FalconHostGroupAction -Name add-hosts -Id $Group.id -HostIds $HostIds
     } catch {
         throw $_
     }
 }
-```
-## Verify that a list of Host Groups exist within child CIDs
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $ClientId,
-
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{40}$')]
-    [string] $ClientSecret,
-
-    [Parameter()]
-    [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
-    [string] $Cloud,
-
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [array] $MemberCIDs,
-
-    [Parameter(Mandatory = $true)]
-    [array] $GroupNames
-)
-begin {
-    # Log file name and output location
-    $OutputFile = "VerifyGroup_$(Get-Date -Format FileDateTime).csv"
-    $OutputPath = "$(Join-Path -Path ([Environment]::CurrentDirectory) -ChildPath $OutputFile)"
-}
-process {
-    foreach ($CID in $MemberCIDs) {
-        $Param = @{
-            ClientId = $ClientId
-            ClientSecret = $ClientSecret
-            MemberCid = ($CID).ToLower()
-        }
-        if ($Cloud) {
-            $Param.Add('Cloud', $Cloud)
-        }
-        # Authenticate with Member CID
-        Request-FalconToken @Param
-        try {
-            # Get group information
-            $Groups = for ($i = 0; $i -lt $GroupNames.count; $i += 20) {
-                [array] $NameFilter = ($GroupNames[$i..($i + 19)]).foreach{
-                    "name:'$(($_).ToLower())'"
-                }
-                Get-FalconHostGroup -Filter ($NameFilter -join ',') -Detailed | Select-Object id, name
-            }
-            # Create output object
-            $Output = [PSCustomObject] @{
-                CID = $CID
-            }
-            foreach ($GroupName in $GroupNames) {
-                # Add each group name and id
-                $IdValue = if ($Groups.name -contains $GroupName) {
-                    ($Groups | Where-Object { $_.name -eq $GroupName }).id
-                } else {
-                    $null
-                }
-                $Output.PSObject.Properties.Add((New-Object PSNoteProperty($GroupName, $IdValue)))
-            }
-            # Output to CSV
-            $Output | Export-Csv -Path $OutputPath -NoTypeInformation -Append
-            Write-Host "Output Host Groups for CID: $CID"
-        } catch {
-            # Output error and end script
-            $_
-            break
-        } finally {
-            # Remove authentication token and credentials for next CID
-            Revoke-FalconToken
-
-            # Sleep for 5 seconds to avoid rate limiting on token request
-            Start-Sleep -Seconds 5
-        }
-    }
-}
-end {
-    if (Test-Path -Path $OutputPath) {
-        Get-ChildItem -Path $OutputPath
-    }
-}
-```
-# Policies
-## Modify all Sensor Visibility Exclusions to include an additional Host Group
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-param(
-    [Parameter(Mandatory = $true,
-        Position = 1)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $GroupId
-)
-$SVEs = Get-FalconSVExclusion -Detailed -All
-foreach ($SVE in $SVEs) {
-    Edit-FalconSVExclusion -Id $SVE.id -GroupIds @($SVE.groups.id, $GroupId)
-}
-```
-## Assign a list of Host Group names to a specific Policy Id within a list of Child CIDs
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $ClientId,
-
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{40}$')]
-    [string] $ClientSecret,
-
-    [Parameter()]
-    [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
-    [string] $Cloud,
-
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [array] $MemberCIDs,
-
-    [Parameter(Mandatory = $true)]
-    [array] $GroupNames,
-
-    [Parameter(Mandatory = $true)]
-    [ValidateSet('DeviceControl', 'Firewall', 'Prevention', 'Response', 'SensorUpdate')]
-    [string] $PolicyType,
-
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $PolicyId
-)
-begin {
-    # Log file name and output location
-    $LogName = "AssignGroup_$(Get-Date -Format FileDateTime).log"
-    $LogLocation = "$(Join-Path -Path ([Environment]::CurrentDirectory) -ChildPath $LogName)"
-
-    function Write-LogEntry ([string] $Source, [string] $Message) {
-        # Write output and add to log file
-        "[$(Get-Date -Format 'yyyy-MM-dd hh:mm:ss') $Source] $Message" | Tee-Object -FilePath $LogLocation -Append
-    }
-}
-process {
-    foreach ($CID in $MemberCIDs) {
-        $Param = @{
-            ClientId = $ClientId
-            ClientSecret = $ClientSecret
-            MemberCid = ($CID).ToLower()
-        }
-        if ($Cloud) {
-            $Param.Add('Cloud', $Cloud)
-        }
-        # Authenticate with Member CID
-        Request-FalconToken @Param
-        try {
-            ($GroupNames).foreach{
-                # Get Host Group Id
-                $GroupId = Get-FalconHostGroup -Filter "name:'$(($_).ToLower())'"
-                if ($GroupId) {
-                    # Assign Host Group to policy
-                    $InvokeCommand = "Invoke-Falcon$($PolicyType)PolicyAction"
-                    $Param = @{
-                        Name = 'add-host-group'
-                        Id = $PolicyId
-                        GroupId = $GroupId
-                    }
-                    $Assigned = & $InvokeCommand @Param
-                    if ($Assigned) {
-                        $Param = @{
-                            Source = $InvokeCommand
-                            Message = "Assigned group $($GroupId) to $($PolicyType) policy" +
-                                " $($Assigned.id) in CID $($CID)"
-                        }
-                        Write-LogEntry @Param
-                    } else {
-                        $Param = @{
-                            Source = $InvokeCommand
-                            Message = "Failed to assign group $($GroupId) to $($PolicyId) in CID $($CID)"
-                        }
-                        Write-LogEntry @Param
-                    }
-                } else {
-                    $Param = @{
-                        Source = 'Get-FalconHostGroup'
-                        Message = "No results for group name '$_' in CID $($CID)"
-                    }
-                    Write-LogEntry @Param
-                }
-            }
-        } catch {
-            # Output error and end script
-            $_
-            break
-        } finally {
-            # Remove authentication token and credentials for next CID
-            Revoke-FalconToken
-
-            # Sleep for 5 seconds to avoid rate limiting on token request
-            Start-Sleep -Seconds 5
-        }
-    }
-}
-end {
-    if (Test-Path -Path $LogLocation) {
-        # Output log file and path
-        Get-ChildItem -Path $LogLocation
-    }
-}
-```
-## Output a list of assigned Host Groups for designated Policy ids within child CIDs
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $ClientId,
-
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{40}$')]
-    [string] $ClientSecret,
-
-    [Parameter()]
-    [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
-    [string] $Cloud,
-
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [array] $MemberCIDs,
-
-    [Parameter(Mandatory = $true)]
-    [ValidateSet('DeviceControl', 'Firewall', 'Prevention', 'Response', 'SensorUpdate')]
-    [string] $PolicyType,
-
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [array] $PolicyIds
-)
-begin {
-    $Filename = "$($PolicyType)PolicyAssignments_$(Get-Date -Format FileDate).csv"
-    $OutputPath = "$(Join-Path -Path ([Environment]::CurrentDirectory) -ChildPath $Filename)"
-}
-process {
-    foreach ($CID in $MemberCIDs) {
-        $Param = @{
-            ClientId = $ClientId
-            ClientSecret = $ClientSecret
-            MemberCid = ($CID).ToLower()
-        }
-        if ($Cloud) {
-            $Param.Add('Cloud', $Cloud)
-        }
-        # Authenticate with Member CID
-        Request-FalconToken @Param
-        try {
-            # Get policy information
-            $InvokeCommand = "Get-Falcon$($PolicyType)Policy"
-            & $InvokeCommand -Ids $PolicyIds | Select-Object id, groups | ForEach-Object {
-                [PSCustomObject] @{
-                    # Output with CID, policy id and assigned groups
-                    CID = $CID
-                    PolicyId = "$($_.id)"
-                    Groups = $_.groups.id -join ', '
-                } | Export-Csv -Path $OutputPath -NoTypeInformation -Append
-            }
-            Write-Host "Output assigned Host Groups for policies in CID: $CID"
-        } catch {
-            # Output error and end script
-            $_
-            break
-        } finally {
-            # Remove authentication token and credentials for next CID
-            Revoke-FalconToken
-
-            # Sleep for 5 seconds to avoid rate limiting on token request
-            Start-Sleep -Seconds 5
-        }
-    }
-}
-end {
-    if (Test-Path -Path $OutputPath) {
-        Get-ChildItem -Path $OutputPath
-    }
-}
-```
-## Add a list of combined_id exceptions to a Device Control policy
-**NOTE**: This script will create 'FULL_ACCESS' exceptions for the 'MASS_STORAGE' class within an existing policy. You can modify the hashtable created in `$Exceptions` to add key/value pairs like `vendor_name` or `product_name`.
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory = $true, Position = 1)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $PolicyId,
-
-    [Parameter(Mandatory = $true, Position = 2)]
-    [array] $CombinedIds
-)
-begin {
-    # Maximum number of exceptions to add per request
-    $Max = 50
-}
-process {
-    for ($i = 0; $i -lt ($CombinedIds | Measure-Object).Count; $i += $Max) {
-        # Create exceptions in groups of $Max
-        $IdGroup = $CombinedIds[$i..($i + ($Max - 1))]
-        [array] $Exceptions = $IdGroup | ForEach-Object {
-            @{
-                action = 'FULL_ACCESS'
-                combined_id = $_
-            }
-        }
-        $Settings = @{
-            classes = @(
-                @{
-                    id = 'MASS_STORAGE'
-                    exceptions = $Exceptions
-                }
-            )
-        }
-        Edit-FalconDeviceControlPolicy -Id $PolicyId -Settings $Settings | ForEach-Object {
-            # Validate presence of 'combined_id' in policy
-            $PolicyExceptions = ($_.settings.classes | Where-Object { $_.id -eq 'MASS_STORAGE' }).exceptions
-            ($IdGroup).foreach{
-                if ($PolicyExceptions.combined_id -contains $_) {
-                    Write-Output "OK: $_"
-                }
-            }
-        }
-    }
-}
+end { if (Test-Path $OutputFile) { Get-ChildItem $OutputFile | Select-Object FullName,Length,LastWriteTime }}
 ```
 ## Create CSVs containing Device Control policy details and exceptions
-This script will create a series of CSV files containing information about a given Device Control policy (settings, members, groups, exceptions, etc.).
+This script will create a series of CSV files containing information about a given Device Control
+policy (settings, members, groups, exceptions, etc.).
 ```powershell
 #Requires -Version 5.1
-using module @{
-    ModuleName    = 'PSFalcon'
-    ModuleVersion = '2.1'
-}
-[CmdletBinding(DefaultParameterSetName = 'Id')]
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+[CmdletBinding(DefaultParameterSetName='Id')]
 param(
-    [Parameter(ParameterSetName = 'Id', Mandatory = $true, Position = 1)]
-    [Parameter(ParameterSetName = 'Name', Mandatory = $true, Position = 1)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $ClientId,
-
-    [Parameter(ParameterSetName = 'Id', Mandatory = $true, Position = 2)]
-    [Parameter(ParameterSetName = 'Name', Mandatory = $true, Position = 2)]
+    [Parameter(ParameterSetName='Id',Mandatory,Position=1)]
+    [Parameter(ParameterSetName='Name',Mandatory,Position=1)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$ClientId,
+    [Parameter(ParameterSetName='Id',Mandatory,Position=2)]
+    [Parameter(ParameterSetName='Name',Mandatory,Position=2)]
     [ValidatePattern('^\w{40}$')]
-    [string] $ClientSecret,
-
-    [Parameter(ParameterSetName = 'Id', Position = 3)]
-    [Parameter(ParameterSetName = 'Name', Position = 3)]
-    [ValidateSet('eu-1', 'us-gov-1', 'us-1', 'us-2')]
-    [string] $Cloud,
-
-    [Parameter(ParameterSetName = 'Id', Mandatory = $true, Position = 4)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $Id,
-
-    [Parameter(ParameterSetName = 'Name', Mandatory = $true, Position = 5)]
-    [string] $Name,
-
-    [Parameter(ParameterSetName = 'Id', Position = 6)]
-    [Parameter(ParameterSetName = 'Name', Position = 6)]
+    [string]$ClientSecret,
+    [Parameter(ParameterSetName='Id',Position=3)]
+    [Parameter(ParameterSetName='Name',Position=3)]
+    [ValidateSet('eu-1','us-gov-1','us-1','us-2')]
+    [string]$Cloud,
+    [Parameter(ParameterSetName='Id',Mandatory,Position=4)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$Id,
+    [Parameter(ParameterSetName='Name',Mandatory,Position=5)]
+    [string]$Name,
+    [Parameter(ParameterSetName='Id',Position=6)]
+    [Parameter(ParameterSetName='Name',Position=6)]
     [ValidateScript({
         if ((Test-Path $_) -eq $false) {
             throw "Cannot find path '$_' because it does not exist."
         } elseif ((Test-Path $_ -PathType Container) -eq $false) {
-            throw "'Path' must specify a folder."
+            throw "'Path' must specify a directory."
         } else {
             $true
         }
     })]
-    [string] $Path
-
+    [string]$Path
 )
 begin {
-    function Write-Output ([object] $Content, [string] $Type) {
+    function Write-CsvOutput ([object]$Content,[string]$Type) {
         if ($Content) {
             $Param = @{
-                Path              = Join-Path -Path $OutputFolder -ChildPath "$(Get-Date -Format FileDate)_$(
-                    $Id)_$($Type).csv"
+                Path = Join-Path $OutputFolder "$((Get-Date -Format FileDate),$PolicyId,$Type -join '_').csv"
                 NoTypeInformation = $true
-                Append            = $true
-                Force             = $true
+                Append = $true
+                Force = $true
             }
             $Content | Export-Csv @Param
         }
     }
-    $OutputFolder = if (!$Path) {
-        (Get-Location).Path
-    } else {
-        $Path
-    }
-    $Param = @{
-        ClientId     = $ClientId
-        ClientSecret = $ClientSecret
-    }
-    if ($Cloud) {
-        $Param['Cloud'] = $Cloud
-    }
-    Request-FalconToken @Param
+    [string]$OutputFolder = if (!$Path) { (Get-Location).Path } else { $Path }
+    $Token = @{ ClientId = $ClientId; ClientSecret = $ClientSecret }
+    if ($Cloud) { $Token['Cloud'] = $Cloud }
+    Request-FalconToken @Token
     $VerbosePreference = 'Continue'
 }
 process {
-    $PolicyId = if ((Test-FalconToken).Token -eq $true) {
+    [string]$PolicyId = if ((Test-FalconToken).Token -eq $true) {
         if ($Name) {
             try {
-                Get-FalconDeviceControlPolicy -Filter "name:'$($Name.ToLower())'" -Detailed
+                Get-FalconDeviceControlPolicy -Filter "name:'$($Name.ToLower())'"
             } catch {
                 throw "No Device Control policy found matching '$($Name.ToLower())'."
             }
@@ -865,35 +710,138 @@ process {
         }
     }
     if ($PolicyId) {
-        foreach ($Item in (Get-FalconDeviceControlPolicy -Ids $PolicyId)) {
+        foreach ($Item in (Get-FalconDeviceControlPolicy -Id $PolicyId)) {
             $Item.settings.PSObject.Members.Where({ $_.MemberType -eq 'NoteProperty' }).foreach{
                 if ($_.Name -eq 'classes') {
-                    Write-Output ($_.Value | Select-Object id, action) 'classes'
+                    Write-CsvOutput ($_.Value | Select-Object id,action) 'classes'
                     foreach ($Exception in ($_.Value).Where({ $_.exceptions }).exceptions) {
-                        Write-Output $Exception 'exceptions'
+                        Write-CsvOutput $Exception 'exceptions'
                     }
                 } else {
-                    $Item.PSObject.Properties.Add((New-Object PSNoteProperty($_.Name, $_.Value)))
+                    $Item.PSObject.Properties.Add((New-Object PSNoteProperty($_.Name,$_.Value)))
                 }
             }
-            foreach ($Property in @('groups', 'settings')) {
+            foreach ($Property in @('groups','settings')) {
                 if ($Item.$Property -and $Property -eq 'groups') {
-                    Write-Output ($Item.$Property | Select-Object id, name) $Property
+                    Write-CsvOutput ($Item.$Property | Select-Object id,name) $Property
                 }
                 $Item.PSObject.Properties.Remove($Property)
             }
-            Write-Output $Item 'settings'
-            Write-Output (Get-FalconDeviceControlPolicyMember -Id $PolicyId -Detailed -All |
-                Select-Object device_id, hostname) 'members'
+            Write-CsvOutput $Item 'settings'
+            Write-CsvOutput (Get-FalconDeviceControlPolicyMember -Id $PolicyId -Detailed -All |
+                Select-Object device_id,hostname) 'members'
         }
     }
 }
+end { if (Test-Path $OutputFolder) { Get-ChildItem $OutputFolder | Select-Object FullName,Length,LastWriteTime }}
+```
+## Modify all Sensor Visibility Exclusions to include an additional host group
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
+param(
+    [Parameter(Mandatory,Position=1)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$GroupId
+)
+Get-FalconSvExclusion -Detailed -All | ForEach-Object {
+    Edit-FalconSvExclusion -Id $_.id -GroupId @($_.groups.id,$GroupId)
+}
+```
+### Modify the build of a Sensor Update policy by name
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+param(
+    [Parameter(Mandatory,Position=1)]
+    [string]$Name,
+    [Parameter(Mandatory,Position=2)]
+    [string]$Version
+)
+[string]$Id = Get-FalconSensorUpdatePolicy -Filter "name.raw:'$Name'"
+if (!$Id) { throw "No policy found matching '$Name'." }
+if ($Version -match '\.') { $Version = [string]($Version -split '\.')[-1] }
+if ((Get-FalconBuild).build -notcontains $Version) { throw "'$Version' is not a valid build number." }
+Edit-FalconSensorUpdatePolicy -Id $Id -Setting @{ build = $Version } | Select-Object id,name,@{Label='build';
+    Expression={$_.settings.build}}
+```
+## Output a list of assigned Host Groups for designated Policy ids within child CIDs
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory,Position=1)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$ClientId,
+    [Parameter(Mandatory,Position=2)]
+    [ValidatePattern('^\w{40}$')]
+    [string]$ClientSecret,
+    [Parameter(Mandatory,Position=3)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string[]]$MemberCid,
+    [Parameter(Position=4)]
+    [ValidateSet('eu-1','us-gov-1','us-1','us-2')]
+    [string]$Cloud,
+    [Parameter(Mandatory,Position=5)]
+    [ValidateSet('DeviceControl','Firewall','Prevention','Response','SensorUpdate')]
+    [string]$PolicyType,
+    [Parameter(Mandatory,Position=6)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string[]]$PolicyId
+)
+begin {
+    $Token = @{}
+    @('ClientId','ClientSecret','Cloud').foreach{
+        if ($PSBoundParameters.$_) { $Token[$_] = $PSBoundParameters.$_ }
+    }
+    if (!$MemberCid) {
+        Request-FalconToken @Token
+        if ((Test-FalconToken).Token -eq $true) {
+            # Gather available Member CIDs
+            [string[]]$MemberCid = Get-FalconMemberCid -Detailed -All | Where-Object {
+                $_.status -eq 'active' } | Select-Object -ExpandProperty child_cid
+            Revoke-FalconToken
+        }
+    }
+    [string]$OutputFile = Join-Path (Get-Location).Path "$(
+        $PolicyType)Assignment_$(Get-Date -Format FileDate).csv"
+}
+process {
+    foreach ($Cid in $MemberCid) {
+        try {
+            # Authenticate with Member CID
+            Request-FalconToken @Token -MemberCid $Cid
+            if ((Test-FalconToken).Token -eq $true) {
+                # Get policy information
+                & "Get-Falcon$($PolicyType)Policy" -Id $PolicyId | Select-Object id,groups | ForEach-Object {
+                    [PSCustomObject]@{
+                        # Output with CID, policy id and assigned groups
+                        Cid = $Cid
+                        PolicyId = $_.id
+                        Groups = $_.groups.id -join ', '
+                    } | Export-Csv -Path $OutputFile -NoTypeInformation -Append
+                }
+                Write-Host "Output assigned host groups for CID '$Cid'."
+            }
+        } catch {
+            Write-Error $_
+        } finally {
+            if ((Test-FalconToken).Token -eq $true) {
+                # Remove authentication token and sleep to avoid rate limiting
+                Revoke-FalconToken
+                Start-Sleep -Seconds 5
+            }
+        }
+    }
+}
+end { if (Test-Path $OutputFile) { Get-ChildItem $OutputFile | Select-Object FullName,Length,LastWriteTime }}
 ```
 # Real-time Response
 ## Download the latest CsWinDiag archive from a list of hosts
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName='PSFalcon'; ModuleVersion='2.2' }
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true,Position=1)]
@@ -945,7 +893,7 @@ process {
 ## Execute CsWinDiag and download results from a list of hosts
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName='PSFalcon'; ModuleVersion='2.2' }
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true,Position=1)]
@@ -1052,20 +1000,15 @@ process {
 ## Run a command against a group of devices
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 param(
-    [Parameter(Mandatory = $true,
-        Position = 1)]
-    [string] $GroupName,
-
-    [Parameter(Mandatory = $true,
-        Position = 2)]
-    [string] $Command,
-
-    [Parameter(Position = 3)]
-    [string] $Arguments,
-
-    [boolean] $QueueOffline
+    [Parameter(Mandatory,Position=1)]
+    [string]$GroupName,
+    [Parameter(Mandatory,Position=2)]
+    [string]$Command,
+    [Parameter(Position=3)]
+    [string]$Arguments,
+    [boolean]$QueueOffline
 )
 # Find group identifier using 'name' filter
 $GroupId = Get-FalconHostGroup -Filter "name:'$($GroupName.ToLower())'"
@@ -1078,21 +1021,16 @@ if ($GroupId) {
 }
 if ($Members) {
     # Set filename for CSV export
-    $ExportName = "$pwd\rtr_$($Command -replace ' ','_')_$GroupId.csv"
+    $ExportName = Join-Path (Get-Location).Path "$('rtr',($Command -replace ' ','_'),$GroupId -join '_').csv"
 
     # Set base parameters for Invoke-FalconRTR
-    $Param = @{
-        Command = $Command
-        HostIds = $Members
-    }
+    $Param = @{ Command = $Command; HostId = $Members }
     switch ($PSBoundParameters.Keys) {
         # Append parameters from user input that match Invoke-FalconRTR
-        { $_ -ne 'GroupName' } {
-            $Param[$_] = $PSBoundParameters.$_
-        }
+        { $_ -ne 'GroupName' } { $Param[$_] = $PSBoundParameters.$_ }
     }
     # Issue command and export results to CSV
-    Invoke-FalconRTR @Param | Export-Csv -Path $ExportName
+    Invoke-FalconRtr @Param | Export-Csv -Path $ExportName
     
     if (Test-Path $ExportName) {
         # Display CSV file
@@ -1103,24 +1041,19 @@ if ($Members) {
 }
 ```
 ## Upload and execute a local script
-**NOTE**: This will get the content of a script from the local administrator computer, encode it (to minimize potential errors due to quotation marks) and run it as a "Raw" script using `Invoke-FalconRTR`.
+**NOTE**: This will get the content of a script from the local administrator computer, encode it (to minimize
+potential errors due to quotation marks) and run it as a "Raw" script using `Invoke-FalconRtr`.
 ```powershell
 [CmdletBinding()]
 param(
-    [Parameter(
-        Mandatory = $true,
-        Position = 1)]
+    [Parameter(Mandatory,Position=1)]
     [ValidateScript({ Test-Path $_ })]
-    [string] $Path,
-
-    [Parameter(
-        Mandatory = $true,
-        Position = 2)]
-    [ValidatePattern('^\w{32}$')]
-    [array] $HostIds,
-
-    [Parameter(Position = 3)]
-    [int] $Timeout
+    [string]$Path,
+    [Parameter(Mandatory,Position=2)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string[]]$HostId,
+    [Parameter(Position=3)]
+    [int]$Timeout
 )
 begin {
     $EncodedScript = [Convert]::ToBase64String(
@@ -1130,33 +1063,28 @@ process {
     $Param = @{
         Command = 'runscript'
         Arguments = '-Raw=```powershell.exe -Enc ' + $EncodedScript + '```'
-        HostIds = $HostIds
+        HostId = $HostId
     }
-    if ($HostIds.count -gt 1 -and $Timeout) {
-        $Param['Timeout'] = $Timeout
-    }
-    Invoke-FalconRTR @Param
+    if ($HostId.count -gt 1 -and $Timeout) { $Param['Timeout'] = $Timeout }
+    Invoke-FalconRtr @Param
 }
 ```
 ## Upload and execute a local script as a secondary process
-**NOTE**: Similar to the [other example](#upload-and-execute-a-local-script) this will run a script as a secondary PowerShell process on the target device, which helps when scripts are expected to exceed the Real-time Response timeout limit. The downside is that you will not be able to return results from the script unless you write them to a local file on the target host that you access later.
+**NOTE**: Similar to the [other example](#upload-and-execute-a-local-script) this will run a script as a secondary
+PowerShell process on the target device, which helps when scripts are expected to exceed the Real-time Response
+timeout limit. The downside is that you will not be able to return results from the script unless you write them
+to a local file on the target host that you access later.
 ```powershell
 [CmdletBinding()]
 param(
-    [Parameter(
-        Mandatory = $true,
-        Position = 1)]
+    [Parameter(Mandatory,Position=1)]
     [ValidateScript({ Test-Path $_ })]
-    [string] $Path,
-
-    [Parameter(
-        Mandatory = $true,
-        Position = 2)]
-    [ValidatePattern('^\w{32}$')]
-    [array] $HostIds,
-
-    [Parameter(Position = 3)]
-    [int] $Timeout
+    [string]$Path,
+    [Parameter(Mandatory,Position=2)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string[]]$HostId,
+    [Parameter(Position=3)]
+    [int]$Timeout
 )
 begin {
     $EncodedScript = [Convert]::ToBase64String(
@@ -1166,21 +1094,19 @@ process {
     $Param = @{
         Command = 'runscript'
         Arguments = '-Raw=```Start-Process -FilePath powershell.exe -ArgumentList "-Enc ' + $EncodedScript + '"```'
-        HostIds = $HostIds
+        HostId = $HostId
     }
-    if ($HostIds.count -gt 1 -and $Timeout) {
-        $Param['Timeout'] = $Timeout
-    }
-    Invoke-FalconRTR @Param
+    if ($HostIds.count -gt 1 -and $Timeout) { $Param['Timeout'] = $Timeout }
+    Invoke-FalconRtr @Param
 }
 ```
 # Scheduled Reports
 ## Download your most recent scheduled report results
-This is a simple one-line script that will download the most recent scheduled report results into your current directory.
+This is a simple one-line script that will download the most recent scheduled report results into your current
+directory.
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.1.6' }
-
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 (Get-FalconScheduledReport -Detailed -All).last_execution | ForEach-Object {
     Receive-FalconScheduledReport -Id $_.id -Path "$($_.result_metadata.report_file_name)"
 }
@@ -1189,18 +1115,18 @@ using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.1.6' }
 ## Download the installer package assigned to a Sensor Update policy
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 param(
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $PolicyId
+    [Parameter(Mandatory)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$PolicyId
 )
 try {
     # Retrieve Sensor Update policy detail
-    $Policy = Get-FalconSensorUpdatePolicy -Ids $PolicyId
+    $Policy = Get-FalconSensorUpdatePolicy -Id $PolicyId
     if ($Policy.platform_name -and $Policy.settings) {
         # Use build and sensor_version to create regex pattern
-        [regex] $Pattern = "^($([regex]::Escape(
+        [regex]$Pattern = "^($([regex]::Escape(
             ($Policy.settings.sensor_version -replace '\.\d+$',$null)))\.\d{1,}|\d\.\d{1,}\.$(
             $Policy.settings.build.Split('|')[0]))$"
         $Match = try {
@@ -1232,10 +1158,10 @@ try {
 ## Download the installer package assigned to your default Sensor Update policy
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory = $true, Position = 1)]
+    [Parameter(Mandatory,Position=1)]
     [ValidateScript({
         if (Test-Path -Path $_ -PathType Container) {
             $true
@@ -1243,7 +1169,7 @@ param(
             throw "Cannot find path '$_' because it does not exist or is not a directory."
         }
     })]
-    [string] $Path
+    [string]$Path
 )
 begin {
     # Ensure absolute path for output directory
@@ -1261,7 +1187,7 @@ process {
         $Policy = Get-FalconSensorUpdatePolicy -Filter "platform_name:'Windows'+name:'platform_default'" -Detailed
         if ($Policy.platform_name -and $Policy.settings) {
             # Use build and sensor_version to create regex pattern
-            [regex] $Pattern = "^($([regex]::Escape(
+            [regex]$Pattern = "^($([regex]::Escape(
                 ($Policy.settings.sensor_version -replace '\.\d+$',$null)))\.\d{1,}|\d\.\d{1,}\.$(
                 $Policy.settings.build.Split('|')[0]))$"
             $Match = try {
@@ -1273,7 +1199,8 @@ process {
             }
             if ($Match.sha256 -and $Match.name) {
                 $Installer = Join-Path -Path $OutputDirectory -ChildPath $Match.name
-                if ((Test-Path $Installer) -and ((Get-FileHash -Algorithm SHA256 -Path $Installer) -eq $Match.sha256)) {
+                if ((Test-Path $Installer) -and ((Get-FileHash -Algorithm SHA256 -Path $Installer) -eq
+                $Match.sha256)) {
                     # Abort if matching file already exists
                     throw "File exists with matching hash [$($Match.sha256)]"
                 } elseif (Test-Path $Installer) {
@@ -1285,141 +1212,36 @@ process {
                 if (Test-Path $Receive.FullName) {
                     $Match | ForEach-Object {
                         # Output installer information with 'file_path' of local file
-                        $_.PSObject.Properties.Add((New-Object PSNoteProperty('file_path', $Receive.FullName)))
+                        $_.PSObject.Properties.Add((New-Object PSNoteProperty('file_path',$Receive.FullName)))
                         $_
                     }
                 } else {
-                    throw "Installer download failed [$($Match.sha256)]"
+                    throw "Installer download failed. [$($Match.sha256)]"
                 }
             } else {
-                throw "Properties 'sha256' or 'name' missing from installer result"
+                throw "Properties 'sha256' or 'name' missing from installer result."
             }
         } else {
-            throw "Unable to retrieve default policy for Windows"
+            throw "Unable to retrieve default policy for Windows."
         }
     } catch {
         throw $_
     }
 }
-```
-# Sensor Update Policies
-## Create a list of minimum sensor versions by Linux kernel
-```powershell
-#Requires -Version 5.1 -Modules @{ModuleName="PSFalcon";ModuleVersion='2.2'}
-<#
-.SYNOPSIS
-Generate a CSV of minimum supported sensor version by Linux kernel and distro_version
-.PARAMETER Path
-Path to a text file containing a list of kernels to compare
-#>
-[CmdletBinding(SupportsShouldProcess)]
-param(
-    [Parameter(Mandatory=$true,Position=1)]
-    [ValidateScript({
-        if (Test-Path $_ -PathType Leaf) {
-            $true
-        } else {
-            throw "Cannot find path '$_' because it does not exist or is not a file."
-        }
-    })]
-    [string]$Path
-)
-begin {
-    [string]$Path = if (![IO.Path]::IsPathRooted($PSBoundParameters.Path)) {
-        $FullPath = Join-Path -Path (Get-Location).Path -ChildPath $PSBoundParameters.Path
-        $FullPath = Join-Path -Path $FullPath -ChildPath '.'
-        [IO.Path]::GetFullPath($FullPath)
-    } else {
-        $PSBoundParameters.Path
-    }
-}
-process {
-    try {
-        # Gather list of kernels from text file
-        [string[]]$Kernel = Get-Content $Path | Where-Object { $null -ne $_ }
-        if ($Kernel) {
-            # Retrieve entire list of supported kernels
-            [object[]]$Request = Get-FalconKernel -Limit 500 -All
-            if ($Request) {
-                # Filter to supported kernels
-                [object[]]$Content = $Request | Where-Object { $Kernel -contains $_.release } |
-                    Select-Object release,architecture,distro,distro_version,
-                    base_package_supported_sensor_versions,ztl_supported_sensor_versions,
-                    ztl_module_supported_sensor_versions
-                if ($Content) {
-                    [System.Collections.Generic.List[object]]$Output = @($Content).foreach{
-                        # Create 'minimum_sensor_version' property, using lowest listed version
-                        [string]$Minimum = ($_ | Select-Object base_package_supported_sensor_versions,
-                        ztl_supported_sensor_versions,ztl_module_supported_sensor_versions
-                        ).PSObject.Properties.Value | Group-Object | Sort-Object Name |
-                        Select-Object -ExpandProperty Name -First 1
-                        [string]$Value = if ($Minimum) { $Minimum } else { 'UNKNOWN' }
-                        $_.PSObject.Properties.Add((New-Object PSNoteProperty('minimum_supported_sensor_version',
-                            $Value)))
-                        [void]($_.PSObject.Properties.Remove('base_package_supported_sensor_versions'))
-                        [void]($_.PSObject.Properties.Remove('ztl_supported_sensor_versions'))
-                        [void]($_.PSObject.Properties.Remove('ztl_module_supported_sensor_versions'))
-                        $_ | Select-Object release,architecture,distro,distro_version,
-                            minimum_supported_sensor_version
-                    }
-                    @($Kernel).foreach{
-                        if ($Output.release -notcontains $_) {
-                            $Output.Add([PSCustomObject]@{
-                                release = $_
-                                architecture = $null
-                                distro = $null
-                                distro_version = $null
-                                minimum_supported_sensor_version = 'NO_MATCH'
-                            })
-                        }
-                    }
-                    if (!$Output) { throw 'No results.' }
-                    [string]$Filename = Join-Path -Path (Get-Location).Path -ChildPath "$('KernelSupport',
-                        (Get-Date -Format FileDateTime) -join '_').csv"
-                    $Output | Export-Csv -Path $Filename -NoTypeInformation -Append
-                }
-            }
-        }
-    } catch {
-        throw $_
-    }
-}
-end {
-    if ($Filename -and (Test-Path $Filename -PathType Leaf) -eq $true) {
-        Get-ChildItem $Filename | Select-Object FullName,Length,LastWriteTime
-    }
-}
-```
-### Modify the build of a Sensor Update policy by name
-```powershell
-#Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
-param(
-    [Parameter(Mandatory)]
-    [string]$Name,
-    [Parameter(Mandatory)]
-    [string]$Version
-)
-$Id = Get-FalconSensorUpdatePolicy -Filter "name.raw:'$Name'"
-if (!$Id) { throw "No policy found matching '$Name'." }
-if ($Version -match '\.') { $Version = [string]($Version -split '\.')[-1] }
-if ((Get-FalconBuild).build -notcontains $Version) { throw "'$Version' is not a valid build number." }
-Edit-FalconSensorUpdatePolicy -Id $Id -Setting @{ build = $Version } | Select-Object id,name,@{ Label = 'build';
-    Expression = {$_.settings.build}}
 ```
 # Threat Intelligence
 ## Export domain and IP indicators updated within the last week to CSV
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 $UnixDate = [DateTimeOffset]::Now.AddDays(-7).ToUnixTimeSeconds()
 $Param = @{
     Filter = "(type:'ip_address',type:'domain')+last_updated:>$UnixDate"
     Detailed = $true
     All = $true
 }
-Get-FalconIndicator @Param | Select-Object indicator, type, malicious_confidence, labels | ForEach-Object {
-    [PSCustomObject] @{
+Get-FalconIndicator @Param | Select-Object indicator,type,malicious_confidence,labels | ForEach-Object {
+    [PSCustomObject]@{
         value = $_.indicator
         type = $_.type
         confidence = $_.malicious_confidence
@@ -1431,38 +1253,32 @@ Get-FalconIndicator @Param | Select-Object indicator, type, malicious_confidence
 ## Create users from CSV
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 param(
-    [Parameter(Mandatory = $true, Position = 1)]
-    [ValidateSet('https://api.crowdstrike.com', 'https://api.us-2.crowdstrike.com',
-        'https://api.laggar.gcw.crowdstrike.com', 'https://api.eu-1.crowdstrike.com')]
-    [string] $BaseAddress,
-
-    [Parameter(Mandatory = $true, Position = 2)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $ClientId,
-
-    [Parameter(Mandatory = $true, Position = 3)]
+    [Parameter(Mandatory,Position=1)]
+    [ValidateSet('https://api.crowdstrike.com','https://api.us-2.crowdstrike.com',
+        'https://api.laggar.gcw.crowdstrike.com','https://api.eu-1.crowdstrike.com')]
+    [string]$BaseAddress,
+    [Parameter(Mandatory,Position=2)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$ClientId,
+    [Parameter(Mandatory,Position=3)]
     [ValidatePattern('^\w{40}$')]
-    [string] $ClientSecret,
-
-    [Parameter(Position = 4)]
-    [ValidatePattern('^\w{32}$')]
-    [string] $MemberCid,
-
-    [Parameter(Mandatory = $true, Position = 5)]
+    [string]$ClientSecret,
+    [Parameter(Position=4)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$MemberCid,
+    [Parameter(Mandatory,Position=5)]
     [ValidatePattern('\.csv$')]
     [ValidateScript({ Test-Path $_ })]
-    [string] $Path
+    [string]$Path
 )
 $Param = @{
-    Hostname     = $BaseAddress
-    ClientId     = $ClientId
+    Hostname = $BaseAddress
+    ClientId = $ClientId
     ClientSecret = $ClientSecret
 }
-if ($MemberCid) {
-    $Param['MemberCid'] = $MemberCid
-}
+if ($MemberCid) { $Param['MemberCid'] = $MemberCid }
 Request-FalconToken @Param
 if ((Test-FalconToken).Token -eq $true) {
     $CSV = Import-Csv $Path
@@ -1484,7 +1300,7 @@ if ((Test-FalconToken).Token -eq $true) {
         if ($Roles) {
             @($CSV).foreach{
                 $_.Roles = @($_.Roles).foreach{
-                    $_ -replace $_, ($Roles | Where-Object display_name -eq $_).id
+                    $_ -replace $_,($Roles | Where-Object display_name -eq $_).id
                 }
             }
         }
@@ -1494,10 +1310,10 @@ if ((Test-FalconToken).Token -eq $true) {
         $User = New-FalconUser -Username $_.Email -Firstname $_.Firstname -Lastname $_.Lastname
         if ($User.uuid -and $_.Roles) {
             # Assign roles
-            Add-FalconRole -UserId $User.uuid -Ids $_.Roles
+            Add-FalconRole -UserId $User.uuid -Id $_.Roles
         } elseif ($User.uuid) {
             # Assign 'falcon_console_guest' if roles are not present
-            Add-FalconRole -UserId $User.uuid -Ids falcon_console_guest
+            Add-FalconRole -UserId $User.uuid -Id falcon_console_guest
         }
     }
 }
@@ -1506,20 +1322,17 @@ if ((Test-FalconToken).Token -eq $true) {
 ## Create a report with additional Host fields
 ```powershell
 #Requires -Version 5.1
-using module @{ ModuleName = 'PSFalcon'; ModuleVersion = '2.0' }
+using module @{ModuleName='PSFalcon';ModuleVersion ='2.2'}
 param(
-    [Parameter(Position = 1)]
-    [int] $Days = 7,
-
-    [Parameter(Position = 2)]
-    [array] $Fields = @('last_seen', 'mac_address', 'serial_number', 'external_ip')
+    [Parameter(Position=1)]
+    [int]$Days = 7,
+    [Parameter(Position=2)]
+    [string[]]$Fields = @('last_seen','mac_address','serial_number','external_ip')
 )
-if ($Fields -notcontains 'device_id') {
-    # Force 'device_id' as a field to be used for matching results
-    $Fields += ,'device_id'
-}
-# Set filename for CSV export
-$ExportName = "$pwd\Vulnerabilities_$((Get-Date).AddDays(-$Days).ToString('yyyyMMdd'))_to_$(Get-Date -Format FileDate).csv"
+# Force 'device_id' as a field to be used for matching results and set export filename
+if ($Fields -notcontains 'device_id') { $Fields += ,'device_id' }
+$ExportName = Join-Path (Get-Location).Path "Vulnerabilities_$(
+    (Get-Date).AddDays(-$Days).ToString('yyyyMMdd'))_to_$(Get-Date -Format FileDate).csv"
 
 # Gather vulnerabilities within date range (default: last 7 days) and export to CSV
 $Param = @{
@@ -1538,17 +1351,14 @@ if (Test-Path $ExportName) {
     $HostIds = ($CSV | Group-Object aid).Name
 
     # Get detailed information about hosts to append to CSV
-    $Param = @{
-        Ids = $HostIds
-        Verbose = $true
-    }
+    $Param = @{ Id = $HostIds; Verbose = $true }
     $HostInfo = Get-FalconHost @Param | Select-Object $Fields
 
     foreach ($Item in $HostInfo) {
         foreach ($Result in ($CSV | Where-Object { $_.aid -eq $Item.device_id })) {
             foreach ($Property in ($Item.PSObject.Properties | Where-Object { $_.Name -ne 'device_id' })) {
                 # Add $Fields from Get-FalconHost, excluding 'device_id' (already present as 'aid')
-                $Result.PSObject.Properties.Add((New-Object PSNoteProperty($Property.Name, $Property.Value)))
+                $Result.PSObject.Properties.Add((New-Object PSNoteProperty($Property.Name,$Property.Value)))
             }
         }
     }

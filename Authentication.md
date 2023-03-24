@@ -34,35 +34,133 @@ using the `-MemberCid` parameter during authentication token requests. Your choi
 sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID,
 or you `Revoke-FalconToken`.
 
+## Authentication within a script
+### Request authorization token and run a command
+The request of an authorization token can happen as part of a script that performs other tasks. Here is a re-usable
+example which defines the necessary parameters, and can optionally authenticate within a specific member CID (found
+within Flight Control environments).
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory,Position=1)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$ClientId,
+    [Parameter(Mandatory,Position=2)]
+    [ValidatePattern('^\w{40}$')]
+    [string]$ClientSecret,
+    [Parameter(Position=3)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$MemberCid,
+    [Parameter(Position=4)]
+    [ValidateSet('us-1','us-2','us-gov-1','eu-1')]
+    [string]$Cloud
+)
+begin {
+    $Token = @{}
+    @('ClientId','ClientSecret','Cloud','MemberCid').foreach{
+        if ($PSBoundParameters.$_) { $Token[$_] = $PSBoundParameters.$_ }
+    }
+}
+process {
+    try {
+        Request-FalconToken @Token
+        if ((Test-FalconToken).Token -eq $true) {
+            # Insert code to run here
+        }
+    } catch {
+        throw $_
+    } finally {
+        if ((Test-FalconToken).Token -eq $true) { Revoke-FalconToken }
+    }
+}
+```
+### Authorize and run commands across member CIDs within a script
+In multi-CID configurations, you can create an OAuth2 API Client Id/Secret in the "parent" CID that has access to
+the "member" (a.k.a. "child") CIDs. A lot of data is visible at the parent level, but some data is only visible
+within each child. After creating an API Client, you can use that to retrieve a list of all available member CIDs
+(or provide specific members using `MemberCid`) and run PSFalcon commands within each child, while pausing between
+authorization token request attempts to avoid rate limiting.
+```powershell
+#Requires -Version 5.1
+using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
+[CmdletBinding()]
+param(
+    [Parameter(Mandatory,Position=1)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string]$ClientId,
+    [Parameter(Mandatory,Position=2)]
+    [ValidatePattern('^\w{40}$')]
+    [string]$ClientSecret,
+    [Parameter(Position=3)]
+    [ValidatePattern('^[a-fA-F0-9]{32}$')]
+    [string[]]$MemberCid,
+    [Parameter(Position=4)]
+    [ValidateSet('us-1','us-2','us-gov-1','eu-1')]
+    [string]$Cloud
+)
+begin {
+    $Token = @{}
+    @('ClientId','ClientSecret','Cloud').foreach{
+        if ($PSBoundParameters.$_) { $Token[$_] = $PSBoundParameters.$_ }
+    }
+    if (!$MemberCid) {
+        Request-FalconToken @Token
+        if ((Test-FalconToken).Token -eq $true) {
+            # Gather available Member CIDs
+            [string[]]$MemberCid = Get-FalconMemberCid -Detailed -All | Where-Object { $_.status -eq 'active' } |
+                Select-Object -ExpandProperty child_cid
+            Revoke-FalconToken
+        }
+    }
+}
+process {
+    foreach ($Cid in $MemberCid) {
+        try {
+            Request-FalconToken @Token -MemberCid $Cid
+            if ((Test-FalconToken).Token -eq $true) {
+                # Insert code to run in each CID here
+            }
+        } catch {
+            Write-Error $_
+        } finally {
+            if ((Test-FalconToken).Token -eq $true) {
+                Revoke-FalconToken
+                Start-Sleep -Seconds 5
+            }
+        }
+    }
+}
+```
 ## Revoke an auth token
 ```powershell
 Revoke-FalconToken
 ```
-
 ## Verifying token status
 `Test-FalconToken` can be used to verify whether you have an active OAuth2 access token cached.
 ```powershell
-PS>Test-FalconToken
+Test-FalconToken
 
 Token Hostname                    ClientId                         MemberCid
 ----- --------                    --------                         ---------
- True https://api.crowdstrike.com REDACTED
+ True https://api.crowdstrike.com <redacted>
 
 ```
 
 The `Token` property of the output from `Test-FalconToken` provides a `[boolean]` value of your current status.
 ```powershell
-PS>(Test-FalconToken).Token
+(Test-FalconToken).Token
 True
 
 ```
 # Securing credentials
-PSFalcon does not provide a method for securely handling your API client credentials. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules)
-module is a cross-platform option that works with PSFalcon. You can follow the steps below to install the module
-and use it with `Request-FalconToken`.
+PSFalcon does not provide a method for securely handling your API client credentials. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules) module is a
+cross-platform option that works with PSFalcon. You can follow the steps below to install the module and use it
+with `Request-FalconToken`.
 
-*NOTE*: [Microsoft.PowerShell.SecretManagement](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules) is a pre-requisite for the
-`Microsoft.PowerShell.SecretStore` module. It will be installed during the `Install-Module` step.
+*NOTE*: [Microsoft.PowerShell.SecretManagement](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules) is a pre-requisite for the `Microsoft.PowerShell.SecretStore`
+module. It will be installed during the `Install-Module` step.
 ```powershell
 Install-Module -Name Microsoft.PowerShell.SecretStore -Scope CurrentUser
 ```
@@ -74,12 +172,10 @@ create, confirm and remove a password after entering this command.
 ```powershell
 Set-SecretStoreConfiguration -Scope CurrentUser -Authentication None -Interaction None
 ```
-
 Once the module is installed and configured as desired, create a vault to store your API client(s):
 ```powershell
 Register-SecretVault -ModuleName Microsoft.PowerShell.SecretStore -Name MyVault
 ```
-
 `Request-FalconToken` requires multiple parameters to request a token. Each individual API client can be stored
 with the relevant parameters (including `MemberCid`) in your new vault:
 ```powershell
@@ -90,15 +186,14 @@ $ApiClient = @{
 }
 Set-Secret -Name MyApiClient -Secret $ApiClient -Vault MyVault
 ```
-
 Once stored, credentials can be retrieved using your chosen `-Name`, and you can [splat the parameters](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting) with
 `Request-FalconToken`:
 ```powershell
 Get-Secret -Name MyApiClient -Vault MyVault -AsPlainText | ForEach-Object { Request-FalconToken @_ }
 ```
 
-If desired, a simple function can be added to [your PowerShell profile](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles) to retrieve your
-credentials and request a token by name:
+If desired, a simple function can be added to [your PowerShell profile](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles) to retrieve your credentials and request a
+token by name:
 ```powershell
 function Request-SecretToken ([string] $Name) {
     if (-not(Get-Module -Name PSFalcon)) {

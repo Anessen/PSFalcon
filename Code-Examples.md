@@ -1,10 +1,8 @@
 ![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
 ***
-The examples provided below are for example purposes only and are offered 'as is' with no support.
-***
 ### Authentication
-* [Request authorization token and run commands](#request-authorization-token-and-run-commands)
-* [Authorize and run commands in member CIDs](#authorize-and-run-commands-in-member-cids)
+* [Request authorization token and run commands](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#request-authorization-token-and-run-a-command)
+* [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#authorize-and-run-commands-across-member-cids-within-a-script)
 ### Ingesting Data
 * [Retrieve items from a text file or CSV](#retrieve-items-from-a-text-file-or-csv)
 * [Retrieve identifiers using a list](#retrieve-identifiers-using-a-list)
@@ -14,102 +12,9 @@ The examples provided below are for example purposes only and are offered 'as is
 ***
 # Authentication
 ## Request authorization token and run commands
-An example of how to include OAuth2 API Client information as parameters and perform an authorization token
-request to the associated CID or "member" CID.
-```powershell
-#Requires -Version 5.1
-using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory,Position=1)]
-    [ValidatePattern('^[a-fA-F0-9]{32}$')]
-    [string]$ClientId,
-    [Parameter(Mandatory,Position=2)]
-    [ValidatePattern('^\w{40}$')]
-    [string]$ClientSecret,
-    [Parameter(Position=3)]
-    [ValidatePattern('^[a-fA-F0-9]{32}$')]
-    [string]$MemberCid,
-    [Parameter(Position=4)]
-    [ValidateSet('us-1','us-2','us-gov-1','eu-1')]
-    [string]$Cloud
-)
-begin {
-    $Token = @{}
-    @('ClientId','ClientSecret','Cloud','MemberCid').foreach{
-        if ($PSBoundParameters.$_) { $Token[$_] = $PSBoundParameters.$_ }
-    }
-}
-process {
-    try {
-        Request-FalconToken @Token
-        if ((Test-FalconToken).Token -eq $true) {
-            # Insert code to run and output data here
-        }
-    } catch {
-        throw $_
-    } finally {
-        if ((Test-FalconToken).Token -eq $true) { Revoke-FalconToken }
-    }
-}
-```
+This content has been moved to https://github.com/CrowdStrike/psfalcon/wiki/Authentication#request-authorization-token-and-run-a-command
 ## Authorize and run commands in member CIDs
-In multi-CID configurations, you can create an OAuth2 API Client Id/Secret in the "parent" CID that has access to
-the "child" or "member" CIDs. Some data is visible at the parent level, but some data is only visible within the
-child. After creating an API Client, you can use that to retrieve a list of all available member CIDs (or provide
-specific members using `MemberCid`) and run PSFalcon commands within each child, while pausing between
-authorization token request attempts to avoid rate limiting.
-```powershell
-#Requires -Version 5.1
-using module @{ModuleName='PSFalcon';ModuleVersion='2.2'}
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory,Position=1)]
-    [ValidatePattern('^[a-fA-F0-9]{32}$')]
-    [string]$ClientId,
-    [Parameter(Mandatory,Position=2)]
-    [ValidatePattern('^\w{40}$')]
-    [string]$ClientSecret,
-    [Parameter(Position=3)]
-    [ValidatePattern('^[a-fA-F0-9]{32}$')]
-    [string[]]$MemberCid,
-    [Parameter(Position=4)]
-    [ValidateSet('us-1','us-2','us-gov-1','eu-1')]
-    [string]$Cloud
-)
-begin {
-    $Token = @{}
-    @('ClientId','ClientSecret','Cloud').foreach{
-        if ($PSBoundParameters.$_) { $Token[$_] = $PSBoundParameters.$_ }
-    }
-    if (!$MemberCid) {
-        Request-FalconToken @Token
-        if ((Test-FalconToken).Token -eq $true) {
-            # Gather available Member CIDs
-            [string[]]$MemberCid = Get-FalconMemberCid -Detailed -All | Where-Object {
-                $_.status -eq 'active' } | Select-Object -ExpandProperty child_cid
-            Revoke-FalconToken
-        }
-    }
-}
-process {
-    foreach ($Cid in $MemberCid) {
-        try {
-            Request-FalconToken @Token -MemberCid $Cid
-            if ((Test-FalconToken).Token -eq $true) {
-                # Insert code to run and output data from each CID here
-            }
-        } catch {
-            Write-Error $_
-        } finally {
-            if ((Test-FalconToken).Token -eq $true) {
-                Revoke-FalconToken
-                Start-Sleep -Seconds 5
-            }
-        }
-    }
-}
-```
+This content has been moved to https://github.com/CrowdStrike/psfalcon/wiki/Authentication#authorize-and-run-commands-across-member-cids-within-a-script
 # Ingesting data
 ## Retrieve items from a text file or CSV
 Collect a list of items (identifiers, hostnames, group names, etc.) from a text file, exclude blank values and
@@ -252,6 +157,3 @@ agent_local_time
 agent_version
 ...
 ```
-***
-The examples provided above are for example purposes only and are offered 'as is' with no support.
-***

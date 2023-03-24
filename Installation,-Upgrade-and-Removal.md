@@ -49,6 +49,7 @@ _See [Installing PowerShell Modules](https://docs.microsoft.com/en-us/powershell
 ### Expand archive and move to the proper module folder
 **NOTE**: You may receive an error about the destination folders not existing when attempting to move the module
 files. If you do, create the folders first then move the module files into them.
+
 **Linux/MacOS**
 ```powershell
 Expand-Archive ./psfalcon-<version>.zip .

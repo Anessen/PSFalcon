@@ -12,12 +12,12 @@
 ***
 |Command|Permission|
 |-------|----------|
-|[Register-FalconEventCollector](#configure-a-falcon-logscale-collector)||
-|[Send-FalconEvent](#send-objects-to-falcon-logscale)||
-|[Send-FalconWebhook](#send-objects-to-slack)||
-|[Show-FalconEventCollector](#display-your-collector)||
-|[Show-FalconMap](#map-indicators)||
-|[Unregister-FalconEventCollector](#remove-your-collector)||
+|[Register-FalconEventCollector](Register-FalconEventCollector)||
+|[Send-FalconEvent](Send-FalconEvent)||
+|[Send-FalconWebhook](Send-FalconWebhook)||
+|[Show-FalconEventCollector](Show-FalconEventCollector)||
+|[Show-FalconMap](Show-FalconMap)||
+|[Unregister-FalconEventCollector](Unregister-FalconEventCollector)||
 ***
 # Falcon LogScale event ingestion
 ## Configure a Falcon LogScale collector

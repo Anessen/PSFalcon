@@ -17,27 +17,19 @@ refreshed as needed while running PSFalcon commands.
 ```powershell
 Request-FalconToken -ClientId 'client_id' -ClientSecret 'client_secret'
 ```
-
 **WARNING**: `Request-FalconToken` defaults to the `us-1` cloud. If your environment exists within a different
 cloud, the module will attempt to use automatic redirection, except when the target cloud is `us-gov-1`. Defining
 `-Cloud` or `-Hostname` ensures that your token request goes to the proper cloud without relying on re-direction
 and is required when using `us-gov-1`.
-
 ### Alternate clouds
 Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` or `-Hostname`
 parameters to set it using a cloud, or full URL value. The accepted hostname values can be viewed using tab
 auto-completion. Your Cloud/Hostname choice is saved and all requests are sent using the cached information.
-
 ### Child environments
 In MSSP (also known as "Flight Control") configurations, you can target specific child environments ("CIDs")
 using the `-MemberCid` parameter during authentication token requests. Your choice is saved and all requests are
 sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID,
 or you `Revoke-FalconToken`.
-
-## Revoke an auth token
-```powershell
-Revoke-FalconToken
-```
 ## Verifying token status
 `Test-FalconToken` can be used to verify whether you have an active OAuth2 access token cached.
 ```powershell
@@ -52,6 +44,11 @@ The `Token` property of the output from `Test-FalconToken` provides a `[boolean]
 ```powershell
 (Test-FalconToken).Token
 True
+```
+## Revoke an auth token
+The command `Revoke-FalconToken` will revoke your current authorization token and clear it from your local cache.
+```powershell
+Revoke-FalconToken
 ```
 ## Securing credentials
 PSFalcon does not provide a method for securely handling your API client credentials. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules) module is a

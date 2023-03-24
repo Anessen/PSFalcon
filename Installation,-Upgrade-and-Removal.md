@@ -30,7 +30,7 @@ continue to install the module. You can permanently change this using `Set-PSRep
 prompted to update your NuGet package to interact with the PowerShell Gallery. This is the method that the gallery
 uses to install modules and is required to use it.
 
-If you're running an older version of PSFalcon, you must include the `-Force` parameter to verify that you'd like
+If you're running an older version of PSFalcon, you must include the `Force` parameter to verify that you'd like
 to install the latest version alongside the old version. You can use `Uninstall-Module -Name PSFalcon -AllVersions`
 to remove all existing versions of the module.
 
@@ -93,7 +93,7 @@ Update-Module -Name PSFalcon
 If the module was manually installed, delete your existing PSFalcon module folder and install the new version.
 # Removal
 If the PSFalcon module folder exists within the proper module path, you can use `Uninstall-Module` to remove it.
-Including the optional `-AllVersions` parameter will ensure that all instances of PSFalcon are removed.
+Including the optional `AllVersions` parameter will ensure that all instances of PSFalcon are removed.
 ```powershell
 Uninstall-Module -Name PSFalcon -AllVersions
 ```

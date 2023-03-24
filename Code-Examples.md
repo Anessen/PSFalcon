@@ -1,14 +1,14 @@
 ![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
 ***
-### Authentication
-* [Request authorization token and run commands](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#request-authorization-token-and-run-a-command)
-* [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#authorize-and-run-commands-across-member-cids-within-a-script)
-### Ingesting Data
-* [Retrieve items from a text file or CSV](#retrieve-items-from-a-text-file-or-csv)
-* [Retrieve identifiers using a list](#retrieve-identifiers-using-a-list)
-### Manipulating Objects
-* [Add properties to an object](#add-properties-to-an-object)
-* [Iterate properties of an object](#iterate-properties-of-an-object)
+- [Authentication](#authentication)
+    - [Request authorization token and run commands](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#request-authorization-token-and-run-a-command)
+    - [Authorize and run commands in member CIDs](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#authorize-and-run-commands-across-member-cids-within-a-script)
+- [Ingesting data](#ingesting-data)
+    - [Retrieve items from a text file or CSV](#retrieve-items-from-a-text-file-or-csv)
+    - [Retrieve identifiers using a list](#retrieve-identifiers-using-a-list)
+- [Manipulating objects](#manipulating-objects)
+    - [Add properties to an object](#add-properties-to-an-object)
+    - [Iterate properties of an object](#iterate-properties-of-an-object)
 ***
 # Authentication
 ## Request authorization token and run commands

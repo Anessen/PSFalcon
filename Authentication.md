@@ -13,9 +13,9 @@
 ***
 |Command|Permission|
 |-------|----------|
-|[Request-FalconToken](#get-an-auth-token)||
-|[Revoke-FalconToken](#revoke-an-auth-token)||
-|[Test-FalconToken](#verifying-token-status)||
+|[Request-FalconToken](Request-FalconToken)||
+|[Revoke-FalconToken](Revoke-FalconToken)||
+|[Test-FalconToken](Test-FalconToken)||
 ***
 # Get an auth token
 During a PowerShell session, you must have a valid OAuth2 access token in order to make requests to the CrowdStrike

@@ -9,10 +9,10 @@
 - [Upgrade](#upgrade)
 - [Removal](#removal)
 ***
-## Use the PowerShell Gallery
+# Use the PowerShell Gallery
 The PowerShell Gallery is the recommended way to install the module. If not present, you must [install PowerShell](https://github.com/PowerShell/PowerShell#get-powershell)
 before proceeding.
-### Verify your execution policy (Optional)
+## Verify your execution policy (Optional)
 The module included on the PowerShell Gallery is signed and requires an ExecutionPolicy of `RemoteSigned` or
 lower. If your ExecutionPolicy is set to `Restricted` you will not be able to install the module from the
 PowerShell Gallery. You can check your current ExecutionPolicy with `Get-ExecutionPolicy` and change it to
@@ -20,7 +20,7 @@ PowerShell Gallery. You can check your current ExecutionPolicy with `Get-Executi
 ```powershell
 Get-ExecutionPolicy
 ```
-### Download the module
+## Download the module
 Use the `Install-Module` command to download and install the module under your user account.
 ```powershell
 Install-Module -Name PSFalcon -Scope CurrentUser
@@ -36,7 +36,7 @@ to remove all existing versions of the module.
 
 If the PowerShell Gallery isn't accessible in your environment or the installation failed you can install using a
 GitHub release.
-## Download from GitHub
+# Download from GitHub
 Installing using a GitHub release is only recommended if the PowerShell Gallery is not available within your
 environment. **_If the installation from the PowerShell Gallery worked, there's no need to follow any of the_**
 **_steps included in this section._**
@@ -46,21 +46,21 @@ environment. **_If the installation from the PowerShell Gallery worked, there's 
 
 _See [Installing PowerShell Modules](https://docs.microsoft.com/en-us/powershell/scripting/developer/module/installing-a-powershell-module)._
 
-### Expand archive and move to the proper module folder
+## Expand archive and move to the proper module folder
 **NOTE**: You may receive an error about the destination folders not existing when attempting to move the module
 files. If you do, create the folders first then move the module files into them.
 
-**Linux/MacOS**
+### Linux/MacOS
 ```powershell
 Expand-Archive ./psfalcon-<version>.zip .
 Move-Item ./psfalcon-<version>/ $HOME/.local/share/powershell/Modules/PSFalcon/<version>/ -Force
 ```
-**Windows \(PowerShell Core/6+\)**
+### Windows \(PowerShell Core/6+\)
 ```powershell
 Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ $HOME\Documents\PowerShell\Modules\PSFalcon\<version>\ -Force
 ```
-**Windows \(PowerShell Desktop/5.1\)**
+### Windows \(PowerShell Desktop/5.1\)
 ```powershell
 Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ $HOME\Documents\WindowsPowerShell\Modules\PSFalcon\<version>\ -Force
@@ -77,21 +77,21 @@ d----           1/26/2021 10:40 AM                Public
 -----           1/25/2021 10:37 AM            944 PSFalcon.psm1
 -----           1/25/2021 10:37 AM           1322 README.md
 ```
-### Use another folder
+## Use another folder
 If you have folder redirection in place, the `$HOME` folder may not be properly recognized by PowerShell. In these
 cases, you can extract PSFalcon and import the module directly.
 ```powershell
 Expand-Archive .\psfalcon-<version>.zip .
 Move-Item .\psfalcon-<version>\ .\PSFalcon
 ```
-## Upgrade
+# Upgrade
 If the PowerShell Gallery was used to install the module, it can also be used to upgrade.
 ```powershell
 Update-Module -Name PSFalcon
 ```
 **NOTE**: If the update fails, remove all existing versions of PSFalcon and install the new version.
 If the module was manually installed, delete your existing PSFalcon module folder and install the new version.
-## Removal
+# Removal
 If the PSFalcon module folder exists within the proper module path, you can use `Uninstall-Module` to remove it.
 Including the optional `-AllVersions` parameter will ensure that all instances of PSFalcon are removed.
 ```powershell

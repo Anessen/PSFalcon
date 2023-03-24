@@ -17,7 +17,7 @@
 |[Revoke-FalconToken](#revoke-an-auth-token)||
 |[Test-FalconToken](#verifying-token-status)||
 ***
-## Get an auth token
+# Get an auth token
 During a PowerShell session, you must have a valid OAuth2 access token in order to make requests to the CrowdStrike
 Falcon APIs. You can do this using `Request-FalconToken`, or input your ClientId/ClientSecret when prompted after
 issuing a PSFalcon command.
@@ -31,16 +31,16 @@ Request-FalconToken -ClientId 'client_id' -ClientSecret 'client_secret'
 cloud, the module will attempt to use automatic redirection, except when the target cloud is `us-gov-1`. Defining
 `-Cloud` or `-Hostname` ensures that your token request goes to the proper cloud without relying on re-direction
 and is required when using `us-gov-1`.
-### Alternate clouds
+## Alternate clouds
 Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` or `-Hostname`
 parameters to set it using a cloud, or full URL value. The accepted hostname values can be viewed using tab
 auto-completion. Your Cloud/Hostname choice is saved and all requests are sent using the cached information.
-### Child environments
+## Child environments
 In MSSP (also known as "Flight Control") configurations, you can target specific child environments ("CIDs")
 using the `-MemberCid` parameter during authentication token requests. Your choice is saved and all requests are
 sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID,
 or you `Revoke-FalconToken`.
-## Verifying token status
+# Verifying token status
 `Test-FalconToken` can be used to verify whether you have an active OAuth2 access token cached.
 ```powershell
 Test-FalconToken
@@ -55,12 +55,12 @@ The `Token` property of the output from `Test-FalconToken` provides a `[boolean]
 (Test-FalconToken).Token
 True
 ```
-## Revoke an auth token
+# Revoke an auth token
 The command `Revoke-FalconToken` will revoke your current authorization token and clear it from your local cache.
 ```powershell
 Revoke-FalconToken
 ```
-## Securing credentials
+# Securing credentials
 PSFalcon does not provide a method for securely handling your API client credentials. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules) module is a
 cross-platform option that works with PSFalcon. You can follow the steps below to install the module and use it
 with `Request-FalconToken`.
@@ -118,8 +118,8 @@ Once added to your profile, you can retrieve your credential set and request a t
 ```powershell
 Request-SecretToken MyApiClient
 ```
-## Authentication within a script
-### Request authorization token and run a command
+# Authentication within a script
+## Request authorization token and run a command
 The request of an authorization token can happen as part of a script that performs other tasks. Here is a re-usable
 example which defines the necessary parameters, and can optionally authenticate within a specific member CID (found
 within Flight Control environments).
@@ -160,7 +160,7 @@ process {
     }
 }
 ```
-### Authorize and run commands across member CIDs
+## Authorize and run commands across member CIDs
 In multi-CID configurations, you can create an OAuth2 API Client Id/Secret in the "parent" CID that has access to
 the "member" (a.k.a. "child") CIDs. A lot of data is visible at the parent level, but some data is only visible
 within each child. After creating an API Client, you can use that to retrieve a list of all available member CIDs

@@ -19,6 +19,9 @@ Values in an FQL statement tend to either be restricted to `$true`, `$false`, `n
 (description, date or time, etc).
 
 ## Comparison operators
+Comparison operators can be combined, depending on context.
+
+* `=`: Equal to
 * `<`: Occurred before following value
 * `>`: Occurred after following value
 * `!`: Does not include following value
@@ -27,7 +30,7 @@ Values in an FQL statement tend to either be restricted to `$true`, `$false`, `n
 -Filter "last_seen:>'YYYY-MM-DD'"
 ```
 ```powershell
--Filter "created_timestamp:<'YYYY-MM-DD'"
+-Filter "created_timestamp:=<'YYYY-MM-DD'"
 ```
 ```powershell
 -Filter "hostname:!'EXAMPLE-PC'"

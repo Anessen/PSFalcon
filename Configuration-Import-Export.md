@@ -9,8 +9,8 @@
 ***
 |Command|Permission|
 |-------|----------|
-|[Export-FalconConfig](#export-all-configurations)||
-|[Import-FalconConfig](#import-configurations)||
+|[Export-FalconConfig](Export-FalconConfig)||
+|[Import-FalconConfig](Import-FalconConfig)||
 ***
 # Export all configurations
 The `Export-FalconConfig` command gathers configurable items from your Falcon environment and exports them as a

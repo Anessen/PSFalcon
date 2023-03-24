@@ -29,15 +29,15 @@ Request-FalconToken -ClientId 'client_id' -ClientSecret 'client_secret'
 ```
 **WARNING**: `Request-FalconToken` defaults to the `us-1` cloud. If your environment exists within a different
 cloud, the module will attempt to use automatic redirection, except when the target cloud is `us-gov-1`. Defining
-`-Cloud` or `-Hostname` ensures that your token request goes to the proper cloud without relying on re-direction
+`Cloud` or `Hostname` ensures that your token request goes to the proper cloud without relying on re-direction
 and is required when using `us-gov-1`.
 ## Alternate clouds
-Authentication token requests are sent to the `us-1` cloud by default. You may use the `-Cloud` or `-Hostname`
+Authentication token requests are sent to the `us-1` cloud by default. You may use the `Cloud` or `Hostname`
 parameters to set it using a cloud, or full URL value. The accepted hostname values can be viewed using tab
 auto-completion. Your Cloud/Hostname choice is saved and all requests are sent using the cached information.
 ## Child environments
 In MSSP (also known as "Flight Control") configurations, you can target specific child environments ("CIDs")
-using the `-MemberCid` parameter during authentication token requests. Your choice is saved and all requests are
+using the `MemberCid` parameter during authentication token requests. Your choice is saved and all requests are
 sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID,
 or you `Revoke-FalconToken`.
 # Verifying token status
@@ -91,7 +91,7 @@ $ApiClient = @{
 }
 Set-Secret -Name MyApiClient -Secret $ApiClient -Vault MyVault
 ```
-Once stored, credentials can be retrieved using your chosen `-Name`, and you can [splat the parameters](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting) with
+Once stored, credentials can be retrieved using your chosen `Name`, and you can [splat the parameters](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting) with
 `Request-FalconToken`:
 ```powershell
 Get-Secret -Name MyApiClient -Vault MyVault -AsPlainText | ForEach-Object { Request-FalconToken @_ }

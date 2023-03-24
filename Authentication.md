@@ -3,9 +3,9 @@
 
 |Command|Permission|
 |-------|----------|
-|[Request-FalconToken](#get-an-auth-token)| |
-|[Revoke-FalconToken](#revoke-an-auth-token)| |
-|[Test-FalconToken](#verifying-token-status)| |
+|[Request-FalconToken](#get-an-auth-token)||
+|[Revoke-FalconToken](#revoke-an-auth-token)||
+|[Test-FalconToken](#verifying-token-status)||
 
 ## Get an auth token
 During a PowerShell session, you must have a valid OAuth2 access token in order to make requests to the CrowdStrike
@@ -34,6 +34,83 @@ using the `-MemberCid` parameter during authentication token requests. Your choi
 sent to that particular member CID unless a new `Request-FalconToken` request is made specifying a new member CID,
 or you `Revoke-FalconToken`.
 
+## Revoke an auth token
+```powershell
+Revoke-FalconToken
+```
+## Verifying token status
+`Test-FalconToken` can be used to verify whether you have an active OAuth2 access token cached.
+```powershell
+Test-FalconToken
+
+Token Hostname                    ClientId                         MemberCid
+----- --------                    --------                         ---------
+ True https://api.crowdstrike.com <redacted>
+
+```
+The `Token` property of the output from `Test-FalconToken` provides a `[boolean]` value of your current status.
+```powershell
+(Test-FalconToken).Token
+True
+```
+## Securing credentials
+PSFalcon does not provide a method for securely handling your API client credentials. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules) module is a
+cross-platform option that works with PSFalcon. You can follow the steps below to install the module and use it
+with `Request-FalconToken`.
+
+*NOTE*: [Microsoft.PowerShell.SecretManagement](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules) is a pre-requisite for the `Microsoft.PowerShell.SecretStore`
+module. It will be installed during the `Install-Module` step.
+```powershell
+Install-Module -Name Microsoft.PowerShell.SecretStore -Scope CurrentUser
+```
+*NOTE*: Using the default configuration, `Microsoft.PowerShell.SecretStore` will prompt for a password to access
+your secret vault. You can remove the password requirement to use the vault with a script or as part of a
+scheduled task, which leaves the vault accessible to the account that was used to create it. You will be asked to
+create, confirm and remove a password after entering this command.
+```powershell
+Set-SecretStoreConfiguration -Scope CurrentUser -Authentication None -Interaction None
+```
+Once the module is installed and configured as desired, create a vault to store your API client(s):
+```powershell
+Register-SecretVault -ModuleName Microsoft.PowerShell.SecretStore -Name MyVault
+```
+`Request-FalconToken` requires multiple parameters to request a token. Each individual API client can be stored
+with the relevant parameters (including `MemberCid`) in your new vault:
+```powershell
+$ApiClient = @{
+    ClientId     = 'my_client_id'
+    ClientSecret = 'my_client_value'
+    Hostname     = 'https://api.crowdstrike.com'
+}
+Set-Secret -Name MyApiClient -Secret $ApiClient -Vault MyVault
+```
+Once stored, credentials can be retrieved using your chosen `-Name`, and you can [splat the parameters](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting) with
+`Request-FalconToken`:
+```powershell
+Get-Secret -Name MyApiClient -Vault MyVault -AsPlainText | ForEach-Object { Request-FalconToken @_ }
+```
+
+If desired, a simple function can be added to [your PowerShell profile](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles) to retrieve your credentials and request a
+token by name:
+```powershell
+function Request-SecretToken ([string] $Name) {
+    if (-not(Get-Module -Name PSFalcon)) {
+        Import-Module -Name PSFalcon
+    } elseif ((Test-FalconToken -ErrorAction SilentlyContinue).Token -eq $true) {
+        Revoke-FalconToken
+    }
+    $Secret = Get-Secret -Name $Name -Vault MyVault -AsPlainText
+    if ($Secret) {
+        Request-FalconToken @Secret
+    } else {
+        throw "No secret found matching '$String'."
+    }
+}
+```
+Once added to your profile, you can retrieve your credential set and request a token in a single step:
+```powershell
+Request-SecretToken MyApiClient
+```
 ## Authentication within a script
 ### Request authorization token and run a command
 The request of an authorization token can happen as part of a script that performs other tasks. Here is a re-usable
@@ -132,84 +209,4 @@ process {
         }
     }
 }
-```
-## Revoke an auth token
-```powershell
-Revoke-FalconToken
-```
-## Verifying token status
-`Test-FalconToken` can be used to verify whether you have an active OAuth2 access token cached.
-```powershell
-Test-FalconToken
-
-Token Hostname                    ClientId                         MemberCid
------ --------                    --------                         ---------
- True https://api.crowdstrike.com <redacted>
-
-```
-
-The `Token` property of the output from `Test-FalconToken` provides a `[boolean]` value of your current status.
-```powershell
-(Test-FalconToken).Token
-True
-
-```
-# Securing credentials
-PSFalcon does not provide a method for securely handling your API client credentials. The [Microsoft.PowerShell.SecretStore](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretstore/?view=ps-modules) module is a
-cross-platform option that works with PSFalcon. You can follow the steps below to install the module and use it
-with `Request-FalconToken`.
-
-*NOTE*: [Microsoft.PowerShell.SecretManagement](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.secretmanagement/?view=ps-modules) is a pre-requisite for the `Microsoft.PowerShell.SecretStore`
-module. It will be installed during the `Install-Module` step.
-```powershell
-Install-Module -Name Microsoft.PowerShell.SecretStore -Scope CurrentUser
-```
-
-*NOTE*: Using the default configuration, `Microsoft.PowerShell.SecretStore` will prompt for a password to access
-your secret vault. You can remove the password requirement to use the vault with a script or as part of a
-scheduled task, which leaves the vault accessible to the account that was used to create it. You will be asked to
-create, confirm and remove a password after entering this command.
-```powershell
-Set-SecretStoreConfiguration -Scope CurrentUser -Authentication None -Interaction None
-```
-Once the module is installed and configured as desired, create a vault to store your API client(s):
-```powershell
-Register-SecretVault -ModuleName Microsoft.PowerShell.SecretStore -Name MyVault
-```
-`Request-FalconToken` requires multiple parameters to request a token. Each individual API client can be stored
-with the relevant parameters (including `MemberCid`) in your new vault:
-```powershell
-$ApiClient = @{
-    ClientId     = 'my_client_id'
-    ClientSecret = 'my_client_value'
-    Hostname     = 'https://api.crowdstrike.com'
-}
-Set-Secret -Name MyApiClient -Secret $ApiClient -Vault MyVault
-```
-Once stored, credentials can be retrieved using your chosen `-Name`, and you can [splat the parameters](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting) with
-`Request-FalconToken`:
-```powershell
-Get-Secret -Name MyApiClient -Vault MyVault -AsPlainText | ForEach-Object { Request-FalconToken @_ }
-```
-
-If desired, a simple function can be added to [your PowerShell profile](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles) to retrieve your credentials and request a
-token by name:
-```powershell
-function Request-SecretToken ([string] $Name) {
-    if (-not(Get-Module -Name PSFalcon)) {
-        Import-Module -Name PSFalcon
-    } elseif ((Test-FalconToken -ErrorAction SilentlyContinue).Token -eq $true) {
-        Revoke-FalconToken
-    }
-    $Secret = Get-Secret -Name $Name -Vault MyVault -AsPlainText
-    if ($Secret) {
-        Request-FalconToken @Secret
-    } else {
-        throw "No secret found matching '$String'."
-    }
-}
-```
-Once added to your profile, you can retrieve your credential set and request a token in a single step:
-```powershell
-Request-SecretToken MyApiClient
 ```

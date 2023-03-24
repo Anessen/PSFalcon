@@ -12,9 +12,9 @@
 ***
 # Authentication
 ## Request authorization token and run commands
-This content has been moved to https://github.com/CrowdStrike/psfalcon/wiki/Authentication#request-authorization-token-and-run-a-command
+[This content has been moved](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#request-authorization-token-and-run-a-command)
 ## Authorize and run commands in member CIDs
-This content has been moved to https://github.com/CrowdStrike/psfalcon/wiki/Authentication#authorize-and-run-commands-across-member-cids-within-a-script
+[This content has been moved](https://github.com/CrowdStrike/psfalcon/wiki/Authentication#authorize-and-run-commands-across-member-cids-within-a-script)
 # Ingesting data
 ## Retrieve items from a text file or CSV
 Collect a list of items (identifiers, hostnames, group names, etc.) from a text file, exclude blank values and

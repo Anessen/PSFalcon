@@ -1,5 +1,5 @@
 ![CrowdStrike Falcon](https://raw.githubusercontent.com/CrowdStrike/falconpy/main/docs/asset/cs-logo.png)
-# Installation, Upgrade and Removal
+***
 - [Use the PowerShell Gallery](#use-the-powershell-gallery)
     - [Verify your execution policy (Optional)](#verify-your-execution-policy-optional)
     - [Download the module](#download-the-module)

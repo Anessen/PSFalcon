@@ -7,6 +7,11 @@
     - [ModifyExisting](#modifyexisting)
     - [ModifyDefault](#modifydefault)
 ***
+|Command|Permission|
+|-------|----------|
+|[Export-FalconConfig](#export-all-configurations)||
+|[Import-FalconConfig](#import-configurations)||
+***
 # Export all configurations
 The `Export-FalconConfig` command gathers configurable items from your Falcon environment and exports them as a
 ZIP archive. The following example will create a file called `FalconConfig_<FileDateTime>.zip` in your current

@@ -37,7 +37,7 @@
     + [Users and Roles](Users-and-Roles)
     + [Zero Trust Assessment](Zero-Trust-Assessment)
 * __Example Code__
-    + [Samples](https://github.com/CrowdStrike/psfalcon/tree/master/Samples)
+    + [Samples](https://github.com/CrowdStrike/psfalcon/tree/master/samples)
 * __CrowdStrike SDKs__
     + [PSFalcon](https://github.com/CrowdStrike/psfalcon/wiki) - PowerShell
     + [FalconPy](https://github.com/CrowdStrike/falconpy/wiki) - Python 3

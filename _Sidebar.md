@@ -4,6 +4,7 @@
     + [Authentication](Authentication)
     + [Filtering Results](Filtering-Results)
 * __Commands and Permissions__
+    + [Configuration Import/Export](Configuration-Import-Export)
     + [Detection and Prevention Policies](Detection-and-Prevention-Policies)
     + [Discover for Cloud and Containers](Discover-for-Cloud-and-Containers)
     + [Discover](Discover)
@@ -31,15 +32,14 @@
     + [Sensor Download](Sensor-Download)
     + [Sensor Update Policy](Sensor-Update-Policy)
     + [Spotlight](Spotlight)
+    + [Third-party ingestion](Third-party-ingestion)
     + [USB Device Control Policy](USB-Device-Control-Policy)
     + [Users and Roles](Users-and-Roles)
     + [Zero Trust Assessment](Zero-Trust-Assessment)
-* __Additional Examples__
-    + [Basic Scripts](Basic-Scripts)
-    + [Code Examples](Code-Examples)
-    + [Configuration Import/Export](Configuration-Import-Export)
-    + [Third-party ingestion](Third-party-ingestion)
+* __Example Code__
+    + [Samples](https://github.com/CrowdStrike/psfalcon/tree/master/Samples)
 * __CrowdStrike SDKs__
+    + [PSFalcon](https://github.com/CrowdStrike/psfalcon/wiki) - PowerShell
     + [FalconPy](https://github.com/CrowdStrike/falconpy/wiki) - Python 3
     + [goFalcon](https://pkg.go.dev/github.com/crowdstrike/gofalcon) - Go
-    + [PSFalcon](https://github.com/CrowdStrike/psfalcon/wiki) - Powershell
+    + [Rusty Falcon](https://docs.rs/rusty_falcon/latest/rusty_falcon) - Rust

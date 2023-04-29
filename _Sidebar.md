@@ -36,6 +36,7 @@
     + [Sensor Download](Sensor-Download)
     + [Sensor Update Policy](Sensor-Update-Policy)
     + [Spotlight](Spotlight)
+    + [Tailored Intelligence](Tailored-Intelligence)
     + [Third-party ingestion](Third-party-ingestion)
     + [USB Device Control Policy](USB-Device-Control-Policy)
     + [Users and Roles](Users-and-Roles)

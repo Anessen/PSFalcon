@@ -28,6 +28,7 @@
     + [Installation Tokens](Installation-Tokens)
     + [Kubernetes Protection](Kubernetes-Protection)
     + [MalQuery](MalQuery)
+    + [On-Demand Scanning](On-Demand-Scanning)
     + [Quarantine](Quarantine)
     + [Real-time Response](Real-time-Response)
     + [Real-time Response Policy](Real-time-Response-Policy)

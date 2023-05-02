@@ -1,1 +1,1 @@
-[This content has been moved](https://github.com/CrowdStrike/psfalcon/tree/master/Samples)
+[This content has been moved](https://github.com/CrowdStrike/psfalcon/tree/master/samples)

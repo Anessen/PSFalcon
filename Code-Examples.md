@@ -47,7 +47,7 @@ Collecting a list of hostnames (using the column `Hostname`) from a CSV can be d
 [string[]]$List = ((Import-Csv -Path $FilePath).Hostname).foreach{ if (![string]::IsNullOrEmpty($_)) { $_ }}
 ```
 ## Retrieve identifiers using a list
-The `Filter` parameter \(a Falcon Query Language statement\) will accept a limited number of conditions at a
+The `Filter` parameter \(a [Falcon Query Language](Filtering-Results) statement\) will accept a limited number of conditions at a
 time. If you have a list of hostnames that you need to match with their identifiers, you can use the
 [Find-FalconHostname](Find-FalconHostname) command.
 ```powershell

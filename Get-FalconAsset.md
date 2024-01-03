@@ -80,4 +80,4 @@ Get-FalconAsset -Filter "entity_type:'managed'+product_type_desc:'Workstation'+p
 Get-FalconAsset -Id <id>, <id>
 ```
 
-_2023-04-25: PSFalcon v2.2.5_
+_2024-01-03: PSFalcon v2.2.5_

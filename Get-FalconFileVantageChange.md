@@ -31,4 +31,4 @@ GET /filevantage/queries/changes/v3
 [highVolumeQueryChanges](https://github.com/CrowdStrike/falconpy/wiki/filevantage#highVolumeQueryChanges)<BR>[getChanges](https://github.com/CrowdStrike/falconpy/wiki/filevantage#getChanges)
 ## USAGE
 
-_2023-09-14: PSFalcon v2.2.6_
+_2024-01-24: PSFalcon v2.2.6_

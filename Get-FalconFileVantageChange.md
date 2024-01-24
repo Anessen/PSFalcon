@@ -6,7 +6,7 @@ Requires 'Falcon FileVantage: Read'.
 ## PARAMETERS
 |Name|Type|Description|Min|Max|Allowed|Pipeline|PipelineByName|
 |----|----|-----------|---|---|-------|--------|--------------|
-|Id|String[]|Activity identifier||||X|X|
+|Id|String[]|FileVantage change identifier||||X|X|
 |Filter|String|[Falcon Query Language](Filtering-Results) expression to limit results<BR><BR>`action_timestamp`<BR>`ingestion_timestamp`<BR>`host.name`<BR>`severity`||||||
 |Sort|String|Property and direction to sort results|||`action_timestamp\|asc`<BR>`action_timestamp\|desc`<BR>`ingestion_timestamp\|asc`<BR>`ingestion_timestamp\|desc`|||
 |Limit|Int32|Maximum number of results per request|`1`|`5000`||||
